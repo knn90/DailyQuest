@@ -9,19 +9,29 @@
 import SwiftUI
 
 struct NewQuestView: View {
-    @State private var newQuestTitle: String = ""
-    
+
+    @State private var questTitle: String = ""
+
+    private let onSubmit: (String) -> Void
+
+    init(onSubmit: @escaping (String) -> Void) {
+        self.onSubmit = onSubmit
+    }
+
     var body: some View {
-        TextField("New quest", text: $newQuestTitle)
+        TextField("New quest", text: $questTitle)
             .padding()
             .border(Color.glaucous, width: 1)
             .background(Color.gainsboro)
             .cornerRadius(3)
+            .onSubmit({
+                self.onSubmit(questTitle)
+            })
     }
 }
 
 struct NewQuestView_Previews: PreviewProvider {
     static var previews: some View {
-        NewQuestView()
+        NewQuestView(onSubmit: { _ in })
     }
 }

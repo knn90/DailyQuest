@@ -23,7 +23,11 @@ struct DailyQuestView: View {
                 VStack {
                     LazyVStack(spacing: 8) {
                         if isAddingQuest {
-                            NewQuestView()
+                            NewQuestView(onSubmit: { title in
+                                let addedQuest = QuestViewModel(title: title, isDone: false)
+                                quests.insert(addedQuest, at: 0)
+                                self.isAddingQuest.toggle()
+                            })
                         }
                         ForEach(quests, id: \.self) { quest in
                             QuestView(quest: quest)
