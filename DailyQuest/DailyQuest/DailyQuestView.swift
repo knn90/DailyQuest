@@ -11,21 +11,32 @@ import SwiftUI
 struct DailyQuestView: View {
 
     @State private var quests: [QuestViewModel]
-
+    @State private var isAddingQuest: Bool = false
+    
     init(quests: [QuestViewModel]) {
         self.quests = quests
     }
 
     var body: some View {
-        ScrollView {
-            LazyVStack(spacing: 8) {
-                ForEach(quests, id: \.self) { quest in
-                    QuestView(quest: quest)
+        ZStack(alignment: .bottom) {
+            ScrollView {
+                VStack {
+                    LazyVStack(spacing: 8) {
+                        if isAddingQuest {
+                            NewQuestView()
+                        }
+                        ForEach(quests, id: \.self) { quest in
+                            QuestView(quest: quest)
+                        }
+                    }
+                    .background(Color.gainsboro)
+                    .padding()
                 }
             }
-            .background(Color.gainsboro)
-            .padding()
 
+            PlusButton {
+                self.isAddingQuest.toggle()
+            }
         }
     }
 }

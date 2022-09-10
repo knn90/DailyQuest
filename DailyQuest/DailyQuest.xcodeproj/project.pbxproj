@@ -11,6 +11,8 @@
 		6A24C73828CCB76C005B1DEB /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6A24C73728CCB76C005B1DEB /* Colors.xcassets */; };
 		6A24C73A28CCB8C6005B1DEB /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A24C73928CCB8C6005B1DEB /* Color.swift */; };
 		6A24C73C28CCC173005B1DEB /* CheckMarkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A24C73B28CCC173005B1DEB /* CheckMarkView.swift */; };
+		6A24C73E28CCD343005B1DEB /* NewQuestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A24C73D28CCD343005B1DEB /* NewQuestView.swift */; };
+		6A24C74028CCD778005B1DEB /* PlusButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A24C73F28CCD778005B1DEB /* PlusButton.swift */; };
 		6A65310B28CC711F00140A82 /* DailyQuestApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A65310A28CC711F00140A82 /* DailyQuestApp.swift */; };
 		6A65310D28CC711F00140A82 /* DailyQuestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A65310C28CC711F00140A82 /* DailyQuestView.swift */; };
 		6A65310F28CC712100140A82 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6A65310E28CC712100140A82 /* Assets.xcassets */; };
@@ -42,6 +44,8 @@
 		6A24C73728CCB76C005B1DEB /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		6A24C73928CCB8C6005B1DEB /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		6A24C73B28CCC173005B1DEB /* CheckMarkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckMarkView.swift; sourceTree = "<group>"; };
+		6A24C73D28CCD343005B1DEB /* NewQuestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewQuestView.swift; sourceTree = "<group>"; };
+		6A24C73F28CCD778005B1DEB /* PlusButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlusButton.swift; sourceTree = "<group>"; };
 		6A65310728CC711F00140A82 /* DailyQuest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DailyQuest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6A65310A28CC711F00140A82 /* DailyQuestApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyQuestApp.swift; sourceTree = "<group>"; };
 		6A65310C28CC711F00140A82 /* DailyQuestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyQuestView.swift; sourceTree = "<group>"; };
@@ -84,6 +88,8 @@
 			children = (
 				6A24C73528CCB1D0005B1DEB /* QuestView.swift */,
 				6A24C73B28CCC173005B1DEB /* CheckMarkView.swift */,
+				6A24C73D28CCD343005B1DEB /* NewQuestView.swift */,
+				6A24C73F28CCD778005B1DEB /* PlusButton.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -278,9 +284,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6A24C73E28CCD343005B1DEB /* NewQuestView.swift in Sources */,
 				6A24C73C28CCC173005B1DEB /* CheckMarkView.swift in Sources */,
 				6A65310D28CC711F00140A82 /* DailyQuestView.swift in Sources */,
 				6A24C73A28CCB8C6005B1DEB /* Color.swift in Sources */,
+				6A24C74028CCD778005B1DEB /* PlusButton.swift in Sources */,
 				6A65310B28CC711F00140A82 /* DailyQuestApp.swift in Sources */,
 				6A24C73628CCB1D0005B1DEB /* QuestView.swift in Sources */,
 			);
