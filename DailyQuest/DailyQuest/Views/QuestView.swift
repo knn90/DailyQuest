@@ -24,15 +24,17 @@ struct QuestView: View {
     var body: some View {
         HStack {
             Text(quest.title)
+                .strikethrough(quest.isDone)
                 .padding()
             Spacer()
-
             CheckMarkView(isChecked: $quest.isDone)
         }
         .onTapGesture {
-            self.quest.isDone.toggle()
+            withAnimation {
+                self.quest.isDone.toggle()
+            }
         }
-        .background(Color.lightSteelBlue)
+        .background(quest.isDone ? Color.gainsboro : Color.lightSteelBlue)
         .cornerRadius(3)
 
     }

@@ -30,7 +30,7 @@ struct DailyQuestView: View {
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
+struct DailyQuestView_Previews: PreviewProvider {
     static var previews: some View {
         DailyQuestView(quests: [
             QuestViewModel(title: "Do something", isDone: false),
