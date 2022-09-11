@@ -17,7 +17,7 @@ struct CheckMarkView: View {
                 .frame(width: 25, height: 25)
                 .padding()
                 .overlay(Image(systemName: "checkmark")
-                    .foregroundColor(Color.white))
+                    .foregroundColor(Color.gainsboro))
         } else {
             Rectangle()
                 .fill(Color.gainsboro)

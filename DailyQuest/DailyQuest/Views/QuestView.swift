@@ -8,11 +8,6 @@
 
 import SwiftUI
 
-struct QuestViewModel: Hashable {
-    let title: String
-    var isDone: Bool
-}
-
 struct QuestView: View {
 
     @State private var quest: QuestViewModel

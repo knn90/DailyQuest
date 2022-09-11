@@ -18,9 +18,10 @@ struct PlusButton: View {
 
     var body: some View {
         Circle()
+            .fill(Color.glaucous)
             .overlay(content: {
                 Image(systemName: "plus")
-                    .foregroundColor(Color.white)
+                    .foregroundColor(Color.gainsboro)
                     .font(.title.bold())
             })
             .frame(width: 60, height: 60)
