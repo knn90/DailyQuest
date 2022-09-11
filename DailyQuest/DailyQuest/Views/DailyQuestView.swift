@@ -62,15 +62,3 @@ struct DailyQuestView_Previews: PreviewProvider {
         ])
     }
 }
-
-final class DailyQuestViewModel: ObservableObject {
-    @Published private(set) var quests: [QuestViewModel]
-
-    init(quests: [QuestViewModel]) {
-        self.quests = quests
-    }
-
-    func add(_ quest: QuestViewModel) {
-        quests.insert(quest, at: 0)
-    }
-}
