@@ -8,9 +8,16 @@
 
 import Foundation
 
-struct DailyQuest {
+public struct DailyQuest {
     let id: UUID
     let createAt: Date
     let doneAt: Date
     let quests: [Quest]
+
+    public init(id: UUID, createAt: Date, doneAt: Date, quests: [Quest]) {
+        self.id = id
+        self.createAt = createAt
+        self.doneAt = doneAt
+        self.quests = quests
+    }
 }

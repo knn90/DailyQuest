@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Quest {
+public struct Quest {
     let id: UUID
     let title: String
     let isDone: Bool

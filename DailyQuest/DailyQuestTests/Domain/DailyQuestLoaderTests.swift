@@ -1,0 +1,102 @@
+//
+//  DailyQuestLoaderTests.swift
+//  DailyQuestTests
+//
+//  Created by Khoi Nguyen on 2022.09.11
+//  Copyright © 2022 Swedebeat AB. All rights reserved.
+//
+
+import Foundation
+import XCTest
+import DailyQuest
+
+protocol DailyQuestStore {
+    func load(date: Date) async throws -> DailyQuest
+}
+
+final class DailyQuestLoader {
+    private let store: DailyQuestStore
+
+    init(store: DailyQuestStore) {
+        self.store = store
+    }
+
+    func load(date: Date) async throws {
+        _ = try await store.load(date: date)
+    }
+}
+
+final class DailyQuestLoaderTests: XCTestCase {
+
+    func test_init_doesNotSendRequestToStore() {
+        let (_, store) = makeSUT(result: .failure(anyNSError()))
+
+        XCTAssertTrue(store.dates.isEmpty)
+    }
+
+    func test_load_sendsRequestWithCorrectDate() async throws {
+        let date = Date()
+        let (sut, store) = makeSUT(result: .success(anyDailyQuest()))
+
+        _ = try await sut.load(date: date)
+
+        XCTAssertEqual(store.dates, [date])
+    }
+
+    func test_loadTwice_sendRequestToStoreTwice() async throws {
+        let date1 = Date()
+        let date2 = Date(timeInterval: 2342, since: date1)
+        let (sut, store) = makeSUT(result: .success(anyDailyQuest()))
+
+        _ = try await sut.load(date: date1)
+        _ = try await sut.load(date: date2)
+
+        XCTAssertEqual(store.dates, [date1, date2])
+    }
+
+    func test_load_throwsOnStoreError() async {
+        let date = Date()
+        let expectedError = anyNSError()
+        let (sut, _) = makeSUT(result: .failure(expectedError))
+
+        do {
+            _ = try await sut.load(date: date)
+            XCTFail("Expected to throw error: \(expectedError)")
+        } catch {
+            XCTAssertEqual(expectedError, error as NSError?)
+        }
+    }
+
+    private func makeSUT(result: Result<DailyQuest, Error>) -> (DailyQuestLoader, StoreSpy) {
+        let store = StoreSpy(result: result)
+        let sut = DailyQuestLoader(store: store)
+
+        return (sut, store)
+    }
+
+    private class StoreSpy: DailyQuestStore {
+        private(set) var dates: [Date] = []
+        private let result: Result<DailyQuest, Error>
+
+        init(result: Result<DailyQuest, Error>) {
+            self.result = result
+        }
+
+        func load(date: Date) async throws -> DailyQuest {
+            dates.append(date)
+            return try result.get()
+        }
+    }
+}
+
+
+func anyNSError() -> NSError {
+    NSError(domain: "any", code: -1)
+}
+
+func anyDailyQuest() -> DailyQuest {
+    DailyQuest(id: UUID(), createAt: Date(), doneAt: Date(), quests: [])
+}
+
+
+
