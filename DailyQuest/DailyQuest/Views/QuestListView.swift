@@ -1,5 +1,5 @@
 //
-//  DailyQuestView.swift
+//  QuestListView.swift
 //  DailyQuest
 //
 //  Created by Khoi Nguyen on 2022.09.10
@@ -8,45 +8,28 @@
 
 import SwiftUI
 
-struct DailyQuestView: View {
+struct QuestListView: View {
+    private var quests: Binding<[QuestViewModel]>
 
-    @State private var quests: [QuestViewModel]
-    @State private var isAddingQuest: Bool = false
-    
-    init(quests: [QuestViewModel]) {
+    init(quests: Binding<[QuestViewModel]>) {
         self.quests = quests
     }
 
     var body: some View {
-        ZStack(alignment: .bottom) {
-            VStack {
-                if isAddingQuest {
-                    NewQuestView(onSubmit: { title in
-                        withAnimation {
-                            let addedQuest = QuestViewModel(title: title, isDone: false)
-                            self.quests.insert(addedQuest, at: 0)
-                            self.isAddingQuest.toggle()
-                        }
-                    })
-                }
-                QuestListView(quests: $quests)
-            }
-            .padding()
-
-            PlusButton {
-                withAnimation {
-                    self.isAddingQuest.toggle()
+        ScrollView {
+            LazyVStack(spacing: 8) {
+                ForEach(quests, id: \.self) { quest in
+                    QuestView(quest: quest.wrappedValue)
                 }
             }
-            .rotationEffect(Angle(degrees: isAddingQuest ? 45 : 0))
-            .padding(.bottom, 20)
+            .background(Color.gainsboro)
         }
     }
 }
 
-struct DailyQuestView_Previews: PreviewProvider {
+struct QuestListView_Previews: PreviewProvider {
     static var previews: some View {
-        DailyQuestView(quests: [
+        QuestListView(quests: Binding.constant([
             QuestViewModel(title: "Do something", isDone: false),
             QuestViewModel(title: "Do another thing", isDone: true),
             QuestViewModel(title: "Do 1 something", isDone: false),
@@ -58,6 +41,6 @@ struct DailyQuestView_Previews: PreviewProvider {
             QuestViewModel(title: "Do 7 something", isDone: false),
             QuestViewModel(title: "Do 8 another thing", isDone: true),
             QuestViewModel(title: "Do a quest with super long description so it can't be display in one line. But it's 3 lines", isDone: true),
-        ])
+        ]))
     }
 }
