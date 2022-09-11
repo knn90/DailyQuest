@@ -19,7 +19,7 @@ struct NewQuestView: View {
     }
 
     var body: some View {
-        TextField("New quest", text: $questTitle)
+        TextField("add_new_quest", text: $questTitle)
             .padding()
             .border(Color.action, width: 2)
             .background(Color.background)

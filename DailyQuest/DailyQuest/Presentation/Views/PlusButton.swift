@@ -20,7 +20,7 @@ struct PlusButton: View {
         Circle()
             .fill(Color.action)
             .overlay(content: {
-                Image(systemName: "plus")
+                Image.plus
                     .foregroundColor(Color.inactive)
                     .font(.title.bold())
             })

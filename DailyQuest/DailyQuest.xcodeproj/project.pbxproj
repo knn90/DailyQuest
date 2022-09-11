@@ -25,6 +25,7 @@
 		6ABC6D2C28CE3879000CE43D /* DailyQuest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ABC6D2A28CE3879000CE43D /* DailyQuest.swift */; };
 		6ABC6D2F28CE3924000CE43D /* DailyQuestViewModelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ABC6D2E28CE3924000CE43D /* DailyQuestViewModelFactory.swift */; };
 		6ABC6D3328CE4001000CE43D /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ABC6D3228CE4001000CE43D /* Image.swift */; };
+		6ABC6D3828CE40E7000CE43D /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6ABC6D3A28CE40E7000CE43D /* Localizable.strings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +59,7 @@
 		6ABC6D2A28CE3879000CE43D /* DailyQuest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DailyQuest.swift; sourceTree = "<group>"; };
 		6ABC6D2E28CE3924000CE43D /* DailyQuestViewModelFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyQuestViewModelFactory.swift; sourceTree = "<group>"; };
 		6ABC6D3228CE4001000CE43D /* Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Image.swift; sourceTree = "<group>"; };
+		6ABC6D3928CE40E7000CE43D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -172,6 +174,7 @@
 				6A24C73728CCB76C005B1DEB /* Colors.xcassets */,
 				6A24C73928CCB8C6005B1DEB /* Color.swift */,
 				6ABC6D3228CE4001000CE43D /* Image.swift */,
+				6ABC6D3A28CE40E7000CE43D /* Localizable.strings */,
 			);
 			path = Resource;
 			sourceTree = "<group>";
@@ -258,6 +261,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6A24C73828CCB76C005B1DEB /* Colors.xcassets in Resources */,
+				6ABC6D3828CE40E7000CE43D /* Localizable.strings in Resources */,
 				6A65311228CC712100140A82 /* Preview Assets.xcassets in Resources */,
 				6A65310F28CC712100140A82 /* Assets.xcassets in Resources */,
 			);
@@ -311,6 +315,17 @@
 			targetProxy = 6A65311828CC712100140A82 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		6ABC6D3A28CE40E7000CE43D /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6ABC6D3928CE40E7000CE43D /* en */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		6A65312928CC712100140A82 /* Debug */ = {

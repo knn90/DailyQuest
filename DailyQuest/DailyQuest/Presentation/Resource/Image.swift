@@ -11,4 +11,5 @@ import SwiftUI
 
 extension Image {
     static let checkmark = Image(systemName: "checkmark")
+    static let plus = Image(systemName: "plus")
 }
