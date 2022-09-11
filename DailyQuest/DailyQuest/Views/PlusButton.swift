@@ -21,7 +21,7 @@ struct PlusButton: View {
             .fill(Color.action)
             .overlay(content: {
                 Image(systemName: "plus")
-                    .foregroundColor(Color.background)
+                    .foregroundColor(Color.inactive)
                     .font(.title.bold())
             })
             .frame(width: 60, height: 60)

@@ -20,8 +20,8 @@ struct CheckMarkView: View {
                     .foregroundColor(Color.inactive))
         } else {
             Rectangle()
-                .fill(Color.background)
-                .border(Color.action, width: 1)
+                .fill(Color.active)
+                .border(Color.action, width: 1.5)
                 .frame(width: 25, height: 25)
                 .padding()
         }
