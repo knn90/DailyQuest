@@ -14,8 +14,8 @@ struct DailyQuestView: View {
 
     @ObservedObject private var viewModel: DailyQuestViewModel
 
-    init(quests: [QuestViewModel]) {
-        self.viewModel = DailyQuestViewModel(quests: quests)
+    init(viewModel: DailyQuestViewModel) {
+        self.viewModel = viewModel
     }
 
     var body: some View {
@@ -48,7 +48,7 @@ struct DailyQuestView: View {
 
 struct DailyQuestView_Previews: PreviewProvider {
     static var previews: some View {
-        DailyQuestView(quests: [
+        DailyQuestView(viewModel: DailyQuestViewModel(quests: [
             QuestViewModel(title: "Do something", isDone: false),
             QuestViewModel(title: "Do another thing", isDone: true),
             QuestViewModel(title: "Do 1 something", isDone: false),
@@ -60,6 +60,6 @@ struct DailyQuestView_Previews: PreviewProvider {
             QuestViewModel(title: "Do 7 something", isDone: false),
             QuestViewModel(title: "Do 8 another thing", isDone: true),
             QuestViewModel(title: "Do a quest with super long description so it can't be display in one line. But it's 3 lines", isDone: true),
-        ])
+        ]))
     }
 }

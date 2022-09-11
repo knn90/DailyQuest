@@ -22,7 +22,6 @@ struct NewQuestView: View {
         TextField("New quest", text: $questTitle)
             .padding()
             .border(Color.action, width: 2)
-            .tint(Color.action)
             .background(Color.background)
             .cornerRadius(3)
             .onSubmit({
