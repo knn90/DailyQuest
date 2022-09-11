@@ -24,7 +24,7 @@ struct DailyQuestView: View {
                 if isAddingQuest {
                     NewQuestView(onSubmit: { title in
                         withAnimation {
-                            let addedQuest = QuestViewModel(title: title, isDone: false)
+                            let addedQuest = QuestViewModel(id: UUID().uuidString, title: title, isDone: false)
                             self.viewModel.add(addedQuest)
                             self.isAddingQuest.toggle()
                         }

@@ -37,6 +37,6 @@ struct QuestView: View {
 
 struct QuestView_Previews: PreviewProvider {
     static var previews: some View {
-        QuestView(quest: QuestViewModel(title: "Do something", isDone: true))
+        QuestView(quest: QuestViewModel(id: UUID().uuidString, title: "Do something", isDone: true))
     }
 }

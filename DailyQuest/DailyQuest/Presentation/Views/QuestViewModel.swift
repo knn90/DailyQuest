@@ -9,6 +9,9 @@
 import Foundation
 
 struct QuestViewModel: Hashable {
+    let id: String
     let title: String
     var isDone: Bool
 }
+
+extension QuestViewModel: Identifiable { } 

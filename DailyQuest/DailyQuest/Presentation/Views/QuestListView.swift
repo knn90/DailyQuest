@@ -18,7 +18,7 @@ struct QuestListView: View {
     var body: some View {
         ScrollView {
             LazyVStack(spacing: 8) {
-                ForEach(quests, id: \.self) { quest in
+                ForEach(quests) { quest in
                     QuestView(quest: quest)
                 }
             }
@@ -30,9 +30,9 @@ struct QuestListView: View {
 struct QuestListView_Previews: PreviewProvider {
     static var previews: some View {
         QuestListView(quests: [
-            QuestViewModel(title: "Do something", isDone: false),
-            QuestViewModel(title: "Do another thing", isDone: true),
-            QuestViewModel(title: "Do 1 something", isDone: false)
+            QuestViewModel(id: UUID().uuidString, title: "Do something", isDone: false),
+            QuestViewModel(id: UUID().uuidString, title: "Do another thing", isDone: true),
+            QuestViewModel(id: UUID().uuidString, title: "Do 1 something", isDone: false)
         ])
     }
 }
