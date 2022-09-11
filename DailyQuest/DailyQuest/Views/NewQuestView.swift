@@ -21,8 +21,9 @@ struct NewQuestView: View {
     var body: some View {
         TextField("New quest", text: $questTitle)
             .padding()
-            .border(Color.glaucous, width: 1)
-            .background(Color.gainsboro)
+            .border(Color.action, width: 1)
+            .tint(Color.action)
+            .background(Color.background)
             .cornerRadius(3)
             .onSubmit({
                 self.onSubmit(questTitle)

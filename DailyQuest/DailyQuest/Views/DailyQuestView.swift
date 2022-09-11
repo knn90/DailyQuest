@@ -42,6 +42,7 @@ struct DailyQuestView: View {
             .rotationEffect(Angle(degrees: isAddingQuest ? 45 : 0))
             .padding(.bottom, 20)
         }
+        .background(Color.background)
     }
 }
 

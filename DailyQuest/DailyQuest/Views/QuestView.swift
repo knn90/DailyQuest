@@ -29,7 +29,7 @@ struct QuestView: View {
                 self.quest.isDone.toggle()
             }
         }
-        .background(quest.isDone ? Color.gainsboro : Color.lightSteelBlue)
+        .background(quest.isDone ? Color.inactive : Color.active)
         .cornerRadius(3)
 
     }

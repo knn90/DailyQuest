@@ -13,15 +13,15 @@ struct CheckMarkView: View {
     var body: some View {
         if isChecked {
             Rectangle()
-                .fill(Color.glaucous)
+                .fill(Color.action)
                 .frame(width: 25, height: 25)
                 .padding()
                 .overlay(Image(systemName: "checkmark")
-                    .foregroundColor(Color.gainsboro))
+                    .foregroundColor(Color.inactive))
         } else {
             Rectangle()
-                .fill(Color.gainsboro)
-                .border(Color.glaucous, width: 1)
+                .fill(Color.background)
+                .border(Color.action, width: 1)
                 .frame(width: 25, height: 25)
                 .padding()
         }

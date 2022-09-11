@@ -22,8 +22,8 @@ struct QuestListView: View {
                     QuestView(quest: quest)
                 }
             }
-            .background(Color.gainsboro)
         }
+        .background(Color.background)
     }
 }
 
