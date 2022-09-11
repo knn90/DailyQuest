@@ -116,7 +116,6 @@
 			children = (
 				6ABC6D2D28CE38ED000CE43D /* Presentation */,
 				6ABC6D2828CE3879000CE43D /* Domain */,
-				6A24C73428CCB1C2005B1DEB /* Views */,
 				6A65310A28CC711F00140A82 /* DailyQuestApp.swift */,
 				6A65310E28CC712100140A82 /* Assets.xcassets */,
 				6A65311028CC712100140A82 /* Preview Content */,
@@ -155,9 +154,18 @@
 		6ABC6D2D28CE38ED000CE43D /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
-				6ABC6D2E28CE3924000CE43D /* DailyQuestViewModelFactory.swift */,
+				6A24C73428CCB1C2005B1DEB /* Views */,
+				6ABC6D3028CE3AAD000CE43D /* Factories */,
 			);
 			path = Presentation;
+			sourceTree = "<group>";
+		};
+		6ABC6D3028CE3AAD000CE43D /* Factories */ = {
+			isa = PBXGroup;
+			children = (
+				6ABC6D2E28CE3924000CE43D /* DailyQuestViewModelFactory.swift */,
+			);
+			path = Factories;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
