@@ -19,19 +19,11 @@
 		6A65310F28CC712100140A82 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6A65310E28CC712100140A82 /* Assets.xcassets */; };
 		6A65311228CC712100140A82 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6A65311128CC712100140A82 /* Preview Assets.xcassets */; };
 		6A65311C28CC712100140A82 /* DailyQuestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A65311B28CC712100140A82 /* DailyQuestTests.swift */; };
-		6A65312628CC712100140A82 /* DailyQuestUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A65312528CC712100140A82 /* DailyQuestUITests.swift */; };
-		6A65312828CC712100140A82 /* DailyQuestUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A65312728CC712100140A82 /* DailyQuestUITestsLaunchTests.swift */; };
+		6ABC6D1D28CE076E000CE43D /* DailyQuestViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ABC6D1C28CE076E000CE43D /* DailyQuestViewModelTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
 		6A65311828CC712100140A82 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 6A6530FF28CC711F00140A82 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 6A65310628CC711F00140A82;
-			remoteInfo = DailyQuest;
-		};
-		6A65312228CC712100140A82 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 6A6530FF28CC711F00140A82 /* Project object */;
 			proxyType = 1;
@@ -55,9 +47,7 @@
 		6A65311128CC712100140A82 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		6A65311728CC712100140A82 /* DailyQuestTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DailyQuestTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6A65311B28CC712100140A82 /* DailyQuestTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyQuestTests.swift; sourceTree = "<group>"; };
-		6A65312128CC712100140A82 /* DailyQuestUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DailyQuestUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		6A65312528CC712100140A82 /* DailyQuestUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyQuestUITests.swift; sourceTree = "<group>"; };
-		6A65312728CC712100140A82 /* DailyQuestUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyQuestUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		6ABC6D1C28CE076E000CE43D /* DailyQuestViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyQuestViewModelTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,13 +59,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		6A65311428CC712100140A82 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		6A65311E28CC712100140A82 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -102,7 +85,6 @@
 			children = (
 				6A65310928CC711F00140A82 /* DailyQuest */,
 				6A65311A28CC712100140A82 /* DailyQuestTests */,
-				6A65312428CC712100140A82 /* DailyQuestUITests */,
 				6A65310828CC711F00140A82 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -112,7 +94,6 @@
 			children = (
 				6A65310728CC711F00140A82 /* DailyQuest.app */,
 				6A65311728CC712100140A82 /* DailyQuestTests.xctest */,
-				6A65312128CC712100140A82 /* DailyQuestUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -143,17 +124,9 @@
 			isa = PBXGroup;
 			children = (
 				6A65311B28CC712100140A82 /* DailyQuestTests.swift */,
+				6ABC6D1C28CE076E000CE43D /* DailyQuestViewModelTests.swift */,
 			);
 			path = DailyQuestTests;
-			sourceTree = "<group>";
-		};
-		6A65312428CC712100140A82 /* DailyQuestUITests */ = {
-			isa = PBXGroup;
-			children = (
-				6A65312528CC712100140A82 /* DailyQuestUITests.swift */,
-				6A65312728CC712100140A82 /* DailyQuestUITestsLaunchTests.swift */,
-			);
-			path = DailyQuestUITests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -194,24 +167,6 @@
 			productReference = 6A65311728CC712100140A82 /* DailyQuestTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		6A65312028CC712100140A82 /* DailyQuestUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 6A65313128CC712100140A82 /* Build configuration list for PBXNativeTarget "DailyQuestUITests" */;
-			buildPhases = (
-				6A65311D28CC712100140A82 /* Sources */,
-				6A65311E28CC712100140A82 /* Frameworks */,
-				6A65311F28CC712100140A82 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				6A65312328CC712100140A82 /* PBXTargetDependency */,
-			);
-			name = DailyQuestUITests;
-			productName = DailyQuestUITests;
-			productReference = 6A65312128CC712100140A82 /* DailyQuestUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -226,10 +181,6 @@
 						CreatedOnToolsVersion = 13.4.1;
 					};
 					6A65311628CC712100140A82 = {
-						CreatedOnToolsVersion = 13.4.1;
-						TestTargetID = 6A65310628CC711F00140A82;
-					};
-					6A65312028CC712100140A82 = {
 						CreatedOnToolsVersion = 13.4.1;
 						TestTargetID = 6A65310628CC711F00140A82;
 					};
@@ -250,7 +201,6 @@
 			targets = (
 				6A65310628CC711F00140A82 /* DailyQuest */,
 				6A65311628CC712100140A82 /* DailyQuestTests */,
-				6A65312028CC712100140A82 /* DailyQuestUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -267,13 +217,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		6A65311528CC712100140A82 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		6A65311F28CC712100140A82 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -303,15 +246,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6A65311C28CC712100140A82 /* DailyQuestTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		6A65311D28CC712100140A82 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				6A65312628CC712100140A82 /* DailyQuestUITests.swift in Sources */,
-				6A65312828CC712100140A82 /* DailyQuestUITestsLaunchTests.swift in Sources */,
+				6ABC6D1D28CE076E000CE43D /* DailyQuestViewModelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -322,11 +257,6 @@
 			isa = PBXTargetDependency;
 			target = 6A65310628CC711F00140A82 /* DailyQuest */;
 			targetProxy = 6A65311828CC712100140A82 /* PBXContainerItemProxy */;
-		};
-		6A65312328CC712100140A82 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 6A65310628CC711F00140A82 /* DailyQuest */;
-			targetProxy = 6A65312228CC712100140A82 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -510,6 +440,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = T56286VRDP;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
 				MARKETING_VERSION = 1.0;
@@ -529,6 +460,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = T56286VRDP;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
 				MARKETING_VERSION = 1.0;
@@ -538,40 +470,6 @@
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DailyQuest.app/DailyQuest";
-			};
-			name = Release;
-		};
-		6A65313228CC712100140A82 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.kndev.DailyQuestUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = DailyQuest;
-			};
-			name = Debug;
-		};
-		6A65313328CC712100140A82 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.kndev.DailyQuestUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = DailyQuest;
 			};
 			name = Release;
 		};
@@ -601,15 +499,6 @@
 			buildConfigurations = (
 				6A65312F28CC712100140A82 /* Debug */,
 				6A65313028CC712100140A82 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		6A65313128CC712100140A82 /* Build configuration list for PBXNativeTarget "DailyQuestUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				6A65313228CC712100140A82 /* Debug */,
-				6A65313328CC712100140A82 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

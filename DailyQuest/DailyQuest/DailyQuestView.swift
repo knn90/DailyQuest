@@ -10,11 +10,12 @@ import SwiftUI
 
 struct DailyQuestView: View {
 
-    @State private var quests: [QuestViewModel]
     @State private var isAddingQuest: Bool = false
-    
+
+    @ObservedObject private var viewModel: DailyQuestViewModel
+
     init(quests: [QuestViewModel]) {
-        self.quests = quests
+        self.viewModel = DailyQuestViewModel(quests: quests)
     }
 
     var body: some View {
@@ -24,12 +25,12 @@ struct DailyQuestView: View {
                     NewQuestView(onSubmit: { title in
                         withAnimation {
                             let addedQuest = QuestViewModel(title: title, isDone: false)
-                            self.quests.insert(addedQuest, at: 0)
+                            self.viewModel.add(addedQuest)
                             self.isAddingQuest.toggle()
                         }
                     })
                 }
-                QuestListView(quests: $quests)
+                QuestListView(quests: viewModel.quests)
             }
             .padding()
 
@@ -59,5 +60,17 @@ struct DailyQuestView_Previews: PreviewProvider {
             QuestViewModel(title: "Do 8 another thing", isDone: true),
             QuestViewModel(title: "Do a quest with super long description so it can't be display in one line. But it's 3 lines", isDone: true),
         ])
+    }
+}
+
+final class DailyQuestViewModel: ObservableObject {
+    @Published private(set) var quests: [QuestViewModel]
+
+    init(quests: [QuestViewModel]) {
+        self.quests = quests
+    }
+
+    func add(_ quest: QuestViewModel) {
+        quests.insert(quest, at: 0)
     }
 }

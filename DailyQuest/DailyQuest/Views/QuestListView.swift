@@ -9,9 +9,9 @@
 import SwiftUI
 
 struct QuestListView: View {
-    private var quests: Binding<[QuestViewModel]>
+    private var quests: [QuestViewModel]
 
-    init(quests: Binding<[QuestViewModel]>) {
+    init(quests: [QuestViewModel]) {
         self.quests = quests
     }
 
@@ -19,7 +19,7 @@ struct QuestListView: View {
         ScrollView {
             LazyVStack(spacing: 8) {
                 ForEach(quests, id: \.self) { quest in
-                    QuestView(quest: quest.wrappedValue)
+                    QuestView(quest: quest)
                 }
             }
             .background(Color.gainsboro)
@@ -29,7 +29,7 @@ struct QuestListView: View {
 
 struct QuestListView_Previews: PreviewProvider {
     static var previews: some View {
-        QuestListView(quests: Binding.constant([
+        QuestListView(quests: [
             QuestViewModel(title: "Do something", isDone: false),
             QuestViewModel(title: "Do another thing", isDone: true),
             QuestViewModel(title: "Do 1 something", isDone: false),
@@ -41,6 +41,6 @@ struct QuestListView_Previews: PreviewProvider {
             QuestViewModel(title: "Do 7 something", isDone: false),
             QuestViewModel(title: "Do 8 another thing", isDone: true),
             QuestViewModel(title: "Do a quest with super long description so it can't be display in one line. But it's 3 lines", isDone: true),
-        ]))
+        ])
     }
 }
