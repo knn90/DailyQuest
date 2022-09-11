@@ -10,8 +10,8 @@ import Foundation
 import SwiftUI
 
 extension Color {
-    static let background = Color("Gainsboro")
-    static let inactive = Color("Light Steel Blue")
-    static let active = Color("Baby Blue Eyes")
-    static let action = Color("Glaucous")
+    static let background = Color("background")
+    static let inactive = Color("inactive")
+    static let active = Color("active")
+    static let action = Color("action")
 }
