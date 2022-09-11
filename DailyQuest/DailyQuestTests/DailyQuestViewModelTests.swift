@@ -12,8 +12,8 @@ import XCTest
 class DailyQuestViewModelTests: XCTestCase {
 
     func test_init_setupQuestsArray() {
-        let quest = QuestViewModel(title: "a title", isDone: false)
-        let anotherQuest = QuestViewModel(title: "another title", isDone: false)
+        let quest = QuestViewModel(id: "an id", title: "a title", isDone: false)
+        let anotherQuest = QuestViewModel(id: "another id", title: "another title", isDone: false)
         let quests = [quest, anotherQuest]
         let sut = makeSUT(quests: quests)
 
@@ -21,8 +21,8 @@ class DailyQuestViewModelTests: XCTestCase {
     }
 
     func test_addQuest_insertsNewQuestAtIndex0() {
-        let newQuest = QuestViewModel(title: "new quest", isDone: false)
-        let oldQuest = QuestViewModel(title: "old quest", isDone: true)
+        let newQuest = QuestViewModel(id: "new id", title: "new quest", isDone: false)
+        let oldQuest = QuestViewModel(id: "old id", title: "old quest", isDone: true)
         let sut = makeSUT(quests: [oldQuest])
 
         sut.add(newQuest)

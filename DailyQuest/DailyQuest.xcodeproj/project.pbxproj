@@ -18,7 +18,6 @@
 		6A65310D28CC711F00140A82 /* DailyQuestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A65310C28CC711F00140A82 /* DailyQuestView.swift */; };
 		6A65310F28CC712100140A82 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6A65310E28CC712100140A82 /* Assets.xcassets */; };
 		6A65311228CC712100140A82 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6A65311128CC712100140A82 /* Preview Assets.xcassets */; };
-		6A65311C28CC712100140A82 /* DailyQuestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A65311B28CC712100140A82 /* DailyQuestTests.swift */; };
 		6ABC6D1D28CE076E000CE43D /* DailyQuestViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ABC6D1C28CE076E000CE43D /* DailyQuestViewModelTests.swift */; };
 		6ABC6D2028CE1095000CE43D /* DailyQuestViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ABC6D1F28CE1095000CE43D /* DailyQuestViewModel.swift */; };
 		6ABC6D2228CE11C7000CE43D /* QuestViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ABC6D2128CE11C7000CE43D /* QuestViewModel.swift */; };
@@ -51,7 +50,6 @@
 		6A65310E28CC712100140A82 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6A65311128CC712100140A82 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		6A65311728CC712100140A82 /* DailyQuestTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DailyQuestTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		6A65311B28CC712100140A82 /* DailyQuestTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyQuestTests.swift; sourceTree = "<group>"; };
 		6ABC6D1C28CE076E000CE43D /* DailyQuestViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyQuestViewModelTests.swift; sourceTree = "<group>"; };
 		6ABC6D1F28CE1095000CE43D /* DailyQuestViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyQuestViewModel.swift; sourceTree = "<group>"; };
 		6ABC6D2128CE11C7000CE43D /* QuestViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestViewModel.swift; sourceTree = "<group>"; };
@@ -114,8 +112,8 @@
 		6A65310928CC711F00140A82 /* DailyQuest */ = {
 			isa = PBXGroup;
 			children = (
-				6ABC6D2D28CE38ED000CE43D /* Presentation */,
 				6ABC6D2828CE3879000CE43D /* Domain */,
+				6ABC6D2D28CE38ED000CE43D /* Presentation */,
 				6A65310A28CC711F00140A82 /* DailyQuestApp.swift */,
 				6A65310E28CC712100140A82 /* Assets.xcassets */,
 				6A65311028CC712100140A82 /* Preview Content */,
@@ -136,7 +134,6 @@
 		6A65311A28CC712100140A82 /* DailyQuestTests */ = {
 			isa = PBXGroup;
 			children = (
-				6A65311B28CC712100140A82 /* DailyQuestTests.swift */,
 				6ABC6D1C28CE076E000CE43D /* DailyQuestViewModelTests.swift */,
 			);
 			path = DailyQuestTests;
@@ -289,7 +286,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6A65311C28CC712100140A82 /* DailyQuestTests.swift in Sources */,
 				6ABC6D1D28CE076E000CE43D /* DailyQuestViewModelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
