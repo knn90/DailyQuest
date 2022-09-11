@@ -12,19 +12,7 @@ import SwiftUI
 struct DailyQuestApp: App {
     var body: some Scene {
         WindowGroup {
-            DailyQuestView(viewModel: DailyQuestViewModel(quests: [
-                QuestViewModel(title: "Do something", isDone: false),
-                QuestViewModel(title: "Do another thing", isDone: true),
-                QuestViewModel(title: "Do 1 something", isDone: false),
-                QuestViewModel(title: "Do 2 another thing", isDone: true),
-                QuestViewModel(title: "Do 3 something", isDone: false),
-                QuestViewModel(title: "Do 4 another thing", isDone: true),
-                QuestViewModel(title: "Do 5 something", isDone: false),
-                QuestViewModel(title: "Do 6 another thing", isDone: true),
-                QuestViewModel(title: "Do 7 something", isDone: false),
-                QuestViewModel(title: "Do 8 another thing", isDone: true),
-                QuestViewModel(title: "Do a quest with super long description so it can't be display in one line. But it's 3 lines", isDone: true)
-            ]))
+            DailyQuestView(viewModel: DailyQuestViewModelFactory.make())
         }
     }
 }

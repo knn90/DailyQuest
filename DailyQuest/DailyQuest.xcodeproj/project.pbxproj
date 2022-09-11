@@ -24,6 +24,7 @@
 		6ABC6D2228CE11C7000CE43D /* QuestViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ABC6D2128CE11C7000CE43D /* QuestViewModel.swift */; };
 		6ABC6D2B28CE3879000CE43D /* Quest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ABC6D2928CE3879000CE43D /* Quest.swift */; };
 		6ABC6D2C28CE3879000CE43D /* DailyQuest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ABC6D2A28CE3879000CE43D /* DailyQuest.swift */; };
+		6ABC6D2F28CE3924000CE43D /* DailyQuestViewModelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ABC6D2E28CE3924000CE43D /* DailyQuestViewModelFactory.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,6 +57,7 @@
 		6ABC6D2128CE11C7000CE43D /* QuestViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestViewModel.swift; sourceTree = "<group>"; };
 		6ABC6D2928CE3879000CE43D /* Quest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Quest.swift; sourceTree = "<group>"; };
 		6ABC6D2A28CE3879000CE43D /* DailyQuest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DailyQuest.swift; sourceTree = "<group>"; };
+		6ABC6D2E28CE3924000CE43D /* DailyQuestViewModelFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyQuestViewModelFactory.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,6 +114,7 @@
 		6A65310928CC711F00140A82 /* DailyQuest */ = {
 			isa = PBXGroup;
 			children = (
+				6ABC6D2D28CE38ED000CE43D /* Presentation */,
 				6ABC6D2828CE3879000CE43D /* Domain */,
 				6A24C73428CCB1C2005B1DEB /* Views */,
 				6A65310A28CC711F00140A82 /* DailyQuestApp.swift */,
@@ -147,6 +150,14 @@
 				6ABC6D2A28CE3879000CE43D /* DailyQuest.swift */,
 			);
 			path = Domain;
+			sourceTree = "<group>";
+		};
+		6ABC6D2D28CE38ED000CE43D /* Presentation */ = {
+			isa = PBXGroup;
+			children = (
+				6ABC6D2E28CE3924000CE43D /* DailyQuestViewModelFactory.swift */,
+			);
+			path = Presentation;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -257,6 +268,7 @@
 				6ABC6D2028CE1095000CE43D /* DailyQuestViewModel.swift in Sources */,
 				6A24C74028CCD778005B1DEB /* PlusButton.swift in Sources */,
 				6ABC6D2B28CE3879000CE43D /* Quest.swift in Sources */,
+				6ABC6D2F28CE3924000CE43D /* DailyQuestViewModelFactory.swift in Sources */,
 				6A65310B28CC711F00140A82 /* DailyQuestApp.swift in Sources */,
 				6ABC6D2C28CE3879000CE43D /* DailyQuest.swift in Sources */,
 				6ABC6D2228CE11C7000CE43D /* QuestViewModel.swift in Sources */,
