@@ -8,7 +8,6 @@
 
 import Foundation
 
-#if DEBUG
 final class DailyQuestViewModelFactory {
     static func make() -> DailyQuestViewModel {
         DailyQuestViewModel(quests: [
@@ -26,4 +25,3 @@ final class DailyQuestViewModelFactory {
         ])
     }
 }
-#endif
