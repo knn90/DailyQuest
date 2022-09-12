@@ -67,9 +67,12 @@ final class DailyQuestLoaderTests: XCTestCase {
         }
     }
 
-    private func makeSUT(result: Result<DailyQuest, Error>) -> (DailyQuestLoader, StoreSpy) {
+    private func makeSUT(result: Result<DailyQuest, Error>, file: StaticString = #file, line: UInt = #line) -> (DailyQuestLoader, StoreSpy) {
         let store = StoreSpy(result: result)
         let sut = DailyQuestLoader(store: store)
+
+        trackForMemoryLeak(store, file: file, line: line)
+        trackForMemoryLeak(sut, file: file, line: line)
 
         return (sut, store)
     }
@@ -88,7 +91,6 @@ final class DailyQuestLoaderTests: XCTestCase {
         }
     }
 }
-
 
 func anyNSError() -> NSError {
     NSError(domain: "any", code: -1)
