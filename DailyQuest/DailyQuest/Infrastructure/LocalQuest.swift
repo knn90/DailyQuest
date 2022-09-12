@@ -21,7 +21,7 @@ public struct LocalQuest {
 }
 
 extension LocalQuest {
-    public func toDomain() -> Quest {
+    func toDomain() -> Quest {
         Quest(id: id, title: title, isDone: isDone)
     }
 }

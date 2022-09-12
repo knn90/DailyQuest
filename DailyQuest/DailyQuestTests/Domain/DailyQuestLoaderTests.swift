@@ -10,25 +10,6 @@ import Foundation
 import XCTest
 import DailyQuest
 
-
-protocol DailyQuestStore {
-    func load(date: Date) async throws -> LocalDailyQuest?
-}
-
-final class DailyQuestLoader {
-    private let store: DailyQuestStore
-
-    init(store: DailyQuestStore) {
-        self.store = store
-    }
-
-    func load(date: Date) async throws -> DailyQuest? {
-        let local = try await store.load(date: date)
-
-        return local?.toDomain()
-    }
-}
-
 final class DailyQuestLoaderTests: XCTestCase {
 
     func test_init_doesNotSendRequestToStore() {
@@ -72,13 +53,13 @@ final class DailyQuestLoaderTests: XCTestCase {
 
     func test_load_returnsFoundDailyQuestOnNonEmptyStore() async throws {
         let date = anyFixedDate()
-        let local = LocalDailyQuest(id: UUID(), createAt: date, doneAt: nil, quests: [LocalQuest(id: UUID(), title: "title", isDone: false)])
+        let dailyQuest = uniqueDailyQuest()
 
-        let (sut, _) = makeSUT(result: .success(local))
+        let (sut, _) = makeSUT(result: .success(dailyQuest.local))
 
         let result = try await sut.load(date: date)
 
-        XCTAssertEqual(result, local.toDomain())
+        XCTAssertEqual(result, dailyQuest.model)
     }
 
     func test_load_returnsNilOnEmptyStore() async throws {
@@ -117,24 +98,3 @@ final class DailyQuestLoaderTests: XCTestCase {
     }
 }
 
-func anyNSError() -> NSError {
-    NSError(domain: "any", code: -1)
-}
-
-func anyDailyQuest() -> DailyQuest {
-    DailyQuest(id: UUID(), createAt: anyFixedDate(), doneAt: anyFixedDate(), quests: [])
-}
-
-func anyLocalDailyQuest() -> LocalDailyQuest {
-    LocalDailyQuest(id: UUID(), createAt: anyFixedDate(), doneAt: nil, quests: [])
-}
-
-func anyFixedDate() -> Date {
-    Date(timeIntervalSince1970: 3453463543)
-}
-
-extension Date {
-    func add(day: Int) -> Date {
-        return Calendar(identifier: .gregorian).date(byAdding: .day, value: day, to: self)!
-    }
-}

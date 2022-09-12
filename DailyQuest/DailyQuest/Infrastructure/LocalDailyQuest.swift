@@ -23,7 +23,7 @@ public struct LocalDailyQuest {
 }
 
 extension LocalDailyQuest {
-    public func toDomain() -> DailyQuest {
+    func toDomain() -> DailyQuest {
         return DailyQuest(id: id, createAt: createAt, doneAt: doneAt, quests: quests.map { $0.toDomain() })
     }
 }
