@@ -12,7 +12,7 @@ import SwiftUI
 struct DailyQuestApp: App {
     var body: some Scene {
         WindowGroup {
-            DailyQuestView(viewModel: DailyQuestViewModelFactory.make())
+            DailyQuestViewUIComposer.compose()
         }
     }
 }
