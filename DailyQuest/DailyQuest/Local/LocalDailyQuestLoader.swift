@@ -1,5 +1,5 @@
 //
-//  DailyQuestLoader.swift
+//  LocalDailyQuestLoader.swift
 //  DailyQuest
 //
 //  Created by Khoi Nguyen on 2022.09.12
@@ -8,7 +8,7 @@
 
 import Foundation
 
-public final class DailyQuestLoader {
+public final class LocalDailyQuestLoader: DailyQuestLoader {
     private let store: DailyQuestStore
 
     public init(store: DailyQuestStore) {

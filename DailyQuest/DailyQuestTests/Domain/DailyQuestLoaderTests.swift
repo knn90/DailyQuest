@@ -72,9 +72,9 @@ final class DailyQuestLoaderTests: XCTestCase {
         XCTAssertNil(result)
     }
 
-    private func makeSUT(result: Result<LocalDailyQuest?, Error>, file: StaticString = #file, line: UInt = #line) -> (DailyQuestLoader, StoreSpy) {
+    private func makeSUT(result: Result<LocalDailyQuest?, Error>, file: StaticString = #file, line: UInt = #line) -> (LocalDailyQuestLoader, StoreSpy) {
         let store = StoreSpy(result: result)
-        let sut = DailyQuestLoader(store: store)
+        let sut = LocalDailyQuestLoader(store: store)
 
         trackForMemoryLeak(store, file: file, line: line)
         trackForMemoryLeak(sut, file: file, line: line)
