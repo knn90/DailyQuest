@@ -130,7 +130,7 @@
 		6A65310928CC711F00140A82 /* DailyQuest */ = {
 			isa = PBXGroup;
 			children = (
-				6AA69D9B28CFA1F000F68753 /* Infrastructure */,
+				6AA69DA828CFAC9400F68753 /* Local */,
 				6ABC6D2828CE3879000CE43D /* Domain */,
 				6ABC6D2D28CE38ED000CE43D /* Presentation */,
 				6A65310A28CC711F00140A82 /* DailyQuestApp.swift */,
@@ -170,10 +170,20 @@
 		6AA69D9B28CFA1F000F68753 /* Infrastructure */ = {
 			isa = PBXGroup;
 			children = (
-				6AA69D9E28CFA21600F68753 /* LocalQuest.swift */,
-				6AA69DA028CFA23400F68753 /* LocalDailyQuest.swift */,
 			);
 			path = Infrastructure;
+			sourceTree = "<group>";
+		};
+		6AA69DA828CFAC9400F68753 /* Local */ = {
+			isa = PBXGroup;
+			children = (
+				6AA69D9B28CFA1F000F68753 /* Infrastructure */,
+				6AA69D9E28CFA21600F68753 /* LocalQuest.swift */,
+				6AA69DA028CFA23400F68753 /* LocalDailyQuest.swift */,
+				6AA69DA428CFAA7100F68753 /* DailyQuestStore.swift */,
+				6AA69DA628CFAA8000F68753 /* DailyQuestLoader.swift */,
+			);
+			path = Local;
 			sourceTree = "<group>";
 		};
 		6ABC6D2828CE3879000CE43D /* Domain */ = {
@@ -181,8 +191,6 @@
 			children = (
 				6ABC6D2928CE3879000CE43D /* Quest.swift */,
 				6ABC6D2A28CE3879000CE43D /* DailyQuest.swift */,
-				6AA69DA428CFAA7100F68753 /* DailyQuestStore.swift */,
-				6AA69DA628CFAA8000F68753 /* DailyQuestLoader.swift */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
