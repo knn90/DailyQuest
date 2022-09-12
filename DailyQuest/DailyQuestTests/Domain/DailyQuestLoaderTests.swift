@@ -12,7 +12,7 @@ import DailyQuest
 
 
 protocol DailyQuestStore {
-    func load(date: Date) async throws -> LocalDailyQuest
+    func load(date: Date) async throws -> LocalDailyQuest?
 }
 
 final class DailyQuestLoader {
@@ -22,10 +22,10 @@ final class DailyQuestLoader {
         self.store = store
     }
 
-    func load(date: Date) async throws -> DailyQuest {
+    func load(date: Date) async throws -> DailyQuest? {
         let local = try await store.load(date: date)
 
-        return local.toDomain()
+        return local?.toDomain()
     }
 }
 
@@ -70,7 +70,7 @@ final class DailyQuestLoaderTests: XCTestCase {
         }
     }
 
-    func test_load_returnsDailyQuestOnStoreSuccess() async throws {
+    func test_load_returnsFoundDailyQuestOnNonEmptyStore() async throws {
         let date = anyFixedDate()
         let local = LocalDailyQuest(id: UUID(), createAt: date, doneAt: nil, quests: [LocalQuest(id: UUID(), title: "title", isDone: false)])
 
@@ -81,7 +81,17 @@ final class DailyQuestLoaderTests: XCTestCase {
         XCTAssertEqual(result, local.toDomain())
     }
 
-    private func makeSUT(result: Result<LocalDailyQuest, Error>, file: StaticString = #file, line: UInt = #line) -> (DailyQuestLoader, StoreSpy) {
+    func test_load_returnsNilOnEmptyStore() async throws {
+        let date = anyFixedDate()
+
+        let (sut, _) = makeSUT(result: .success(nil))
+
+        let result = try await sut.load(date: date)
+
+        XCTAssertNil(result)
+    }
+
+    private func makeSUT(result: Result<LocalDailyQuest?, Error>, file: StaticString = #file, line: UInt = #line) -> (DailyQuestLoader, StoreSpy) {
         let store = StoreSpy(result: result)
         let sut = DailyQuestLoader(store: store)
 
@@ -94,13 +104,13 @@ final class DailyQuestLoaderTests: XCTestCase {
     private class StoreSpy: DailyQuestStore {
 
         private(set) var dates: [Date] = []
-        private let result: Result<LocalDailyQuest, Error>
+        private let result: Result<LocalDailyQuest?, Error>
 
-        init(result: Result<LocalDailyQuest, Error>) {
+        init(result: Result<LocalDailyQuest?, Error>) {
             self.result = result
         }
 
-        func load(date: Date) async throws -> LocalDailyQuest {
+        func load(date: Date) async throws -> LocalDailyQuest? {
             dates.append(date)
             return try result.get()
         }
