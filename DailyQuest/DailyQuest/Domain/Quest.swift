@@ -8,8 +8,14 @@
 
 import Foundation
 
-public struct Quest {
+public struct Quest: Equatable {
     let id: UUID
     let title: String
     let isDone: Bool
+
+    public init(id: UUID, title: String, isDone: Bool) {
+        self.id = id
+        self.title = title
+        self.isDone = isDone
+    }
 }

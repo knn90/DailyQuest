@@ -8,13 +8,13 @@
 
 import Foundation
 
-public struct DailyQuest {
+public struct DailyQuest: Equatable {
     let id: UUID
     let createAt: Date
-    let doneAt: Date
+    let doneAt: Date?
     let quests: [Quest]
 
-    public init(id: UUID, createAt: Date, doneAt: Date, quests: [Quest]) {
+    public init(id: UUID, createAt: Date, doneAt: Date?, quests: [Quest]) {
         self.id = id
         self.createAt = createAt
         self.doneAt = doneAt
