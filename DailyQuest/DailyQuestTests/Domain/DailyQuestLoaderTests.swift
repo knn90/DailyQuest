@@ -10,43 +10,6 @@ import Foundation
 import XCTest
 import DailyQuest
 
-struct LocalQuest {
-    let id: UUID
-    let title: String
-    let isDone: Bool
-
-    public init(id: UUID, title: String, isDone: Bool) {
-        self.id = id
-        self.title = title
-        self.isDone = isDone
-    }
-}
-
-extension LocalQuest {
-    func toDomain() -> Quest {
-        Quest(id: id, title: title, isDone: isDone)
-    }
-}
-
-struct LocalDailyQuest {
-    let id: UUID
-    let createAt: Date
-    let doneAt: Date?
-    let quests: [LocalQuest]
-
-    public init(id: UUID, createAt: Date, doneAt: Date?, quests: [LocalQuest]) {
-        self.id = id
-        self.createAt = createAt
-        self.doneAt = doneAt
-        self.quests = quests
-    }
-}
-
-extension LocalDailyQuest {
-    func toDomain() -> DailyQuest {
-        return DailyQuest(id: id, createAt: createAt, doneAt: doneAt, quests: quests.map { $0.toDomain() })
-    }
-}
 
 protocol DailyQuestStore {
     func load(date: Date) async throws -> LocalDailyQuest
@@ -75,7 +38,7 @@ final class DailyQuestLoaderTests: XCTestCase {
     }
 
     func test_load_sendsRequestWithCorrectDate() async throws {
-        let date = Date()
+        let date = anyFixedDate()
         let (sut, store) = makeSUT(result: .success(anyLocalDailyQuest()))
 
         _ = try await sut.load(date: date)
@@ -84,8 +47,8 @@ final class DailyQuestLoaderTests: XCTestCase {
     }
 
     func test_loadTwice_sendRequestToStoreTwice() async throws {
-        let date1 = Date()
-        let date2 = Date(timeInterval: 2342, since: date1)
+        let date1 = anyFixedDate()
+        let date2 = date1.add(day: 1)
         let (sut, store) = makeSUT(result: .success(anyLocalDailyQuest()))
 
         _ = try await sut.load(date: date1)
@@ -95,7 +58,7 @@ final class DailyQuestLoaderTests: XCTestCase {
     }
 
     func test_load_throwsOnStoreError() async {
-        let date = Date()
+        let date = anyFixedDate()
         let expectedError = anyNSError()
         let (sut, _) = makeSUT(result: .failure(expectedError))
 
@@ -108,7 +71,7 @@ final class DailyQuestLoaderTests: XCTestCase {
     }
 
     func test_load_returnsDailyQuestOnStoreSuccess() async throws {
-        let date = Date()
+        let date = anyFixedDate()
         let local = LocalDailyQuest(id: UUID(), createAt: date, doneAt: nil, quests: [LocalQuest(id: UUID(), title: "title", isDone: false)])
 
         let (sut, _) = makeSUT(result: .success(local))
@@ -149,11 +112,19 @@ func anyNSError() -> NSError {
 }
 
 func anyDailyQuest() -> DailyQuest {
-    DailyQuest(id: UUID(), createAt: Date(), doneAt: Date(), quests: [])
+    DailyQuest(id: UUID(), createAt: anyFixedDate(), doneAt: anyFixedDate(), quests: [])
 }
 
 func anyLocalDailyQuest() -> LocalDailyQuest {
-    LocalDailyQuest(id: UUID(), createAt: Date(), doneAt: nil, quests: [])
+    LocalDailyQuest(id: UUID(), createAt: anyFixedDate(), doneAt: nil, quests: [])
 }
 
+func anyFixedDate() -> Date {
+    Date(timeIntervalSince1970: 3453463543)
+}
 
+extension Date {
+    func add(day: Int) -> Date {
+        return Calendar(identifier: .gregorian).date(byAdding: .day, value: day, to: self)!
+    }
+}
