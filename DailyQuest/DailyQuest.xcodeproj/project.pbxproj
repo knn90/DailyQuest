@@ -19,6 +19,8 @@
 		6A65310F28CC712100140A82 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6A65310E28CC712100140A82 /* Assets.xcassets */; };
 		6A65311228CC712100140A82 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6A65311128CC712100140A82 /* Preview Assets.xcassets */; };
 		6A70215E28D2264E00634206 /* DailyQuestDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6A70215C28D2264E00634206 /* DailyQuestDataModel.xcdatamodeld */; };
+		6A70216028D227FE00634206 /* ManagedQuest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A70215F28D227FE00634206 /* ManagedQuest.swift */; };
+		6A70216228D228B300634206 /* ManagedDailyQuest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A70216128D228B300634206 /* ManagedDailyQuest.swift */; };
 		6AA69D9A28CF997200F68753 /* XCTestCase+MemoryLeak.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AA69D9928CF997200F68753 /* XCTestCase+MemoryLeak.swift */; };
 		6AA69D9F28CFA21600F68753 /* LocalQuest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AA69D9E28CFA21600F68753 /* LocalQuest.swift */; };
 		6AA69DA128CFA23400F68753 /* LocalDailyQuest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AA69DA028CFA23400F68753 /* LocalDailyQuest.swift */; };
@@ -63,6 +65,8 @@
 		6A65311128CC712100140A82 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		6A65311728CC712100140A82 /* DailyQuestTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DailyQuestTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6A70215D28D2264E00634206 /* DailyQuestDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DailyQuestDataModel.xcdatamodel; sourceTree = "<group>"; };
+		6A70215F28D227FE00634206 /* ManagedQuest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagedQuest.swift; sourceTree = "<group>"; };
+		6A70216128D228B300634206 /* ManagedDailyQuest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagedDailyQuest.swift; sourceTree = "<group>"; };
 		6AA69D9928CF997200F68753 /* XCTestCase+MemoryLeak.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+MemoryLeak.swift"; sourceTree = "<group>"; };
 		6AA69D9E28CFA21600F68753 /* LocalQuest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalQuest.swift; sourceTree = "<group>"; };
 		6AA69DA028CFA23400F68753 /* LocalDailyQuest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalDailyQuest.swift; sourceTree = "<group>"; };
@@ -169,6 +173,8 @@
 			isa = PBXGroup;
 			children = (
 				6A70215C28D2264E00634206 /* DailyQuestDataModel.xcdatamodeld */,
+				6A70215F28D227FE00634206 /* ManagedQuest.swift */,
+				6A70216128D228B300634206 /* ManagedDailyQuest.swift */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";
@@ -386,9 +392,11 @@
 				6AA69DA128CFA23400F68753 /* LocalDailyQuest.swift in Sources */,
 				6A24C73E28CCD343005B1DEB /* NewQuestView.swift in Sources */,
 				6A24C73C28CCC173005B1DEB /* CheckMarkView.swift in Sources */,
+				6A70216228D228B300634206 /* ManagedDailyQuest.swift in Sources */,
 				6A65310D28CC711F00140A82 /* DailyQuestView.swift in Sources */,
 				6A24C73A28CCB8C6005B1DEB /* Color.swift in Sources */,
 				6AA69DA728CFAA8000F68753 /* LocalDailyQuestLoader.swift in Sources */,
+				6A70216028D227FE00634206 /* ManagedQuest.swift in Sources */,
 				6ABC6D2028CE1095000CE43D /* DailyQuestViewModel.swift in Sources */,
 				6A70215E28D2264E00634206 /* DailyQuestDataModel.xcdatamodeld in Sources */,
 				6A24C74028CCD778005B1DEB /* PlusButton.swift in Sources */,
