@@ -155,6 +155,7 @@
 		6A65311A28CC712100140A82 /* DailyQuestTests */ = {
 			isa = PBXGroup;
 			children = (
+				6AA69DAF28CFB05400F68753 /* App */,
 				6AA69D9828CF996200F68753 /* Helpers */,
 				6ABC6D3E28CE446C000CE43D /* Domain */,
 				6ABC6D3D28CE4462000CE43D /* Presentation */,
@@ -205,6 +206,13 @@
 				6AA69DAD28CFAF0C00F68753 /* DailyQuestViewUIComposer.swift */,
 			);
 			path = Composers;
+			sourceTree = "<group>";
+		};
+		6AA69DAF28CFB05400F68753 /* App */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = App;
 			sourceTree = "<group>";
 		};
 		6ABC6D2828CE3879000CE43D /* Domain */ = {
