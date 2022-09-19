@@ -11,10 +11,8 @@ import CoreData
 
 @objc(ManagedDailyQuest)
 class ManagedDailyQuest: NSManagedObject {
-
     @NSManaged var id: UUID
     @NSManaged var createAt: Date
     @NSManaged var doneAt: Date?
     @NSManaged var quests: NSOrderedSet
-
 }
