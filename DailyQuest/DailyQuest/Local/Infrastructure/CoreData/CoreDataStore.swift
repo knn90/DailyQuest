@@ -9,8 +9,19 @@
 import CoreData
 
 public final class CoreDataStore: DailyQuestStore {
-    
-    public func load(date: Date) async throws -> LocalDailyQuest? {
+    static private let modelName = "DailyQuestDataModel"
+    static private let model = NSManagedObjectModel.with(name: modelName, in: Bundle(for: CoreDataStore.self))
 
+
+    public func load(date: Date) async throws -> LocalDailyQuest? {
+        return nil
+    }
+}
+
+extension NSManagedObjectModel {
+    static func with(name: String, in bundle: Bundle) -> NSManagedObjectModel? {
+        return bundle
+            .url(forResource: name, withExtension: "momd")
+            .flatMap { NSManagedObjectModel(contentsOf: $0) }
     }
 }
