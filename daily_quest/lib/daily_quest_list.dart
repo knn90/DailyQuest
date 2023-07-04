@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'quest_details.dart';
 import 'quest.dart';
 
@@ -12,7 +13,7 @@ class DailyQuestList extends StatefulWidget {
 }
 
 class _DailyQuestListState extends State<DailyQuestList> {
-  final items = [
+  var items = [
     Quest(title: "Quest 1"), 
     Quest(title: "Quest 2"),
     Quest(title: "Quest 3")
@@ -26,9 +27,12 @@ class _DailyQuestListState extends State<DailyQuestList> {
       body: ListView.builder(
         itemCount: items.length,
         itemBuilder: (context, index) {
-          final quest = items[index];
-          return DailyQuestItemWidget(quest: quest,);
-        })
+          var quest = items[index];
+          return ChangeNotifierProvider(
+            create: (context) => quest,
+            child: DailyQuestItemWidget(quest: quest,),
+          );
+      })
     );
   }
 }
@@ -43,6 +47,11 @@ class DailyQuestItemWidget extends StatefulWidget {
 
 class _DailyQuestItemWidgetState extends State<DailyQuestItemWidget> {
   bool? isDone = false;
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   Color getColor(Set<MaterialState> states) {
     const Set<MaterialState> interactiveStates = <MaterialState>{
@@ -70,7 +79,9 @@ class _DailyQuestItemWidgetState extends State<DailyQuestItemWidget> {
                   isDone = value;  
                 });
             }),
-            Text(widget.quest.title),
+            Consumer<Quest>(builder: (context, quest, child) {
+              return Text(quest.title);
+            })
           ],
         ),
       ),

@@ -10,7 +10,6 @@ class DailyQuestDetails extends StatefulWidget {
 }
 
 class _DailyQuestDetailsState extends State<DailyQuestDetails> {
-
   late TextEditingController _titleController;
   late TextEditingController _descriptionController;
 
@@ -47,7 +46,15 @@ class _DailyQuestDetailsState extends State<DailyQuestDetails> {
             ),
             controller: _descriptionController,
             maxLines: 5,
-          )
+          ),
+          ElevatedButton(
+            onPressed: () {
+              setState(() {
+                widget.quest.title = _titleController.text;
+              });
+            },
+            child: const Text("Submit")
+          ),
         ],
       ),
     );

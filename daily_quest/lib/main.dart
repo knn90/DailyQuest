@@ -1,6 +1,7 @@
-import 'dart:ffi';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'daily_quest_list.dart';
+import 'quest.dart';
 
 void main() {
   runApp(const MyApp());
@@ -18,7 +19,10 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: DailyQuestList(title: "Test Screen"),
+      home: ChangeNotifierProvider(
+        create: (context) => QuestList(),
+        child: const DailyQuestList(title: "Test Screen"),
+        ),
     );
   }
 }
