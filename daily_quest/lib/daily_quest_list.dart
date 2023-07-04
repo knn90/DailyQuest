@@ -10,7 +10,11 @@ class DailyQuestList extends StatefulWidget {
 }
 
 class _DailyQuestListState extends State<DailyQuestList> {
-  final items = ["Quest 1", "Quest 2", "Quest 3"];
+  final items = [
+    Quest(title: "Quest 1"), 
+    Quest(title: "Quest 2"),
+    Quest(title: "Quest 3")
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,16 +24,16 @@ class _DailyQuestListState extends State<DailyQuestList> {
       body: ListView.builder(
         itemCount: items.length,
         itemBuilder: (context, index) {
-          final item = items[index];
-          return DailyQuestItemWidget(title: item,);
+          final quest = items[index];
+          return DailyQuestItemWidget(quest: quest,);
         })
     );
   }
 }
 
 class DailyQuestItemWidget extends StatefulWidget {
-  final String title;
-  const DailyQuestItemWidget({super.key, required this.title});
+  final Quest quest;
+  const DailyQuestItemWidget({super.key, required this.quest});
 
   @override
   State<DailyQuestItemWidget> createState() => _DailyQuestItemWidgetState();
@@ -64,7 +68,7 @@ class _DailyQuestItemWidgetState extends State<DailyQuestItemWidget> {
                   isDone = value;  
                 });
             }),
-            Text(widget.title),
+            Text(widget.quest.title),
           ],
         ),
       ),
@@ -72,7 +76,7 @@ class _DailyQuestItemWidgetState extends State<DailyQuestItemWidget> {
         Navigator
         .of(context)
         .push(MaterialPageRoute(
-          builder: (context) => DailyQuestDetails(quest: widget.title,)
+          builder: (context) => DailyQuestDetails(quest: widget.quest,)
           )
         );
       },
@@ -82,8 +86,7 @@ class _DailyQuestItemWidgetState extends State<DailyQuestItemWidget> {
 
 class DailyQuestDetails extends StatefulWidget {
   const DailyQuestDetails({super.key, required this.quest});
-
-  final String quest;
+  final Quest quest;
 
   @override
   State<DailyQuestDetails> createState() => _DailyQuestDetailsState();
@@ -97,11 +100,11 @@ class _DailyQuestDetailsState extends State<DailyQuestDetails> {
   @override
   void initState() {
     super.initState();
-    _titleController = TextEditingController(text: widget.quest);
+    _titleController = TextEditingController(text: widget.quest.title);
     _descriptionController = TextEditingController();
   }
 
-  @override
+  @override 
   void dispose() {
     super.dispose();
     _titleController.dispose();
@@ -112,24 +115,31 @@ class _DailyQuestDetailsState extends State<DailyQuestDetails> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Quest Details")
-        ),
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            TextField(
-              controller: _titleController,
+        title: const Text("Quest Details")
+      ),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          TextField(
+            controller: _titleController,
+          ),
+          TextField(
+            decoration: const InputDecoration(
+              hintText: "Description",
             ),
-            TextField(
-              decoration: const InputDecoration(
-                hintText: "Description",
-              ),
-              controller: _descriptionController,
-              maxLines: 5,
-            )
-          ],
-        ),
+            controller: _descriptionController,
+            maxLines: 5,
+          )
+        ],
+      ),
     );
   }
+}
+
+class Quest {
+  String title;
+  String? description;
+
+  Quest({required this.title, this.description});
 }
