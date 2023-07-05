@@ -1,3 +1,4 @@
+import 'package:daily_quest/add_quest.dart';
 import 'package:daily_quest/edit_quest.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -52,7 +53,7 @@ class DailyQuestList extends StatelessWidget {
               Navigator.of(context).push(
                 MaterialPageRoute(
                   fullscreenDialog: true,
-                  builder: (context) => QuestDetails(
+                  builder: (context) => AddQuest(
                     quest: Quest(title: ""),
                   ),
                 ),
