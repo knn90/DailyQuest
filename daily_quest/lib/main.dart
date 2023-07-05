@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'daily_quest_list.dart';
+import 'quest_list.dart';
 import 'quest.dart';
 
 void main() {

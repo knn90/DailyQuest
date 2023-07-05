@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'quest.dart';
 
 class DailyQuestDetails extends StatefulWidget {
@@ -31,38 +30,30 @@ class _DailyQuestDetailsState extends State<DailyQuestDetails> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(title: const Text("Quest Details")),
-        body: SafeArea(
-          child: Padding(
-            padding: EdgeInsets.all(16),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                TextField(
-                  controller: _titleController,
-                  onChanged: (value) => widget.quest.title = value,
-                ),
-                SizedBox(height: 20),
-                TextField(
-                  decoration: const InputDecoration(
-                    hintText: "Description",
-                  ),
-                  controller: _descriptionController,
-                  onChanged: (value) => widget.quest.description = value,
-                  maxLines: 5,
-                ),
-                SizedBox(height: 20),
-                ElevatedButton(
-                    onPressed: () {
-                      context.read<QuestListNotifier>().update(widget.quest);
-                      Navigator.pop(context);
-                    },
-                    child: const Text("Submit")),
-              ],
+    return Padding(
+      padding: const EdgeInsets.all(16),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          TextField(
+            decoration: const InputDecoration(
+              hintText: "Title",
             ),
+            controller: _titleController,
+            onChanged: (value) => widget.quest.title = value,
           ),
-        ));
+          const SizedBox(height: 20),
+          TextField(
+            decoration: const InputDecoration(
+              hintText: "Description",
+            ),
+            controller: _descriptionController,
+            onChanged: (value) => widget.quest.description = value,
+            maxLines: 5,
+          ),
+        ],
+      ),
+    );
   }
 }
