@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'quest.dart';
 
 class DailyQuestDetails extends StatefulWidget {
@@ -17,10 +18,11 @@ class _DailyQuestDetailsState extends State<DailyQuestDetails> {
   void initState() {
     super.initState();
     _titleController = TextEditingController(text: widget.quest.title);
-    _descriptionController = TextEditingController();
+    _descriptionController =
+        TextEditingController(text: widget.quest.description);
   }
 
-  @override 
+  @override
   void dispose() {
     super.dispose();
     _titleController.dispose();
@@ -30,31 +32,29 @@ class _DailyQuestDetailsState extends State<DailyQuestDetails> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Quest Details")
-      ),
+      appBar: AppBar(title: const Text("Quest Details")),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
         children: [
           TextField(
             controller: _titleController,
+            onChanged: (value) => widget.quest.title = value,
           ),
           TextField(
             decoration: const InputDecoration(
               hintText: "Description",
             ),
             controller: _descriptionController,
+            onChanged: (value) => widget.quest.description = value,
             maxLines: 5,
           ),
           ElevatedButton(
-            onPressed: () {
-              setState(() {
-                widget.quest.title = _titleController.text;
-              });
-            },
-            child: const Text("Submit")
-          ),
+              onPressed: () {
+                context.read<QuestListNotifier>().update(widget.quest);
+                Navigator.pop(context);
+              },
+              child: const Text("Submit")),
         ],
       ),
     );

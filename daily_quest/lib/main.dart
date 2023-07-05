@@ -4,7 +4,9 @@ import 'daily_quest_list.dart';
 import 'quest.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    const MyApp(),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -13,16 +15,16 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Daily Quest',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
-      home: ChangeNotifierProvider(
-        create: (context) => QuestList(),
-        child: const DailyQuestList(title: "Test Screen"),
+    return ChangeNotifierProvider(
+      create: (context) => QuestListNotifier(),
+      child: MaterialApp(
+        title: 'Daily Quest',
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+          useMaterial3: true,
         ),
+        home: const DailyQuestList(),
+      ),
     );
   }
 }

@@ -1,0 +1,28 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "daily_quest",
+            "cwd": "daily_quest",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "daily_quest (profile mode)",
+            "cwd": "daily_quest",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "daily_quest (release mode)",
+            "cwd": "daily_quest",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        }
+    ]
+}
