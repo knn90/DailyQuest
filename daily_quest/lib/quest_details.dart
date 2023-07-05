@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'quest.dart';
 
-class DailyQuestDetails extends StatefulWidget {
-  const DailyQuestDetails({super.key, required this.quest});
+class QuestDetails extends StatefulWidget {
+  const QuestDetails({super.key, required this.quest});
   final Quest quest;
 
   @override
-  State<DailyQuestDetails> createState() => _DailyQuestDetailsState();
+  State<QuestDetails> createState() => _QuestDetailsState();
 }
 
-class _DailyQuestDetailsState extends State<DailyQuestDetails> {
+class _QuestDetailsState extends State<QuestDetails> {
   late TextEditingController _titleController;
   late TextEditingController _descriptionController;
 

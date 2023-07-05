@@ -52,7 +52,7 @@ class DailyQuestList extends StatelessWidget {
               Navigator.of(context).push(
                 MaterialPageRoute(
                   fullscreenDialog: true,
-                  builder: (context) => DailyQuestDetails(
+                  builder: (context) => QuestDetails(
                     quest: Quest(title: ""),
                   ),
                 ),

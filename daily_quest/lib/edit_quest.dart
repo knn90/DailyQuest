@@ -18,7 +18,7 @@ class EditQuest extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
             children: [
-              DailyQuestDetails(quest: quest),
+              QuestDetails(quest: quest),
               const SizedBox(height: 20),
               ElevatedButton(
                   onPressed: () {
