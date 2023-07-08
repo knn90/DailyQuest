@@ -1,22 +1,7 @@
 import 'dart:collection';
 
+import 'package:daily_quest/daily_quest/domain/entity/quest.dart';
 import 'package:flutter/material.dart';
-
-class Quest {
-  String title;
-  String? description;
-  bool isDone = false;
-
-  Quest({required this.title, this.description});
-
-  set setTitle(String title) {
-    this.title = title;
-  }
-
-  set setDescription(String description) {
-    this.description = description;
-  }
-}
 
 class QuestListNotifier extends ChangeNotifier {
   final List<Quest> _items = [

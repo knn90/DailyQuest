@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'quest.dart';
+import '../domain/entity/quest.dart';
 
 class QuestDetails extends StatefulWidget {
   const QuestDetails({super.key, required this.quest});

@@ -1,8 +1,10 @@
-import 'package:daily_quest/daily_quest/add_quest.dart';
-import 'package:daily_quest/daily_quest/edit_quest.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'quest.dart';
+
+import '../domain/entity/quest.dart';
+import 'add_quest.dart';
+import 'edit_quest.dart';
+import 'quest_list_notifier.dart';
 
 class DailyQuestList extends StatelessWidget {
   const DailyQuestList({super.key});

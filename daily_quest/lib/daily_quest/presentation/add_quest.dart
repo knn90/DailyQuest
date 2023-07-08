@@ -1,16 +1,17 @@
-import 'package:daily_quest/daily_quest/quest_details.dart';
+import 'quest_list_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'quest.dart';
+import '../domain/entity/quest.dart';
+import 'quest_details.dart';
 
-class EditQuest extends StatelessWidget {
-  const EditQuest({super.key, required this.quest});
+class AddQuest extends StatelessWidget {
+  const AddQuest({super.key, required this.quest});
   final Quest quest;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Edit Quest")),
+      appBar: AppBar(title: const Text("Add Quest")),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(16),
@@ -22,7 +23,7 @@ class EditQuest extends StatelessWidget {
               const SizedBox(height: 20),
               ElevatedButton(
                   onPressed: () {
-                    context.read<QuestListNotifier>().update(quest);
+                    context.read<QuestListNotifier>().add(quest);
                     Navigator.pop(context);
                   },
                   child: const Text("Submit")),

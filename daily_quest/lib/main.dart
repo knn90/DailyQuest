@@ -1,7 +1,8 @@
-import 'package:daily_quest/daily_quest/quest.dart';
-import 'package:daily_quest/daily_quest/quest_list.dart';
+import 'package:daily_quest/daily_quest/presentation/quest_list_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import 'daily_quest/presentation/quest_list.dart';
 
 void main() {
   runApp(
