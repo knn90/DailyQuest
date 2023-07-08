@@ -1,5 +1,5 @@
-import 'package:daily_quest/add_quest.dart';
-import 'package:daily_quest/edit_quest.dart';
+import 'package:daily_quest/daily_quest/add_quest.dart';
+import 'package:daily_quest/daily_quest/edit_quest.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'quest.dart';
