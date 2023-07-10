@@ -3,6 +3,8 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
+import 'dart:async' as _i3;
+
 import 'package:mockito/mockito.dart' as _i1;
 
 import 'create_daily_quest_test.dart' as _i2;
@@ -18,8 +20,52 @@ import 'create_daily_quest_test.dart' as _i2;
 // ignore_for_file: camel_case_types
 // ignore_for_file: subtype_of_sealed_class
 
+class _FakeDailyQuest_0 extends _i1.SmartFake implements _i2.DailyQuest {
+  _FakeDailyQuest_0(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
 /// A class which mocks [DailyQuestRepository].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockDailyQuestRepository extends _i1.Mock
-    implements _i2.DailyQuestRepository {}
+    implements _i2.DailyQuestRepository {
+  @override
+  _i3.Future<_i2.DailyQuest> getLastDailyQuest() => (super.noSuchMethod(
+        Invocation.method(
+          #getLastDailyQuest,
+          [],
+        ),
+        returnValue: _i3.Future<_i2.DailyQuest>.value(_FakeDailyQuest_0(
+          this,
+          Invocation.method(
+            #getLastDailyQuest,
+            [],
+          ),
+        )),
+        returnValueForMissingStub:
+            _i3.Future<_i2.DailyQuest>.value(_FakeDailyQuest_0(
+          this,
+          Invocation.method(
+            #getLastDailyQuest,
+            [],
+          ),
+        )),
+      ) as _i3.Future<_i2.DailyQuest>);
+  @override
+  _i3.Future<void> saveDailyQuest({_i2.DailyQuest? quest}) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #saveDailyQuest,
+          [],
+          {#quest: quest},
+        ),
+        returnValue: _i3.Future<void>.value(),
+        returnValueForMissingStub: _i3.Future<void>.value(),
+      ) as _i3.Future<void>);
+}
