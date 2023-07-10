@@ -1,45 +1,11 @@
+import 'package:daily_quest/daily_quest/domain/entity/daily_quest.dart';
+import 'package:daily_quest/daily_quest/domain/entity/task.dart';
+import 'package:daily_quest/daily_quest/domain/repository/daily_quest_repository.dart';
+import 'package:daily_quest/daily_quest/domain/usecase/create_daily_quest_usecase.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'create_daily_quest_test.mocks.dart';
-
-abstract class DailyQuestRepository {
-  Future<DailyQuest> getLastDailyQuest();
-  Future<void> saveDailyQuest({DailyQuest quest});
-}
-
-class Task {
-  final String title;
-  final String description;
-  final bool isDone = false;
-
-  Task({required this.title, required this.description});
-}
-
-class DailyQuest {
-  final String id;
-  final String timestamp;
-  final List<Task> tasks;
-
-  DailyQuest({required this.id, required this.timestamp, required this.tasks});
-}
-
-class CreateDailyQuestUseCase {
-  final DailyQuestRepository repository;
-
-  CreateDailyQuestUseCase({required this.repository});
-
-  Future<DailyQuest> execute(
-      String Function() timestamp, String Function() id) async {
-    final lastQuest = await repository.getLastDailyQuest();
-    final tasks = lastQuest.tasks;
-    final todayQuest =
-        DailyQuest(id: id(), timestamp: timestamp(), tasks: tasks);
-    await repository.saveDailyQuest(quest: todayQuest);
-
-    return todayQuest;
-  }
-}
 
 @GenerateNiceMocks([MockSpec<DailyQuestRepository>()])
 void main() {
