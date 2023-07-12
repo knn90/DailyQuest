@@ -1,75 +1,26 @@
+import 'package:daily_quest/daily_quest/data/datasource/daily_quest_local_datasource.dart';
+import 'package:daily_quest/daily_quest/data/model/local_daily_quest.dart';
+import 'package:daily_quest/daily_quest/data/model/local_task.dart';
+import 'package:daily_quest/daily_quest/data/repository/daily_quest_repository_impl.dart';
 import 'package:daily_quest/daily_quest/domain/entity/daily_quest.dart';
-import 'package:daily_quest/daily_quest/domain/entity/task.dart';
-import 'package:daily_quest/daily_quest/domain/repository/daily_quest_repository.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
 import 'daily_quest_repository_impl_test.mocks.dart';
 
-class DailyQuestRepositoryImpl implements DailyQuestRepository {
-  final DailyQuestLocalDataSource dataSource;
-
-  DailyQuestRepositoryImpl({required this.dataSource});
-
-  @override
-  Future<DailyQuest> getLastDailyQuest() async {
-    final localQuest = await dataSource.getLast();
-    final tasks = localQuest.tasks
-        .map((e) => Task(title: e.title, description: e.description))
-        .toList();
-    return DailyQuest(
-        id: localQuest.id, timestamp: localQuest.timestamp, tasks: tasks);
-  }
-
-  @override
-  Future<void> saveDailyQuest({required DailyQuest quest}) {
-    // TODO: implement saveDailyQuest
-    throw UnimplementedError();
-  }
-}
-
-class LocalTask {
-  final String title;
-  final String description;
-  final bool isDone = false;
-
-  LocalTask({required this.title, required this.description});
-
-  Task toEntity() {
-    return Task(title: title, description: description);
-  }
-}
-
-class LocalDailyQuest {
-  final String id;
-  final String timestamp;
-  final List<LocalTask> tasks;
-
-  LocalDailyQuest(
-      {required this.id, required this.timestamp, required this.tasks});
-  DailyQuest toEntity() {
-    return DailyQuest(
-        id: id,
-        timestamp: timestamp,
-        tasks: tasks.map((e) => e.toEntity()).toList());
-  }
-}
-
-abstract class DailyQuestLocalDataSource {
-  Future<LocalDailyQuest> getLast();
-  save({required LocalDailyQuest quest});
-}
-
-class DailyQuestNotFound implements Exception {}
-
 @GenerateNiceMocks([MockSpec<DailyQuestLocalDataSource>()])
 void main() {
   late DailyQuestRepositoryImpl repository;
   late MockDailyQuestLocalDataSource mockDataSource;
-  final LocalDailyQuest localQuest =
-      LocalDailyQuest(id: 'any id', timestamp: 'any timestamp', tasks: []);
+  const LocalDailyQuest localQuest =
+      LocalDailyQuest(id: 'any id', timestamp: 'any timestamp', tasks: [
+    LocalTask(title: "task1", description: "description1"),
+    LocalTask(title: "task2", description: "description2"),
+    LocalTask(title: "task3", description: "description3"),
+  ]);
   final DailyQuest dailyQuest = localQuest.toEntity();
+
   setUp(() {
     mockDataSource = MockDailyQuestLocalDataSource();
     repository = DailyQuestRepositoryImpl(dataSource: mockDataSource);
@@ -89,15 +40,27 @@ void main() {
     });
 
     group('on non-empty data source', () {
-      test('should return last inserted daily quest', () async {
+      test('should return daily quest with correct data', () async {
         // arrange
-        // when(mockDataSource.getLast()).thenAnswer((_) async => localQuest);
-        // // act
-        // final result = await repository.getLastDailyQuest();
-        // // assert
-        // expect(result, dailyQuest);
-        // verifyNoMoreInteractions(mockDataSource);
+        when(mockDataSource.getLast()).thenAnswer((_) async => localQuest);
+        // act
+        final result = await repository.getLastDailyQuest();
+        // assert
+        expect(result, dailyQuest);
+        verify(mockDataSource.getLast());
+        verifyNoMoreInteractions(mockDataSource);
       });
+    });
+  });
+
+  group('insert daily daily quest', () {
+    test('should insert new quest', () async {
+      // arrange
+      when(mockDataSource.save(quest: localQuest)).thenAnswer((_) async => ());
+      // act
+      await repository.insertDailyQuest(quest: dailyQuest);
+      // assert
+      verify(mockDataSource.save(quest: localQuest));
     });
   });
 }

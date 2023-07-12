@@ -1,7 +1,15 @@
-class Task {
+import 'package:equatable/equatable.dart';
+
+class Task extends Equatable {
   final String title;
   final String description;
   final bool isDone = false;
 
-  Task({required this.title, required this.description});
+  const Task({
+    required this.title,
+    required this.description,
+  });
+
+  @override
+  List<Object?> get props => [title, description, isDone];
 }

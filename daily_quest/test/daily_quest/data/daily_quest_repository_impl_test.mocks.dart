@@ -3,11 +3,13 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i3;
+import 'dart:async' as _i4;
 
+import 'package:daily_quest/daily_quest/data/datasource/daily_quest_local_datasource.dart'
+    as _i3;
+import 'package:daily_quest/daily_quest/data/model/local_daily_quest.dart'
+    as _i2;
 import 'package:mockito/mockito.dart' as _i1;
-
-import 'daily_quest_repository_impl_test.dart' as _i2;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -35,15 +37,15 @@ class _FakeLocalDailyQuest_0 extends _i1.SmartFake
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockDailyQuestLocalDataSource extends _i1.Mock
-    implements _i2.DailyQuestLocalDataSource {
+    implements _i3.DailyQuestLocalDataSource {
   @override
-  _i3.Future<_i2.LocalDailyQuest> getLast() => (super.noSuchMethod(
+  _i4.Future<_i2.LocalDailyQuest> getLast() => (super.noSuchMethod(
         Invocation.method(
           #getLast,
           [],
         ),
         returnValue:
-            _i3.Future<_i2.LocalDailyQuest>.value(_FakeLocalDailyQuest_0(
+            _i4.Future<_i2.LocalDailyQuest>.value(_FakeLocalDailyQuest_0(
           this,
           Invocation.method(
             #getLast,
@@ -51,21 +53,23 @@ class MockDailyQuestLocalDataSource extends _i1.Mock
           ),
         )),
         returnValueForMissingStub:
-            _i3.Future<_i2.LocalDailyQuest>.value(_FakeLocalDailyQuest_0(
+            _i4.Future<_i2.LocalDailyQuest>.value(_FakeLocalDailyQuest_0(
           this,
           Invocation.method(
             #getLast,
             [],
           ),
         )),
-      ) as _i3.Future<_i2.LocalDailyQuest>);
+      ) as _i4.Future<_i2.LocalDailyQuest>);
   @override
-  dynamic save({required _i2.LocalDailyQuest? quest}) => super.noSuchMethod(
+  _i4.Future<void> save({required _i2.LocalDailyQuest? quest}) =>
+      (super.noSuchMethod(
         Invocation.method(
           #save,
           [],
           {#quest: quest},
         ),
-        returnValueForMissingStub: null,
-      );
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
 }

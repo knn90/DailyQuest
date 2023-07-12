@@ -59,10 +59,10 @@ class MockDailyQuestRepository extends _i1.Mock
         )),
       ) as _i4.Future<_i2.DailyQuest>);
   @override
-  _i4.Future<void> saveDailyQuest({required _i2.DailyQuest? quest}) =>
+  _i4.Future<void> insertDailyQuest({required _i2.DailyQuest? quest}) =>
       (super.noSuchMethod(
         Invocation.method(
-          #saveDailyQuest,
+          #insertDailyQuest,
           [],
           {#quest: quest},
         ),

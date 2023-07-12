@@ -11,7 +11,7 @@ import 'create_daily_quest_test.mocks.dart';
 void main() {
   late CreateDailyQuestUseCase usecase;
   late MockDailyQuestRepository mockRepository;
-  final dailyQuest = DailyQuest(id: "any id", timestamp: "1688979610", tasks: [
+  const dailyQuest = DailyQuest(id: "any id", timestamp: "1688979610", tasks: [
     Task(title: "1st title", description: "1st description"),
     Task(title: "2nd title", description: "2nd description"),
   ]);
@@ -58,7 +58,7 @@ void main() {
     // assert
     verifyInOrder([
       mockRepository.getLastDailyQuest(),
-      mockRepository.saveDailyQuest(quest: result)
+      mockRepository.insertDailyQuest(quest: result)
     ]);
     verifyNoMoreInteractions(mockRepository);
   });

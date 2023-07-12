@@ -12,7 +12,7 @@ class CreateDailyQuestUseCase {
     final tasks = lastQuest.tasks;
     final todayQuest =
         DailyQuest(id: id(), timestamp: timestamp(), tasks: tasks);
-    await repository.saveDailyQuest(quest: todayQuest);
+    await repository.insertDailyQuest(quest: todayQuest);
 
     return todayQuest;
   }
