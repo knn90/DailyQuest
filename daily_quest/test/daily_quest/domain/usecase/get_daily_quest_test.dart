@@ -24,20 +24,33 @@ class GetTodayQuestUseCase {
     required String Function() timestampProvider,
   }) async {
     final lastQuest = await repository.getLastDailyQuest();
-    final lastTasks = lastQuest.tasks;
     if (validator.validate(quest: lastQuest)) {
       return lastQuest;
     } else {
-      final todayQuest = DailyQuest(
-        id: idProvider(),
-        timestamp: timestampProvider(),
-        tasks: lastTasks
-            .map((e) => Task(title: e.title, description: e.description))
-            .toList(),
+      final lastTasks = lastQuest.tasks;
+      final todayQuest = await _createAndInsertNewQuest(
+        idProvider,
+        timestampProvider,
+        lastTasks,
       );
-      await repository.insertDailyQuest(quest: todayQuest);
       return todayQuest;
     }
+  }
+
+  Future<DailyQuest> _createAndInsertNewQuest(
+    String Function() idProvider,
+    String Function() timestampProvider,
+    List<Task> lastTasks,
+  ) async {
+    final todayQuest = DailyQuest(
+      id: idProvider(),
+      timestamp: timestampProvider(),
+      tasks: lastTasks
+          .map((e) => Task(title: e.title, description: e.description))
+          .toList(),
+    );
+    await repository.insertDailyQuest(quest: todayQuest);
+    return todayQuest;
   }
 }
 
