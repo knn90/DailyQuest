@@ -1,0 +1,1 @@
+class DailyQuestNotFound implements Exception {}

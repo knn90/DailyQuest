@@ -3,6 +3,7 @@ import 'package:daily_quest/daily_quest/data/model/local_daily_quest.dart';
 import 'package:daily_quest/daily_quest/data/model/local_task.dart';
 import 'package:daily_quest/daily_quest/data/repository/daily_quest_repository_impl.dart';
 import 'package:daily_quest/daily_quest/domain/entity/daily_quest.dart';
+import 'package:daily_quest/daily_quest/domain/exception/exceptions.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
