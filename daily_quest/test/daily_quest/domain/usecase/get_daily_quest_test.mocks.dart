@@ -6,11 +6,11 @@
 import 'dart:async' as _i4;
 
 import 'package:daily_quest/daily_quest/domain/entity/daily_quest.dart' as _i2;
+import 'package:daily_quest/daily_quest/domain/helper/quest_validator.dart'
+    as _i5;
 import 'package:daily_quest/daily_quest/domain/repository/daily_quest_repository.dart'
     as _i3;
 import 'package:mockito/mockito.dart' as _i1;
-
-import 'get_daily_quest_test.dart' as _i5;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values

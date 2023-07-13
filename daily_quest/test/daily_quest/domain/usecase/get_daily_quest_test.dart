@@ -1,58 +1,13 @@
+import 'package:daily_quest/daily_quest/data/datasource/daily_quest_local_datasource.dart';
 import 'package:daily_quest/daily_quest/domain/entity/daily_quest.dart';
 import 'package:daily_quest/daily_quest/domain/entity/task.dart';
+import 'package:daily_quest/daily_quest/domain/helper/quest_validator.dart';
 import 'package:daily_quest/daily_quest/domain/repository/daily_quest_repository.dart';
+import 'package:daily_quest/daily_quest/domain/usecase/get_today_quest_usecase.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'get_daily_quest_test.mocks.dart';
-
-abstract class QuestValidator {
-  bool validate({required DailyQuest quest});
-}
-
-class GetTodayQuestUseCase {
-  final DailyQuestRepository repository;
-  final QuestValidator validator;
-
-  GetTodayQuestUseCase({
-    required this.repository,
-    required this.validator,
-  });
-
-  Future<DailyQuest> execute({
-    required String Function() idProvider,
-    required String Function() timestampProvider,
-  }) async {
-    final lastQuest = await repository.getLastDailyQuest();
-    if (validator.validate(quest: lastQuest)) {
-      return lastQuest;
-    } else {
-      final lastTasks = lastQuest.tasks;
-      final todayQuest = await _createAndInsertNewQuest(
-        idProvider,
-        timestampProvider,
-        lastTasks,
-      );
-      return todayQuest;
-    }
-  }
-
-  Future<DailyQuest> _createAndInsertNewQuest(
-    String Function() idProvider,
-    String Function() timestampProvider,
-    List<Task> lastTasks,
-  ) async {
-    final todayQuest = DailyQuest(
-      id: idProvider(),
-      timestamp: timestampProvider(),
-      tasks: lastTasks
-          .map((e) => Task(title: e.title, description: e.description))
-          .toList(),
-    );
-    await repository.insertDailyQuest(quest: todayQuest);
-    return todayQuest;
-  }
-}
 
 @GenerateNiceMocks(
     [MockSpec<DailyQuestRepository>(), MockSpec<QuestValidator>()])
@@ -81,6 +36,12 @@ void main() {
     ],
   );
 
+  const newQuest = DailyQuest(
+    id: 'new id',
+    timestamp: 'new timestamp',
+    tasks: [],
+  );
+
   setUp(() {
     mockRepository = MockDailyQuestRepository();
     mockValidator = MockQuestValidator();
@@ -92,8 +53,7 @@ void main() {
     // arrange
     idProvider() => 'any id';
     timeStampProvider() => 'any timestamp';
-    when(mockRepository.getLastDailyQuest())
-        .thenAnswer((_) async => todayQuest);
+    when(mockRepository.getLastDailyQuest()).thenAnswer((_) async => lastQuest);
     // act
     await useCase.execute(
         idProvider: idProvider, timestampProvider: timeStampProvider);
@@ -154,6 +114,27 @@ void main() {
           idProvider: idProvider, timestampProvider: timestampProvider);
       // assert
       expect(result, lastQuest);
+    });
+  });
+
+  group('on repository throw DailyQuestNotFoundException', () {
+    test('should create and insert new quest to repository', () async {
+      // arrange
+      when(mockRepository.getLastDailyQuest())
+          .thenAnswer((_) async => throw DailyQuestNotFound());
+      // act
+      final result = await useCase.execute(
+        idProvider: () => newQuest.id,
+        timestampProvider: () => newQuest.timestamp,
+      );
+      // assert
+      expect(result, newQuest);
+      verifyInOrder([
+        mockRepository.getLastDailyQuest(),
+        mockRepository.insertDailyQuest(quest: newQuest),
+      ]);
+      verifyNoMoreInteractions(mockRepository);
+      verifyZeroInteractions(mockValidator);
     });
   });
 }
