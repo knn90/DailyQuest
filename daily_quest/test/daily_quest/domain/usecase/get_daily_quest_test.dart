@@ -10,11 +10,11 @@ abstract class QuestValidator {
   bool validate({required DailyQuest quest});
 }
 
-class GetDailyQuestUseCase {
+class GetTodayQuestUseCase {
   final DailyQuestRepository repository;
   final QuestValidator validator;
 
-  GetDailyQuestUseCase({
+  GetTodayQuestUseCase({
     required this.repository,
     required this.validator,
   });
@@ -44,7 +44,7 @@ class GetDailyQuestUseCase {
 @GenerateNiceMocks(
     [MockSpec<DailyQuestRepository>(), MockSpec<QuestValidator>()])
 void main() {
-  late GetDailyQuestUseCase useCase;
+  late GetTodayQuestUseCase useCase;
   late MockDailyQuestRepository mockRepository;
   late QuestValidator mockValidator;
 
@@ -71,7 +71,7 @@ void main() {
   setUp(() {
     mockRepository = MockDailyQuestRepository();
     mockValidator = MockQuestValidator();
-    useCase = GetDailyQuestUseCase(
+    useCase = GetTodayQuestUseCase(
         repository: mockRepository, validator: mockValidator);
   });
 
