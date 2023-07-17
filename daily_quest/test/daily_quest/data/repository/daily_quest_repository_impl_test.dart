@@ -43,7 +43,7 @@ void main() {
     group('on non-empty data source', () {
       test('should return daily quest with correct data', () async {
         // arrange
-        when(mockDataSource.getLast()).thenAnswer((_) async => localQuest);
+        when(mockDataSource.getLast()).thenReturn(localQuest);
         // act
         final result = await repository.getLastDailyQuest();
         // assert
@@ -57,11 +57,12 @@ void main() {
   group('insert daily daily quest', () {
     test('should insert new quest', () async {
       // arrange
-      when(mockDataSource.save(quest: localQuest)).thenAnswer((_) async => ());
+      when(mockDataSource.insert(quest: localQuest))
+          .thenAnswer((_) async => ());
       // act
       await repository.insertDailyQuest(quest: dailyQuest);
       // assert
-      verify(mockDataSource.save(quest: localQuest));
+      verify(mockDataSource.insert(quest: localQuest));
     });
   });
 }
