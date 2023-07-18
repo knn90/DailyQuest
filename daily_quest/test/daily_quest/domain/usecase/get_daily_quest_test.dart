@@ -9,8 +9,15 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'get_daily_quest_test.mocks.dart';
 
-@GenerateNiceMocks(
-    [MockSpec<DailyQuestRepository>(), MockSpec<QuestValidator>()])
+abstract class TestFunction {
+  String call();
+}
+
+@GenerateNiceMocks([
+  MockSpec<DailyQuestRepository>(),
+  MockSpec<QuestValidator>(),
+  MockSpec<TestFunction>()
+])
 void main() {
   late GetTodayQuestUseCase useCase;
   late MockDailyQuestRepository mockRepository;
@@ -41,22 +48,24 @@ void main() {
     timestamp: 'new timestamp',
     tasks: [],
   );
+  late TestFunction timeStampProvider;
 
   setUp(() {
     mockRepository = MockDailyQuestRepository();
     mockValidator = MockQuestValidator();
+    timeStampProvider = MockTestFunction();
     useCase = GetTodayQuestUseCase(
-        repository: mockRepository, validator: mockValidator);
+        repository: mockRepository,
+        validator: mockValidator,
+        timestampProvider: timeStampProvider);
   });
 
   test("should return the current daily quest", () async {
     // arrange
     idProvider() => 'any id';
-    timeStampProvider() => 'any timestamp';
     when(mockRepository.getLastDailyQuest()).thenAnswer((_) async => lastQuest);
     // act
-    await useCase.execute(
-        idProvider: idProvider, timestampProvider: timeStampProvider);
+    await useCase.execute(idProvider: idProvider);
     // assert
     verify(mockRepository.getLastDailyQuest());
   });
@@ -67,10 +76,10 @@ void main() {
       when(mockRepository.getLastDailyQuest())
           .thenAnswer((_) async => lastQuest);
       when(mockValidator.validate(quest: lastQuest)).thenReturn(false);
+      when(timeStampProvider()).thenReturn(todayQuest.timestamp);
       // act
       final result = await useCase.execute(
         idProvider: () => todayQuest.id,
-        timestampProvider: () => todayQuest.timestamp,
       );
       // assert
       expect(result, todayQuest);
@@ -89,10 +98,9 @@ void main() {
     // arrange
     when(mockRepository.getLastDailyQuest()).thenAnswer((_) async => lastQuest);
     when(mockValidator.validate(quest: lastQuest)).thenReturn(false);
+    when(timeStampProvider()).thenReturn(todayQuest.timestamp);
     // act
-    final result = await useCase.execute(
-        idProvider: () => todayQuest.id,
-        timestampProvider: () => todayQuest.timestamp);
+    final result = await useCase.execute(idProvider: () => todayQuest.id);
     // assert
     result.tasks.asMap().forEach((key, value) {
       expect(value.title, todayQuest.tasks[key].title);
@@ -105,13 +113,11 @@ void main() {
     test('should return the quest from repository', () async {
       // arrange
       idProvider() => 'any id';
-      timestampProvider() => 'any timestamp';
       when(mockRepository.getLastDailyQuest())
           .thenAnswer((_) async => lastQuest);
       when(mockValidator.validate(quest: lastQuest)).thenReturn(true);
       // act
-      final result = await useCase.execute(
-          idProvider: idProvider, timestampProvider: timestampProvider);
+      final result = await useCase.execute(idProvider: idProvider);
       // assert
       expect(result, lastQuest);
     });
@@ -122,10 +128,10 @@ void main() {
       // arrange
       when(mockRepository.getLastDailyQuest())
           .thenAnswer((_) async => throw DailyQuestNotFound());
+      when(timeStampProvider()).thenReturn(newQuest.timestamp);
       // act
       final result = await useCase.execute(
         idProvider: () => newQuest.id,
-        timestampProvider: () => newQuest.timestamp,
       );
       // assert
       expect(result, newQuest);

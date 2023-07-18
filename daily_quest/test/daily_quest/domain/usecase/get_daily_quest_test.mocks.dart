@@ -12,6 +12,8 @@ import 'package:daily_quest/daily_quest/domain/repository/daily_quest_repository
     as _i3;
 import 'package:mockito/mockito.dart' as _i1;
 
+import 'get_daily_quest_test.dart' as _i6;
+
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
 // ignore_for_file: avoid_setters_without_getters
@@ -87,4 +89,19 @@ class MockQuestValidator extends _i1.Mock implements _i5.QuestValidator {
         returnValue: false,
         returnValueForMissingStub: false,
       ) as bool);
+}
+
+/// A class which mocks [TestFunction].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockTestFunction extends _i1.Mock implements _i6.TestFunction {
+  @override
+  String call() => (super.noSuchMethod(
+        Invocation.method(
+          #call,
+          [],
+        ),
+        returnValue: '',
+        returnValueForMissingStub: '',
+      ) as String);
 }

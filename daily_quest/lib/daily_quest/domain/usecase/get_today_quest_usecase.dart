@@ -7,15 +7,15 @@ import '../repository/daily_quest_repository.dart';
 class GetTodayQuestUseCase {
   final DailyQuestRepository repository;
   final QuestValidator validator;
-
+  String Function() timestampProvider;
   GetTodayQuestUseCase({
     required this.repository,
     required this.validator,
+    required this.timestampProvider,
   });
 
   Future<DailyQuest> execute({
     required String Function() idProvider,
-    required String Function() timestampProvider,
   }) async {
     try {
       final lastQuest = await repository.getLastDailyQuest();
