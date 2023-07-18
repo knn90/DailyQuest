@@ -23,7 +23,7 @@ class AddQuest extends StatelessWidget {
               const SizedBox(height: 20),
               ElevatedButton(
                   onPressed: () {
-                    context.read<QuestListNotifier>().add(quest);
+                    context.read<QuestListViewModel>().add(quest);
                     Navigator.pop(context);
                   },
                   child: const Text("Submit")),

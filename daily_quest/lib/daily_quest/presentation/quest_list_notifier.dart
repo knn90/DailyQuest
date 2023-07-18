@@ -1,12 +1,17 @@
 import 'dart:collection';
 
 import 'package:daily_quest/daily_quest/domain/entity/quest.dart';
+import 'package:daily_quest/daily_quest/domain/usecase/get_today_quest_usecase.dart';
 import 'package:flutter/material.dart';
 
-class QuestListNotifier extends ChangeNotifier {
+class QuestListViewModel extends ChangeNotifier {
+  final GetTodayQuestUseCase getTodayQuest;
+
   final List<Quest> _items = [
     Quest(title: "Quest 1"),
   ];
+
+  QuestListViewModel({required this.getTodayQuest});
   UnmodifiableListView<Quest> get items => UnmodifiableListView(_items);
 
   void add(Quest item) {

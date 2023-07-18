@@ -11,7 +11,7 @@ class DailyQuestList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final quests = context.watch<QuestListNotifier>();
+    final quests = context.watch<QuestListViewModel>();
     return Scaffold(
       appBar: AppBar(
         title: const Text('Quests'),
@@ -27,7 +27,7 @@ class DailyQuestList extends StatelessWidget {
                   key: Key("${quest.title}_${quest.description}"),
                   direction: DismissDirection.endToStart,
                   onDismissed: (direction) =>
-                      {context.read<QuestListNotifier>().remove(quest: quest)},
+                      {context.read<QuestListViewModel>().remove(quest: quest)},
                   background: Container(color: Colors.red),
                   child: ListTile(
                       leading: Checkbox(
@@ -35,7 +35,7 @@ class DailyQuestList extends StatelessWidget {
                         fillColor: MaterialStateProperty.all(Colors.blue),
                         value: quest.isDone,
                         onChanged: (value) => context
-                            .read<QuestListNotifier>()
+                            .read<QuestListViewModel>()
                             .toogleQuest(index: index),
                       ),
                       title: Text(quest.title),
