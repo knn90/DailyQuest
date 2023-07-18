@@ -1,13 +1,15 @@
 import 'package:daily_quest/daily_quest/presentation/quest_list_notifier.dart';
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/adapters.dart';
 import 'package:provider/provider.dart';
 
 import 'daily_quest/presentation/quest_list.dart';
 
-void main() {
-  runApp(
-    const MyApp(),
-  );
+const dailyQuestBox = 'DailyQuest';
+void main() async {
+  await Hive.initFlutter();
+  await Hive.openBox(dailyQuestBox);
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -17,7 +19,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (context) => QuestListNotifier(),
+      create: (context) {
+        // final box = Hive.box(dailyQuestBox);
+        // final dataSource = DailyQuestLocalDataSourceImpl(box: box);
+        // final repository = DailyQuestRepositoryImpl(dataSource: dataSource);
+        // final getTodayQuest = GetTodayQuestUseCase(repository: repository, validator: );
+        return QuestListNotifier();
+      },
       child: MaterialApp(
         title: 'Daily Quest',
         theme: ThemeData(
