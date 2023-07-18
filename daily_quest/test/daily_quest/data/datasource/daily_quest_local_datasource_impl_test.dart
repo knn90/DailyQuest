@@ -13,10 +13,8 @@ import 'daily_quest_local_datasource_impl_test.mocks.dart';
 void main() {
   late DailyQuestLocalDataSource dataSource;
   late MockBox mockBox;
-  const oldQuest =
-      LocalDailyQuest(id: 'old id', timestamp: 'old timestamp', tasks: []);
+  const oldQuest = LocalDailyQuest(timestamp: 'old timestamp', tasks: []);
   const latestQuest = LocalDailyQuest(
-    id: 'latest id',
     timestamp: 'latest timestamp',
     tasks: [
       LocalTask(title: 'latest title', description: 'latest description'),

@@ -19,7 +19,6 @@ class DailyQuestRepositoryImpl implements DailyQuestRepository {
             ))
         .toList();
     return DailyQuest(
-      id: localQuest.id,
       timestamp: localQuest.timestamp,
       tasks: tasks,
     );

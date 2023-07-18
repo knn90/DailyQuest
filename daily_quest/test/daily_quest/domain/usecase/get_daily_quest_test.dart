@@ -24,7 +24,6 @@ void main() {
   late QuestValidator mockValidator;
 
   const lastQuest = DailyQuest(
-    id: 'id',
     timestamp: 'timestamp',
     tasks: [
       Task(title: "1st title", description: "1st description", isDone: true),
@@ -34,7 +33,6 @@ void main() {
   );
 
   const todayQuest = DailyQuest(
-    id: 'today id',
     timestamp: 'today timestamp',
     tasks: [
       Task(title: "1st title", description: "1st description", isDone: false),
@@ -44,7 +42,6 @@ void main() {
   );
 
   const newQuest = DailyQuest(
-    id: 'new id',
     timestamp: 'new timestamp',
     tasks: [],
   );
@@ -62,10 +59,9 @@ void main() {
 
   test("should return the current daily quest", () async {
     // arrange
-    idProvider() => 'any id';
     when(mockRepository.getLastDailyQuest()).thenAnswer((_) async => lastQuest);
     // act
-    await useCase.execute(idProvider: idProvider);
+    await useCase.execute();
     // assert
     verify(mockRepository.getLastDailyQuest());
   });
@@ -78,9 +74,7 @@ void main() {
       when(mockValidator.validate(quest: lastQuest)).thenReturn(false);
       when(timeStampProvider()).thenReturn(todayQuest.timestamp);
       // act
-      final result = await useCase.execute(
-        idProvider: () => todayQuest.id,
-      );
+      final result = await useCase.execute();
       // assert
       expect(result, todayQuest);
       verifyInOrder([
@@ -100,7 +94,7 @@ void main() {
     when(mockValidator.validate(quest: lastQuest)).thenReturn(false);
     when(timeStampProvider()).thenReturn(todayQuest.timestamp);
     // act
-    final result = await useCase.execute(idProvider: () => todayQuest.id);
+    final result = await useCase.execute();
     // assert
     result.tasks.asMap().forEach((key, value) {
       expect(value.title, todayQuest.tasks[key].title);
@@ -112,12 +106,11 @@ void main() {
   group('on valid quest', () {
     test('should return the quest from repository', () async {
       // arrange
-      idProvider() => 'any id';
       when(mockRepository.getLastDailyQuest())
           .thenAnswer((_) async => lastQuest);
       when(mockValidator.validate(quest: lastQuest)).thenReturn(true);
       // act
-      final result = await useCase.execute(idProvider: idProvider);
+      final result = await useCase.execute();
       // assert
       expect(result, lastQuest);
     });
@@ -130,9 +123,7 @@ void main() {
           .thenAnswer((_) async => throw DailyQuestNotFound());
       when(timeStampProvider()).thenReturn(newQuest.timestamp);
       // act
-      final result = await useCase.execute(
-        idProvider: () => newQuest.id,
-      );
+      final result = await useCase.execute();
       // assert
       expect(result, newQuest);
       verifyInOrder([

@@ -11,8 +11,7 @@ void main() {
   });
 
   test('return false when the timestamp is different with today timestamp', () {
-    const invalidQuest =
-        DailyQuest(id: 'id', timestamp: 'any timestamp', tasks: []);
+    const invalidQuest = DailyQuest(timestamp: 'any timestamp', tasks: []);
     // act
     final result = questValidator.validate(quest: invalidQuest);
     // assert
@@ -21,8 +20,7 @@ void main() {
 
   test('should return true when timestamp is match with today timestamp', () {
     // arrange
-    const validQuest =
-        DailyQuest(id: 'today id', timestamp: 'todayTimestamp', tasks: []);
+    const validQuest = DailyQuest(timestamp: 'todayTimestamp', tasks: []);
     // act
     final result = questValidator.validate(quest: validQuest);
     // assert

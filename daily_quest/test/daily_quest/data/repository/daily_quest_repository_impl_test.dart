@@ -15,7 +15,7 @@ void main() {
   late DailyQuestRepositoryImpl repository;
   late MockDailyQuestLocalDataSource mockDataSource;
   const LocalDailyQuest localQuest =
-      LocalDailyQuest(id: 'any id', timestamp: 'any timestamp', tasks: [
+      LocalDailyQuest(timestamp: 'any timestamp', tasks: [
     LocalTask(title: "task1", description: "description1"),
     LocalTask(title: "task2", description: "description2"),
     LocalTask(title: "task3", description: "description3"),
