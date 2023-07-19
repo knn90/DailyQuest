@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import '../domain/entity/quest.dart';
+import '../domain/entity/task.dart';
 
 class QuestDetails extends StatefulWidget {
   const QuestDetails({super.key, required this.quest});
-  final Quest quest;
+  final Task quest;
 
   @override
   State<QuestDetails> createState() => _QuestDetailsState();
@@ -41,7 +41,6 @@ class _QuestDetailsState extends State<QuestDetails> {
               hintText: "Title",
             ),
             controller: _titleController,
-            onChanged: (value) => widget.quest.title = value,
           ),
           const SizedBox(height: 20),
           TextField(
@@ -49,7 +48,6 @@ class _QuestDetailsState extends State<QuestDetails> {
               hintText: "Description",
             ),
             controller: _descriptionController,
-            onChanged: (value) => widget.quest.description = value,
             maxLines: 5,
           ),
         ],

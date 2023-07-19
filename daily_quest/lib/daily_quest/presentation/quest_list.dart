@@ -1,17 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
-import '../domain/entity/quest.dart';
+import '../domain/entity/task.dart';
 import 'add_quest.dart';
 import 'edit_quest.dart';
-import 'quest_list_notifier.dart';
 
 class DailyQuestList extends StatelessWidget {
   const DailyQuestList({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final quests = context.watch<QuestListViewModel>();
+    final List<Task> tasks = [];
     return Scaffold(
       appBar: AppBar(
         title: const Text('Quests'),
@@ -20,30 +18,27 @@ class DailyQuestList extends StatelessWidget {
         children: [
           Expanded(
             child: ListView.builder(
-              itemCount: quests.items.length,
+              itemCount: tasks.length,
               itemBuilder: (context, index) {
-                var quest = quests.items[index];
+                var task = tasks[index];
                 return Dismissible(
-                  key: Key("${quest.title}_${quest.description}"),
+                  key: Key("${task.title}_${task.description}"),
                   direction: DismissDirection.endToStart,
-                  onDismissed: (direction) =>
-                      {context.read<QuestListViewModel>().remove(quest: quest)},
+                  onDismissed: (direction) => {},
                   background: Container(color: Colors.red),
                   child: ListTile(
                       leading: Checkbox(
                         checkColor: Colors.white,
                         fillColor: MaterialStateProperty.all(Colors.blue),
-                        value: quest.isDone,
-                        onChanged: (value) => context
-                            .read<QuestListViewModel>()
-                            .toogleQuest(index: index),
+                        value: false,
+                        onChanged: (value) {},
                       ),
-                      title: Text(quest.title),
+                      title: Text(task.title),
                       onTap: () {
-                        Navigator.of(context).push<Quest>(
+                        Navigator.of(context).push<Task>(
                           MaterialPageRoute(
                             builder: (context) => EditQuest(
-                              quest: quest,
+                              quest: task,
                             ),
                           ),
                         );
@@ -61,8 +56,8 @@ class DailyQuestList extends StatelessWidget {
               Navigator.of(context).push(
                 MaterialPageRoute(
                   fullscreenDialog: true,
-                  builder: (context) => AddQuest(
-                    quest: Quest(title: ""),
+                  builder: (context) => const AddQuest(
+                    quest: Task(title: '', description: ''),
                   ),
                 ),
               )

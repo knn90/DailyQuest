@@ -1,12 +1,10 @@
-import 'quest_list_notifier.dart';
+import 'package:daily_quest/daily_quest/domain/entity/task.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import '../domain/entity/quest.dart';
 import 'quest_details.dart';
 
 class AddQuest extends StatelessWidget {
   const AddQuest({super.key, required this.quest});
-  final Quest quest;
+  final Task quest;
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +21,6 @@ class AddQuest extends StatelessWidget {
               const SizedBox(height: 20),
               ElevatedButton(
                   onPressed: () {
-                    context.read<QuestListViewModel>().add(quest);
                     Navigator.pop(context);
                   },
                   child: const Text("Submit")),
