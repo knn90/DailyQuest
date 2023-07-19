@@ -1,10 +1,14 @@
 import 'package:equatable/equatable.dart';
-
+import 'package:hive/hive.dart';
 import '../../domain/entity/daily_quest.dart';
 import 'local_task.dart';
+part 'local_daily_quest.g.dart';
 
+@HiveType(typeId: 1)
 class LocalDailyQuest extends Equatable {
+  @HiveField(0)
   final String timestamp;
+  @HiveField(1)
   final List<LocalTask> tasks;
 
   const LocalDailyQuest({

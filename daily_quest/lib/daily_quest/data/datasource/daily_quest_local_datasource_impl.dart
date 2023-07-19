@@ -1,5 +1,6 @@
 import 'package:daily_quest/daily_quest/data/datasource/daily_quest_local_datasource.dart';
 import 'package:daily_quest/daily_quest/data/model/local_daily_quest.dart';
+import 'package:daily_quest/daily_quest/domain/exception/exceptions.dart';
 import 'package:hive/hive.dart';
 
 class DailyQuestLocalDataSourceImpl implements DailyQuestLocalDataSource {
@@ -8,6 +9,9 @@ class DailyQuestLocalDataSourceImpl implements DailyQuestLocalDataSource {
   DailyQuestLocalDataSourceImpl({required this.box});
   @override
   LocalDailyQuest getLast() {
+    if (box.isEmpty) {
+      throw DailyQuestNotFound();
+    }
     return box.getAt(box.length - 1);
   }
 

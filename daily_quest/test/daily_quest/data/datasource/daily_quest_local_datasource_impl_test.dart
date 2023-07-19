@@ -2,6 +2,7 @@ import 'package:daily_quest/daily_quest/data/datasource/daily_quest_local_dataso
 import 'package:daily_quest/daily_quest/data/datasource/daily_quest_local_datasource_impl.dart';
 import 'package:daily_quest/daily_quest/data/model/local_daily_quest.dart';
 import 'package:daily_quest/daily_quest/data/model/local_task.dart';
+import 'package:daily_quest/daily_quest/domain/exception/exceptions.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:hive/hive.dart';
@@ -37,7 +38,17 @@ void main() {
       expect(result, latestQuest);
       verify(mockBox.getAt(1));
       verify(mockBox.length);
+      verify(mockBox.isEmpty);
       verifyNoMoreInteractions(mockBox);
+    });
+
+    test('should throw DailyQuestNotFound on empty database', () async {
+      // arrange
+      when(mockBox.length).thenReturn(0);
+      when(mockBox.isEmpty).thenReturn(true);
+      // act
+      // assert
+      expect(() => dataSource.getLast(), throwsA(isA<DailyQuestNotFound>()));
     });
   });
 

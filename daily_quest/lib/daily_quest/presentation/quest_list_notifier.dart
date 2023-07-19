@@ -1,8 +1,6 @@
-import 'package:daily_quest/daily_quest/domain/usecase/get_today_quest_usecase.dart';
-import 'package:flutter/material.dart';
+import 'package:daily_quest/daily_quest/domain/entity/daily_quest.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class QuestListViewModel extends ChangeNotifier {
-  final GetTodayQuestUseCase getTodayQuest;
-
-  QuestListViewModel({required this.getTodayQuest});
+class QuestListViewModel extends StateNotifier<AsyncValue<DailyQuest>> {
+  QuestListViewModel() : super(const AsyncValue.loading());
 }

@@ -1,5 +1,4 @@
 import '../../domain/entity/daily_quest.dart';
-import '../../domain/entity/task.dart';
 import '../../domain/repository/daily_quest_repository.dart';
 import '../datasource/daily_quest_local_datasource.dart';
 import '../model/local_daily_quest.dart';
@@ -12,12 +11,7 @@ class DailyQuestRepositoryImpl implements DailyQuestRepository {
   @override
   Future<DailyQuest> getLastDailyQuest() async {
     final localQuest = dataSource.getLast();
-    final tasks = localQuest.tasks
-        .map((e) => Task(
-              title: e.title,
-              description: e.description,
-            ))
-        .toList();
+    final tasks = localQuest.tasks.map((e) => e.toEntity()).toList();
     return DailyQuest(
       timestamp: localQuest.timestamp,
       tasks: tasks,
