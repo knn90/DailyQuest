@@ -7,19 +7,21 @@ import '../domain/usecase/get_today_quest_usecase.dart';
 class QuestListNotifier extends StateNotifier<AsyncValue<DailyQuest>> {
   QuestListNotifier({
     required this.ref,
-    required this.getTodayQuestUseCase,
-    required this.addTaskUseCase,
-  }) : super(const AsyncValue.loading()) {
+    required GetTodayQuestUseCase getTodayQuestUseCase,
+    required AddTaskUseCase addTaskUseCase,
+  })  : _getTodayQuestUseCase = getTodayQuestUseCase,
+        _addTaskUseCase = addTaskUseCase,
+        super(const AsyncValue.loading()) {
     getTodayQuest();
   }
   final Ref ref;
-  final GetTodayQuestUseCase getTodayQuestUseCase;
-  final AddTaskUseCase addTaskUseCase;
+  final GetTodayQuestUseCase _getTodayQuestUseCase;
+  final AddTaskUseCase _addTaskUseCase;
 
   getTodayQuest() async {
     state = const AsyncValue.loading();
     try {
-      final quest = await getTodayQuestUseCase.execute();
+      final quest = await _getTodayQuestUseCase.execute();
       state = AsyncValue.data(quest);
     } catch (e, stackTrace) {
       state = AsyncValue.error(e, stackTrace);
@@ -29,7 +31,7 @@ class QuestListNotifier extends StateNotifier<AsyncValue<DailyQuest>> {
   addTask(Task task) async {
     state = const AsyncValue.loading();
     try {
-      final updatedQuest = await addTaskUseCase.execute(task);
+      final updatedQuest = await _addTaskUseCase.execute(task);
       state = AsyncValue.data(updatedQuest);
     } catch (e, stackTrace) {
       state = AsyncValue.error(e, stackTrace);

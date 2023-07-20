@@ -1,3 +1,5 @@
+import 'package:daily_quest/daily_quest/domain/entity/task.dart';
+
 import '../../domain/entity/daily_quest.dart';
 import '../../domain/repository/daily_quest_repository.dart';
 import '../datasource/daily_quest_local_datasource.dart';
@@ -21,5 +23,11 @@ class DailyQuestRepositoryImpl implements DailyQuestRepository {
   @override
   insertDailyQuest({required DailyQuest quest}) async {
     return await dataSource.insert(quest: LocalDailyQuest.fromEntity(quest));
+  }
+
+  @override
+  Future<void> addTask({required Task task}) {
+    // TODO: implement addTask
+    throw UnimplementedError();
   }
 }

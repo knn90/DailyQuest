@@ -20,4 +20,10 @@ class DailyQuestLocalDataSourceImpl implements DailyQuestLocalDataSource {
     await box.add(quest);
     return;
   }
+
+  @override
+  Future<void> update({required LocalDailyQuest quest}) {
+    // TODO: implement update
+    throw UnimplementedError();
+  }
 }
