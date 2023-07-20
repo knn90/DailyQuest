@@ -1,3 +1,4 @@
+import 'package:daily_quest/daily_quest/domain/usecase/add_task_usecase_impl.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive/hive.dart';
 
@@ -17,9 +18,14 @@ final questListProvider =
   final repository = DailyQuestRepositoryImpl(dataSource: dataSource);
   final validator =
       QuestValidatorImpl(timestampProvider: TimestampProvider.todayTimestamp);
-  final usecase = GetTodayQuestUseCaseImpl(
+  final getTodayQuestUseCase = GetTodayQuestUseCaseImpl(
       repository: repository,
       validator: validator,
       timestampProvider: TimestampProvider.todayTimestamp);
-  return QuestListNotifier(ref, usecase);
+  final addTaskUseCase = AddTaskUseCaseImpl();
+  return QuestListNotifier(
+    ref: ref,
+    getTodayQuestUseCase: getTodayQuestUseCase,
+    addTaskUseCase: addTaskUseCase,
+  );
 });
