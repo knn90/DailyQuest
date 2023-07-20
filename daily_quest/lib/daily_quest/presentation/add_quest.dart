@@ -1,15 +1,13 @@
-import 'package:daily_quest/daily_quest/domain/entity/task.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'quest_details.dart';
 
-class AddQuest extends StatelessWidget {
-  const AddQuest({super.key, required this.quest});
-  final Task quest;
-
+class AddTask extends ConsumerWidget {
+  const AddTask({super.key});
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Add Quest")),
+      appBar: AppBar(title: const Text("Add Task")),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(16),
@@ -17,7 +15,10 @@ class AddQuest extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
             children: [
-              QuestDetails(quest: quest),
+              const QuestDetails(
+                title: '',
+                description: '',
+              ),
               const SizedBox(height: 20),
               ElevatedButton(
                   onPressed: () {

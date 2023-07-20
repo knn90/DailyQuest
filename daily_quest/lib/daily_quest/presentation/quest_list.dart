@@ -1,4 +1,4 @@
-import 'package:daily_quest/main.dart';
+import 'package:daily_quest/daily_quest/presentation/provider/quest_list_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -12,7 +12,7 @@ class DailyQuestList extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final List<Task> tasks = [];
-    final dailyQuest = ref.watch(getTodayQuestUseCaseProvider);
+    final dailyQuest = ref.watch(questListProvider);
 
     return Scaffold(
       appBar: AppBar(
@@ -62,9 +62,7 @@ class DailyQuestList extends ConsumerWidget {
                   Navigator.of(context).push(
                     MaterialPageRoute(
                       fullscreenDialog: true,
-                      builder: (context) => const AddQuest(
-                        quest: Task(title: '', description: ''),
-                      ),
+                      builder: (context) => const AddTask(),
                     ),
                   )
                 },

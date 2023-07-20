@@ -19,7 +19,7 @@ abstract class TestFunction {
   MockSpec<TestFunction>()
 ])
 void main() {
-  late GetTodayQuestUseCase useCase;
+  late GetTodayQuestUseCaseImpl useCase;
   late MockDailyQuestRepository mockRepository;
   late QuestValidator mockValidator;
 
@@ -51,7 +51,7 @@ void main() {
     mockRepository = MockDailyQuestRepository();
     mockValidator = MockQuestValidator();
     timeStampProvider = MockTestFunction();
-    useCase = GetTodayQuestUseCase(
+    useCase = GetTodayQuestUseCaseImpl(
         repository: mockRepository,
         validator: mockValidator,
         timestampProvider: timeStampProvider);
