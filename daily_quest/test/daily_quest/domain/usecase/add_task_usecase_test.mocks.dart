@@ -6,7 +6,6 @@
 import 'dart:async' as _i4;
 
 import 'package:daily_quest/daily_quest/domain/entity/daily_quest.dart' as _i2;
-import 'package:daily_quest/daily_quest/domain/entity/task.dart' as _i5;
 import 'package:daily_quest/daily_quest/domain/repository/daily_quest_repository.dart'
     as _i3;
 import 'package:mockito/mockito.dart' as _i1;
@@ -71,11 +70,12 @@ class MockDailyQuestRepository extends _i1.Mock
         returnValueForMissingStub: _i4.Future<void>.value(),
       ) as _i4.Future<void>);
   @override
-  _i4.Future<void> addTask({required _i5.Task? task}) => (super.noSuchMethod(
+  _i4.Future<void> updateQuest({required _i2.DailyQuest? quest}) =>
+      (super.noSuchMethod(
         Invocation.method(
-          #addTask,
+          #updateQuest,
           [],
-          {#task: task},
+          {#quest: quest},
         ),
         returnValue: _i4.Future<void>.value(),
         returnValueForMissingStub: _i4.Future<void>.value(),

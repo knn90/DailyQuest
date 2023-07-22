@@ -70,4 +70,15 @@ class MockDailyQuestLocalDataSource extends _i1.Mock
         returnValue: _i4.Future<void>.value(),
         returnValueForMissingStub: _i4.Future<void>.value(),
       ) as _i4.Future<void>);
+  @override
+  _i4.Future<void> update({required _i2.LocalDailyQuest? quest}) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #update,
+          [],
+          {#quest: quest},
+        ),
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
 }

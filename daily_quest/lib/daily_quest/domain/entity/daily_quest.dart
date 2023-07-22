@@ -11,6 +11,10 @@ class DailyQuest extends Equatable {
     required this.tasks,
   });
 
+  DailyQuest addTask(Task task) {
+    return DailyQuest(timestamp: timestamp, tasks: [...tasks, task]);
+  }
+
   @override
   List<Object?> get props => [timestamp, tasks];
 }
