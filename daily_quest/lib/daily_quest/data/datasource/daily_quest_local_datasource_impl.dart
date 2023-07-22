@@ -22,8 +22,10 @@ class DailyQuestLocalDataSourceImpl implements DailyQuestLocalDataSource {
   }
 
   @override
-  Future<void> update({required LocalDailyQuest quest}) {
-    // TODO: implement update
-    throw UnimplementedError();
+  Future<void> update({required LocalDailyQuest quest}) async {
+    if (box.isEmpty) {
+      throw DailyQuestNotFound();
+    }
+    return await box.putAt(box.length - 1, quest);
   }
 }

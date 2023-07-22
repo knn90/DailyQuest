@@ -76,4 +76,29 @@ void main() {
       verifyNoMoreInteractions(mockBox);
     });
   });
+
+  group('updateQuest', () {
+    test('should throw on empty data base', () async {
+      // arrange
+      when(mockBox.isEmpty).thenReturn(true);
+
+      // assert
+      expect(() => dataSource.update(quest: oldQuest),
+          throwsA(isA<DailyQuestNotFound>()));
+    });
+
+    test('should get last daily quest and update with the latest', () async {
+      // arrange
+      when(mockBox.length).thenReturn(1);
+      when(mockBox.putAt(0, latestQuest));
+      // act
+      dataSource.update(quest: latestQuest);
+      // assert
+      verifyInOrder([
+        mockBox.isEmpty,
+        mockBox.length,
+        mockBox.putAt(0, latestQuest),
+      ]);
+    });
+  });
 }
