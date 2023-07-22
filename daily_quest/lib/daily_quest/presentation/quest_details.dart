@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final taskTitleProvider = StateProvider.autoDispose<String>((ref) => '');
+final taskTitleProvider = StateProvider.autoDispose((ref) => '');
 final taskDescriptionProvicer = StateProvider.autoDispose((ref) => '');
 
 class QuestDetails extends ConsumerStatefulWidget {
