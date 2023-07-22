@@ -63,6 +63,20 @@ void main() {
       await repository.insertDailyQuest(quest: dailyQuest);
       // assert
       verify(mockDataSource.insert(quest: localQuest));
+      verifyNoMoreInteractions(mockDataSource);
+    });
+  });
+
+  group('update daily quest', () {
+    test('should update the quest', () async {
+      // arrange
+      when(mockDataSource.update(quest: localQuest))
+          .thenAnswer((_) async => ());
+      // act
+      await repository.updateQuest(quest: dailyQuest);
+      // assert
+      verify(mockDataSource.update(quest: localQuest));
+      verifyNoMoreInteractions(mockDataSource);
     });
   });
 }

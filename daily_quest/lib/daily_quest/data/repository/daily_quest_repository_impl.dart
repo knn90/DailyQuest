@@ -24,7 +24,7 @@ class DailyQuestRepositoryImpl implements DailyQuestRepository {
   }
 
   @override
-  Future<void> updateQuest({required DailyQuest quest}) {
-    return Future.value();
+  Future<void> updateQuest({required DailyQuest quest}) async {
+    return await dataSource.update(quest: LocalDailyQuest.fromEntity(quest));
   }
 }
