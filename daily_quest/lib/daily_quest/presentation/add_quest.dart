@@ -4,14 +4,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../domain/entity/task.dart';
 import 'quest_details.dart';
 
-final taskProvider =
-    Provider<Task>((ref) => const Task(title: '', description: ''));
-
 class AddTask extends ConsumerWidget {
   const AddTask({super.key});
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final task = ref.watch(taskProvider);
+    final title = ref.watch(taskTitleProvider);
+    final description = ref.watch(taskDescriptionProvicer);
     return Scaffold(
       appBar: AppBar(title: const Text("Add Task")),
       body: SafeArea(
@@ -22,13 +20,15 @@ class AddTask extends ConsumerWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               QuestDetails(
-                title: task.title,
-                description: task.description,
+                title: title,
+                description: description,
               ),
               const SizedBox(height: 20),
               ElevatedButton(
                   onPressed: () {
-                    ref.read(questListProvider.notifier).addTask(task);
+                    ref.read(questListProvider.notifier).addTask(
+                          Task(title: title, description: description),
+                        );
                     Navigator.pop(context);
                   },
                   child: const Text("Submit")),

@@ -11,7 +11,6 @@ class DailyQuestList extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final List<Task> tasks = [];
     final dailyQuest = ref.watch(questListProvider);
 
     return Scaffold(
@@ -24,9 +23,9 @@ class DailyQuestList extends ConsumerWidget {
             children: [
               Expanded(
                 child: ListView.builder(
-                  itemCount: tasks.length,
+                  itemCount: data.tasks.length,
                   itemBuilder: (context, index) {
-                    var task = tasks[index];
+                    var task = data.tasks[index];
                     return Dismissible(
                       key: Key("${task.title}_${task.description}"),
                       direction: DismissDirection.endToStart,
