@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../domain/entity/task.dart';
-import 'add_quest.dart';
-import 'edit_quest.dart';
+import 'add_task.dart';
+import 'edit_task.dart';
 
 class DailyQuestList extends ConsumerWidget {
   const DailyQuestList({super.key});
@@ -42,7 +42,7 @@ class DailyQuestList extends ConsumerWidget {
                           onTap: () {
                             Navigator.of(context).push<Task>(
                               MaterialPageRoute(
-                                builder: (context) => EditQuest(
+                                builder: (context) => EditTask(
                                   quest: task,
                                 ),
                               ),

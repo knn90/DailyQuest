@@ -4,17 +4,17 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 final taskTitleProvider = StateProvider.autoDispose((ref) => '');
 final taskDescriptionProvicer = StateProvider.autoDispose((ref) => '');
 
-class QuestDetails extends ConsumerStatefulWidget {
-  const QuestDetails(
+class TaskDetails extends ConsumerStatefulWidget {
+  const TaskDetails(
       {super.key, required this.title, required this.description});
   final String title;
   final String description;
 
   @override
-  QuestDetailsState createState() => QuestDetailsState();
+  TaskDetailsState createState() => TaskDetailsState();
 }
 
-class QuestDetailsState extends ConsumerState<QuestDetails> {
+class TaskDetailsState extends ConsumerState<TaskDetails> {
   late TextEditingController _titleController;
   late TextEditingController _descriptionController;
 

@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../domain/entity/task.dart';
-import 'quest_details.dart';
+import 'task_details.dart';
 
-class EditQuest extends StatelessWidget {
-  const EditQuest({super.key, required this.quest});
+class EditTask extends ConsumerWidget {
+  const EditTask({super.key, required this.quest});
   final Task quest;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final title = ref.watch(taskTitleProvider);
+    final description = ref.watch(taskDescriptionProvicer);
     return Scaffold(
       appBar: AppBar(title: const Text("Edit Quest")),
       body: SafeArea(
@@ -18,7 +21,7 @@ class EditQuest extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
             children: [
-              const QuestDetails(title: '', description: ''),
+              TaskDetails(title: title, description: description),
               const SizedBox(height: 20),
               ElevatedButton(
                   onPressed: () {

@@ -2,7 +2,7 @@ import 'package:daily_quest/daily_quest/presentation/provider/quest_list_provide
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../domain/entity/task.dart';
-import 'quest_details.dart';
+import 'task_details.dart';
 
 class AddTask extends ConsumerWidget {
   const AddTask({super.key});
@@ -19,7 +19,7 @@ class AddTask extends ConsumerWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
             children: [
-              QuestDetails(
+              TaskDetails(
                 title: title,
                 description: description,
               ),
