@@ -14,16 +14,43 @@ import 'daily_quest_local_datasource_impl_test.mocks.dart';
 void main() {
   late DailyQuestLocalDataSource dataSource;
   late MockBox mockBox;
+  const task =
+      LocalTask(title: 'latest title', description: 'latest description');
   const oldQuest = LocalDailyQuest(timestamp: 'old timestamp', tasks: []);
   const latestQuest = LocalDailyQuest(
     timestamp: 'latest timestamp',
-    tasks: [
-      LocalTask(title: 'latest title', description: 'latest description'),
-    ],
+    tasks: [task],
   );
   setUp(() {
     mockBox = MockBox();
     dataSource = DailyQuestLocalDataSourceImpl(box: mockBox);
+  });
+
+  group('addTask', () {
+    test('should throw DailyQuestNotFound on empty database', () async {
+      // arrange
+      when(mockBox.length).thenReturn(0);
+      when(mockBox.isEmpty).thenReturn(true);
+      // act
+      // assert
+      expect(() => dataSource.addTask(task: task),
+          throwsA(isA<DailyQuestNotFound>()));
+    });
+
+    test('should append task to the quest', () async {
+      // arrange
+      const emptyQuest = LocalDailyQuest(timestamp: 'timestamp', tasks: []);
+      final addedQuest = emptyQuest.addTask(task);
+      when(mockBox.length).thenReturn(1);
+      when(mockBox.getAt(0)).thenReturn(emptyQuest);
+      // act
+      await dataSource.addTask(task: task);
+      // assert
+      verify(mockBox.length);
+      verify(mockBox.isEmpty);
+      verify(mockBox.getAt(0));
+      verify(mockBox.putAt(0, addedQuest));
+    });
   });
 
   group('getLast', () {

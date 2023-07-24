@@ -1,5 +1,6 @@
 import 'package:daily_quest/daily_quest/data/datasource/daily_quest_local_datasource.dart';
 import 'package:daily_quest/daily_quest/data/model/local_daily_quest.dart';
+import 'package:daily_quest/daily_quest/data/model/local_task.dart';
 import 'package:daily_quest/daily_quest/domain/exception/exceptions.dart';
 import 'package:hive/hive.dart';
 
@@ -22,10 +23,21 @@ class DailyQuestLocalDataSourceImpl implements DailyQuestLocalDataSource {
   }
 
   @override
-  Future<void> update({required LocalDailyQuest quest}) async {
+  Future<void> update({required LocalDailyQuest quest}) {
     if (box.isEmpty) {
       throw DailyQuestNotFound();
     }
-    return await box.putAt(box.length - 1, quest);
+    return box.putAt(box.length - 1, quest);
+  }
+
+  @override
+  Future<void> addTask({required LocalTask task}) {
+    if (box.isEmpty) {
+      throw DailyQuestNotFound();
+    }
+    final lastQuestIndex = box.length - 1;
+    LocalDailyQuest quest = box.getAt(lastQuestIndex);
+    final updatedQuest = quest.addTask(task);
+    return box.putAt(lastQuestIndex, updatedQuest);
   }
 }

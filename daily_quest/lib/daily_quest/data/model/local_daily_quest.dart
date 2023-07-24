@@ -28,6 +28,10 @@ class LocalDailyQuest extends Equatable {
     );
   }
 
+  LocalDailyQuest addTask(LocalTask task) {
+    return LocalDailyQuest(timestamp: timestamp, tasks: [...tasks, task]);
+  }
+
   @override
   List<Object?> get props => [timestamp, tasks];
 }
