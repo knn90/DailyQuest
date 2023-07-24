@@ -43,7 +43,7 @@ class DailyQuestList extends ConsumerWidget {
                             Navigator.of(context).push<Task>(
                               MaterialPageRoute(
                                 builder: (context) => EditTask(
-                                  quest: task,
+                                  task: task,
                                 ),
                               ),
                             );
