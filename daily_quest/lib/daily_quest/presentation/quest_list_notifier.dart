@@ -31,7 +31,8 @@ class QuestListNotifier extends StateNotifier<AsyncValue<DailyQuest>> {
   addTask(Task task) async {
     state = const AsyncValue.loading();
     try {
-      final updatedQuest = await _addTaskUseCase.execute(task);
+      final todayQuest = await _getTodayQuestUseCase.execute();
+      final updatedQuest = await _addTaskUseCase.execute(task, todayQuest);
       state = AsyncValue.data(updatedQuest);
     } catch (e, stackTrace) {
       state = AsyncValue.error(e, stackTrace);

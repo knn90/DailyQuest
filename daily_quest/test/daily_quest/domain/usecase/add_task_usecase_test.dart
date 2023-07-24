@@ -27,33 +27,22 @@ void main() {
     when(mockRepository.getLastDailyQuest()).thenAnswer((_) async => quest);
     when(mockRepository.updateQuest(quest: quest)).thenAnswer((_) async => ());
     // act
-    final result = await useCase.execute(insertingTask);
+    final result = await useCase.execute(insertingTask, quest);
     // assert
     expect(result, updatedQuest);
-    verify(mockRepository.getLastDailyQuest());
+
     verify(mockRepository.updateQuest(quest: result));
     verifyNoMoreInteractions(mockRepository);
   });
 
-  group('should throw', () {
-    test('when repository getLastDailyQuest fails', () async {
-      // arrange
-      final exception = Exception('Get last daily quest fails');
-      when(mockRepository.getLastDailyQuest()).thenThrow(exception);
-      when(mockRepository.updateQuest(quest: quest))
-          .thenAnswer((_) async => ());
-      // assert
-      expect(() => useCase.execute(insertingTask), throwsA(isA<Exception>()));
-    });
-
-    test('when repository updateQuest fails', () async {
-      // arrange
-      final exception = Exception('Update Quest fails');
-      when(mockRepository.getLastDailyQuest()).thenAnswer((_) async => quest);
-      when(mockRepository.updateQuest(quest: updatedQuest))
-          .thenThrow(exception);
-      // assert
-      expect(() => useCase.execute(insertingTask), throwsA(isA<Exception>()));
-    });
+  test('should throw when repository updateQuest fails', () async {
+    // arrange
+    final exception = Exception('Update Quest fails');
+    when(mockRepository.updateQuest(quest: updatedQuest)).thenThrow(exception);
+    // assert
+    expect(
+      () => useCase.execute(insertingTask, quest),
+      throwsA(isA<Exception>()),
+    );
   });
 }

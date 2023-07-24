@@ -84,7 +84,9 @@ void main() {
       'should add new task to the quest',
       () async {
         // arrange
-        when(mockAddTaskUseCase.execute(task)).thenAnswer((_) async => quest);
+        when(mockGetTodayQuestUseCase.execute()).thenAnswer((_) async => quest);
+        when(mockAddTaskUseCase.execute(task, quest))
+            .thenAnswer((_) async => quest);
         expectLater(
           questListNotifier.stream,
           emitsInOrder(const [
@@ -95,7 +97,7 @@ void main() {
         // act
         await questListNotifier.addTask(task);
         // assert
-        verify(mockAddTaskUseCase.execute(task));
+        verify(mockAddTaskUseCase.execute(task, quest));
         verifyNoMoreInteractions(mockAddTaskUseCase);
       },
       timeout: const Timeout(Duration(milliseconds: 500)),
@@ -106,7 +108,8 @@ void main() {
       () async {
         // arrange
         final exception = Exception('any');
-        when(mockAddTaskUseCase.execute(task)).thenThrow(exception);
+        when(mockGetTodayQuestUseCase.execute()).thenAnswer((_) async => quest);
+        when(mockAddTaskUseCase.execute(task, quest)).thenThrow(exception);
         expectLater(
             questListNotifier.stream,
             emitsInOrder([
@@ -119,7 +122,6 @@ void main() {
         // act
         questListNotifier.addTask(task);
         // assert
-        verify(mockAddTaskUseCase.execute(task));
         verifyNoMoreInteractions(mockAddTaskUseCase);
       },
       timeout: const Timeout(Duration(milliseconds: 500)),
