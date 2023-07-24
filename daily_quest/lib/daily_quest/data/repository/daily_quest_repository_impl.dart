@@ -9,22 +9,22 @@ class DailyQuestRepositoryImpl implements DailyQuestRepository {
   DailyQuestRepositoryImpl({required this.dataSource});
 
   @override
-  Future<DailyQuest> getLastDailyQuest() async {
+  Future<DailyQuest> getLastDailyQuest() {
     final localQuest = dataSource.getLast();
     final tasks = localQuest.tasks.map((e) => e.toEntity()).toList();
-    return DailyQuest(
+    return Future.value(DailyQuest(
       timestamp: localQuest.timestamp,
       tasks: tasks,
-    );
+    ));
   }
 
   @override
-  insertDailyQuest({required DailyQuest quest}) async {
-    return await dataSource.insert(quest: LocalDailyQuest.fromEntity(quest));
+  insertDailyQuest({required DailyQuest quest}) {
+    return dataSource.insert(quest: LocalDailyQuest.fromEntity(quest));
   }
 
   @override
-  Future<void> updateQuest({required DailyQuest quest}) async {
-    return await dataSource.update(quest: LocalDailyQuest.fromEntity(quest));
+  Future<void> updateQuest({required DailyQuest quest}) {
+    return dataSource.update(quest: LocalDailyQuest.fromEntity(quest));
   }
 }
