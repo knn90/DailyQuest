@@ -22,6 +22,7 @@ class LocalTask extends Equatable {
     return Task(
       title: title,
       description: description,
+      isDone: isDone,
     );
   }
 

@@ -35,8 +35,12 @@ class DailyQuestList extends ConsumerWidget {
                           leading: Checkbox(
                             checkColor: Colors.white,
                             fillColor: MaterialStateProperty.all(Colors.blue),
-                            value: false,
-                            onChanged: (value) {},
+                            value: task.isDone,
+                            onChanged: (value) {
+                              ref
+                                  .read(questListProvider.notifier)
+                                  .toggleTask(task, index);
+                            },
                           ),
                           title: Text(task.title),
                           onTap: () {
