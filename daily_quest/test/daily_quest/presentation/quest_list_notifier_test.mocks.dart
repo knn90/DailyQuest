@@ -165,26 +165,16 @@ class MockEditTaskUseCase extends _i1.Mock implements _i8.EditTaskUseCase {
 /// See the documentation for Mockito's code generation for more information.
 class MockToggleTaskUseCase extends _i1.Mock implements _i9.ToggleTaskUseCase {
   @override
-  _i5.Future<_i2.DailyQuest> execute(
-    _i7.Task? task,
-    int? index,
-  ) =>
-      (super.noSuchMethod(
+  _i5.Future<_i2.DailyQuest> execute(int? index) => (super.noSuchMethod(
         Invocation.method(
           #execute,
-          [
-            task,
-            index,
-          ],
+          [index],
         ),
         returnValue: _i5.Future<_i2.DailyQuest>.value(_FakeDailyQuest_0(
           this,
           Invocation.method(
             #execute,
-            [
-              task,
-              index,
-            ],
+            [index],
           ),
         )),
         returnValueForMissingStub:
@@ -192,10 +182,7 @@ class MockToggleTaskUseCase extends _i1.Mock implements _i9.ToggleTaskUseCase {
           this,
           Invocation.method(
             #execute,
-            [
-              task,
-              index,
-            ],
+            [index],
           ),
         )),
       ) as _i5.Future<_i2.DailyQuest>);

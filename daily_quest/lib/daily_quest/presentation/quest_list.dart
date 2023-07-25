@@ -39,7 +39,7 @@ class DailyQuestList extends ConsumerWidget {
                             onChanged: (value) {
                               ref
                                   .read(questListProvider.notifier)
-                                  .toggleTask(task, index);
+                                  .toggleTask(index);
                             },
                           ),
                           title: Text(task.title),

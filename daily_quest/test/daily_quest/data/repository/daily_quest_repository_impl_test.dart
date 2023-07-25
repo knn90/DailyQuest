@@ -132,27 +132,23 @@ void main() {
   });
 
   group('toggle task', () {
-    const localTask = LocalTask(title: 'title', description: 'description');
-    const task = Task(title: 'title', description: 'description');
     test('should throw on toggle task fails', () async {
       // arrange
       final exception = Exception('Toggle task fails');
-      when(mockDataSource.toggleTask(task: localTask, index: 2))
-          .thenThrow(exception);
+      when(mockDataSource.toggleTask(index: 2)).thenThrow(exception);
       // assert
-      expect(
-          () => repository.toggleTask(task: task, index: 2), throwsException);
+      expect(() => repository.toggleTask(index: 2), throwsException);
     });
 
     test('should forward toggle task message to dataSource', () async {
       // arrange
-      when(mockDataSource.toggleTask(task: localTask, index: 1))
+      when(mockDataSource.toggleTask(index: 1))
           .thenAnswer((_) async => localQuest);
       // act
-      final result = await repository.toggleTask(task: task, index: 1);
+      final result = await repository.toggleTask(index: 1);
       // assert
       expect(result, dailyQuest);
-      verify(mockDataSource.toggleTask(task: localTask, index: 1));
+      verify(mockDataSource.toggleTask(index: 1));
       verifyNoMoreInteractions(mockDataSource);
     });
   });

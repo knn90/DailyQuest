@@ -56,10 +56,10 @@ class QuestListNotifier extends StateNotifier<AsyncValue<DailyQuest>> {
     }
   }
 
-  toggleTask(Task task, int index) async {
+  toggleTask(int index) async {
     state = const AsyncValue.loading();
     try {
-      final updatedQuest = await _toggleTaskUseCase.execute(task, index);
+      final updatedQuest = await _toggleTaskUseCase.execute(index);
       state = AsyncValue.data(updatedQuest);
     } catch (e, stackTrace) {
       state = AsyncValue.error(e, stackTrace);

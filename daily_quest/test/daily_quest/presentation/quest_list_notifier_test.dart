@@ -194,7 +194,7 @@ void main() {
       () async {
         // arrange
         final exception = Exception('Toggle task fails');
-        when(mockToggleTaskUseCase.execute(task, 2)).thenThrow(exception);
+        when(mockToggleTaskUseCase.execute(2)).thenThrow(exception);
         expectLater(
             questListNotifier.stream,
             emitsInOrder([
@@ -205,17 +205,16 @@ void main() {
               })
             ]));
         // act
-        await questListNotifier.toggleTask(task, 2);
+        await questListNotifier.toggleTask(2);
         // assert
-        verify(mockToggleTaskUseCase.execute(task, 2));
+        verify(mockToggleTaskUseCase.execute(2));
       },
       timeout: const Timeout(Duration(milliseconds: 500)),
     );
 
     test('should send toggleTask message to usecase', () async {
       // arrange
-      when(mockToggleTaskUseCase.execute(task, 1))
-          .thenAnswer((_) async => quest);
+      when(mockToggleTaskUseCase.execute(1)).thenAnswer((_) async => quest);
       expectLater(
           questListNotifier.stream,
           emitsInOrder([
@@ -223,9 +222,9 @@ void main() {
             const AsyncValue.data(quest)
           ]));
       // act
-      await questListNotifier.toggleTask(task, 1);
+      await questListNotifier.toggleTask(1);
       // assert
-      verify(mockToggleTaskUseCase.execute(task, 1));
+      verify(mockToggleTaskUseCase.execute(1));
     });
   });
 }

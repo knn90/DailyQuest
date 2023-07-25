@@ -57,8 +57,7 @@ class DailyQuestLocalDataSourceImpl implements DailyQuestLocalDataSource {
   }
 
   @override
-  Future<LocalDailyQuest> toggleTask(
-      {required LocalTask task, required int index}) async {
+  Future<LocalDailyQuest> toggleTask({required int index}) async {
     if (box.isEmpty) {
       throw DailyQuestNotFound();
     }

@@ -47,10 +47,8 @@ class DailyQuestRepositoryImpl implements DailyQuestRepository {
   }
 
   @override
-  Future<DailyQuest> toggleTask(
-      {required Task task, required int index}) async {
+  Future<DailyQuest> toggleTask({required int index}) async {
     final localQuest = await dataSource.toggleTask(
-      task: LocalTask.fromEntity(task),
       index: index,
     );
     return localQuest.toEntity();

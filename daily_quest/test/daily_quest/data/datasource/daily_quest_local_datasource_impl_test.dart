@@ -167,7 +167,7 @@ void main() {
       // arrange
       when(mockBox.isEmpty).thenReturn(true);
       // assert
-      expect(() => dataSource.toggleTask(task: task, index: 1),
+      expect(() => dataSource.toggleTask(index: 1),
           throwsA(isA<DailyQuestNotFound>()));
     });
 
@@ -183,7 +183,7 @@ void main() {
       when(mockBox.length).thenReturn(1);
       when(mockBox.getAt(0)).thenReturn(quest);
       // act
-      final result = await dataSource.toggleTask(task: task, index: 0);
+      final result = await dataSource.toggleTask(index: 0);
       // assert;
       expect(result.tasks[0].isDone, true);
       expect(result, finishedQuest);
