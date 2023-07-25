@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final taskTitleProvider = StateProvider.autoDispose((ref) => '');
-final taskDescriptionProvicer = StateProvider.autoDispose((ref) => '');
+final taskTitleProvider =
+    StateProvider.autoDispose.family<String, String>((ref, title) => title);
+final taskDescriptionProvicer = StateProvider.autoDispose
+    .family<String, String>((ref, description) => description);
 
 class TaskDetails extends ConsumerStatefulWidget {
   const TaskDetails(
@@ -34,9 +36,10 @@ class TaskDetailsState extends ConsumerState<TaskDetails> {
 
   @override
   Widget build(BuildContext context) {
-    StateController<String> title = ref.watch(taskTitleProvider.notifier);
+    StateController<String> title =
+        ref.watch(taskTitleProvider(widget.title).notifier);
     StateController<String> description =
-        ref.watch(taskDescriptionProvicer.notifier);
+        ref.watch(taskDescriptionProvicer(widget.description).notifier);
     return Padding(
       padding: const EdgeInsets.all(16),
       child: Column(

@@ -1,3 +1,4 @@
+import 'package:daily_quest/daily_quest/domain/entity/task.dart';
 import 'package:daily_quest/daily_quest/domain/usecase/toggle_task_usecase.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive/hive.dart';

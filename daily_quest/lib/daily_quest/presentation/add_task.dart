@@ -8,8 +8,8 @@ class AddTask extends ConsumerWidget {
   const AddTask({super.key});
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final title = ref.watch(taskTitleProvider);
-    final description = ref.watch(taskDescriptionProvicer);
+    final title = ref.watch(taskTitleProvider(''));
+    final description = ref.watch(taskDescriptionProvicer(''));
     return Scaffold(
       appBar: AppBar(title: const Text("Add Task")),
       body: SafeArea(

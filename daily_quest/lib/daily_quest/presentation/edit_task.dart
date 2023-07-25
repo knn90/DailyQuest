@@ -12,8 +12,9 @@ class EditTask extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final editedTitle = ref.watch(taskTitleProvider);
-    final editedDescription = ref.watch(taskDescriptionProvicer);
+    final editedTitle = ref.watch(taskTitleProvider(task.title));
+    final editedDescription =
+        ref.watch(taskDescriptionProvicer(task.description));
     return Scaffold(
       appBar: AppBar(title: const Text("Edit Quest")),
       body: SafeArea(
