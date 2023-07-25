@@ -44,6 +44,7 @@ class DailyQuestList extends ConsumerWidget {
                               MaterialPageRoute(
                                 builder: (context) => EditTask(
                                   task: task,
+                                  index: index,
                                 ),
                               ),
                             );
