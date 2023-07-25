@@ -69,8 +69,20 @@ class DailyQuestLocalDataSourceImpl implements DailyQuestLocalDataSource {
   }
 
   @override
-  Future<LocalDailyQuest> removeTask({required int index}) {
-    // TODO: implement removeTask
-    throw UnimplementedError();
+  Future<LocalDailyQuest> removeTask({required int index}) async {
+    if (box.isEmpty) {
+      throw DailyQuestNotFound();
+    }
+
+    final lastQuestIndex = box.length - 1;
+    LocalDailyQuest quest = box.getAt(lastQuestIndex);
+
+    if (index >= quest.tasks.length) {
+      throw TaskIndexOutOfBound();
+    }
+
+    final updatedQuest = quest.removeTask(index);
+    await box.putAt(lastQuestIndex, updatedQuest);
+    return updatedQuest;
   }
 }

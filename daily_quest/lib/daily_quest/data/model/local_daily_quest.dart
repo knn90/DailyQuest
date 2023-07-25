@@ -45,6 +45,12 @@ class LocalDailyQuest extends Equatable {
     return LocalDailyQuest(timestamp: timestamp, tasks: copyTasks);
   }
 
+  LocalDailyQuest removeTask(int index) {
+    final copyTasks = List<LocalTask>.from(tasks);
+    copyTasks.removeAt(index);
+    return LocalDailyQuest(timestamp: timestamp, tasks: copyTasks);
+  }
+
   @override
   List<Object?> get props => [timestamp, tasks];
 }

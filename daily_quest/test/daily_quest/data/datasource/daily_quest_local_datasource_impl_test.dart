@@ -196,4 +196,62 @@ void main() {
       verifyNoMoreInteractions(mockBox);
     });
   });
+
+  group('Remove Task', () {
+    test('should throw on empty database', () {
+      // arrange
+      when(mockBox.isEmpty).thenReturn(true);
+      // assert
+      expect(() => dataSource.removeTask(index: 1),
+          throwsA(isA<DailyQuestNotFound>()));
+      verify(mockBox.isEmpty);
+      verifyNoMoreInteractions(mockBox);
+    });
+
+    test('should throw when removing on quest with empty task', () async {
+      // arrange
+      const emptyQuest = LocalDailyQuest(timestamp: 'timestamp', tasks: []);
+      when(mockBox.length).thenReturn(1);
+      when(mockBox.getAt(0)).thenReturn(emptyQuest);
+
+      // assert
+      expect(() => dataSource.removeTask(index: 0),
+          throwsA(isA<TaskIndexOutOfBound>()));
+    });
+
+    test('should throw when removing on quest with out of bound index',
+        () async {
+      // arrange
+      const quest = LocalDailyQuest(
+          timestamp: 'timestamp',
+          tasks: [LocalTask(title: 'title', description: 'description')]);
+      when(mockBox.length).thenReturn(1);
+      when(mockBox.getAt(0)).thenReturn(quest);
+
+      // assert
+      expect(() => dataSource.removeTask(index: 2),
+          throwsA(isA<TaskIndexOutOfBound>()));
+    });
+
+    test('should remove the task at index', () async {
+      // arrange
+      const quest = LocalDailyQuest(
+          timestamp: 'timestamp',
+          tasks: [LocalTask(title: 'title', description: 'description')]);
+      const removedQuest = LocalDailyQuest(timestamp: 'timestamp', tasks: []);
+      when(mockBox.length).thenReturn(1);
+      when(mockBox.getAt(0)).thenReturn(quest);
+      // act
+      final result = await dataSource.removeTask(index: 0);
+      // assert
+      expect(result, removedQuest);
+      verifyInOrder([
+        mockBox.isEmpty,
+        mockBox.length,
+        mockBox.getAt(0),
+        mockBox.putAt(0, removedQuest),
+      ]);
+      verifyNoMoreInteractions(mockBox);
+    });
+  });
 }
