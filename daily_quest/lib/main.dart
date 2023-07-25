@@ -32,19 +32,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
-//  ChangeNotifierProvider(
-//       create: (context) {
-        // final box = Hive.box(dailyQuestBox);
-        // final dataSource = DailyQuestLocalDataSourceImpl(box: box);
-        // final repository = DailyQuestRepositoryImpl(dataSource: dataSource);
-        // final validator = QuestValidatorImpl(
-        //     timestampProvider: TimestampProvider.todayTimestamp);
-        // final getTodayQuest = GetTodayQuestUseCase(
-        //     repository: repository,
-        //     validator: validator,
-        //     timestampProvider: TimestampProvider.todayTimestamp);
-//         return QuestListViewModel(getTodayQuest: getTodayQuest);
-//       },
-//       child: ,
-//     );
