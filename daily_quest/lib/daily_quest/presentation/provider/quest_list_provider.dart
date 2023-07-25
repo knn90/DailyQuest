@@ -1,3 +1,4 @@
+import 'package:daily_quest/daily_quest/domain/usecase/toggle_task_usecase.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive/hive.dart';
 
@@ -25,9 +26,12 @@ final questListProvider =
       timestampProvider: TimestampProvider.todayTimestamp);
   final addTaskUseCase = AddTaskUseCaseImpl(repository: repository);
   final editTaskUseCase = EditTaskUseCaseImpl(repository: repository);
+  final toggleTaskUseCase = ToggleTaskUseCaseImpl();
   return QuestListNotifier(
-      ref: ref,
-      getTodayQuestUseCase: getTodayQuestUseCase,
-      addTaskUseCase: addTaskUseCase,
-      editTaskUseCase: editTaskUseCase);
+    ref: ref,
+    getTodayQuestUseCase: getTodayQuestUseCase,
+    addTaskUseCase: addTaskUseCase,
+    editTaskUseCase: editTaskUseCase,
+    toggleTaskUseCase: toggleTaskUseCase,
+  );
 });
