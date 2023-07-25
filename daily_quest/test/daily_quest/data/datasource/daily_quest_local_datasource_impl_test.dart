@@ -161,4 +161,39 @@ void main() {
       verifyNoMoreInteractions(mockBox);
     });
   });
+
+  group('Toggle task', () {
+    test('should throw on empty database', () {
+      // arrange
+      when(mockBox.isEmpty).thenReturn(true);
+      // assert
+      expect(() => dataSource.toggleTask(task: task, index: 1),
+          throwsA(isA<DailyQuestNotFound>()));
+    });
+
+    test('should toggle state of the task', () async {
+      // arrange
+      const task =
+          LocalTask(title: 'title', description: 'description', isDone: false);
+      const quest = LocalDailyQuest(timestamp: 'timestamp', tasks: [task]);
+      const finishedTask =
+          LocalTask(title: 'title', description: 'description', isDone: true);
+      const finishedQuest =
+          LocalDailyQuest(timestamp: 'timestamp', tasks: [finishedTask]);
+      when(mockBox.length).thenReturn(1);
+      when(mockBox.getAt(0)).thenReturn(quest);
+      // act
+      final result = await dataSource.toggleTask(task: task, index: 0);
+      // assert;
+      expect(result.tasks[0].isDone, true);
+      expect(result, finishedQuest);
+      verifyInOrder([
+        mockBox.isEmpty,
+        mockBox.length,
+        mockBox.getAt(0),
+        mockBox.putAt(0, finishedQuest),
+      ]);
+      verifyNoMoreInteractions(mockBox);
+    });
+  });
 }

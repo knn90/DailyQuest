@@ -33,6 +33,14 @@ class LocalTask extends Equatable {
     );
   }
 
+  LocalTask toggle() {
+    return LocalTask(
+      title: title,
+      description: description,
+      isDone: !isDone,
+    );
+  }
+
   @override
   List<Object?> get props => [title, description, isDone];
 }

@@ -58,8 +58,14 @@ class DailyQuestLocalDataSourceImpl implements DailyQuestLocalDataSource {
 
   @override
   Future<LocalDailyQuest> toggleTask(
-      {required LocalTask task, required int index}) {
-    // TODO: implement toggleTask
-    throw UnimplementedError();
+      {required LocalTask task, required int index}) async {
+    if (box.isEmpty) {
+      throw DailyQuestNotFound();
+    }
+    final lastQuestIndex = box.length - 1;
+    LocalDailyQuest quest = box.getAt(lastQuestIndex);
+    final updatedQuest = quest.toggleTask(index);
+    await box.putAt(lastQuestIndex, updatedQuest);
+    return updatedQuest;
   }
 }
