@@ -1,6 +1,7 @@
 import 'package:daily_quest/daily_quest/domain/entity/daily_quest.dart';
 import 'package:daily_quest/daily_quest/domain/entity/task.dart';
 import 'package:daily_quest/daily_quest/domain/usecase/add_task_usecase.dart';
+import 'package:daily_quest/daily_quest/domain/usecase/edit_task_usecase.dart';
 import 'package:daily_quest/daily_quest/domain/usecase/get_today_quest_usecase.dart';
 import 'package:daily_quest/daily_quest/presentation/quest_list_notifier.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -12,22 +13,26 @@ import 'quest_list_notifier_test.mocks.dart';
 @GenerateNiceMocks([
   MockSpec<GetTodayQuestUseCase>(),
   MockSpec<AddTaskUseCase>(),
+  MockSpec<EditTaskUseCase>(),
   MockSpec<Ref>()
 ])
 void main() {
   late QuestListNotifier questListNotifier;
   late MockGetTodayQuestUseCase mockGetTodayQuestUseCase;
   late MockAddTaskUseCase mockAddTaskUseCase;
+  late MockEditTaskUseCase mockEditTaskUseCase;
   late MockRef mockRef;
 
   setUp(() {
     mockGetTodayQuestUseCase = MockGetTodayQuestUseCase();
     mockAddTaskUseCase = MockAddTaskUseCase();
+    mockEditTaskUseCase = MockEditTaskUseCase();
     mockRef = MockRef();
     questListNotifier = QuestListNotifier(
       ref: mockRef,
       getTodayQuestUseCase: mockGetTodayQuestUseCase,
       addTaskUseCase: mockAddTaskUseCase,
+      editTaskUseCase: mockEditTaskUseCase,
     );
   });
 
@@ -84,7 +89,6 @@ void main() {
       'should add new task to the quest',
       () async {
         // arrange
-        when(mockGetTodayQuestUseCase.execute()).thenAnswer((_) async => quest);
         when(mockAddTaskUseCase.execute(task)).thenAnswer((_) async => quest);
         expectLater(
           questListNotifier.stream,
@@ -107,7 +111,6 @@ void main() {
       () async {
         // arrange
         final exception = Exception('any');
-        when(mockGetTodayQuestUseCase.execute()).thenAnswer((_) async => quest);
         when(mockAddTaskUseCase.execute(task)).thenThrow(exception);
         expectLater(
             questListNotifier.stream,
@@ -121,7 +124,58 @@ void main() {
         // act
         questListNotifier.addTask(task);
         // assert
+        verify(mockAddTaskUseCase.execute(task));
         verifyNoMoreInteractions(mockAddTaskUseCase);
+      },
+      timeout: const Timeout(Duration(milliseconds: 500)),
+    );
+  });
+
+  group('editTask', () {
+    const task = Task(title: 'edit title', description: 'edit description');
+    const quest = DailyQuest(timestamp: 'timestamp', tasks: [task]);
+
+    test(
+      'should update notifier to correct state',
+      () async {
+        // arrange
+        when(mockEditTaskUseCase.editTask(task, 0))
+            .thenAnswer((_) async => quest);
+        expectLater(
+            questListNotifier.stream,
+            emitsInOrder([
+              const AsyncLoading<DailyQuest>(),
+              const AsyncData(quest),
+            ]));
+        // act
+        questListNotifier.editTask(task, 0);
+        // assert
+        verify(mockEditTaskUseCase.editTask(task, 0));
+        verifyNoMoreInteractions(mockEditTaskUseCase);
+      },
+      timeout: const Timeout(Duration(milliseconds: 500)),
+    );
+
+    test(
+      'should throw when edit task usecase fails',
+      () async {
+        // arrange
+        final exception = Exception('Edit task fails');
+        when(mockEditTaskUseCase.editTask(task, 0)).thenThrow(exception);
+        expectLater(
+            questListNotifier.stream,
+            emitsInOrder([
+              const AsyncLoading<DailyQuest>(),
+              predicate<AsyncValue<DailyQuest>>((value) {
+                expect(value, isA<AsyncError<DailyQuest>>());
+                return true;
+              })
+            ]));
+        // act
+        questListNotifier.editTask(task, 0);
+        // assert
+        verify(mockEditTaskUseCase.editTask(task, 0));
+        verifyNoMoreInteractions(mockEditTaskUseCase);
       },
       timeout: const Timeout(Duration(milliseconds: 500)),
     );

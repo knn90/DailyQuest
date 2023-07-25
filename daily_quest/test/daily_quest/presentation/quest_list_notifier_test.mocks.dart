@@ -9,10 +9,12 @@ import 'package:daily_quest/daily_quest/domain/entity/daily_quest.dart' as _i2;
 import 'package:daily_quest/daily_quest/domain/entity/task.dart' as _i7;
 import 'package:daily_quest/daily_quest/domain/usecase/add_task_usecase.dart'
     as _i6;
+import 'package:daily_quest/daily_quest/domain/usecase/edit_task_usecase.dart'
+    as _i8;
 import 'package:daily_quest/daily_quest/domain/usecase/get_today_quest_usecase.dart'
     as _i4;
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:mockito/src/dummies.dart' as _i8;
+import 'package:mockito/src/dummies.dart' as _i9;
 import 'package:riverpod/src/internals.dart' as _i3;
 
 // ignore_for_file: type=lint
@@ -115,6 +117,47 @@ class MockAddTaskUseCase extends _i1.Mock implements _i6.AddTaskUseCase {
       ) as _i5.Future<_i2.DailyQuest>);
 }
 
+/// A class which mocks [EditTaskUseCase].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockEditTaskUseCase extends _i1.Mock implements _i8.EditTaskUseCase {
+  @override
+  _i5.Future<_i2.DailyQuest> editTask(
+    _i7.Task? task,
+    int? index,
+  ) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #editTask,
+          [
+            task,
+            index,
+          ],
+        ),
+        returnValue: _i5.Future<_i2.DailyQuest>.value(_FakeDailyQuest_0(
+          this,
+          Invocation.method(
+            #editTask,
+            [
+              task,
+              index,
+            ],
+          ),
+        )),
+        returnValueForMissingStub:
+            _i5.Future<_i2.DailyQuest>.value(_FakeDailyQuest_0(
+          this,
+          Invocation.method(
+            #editTask,
+            [
+              task,
+              index,
+            ],
+          ),
+        )),
+      ) as _i5.Future<_i2.DailyQuest>);
+}
+
 /// A class which mocks [Ref].
 ///
 /// See the documentation for Mockito's code generation for more information.
@@ -138,14 +181,14 @@ class MockRef<State extends Object?> extends _i1.Mock
           #refresh,
           [provider],
         ),
-        returnValue: _i8.dummyValue<T>(
+        returnValue: _i9.dummyValue<T>(
           this,
           Invocation.method(
             #refresh,
             [provider],
           ),
         ),
-        returnValueForMissingStub: _i8.dummyValue<T>(
+        returnValueForMissingStub: _i9.dummyValue<T>(
           this,
           Invocation.method(
             #refresh,
@@ -242,14 +285,14 @@ class MockRef<State extends Object?> extends _i1.Mock
           #read,
           [provider],
         ),
-        returnValue: _i8.dummyValue<T>(
+        returnValue: _i9.dummyValue<T>(
           this,
           Invocation.method(
             #read,
             [provider],
           ),
         ),
-        returnValueForMissingStub: _i8.dummyValue<T>(
+        returnValueForMissingStub: _i9.dummyValue<T>(
           this,
           Invocation.method(
             #read,
@@ -273,14 +316,14 @@ class MockRef<State extends Object?> extends _i1.Mock
           #watch,
           [provider],
         ),
-        returnValue: _i8.dummyValue<T>(
+        returnValue: _i9.dummyValue<T>(
           this,
           Invocation.method(
             #watch,
             [provider],
           ),
         ),
-        returnValueForMissingStub: _i8.dummyValue<T>(
+        returnValueForMissingStub: _i9.dummyValue<T>(
           this,
           Invocation.method(
             #watch,
