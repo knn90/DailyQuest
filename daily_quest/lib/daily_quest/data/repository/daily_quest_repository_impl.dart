@@ -36,4 +36,10 @@ class DailyQuestRepositoryImpl implements DailyQuestRepository {
     final quest = await dataSource.addTask(task: LocalTask.fromEntity(task));
     return quest.toEntity();
   }
+
+  @override
+  Future<DailyQuest> editTask({required Task task, required int index}) {
+    // TODO: implement editTask
+    throw UnimplementedError();
+  }
 }

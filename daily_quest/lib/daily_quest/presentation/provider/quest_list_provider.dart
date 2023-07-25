@@ -24,7 +24,7 @@ final questListProvider =
       validator: validator,
       timestampProvider: TimestampProvider.todayTimestamp);
   final addTaskUseCase = AddTaskUseCaseImpl(repository: repository);
-  final editTaskUseCase = EditTaskUseCaseImpl();
+  final editTaskUseCase = EditTaskUseCaseImpl(repository: repository);
   return QuestListNotifier(
       ref: ref,
       getTodayQuestUseCase: getTodayQuestUseCase,
