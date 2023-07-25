@@ -89,3 +89,6 @@ fastlane/test_output
 
 iOSInjectionProject/
 .DS_Store
+daily_quest/test/daily_quest/domain/usecase/add_task_usecase_test.mocks.dart
+daily_quest/test/daily_quest/data/repository/daily_quest_repository_impl_test.mocks.dart
+daily_quest/test/daily_quest/domain/usecase/add_task_usecase_test.mocks.dart

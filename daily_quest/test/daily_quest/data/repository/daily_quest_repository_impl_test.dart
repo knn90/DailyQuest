@@ -3,7 +3,9 @@ import 'package:daily_quest/daily_quest/data/model/local_daily_quest.dart';
 import 'package:daily_quest/daily_quest/data/model/local_task.dart';
 import 'package:daily_quest/daily_quest/data/repository/daily_quest_repository_impl.dart';
 import 'package:daily_quest/daily_quest/domain/entity/daily_quest.dart';
+import 'package:daily_quest/daily_quest/domain/entity/task.dart';
 import 'package:daily_quest/daily_quest/domain/exception/exceptions.dart';
+import 'package:daily_quest/daily_quest/domain/repository/daily_quest_repository.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
@@ -12,7 +14,7 @@ import 'daily_quest_repository_impl_test.mocks.dart';
 
 @GenerateNiceMocks([MockSpec<DailyQuestLocalDataSource>()])
 void main() {
-  late DailyQuestRepositoryImpl repository;
+  late DailyQuestRepository repository;
   late MockDailyQuestLocalDataSource mockDataSource;
   const LocalDailyQuest localQuest =
       LocalDailyQuest(timestamp: 'any timestamp', tasks: [
@@ -77,6 +79,19 @@ void main() {
       // assert
       verify(mockDataSource.update(quest: localQuest));
       verifyNoMoreInteractions(mockDataSource);
+    });
+  });
+
+  group('add task', () {
+    test('should forward add task to datasource', () async {
+      // arrange
+      const localTask = LocalTask(title: 'title', description: 'description');
+      const task = Task(title: 'title', description: 'description');
+      when(mockDataSource.addTask(task: localTask)).thenAnswer((_) async => ());
+      // act
+      await repository.addTask(task: task);
+      // assert
+      verify(mockDataSource.addTask(task: localTask));
     });
   });
 }

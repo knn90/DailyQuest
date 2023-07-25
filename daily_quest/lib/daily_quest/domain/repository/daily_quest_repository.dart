@@ -1,7 +1,10 @@
+import 'package:daily_quest/daily_quest/domain/entity/task.dart';
+
 import '../entity/daily_quest.dart';
 
 abstract class DailyQuestRepository {
   Future<DailyQuest> getLastDailyQuest();
   Future<void> insertDailyQuest({required DailyQuest quest});
   Future<void> updateQuest({required DailyQuest quest});
+  Future<void> addTask({required Task task});
 }
