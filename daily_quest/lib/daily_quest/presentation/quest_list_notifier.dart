@@ -1,6 +1,7 @@
 import 'package:daily_quest/daily_quest/domain/entity/daily_quest.dart';
 import 'package:daily_quest/daily_quest/domain/usecase/add_task_usecase.dart';
 import 'package:daily_quest/daily_quest/domain/usecase/edit_task_usecase.dart';
+import 'package:daily_quest/daily_quest/domain/usecase/remove_task_usecase.dart';
 import 'package:daily_quest/daily_quest/domain/usecase/toggle_task_usecase.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../domain/entity/task.dart';
@@ -13,10 +14,12 @@ class QuestListNotifier extends StateNotifier<AsyncValue<DailyQuest>> {
     required AddTaskUseCase addTaskUseCase,
     required EditTaskUseCase editTaskUseCase,
     required ToggleTaskUseCase toggleTaskUseCase,
+    required RemoveTaskUseCase removeTaskUseCase,
   })  : _getTodayQuestUseCase = getTodayQuestUseCase,
         _addTaskUseCase = addTaskUseCase,
         _editTaskUseCase = editTaskUseCase,
         _toggleTaskUseCase = toggleTaskUseCase,
+        _removeTaskUseCase = removeTaskUseCase,
         super(const AsyncValue.loading()) {
     getTodayQuest();
   }
@@ -25,6 +28,7 @@ class QuestListNotifier extends StateNotifier<AsyncValue<DailyQuest>> {
   final AddTaskUseCase _addTaskUseCase;
   final EditTaskUseCase _editTaskUseCase;
   final ToggleTaskUseCase _toggleTaskUseCase;
+  final RemoveTaskUseCase _removeTaskUseCase;
 
   getTodayQuest() async {
     state = const AsyncValue.loading();
@@ -60,6 +64,16 @@ class QuestListNotifier extends StateNotifier<AsyncValue<DailyQuest>> {
     state = const AsyncValue.loading();
     try {
       final updatedQuest = await _toggleTaskUseCase.execute(index);
+      state = AsyncValue.data(updatedQuest);
+    } catch (e, stackTrace) {
+      state = AsyncValue.error(e, stackTrace);
+    }
+  }
+
+  removeTask(int index) async {
+    state = const AsyncValue.loading();
+    try {
+      final updatedQuest = await _removeTaskUseCase.excecute(index);
       state = AsyncValue.data(updatedQuest);
     } catch (e, stackTrace) {
       state = AsyncValue.error(e, stackTrace);

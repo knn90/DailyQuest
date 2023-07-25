@@ -3,6 +3,7 @@ import 'package:daily_quest/daily_quest/domain/entity/task.dart';
 import 'package:daily_quest/daily_quest/domain/usecase/add_task_usecase.dart';
 import 'package:daily_quest/daily_quest/domain/usecase/edit_task_usecase.dart';
 import 'package:daily_quest/daily_quest/domain/usecase/get_today_quest_usecase.dart';
+import 'package:daily_quest/daily_quest/domain/usecase/remove_task_usecase.dart';
 import 'package:daily_quest/daily_quest/domain/usecase/toggle_task_usecase.dart';
 import 'package:daily_quest/daily_quest/presentation/quest_list_notifier.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -16,6 +17,7 @@ import 'quest_list_notifier_test.mocks.dart';
   MockSpec<AddTaskUseCase>(),
   MockSpec<EditTaskUseCase>(),
   MockSpec<ToggleTaskUseCase>(),
+  MockSpec<RemoveTaskUseCase>(),
   MockSpec<Ref>()
 ])
 void main() {
@@ -24,6 +26,7 @@ void main() {
   late MockAddTaskUseCase mockAddTaskUseCase;
   late MockEditTaskUseCase mockEditTaskUseCase;
   late MockToggleTaskUseCase mockToggleTaskUseCase;
+  late MockRemoveTaskUseCase mockRemoveTaskUseCase;
   late MockRef mockRef;
 
   setUp(() {
@@ -31,6 +34,7 @@ void main() {
     mockAddTaskUseCase = MockAddTaskUseCase();
     mockEditTaskUseCase = MockEditTaskUseCase();
     mockToggleTaskUseCase = MockToggleTaskUseCase();
+    mockRemoveTaskUseCase = MockRemoveTaskUseCase();
     mockRef = MockRef();
     questListNotifier = QuestListNotifier(
       ref: mockRef,
@@ -38,6 +42,7 @@ void main() {
       addTaskUseCase: mockAddTaskUseCase,
       editTaskUseCase: mockEditTaskUseCase,
       toggleTaskUseCase: mockToggleTaskUseCase,
+      removeTaskUseCase: mockRemoveTaskUseCase,
     );
   });
 
@@ -226,5 +231,53 @@ void main() {
       // assert
       verify(mockToggleTaskUseCase.execute(1));
     });
+  });
+
+  group('remove task', () {
+    test(
+      'should throw on remove task fails',
+      () async {
+        // arrange
+        final exception = Exception('Remove task fails');
+        when(mockRemoveTaskUseCase.excecute(3)).thenThrow(exception);
+        expectLater(
+            questListNotifier.stream,
+            emitsInOrder([
+              const AsyncLoading<DailyQuest>(),
+              predicate<AsyncError<DailyQuest>>((value) {
+                expect(value, isA<AsyncError<DailyQuest>>());
+                return true;
+              })
+            ]));
+        // act
+        questListNotifier.removeTask(3);
+        // assert
+        verify(mockRemoveTaskUseCase.excecute(3));
+      },
+      timeout: const Timeout(Duration(milliseconds: 500)),
+    );
+
+    test(
+      'should update notifier with correct state',
+      () async {
+        // arrange
+        const task =
+            Task(title: 'Remove title', description: 'Remove description');
+        const quest = DailyQuest(timestamp: 'timestamp', tasks: [task]);
+        when(mockRemoveTaskUseCase.excecute(2)).thenAnswer((_) async => quest);
+        expectLater(
+            questListNotifier.stream,
+            emitsInOrder(const [
+              AsyncLoading<DailyQuest>(),
+              AsyncValue.data(quest),
+            ]));
+        // act
+        await questListNotifier.removeTask(2);
+        // assert
+        verify(mockRemoveTaskUseCase.excecute(2));
+        verifyNoMoreInteractions(mockRemoveTaskUseCase);
+      },
+      timeout: const Timeout(Duration(milliseconds: 500)),
+    );
   });
 }
