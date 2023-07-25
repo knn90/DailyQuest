@@ -83,10 +83,10 @@ void main() {
   });
 
   group('add task', () {
+    const localTask = LocalTask(title: 'title', description: 'description');
+    const task = Task(title: 'title', description: 'description');
     test('should forward add task to datasource', () async {
       // arrange
-      const localTask = LocalTask(title: 'title', description: 'description');
-      const task = Task(title: 'title', description: 'description');
       when(mockDataSource.addTask(task: localTask))
           .thenAnswer((_) async => localQuest);
       // act
@@ -94,6 +94,40 @@ void main() {
       // assert
       expect(result, dailyQuest);
       verify(mockDataSource.addTask(task: localTask));
+    });
+
+    test('should throw on adding task fails', () async {
+      // arrange
+      final exception = Exception('Add task fails');
+      when(mockDataSource.addTask(task: localTask)).thenThrow(exception);
+      // assert
+      expect(() => repository.addTask(task: task), throwsException);
+    });
+  });
+
+  group('edit task', () {
+    const localTask = LocalTask(title: 'title', description: 'description');
+    const task = Task(title: 'title', description: 'description');
+    test('should forward the edit task message to datasource', () async {
+      // arrange
+      when(mockDataSource.editTask(task: localTask, index: 0))
+          .thenAnswer((_) async => localQuest);
+      // act
+      final result = await repository.editTask(task: task, index: 0);
+      // assert
+      expect(result, dailyQuest);
+      verify(mockDataSource.editTask(task: localTask, index: 0));
+      verifyNoMoreInteractions(mockDataSource);
+    });
+
+    test('should throw on editing task fails', () async {
+      // arrange
+      final exception = Exception('Edit task fails');
+      when(mockDataSource.editTask(task: localTask, index: 1))
+          .thenThrow(exception);
+
+      // assert
+      expect(() => repository.editTask(task: task, index: 1), throwsException);
     });
   });
 }

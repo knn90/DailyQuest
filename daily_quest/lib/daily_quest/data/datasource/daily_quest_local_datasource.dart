@@ -7,4 +7,6 @@ abstract class DailyQuestLocalDataSource {
   Future<void> insert({required LocalDailyQuest quest});
   Future<void> update({required LocalDailyQuest quest});
   Future<LocalDailyQuest> addTask({required LocalTask task});
+  Future<LocalDailyQuest> editTask(
+      {required LocalTask task, required int index});
 }

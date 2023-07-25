@@ -41,4 +41,11 @@ class DailyQuestLocalDataSourceImpl implements DailyQuestLocalDataSource {
     await box.putAt(lastQuestIndex, updatedQuest);
     return updatedQuest;
   }
+
+  @override
+  Future<LocalDailyQuest> editTask(
+      {required LocalTask task, required int index}) {
+    // TODO: implement editTask
+    throw UnimplementedError();
+  }
 }
