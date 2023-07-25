@@ -31,13 +31,14 @@ class DailyQuestLocalDataSourceImpl implements DailyQuestLocalDataSource {
   }
 
   @override
-  Future<void> addTask({required LocalTask task}) {
+  Future<LocalDailyQuest> addTask({required LocalTask task}) async {
     if (box.isEmpty) {
       throw DailyQuestNotFound();
     }
     final lastQuestIndex = box.length - 1;
     LocalDailyQuest quest = box.getAt(lastQuestIndex);
     final updatedQuest = quest.addTask(task);
-    return box.putAt(lastQuestIndex, updatedQuest);
+    await box.putAt(lastQuestIndex, updatedQuest);
+    return updatedQuest;
   }
 }

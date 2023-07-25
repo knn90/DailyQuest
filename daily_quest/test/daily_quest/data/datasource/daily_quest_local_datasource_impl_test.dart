@@ -44,8 +44,9 @@ void main() {
       when(mockBox.length).thenReturn(1);
       when(mockBox.getAt(0)).thenReturn(emptyQuest);
       // act
-      await dataSource.addTask(task: task);
+      final result = await dataSource.addTask(task: task);
       // assert
+      expect(result, addedQuest);
       verify(mockBox.length);
       verify(mockBox.isEmpty);
       verify(mockBox.getAt(0));

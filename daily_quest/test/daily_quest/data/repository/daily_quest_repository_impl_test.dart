@@ -87,10 +87,12 @@ void main() {
       // arrange
       const localTask = LocalTask(title: 'title', description: 'description');
       const task = Task(title: 'title', description: 'description');
-      when(mockDataSource.addTask(task: localTask)).thenAnswer((_) async => ());
+      when(mockDataSource.addTask(task: localTask))
+          .thenAnswer((_) async => localQuest);
       // act
-      await repository.addTask(task: task);
+      final result = await repository.addTask(task: task);
       // assert
+      expect(result, dailyQuest);
       verify(mockDataSource.addTask(task: localTask));
     });
   });

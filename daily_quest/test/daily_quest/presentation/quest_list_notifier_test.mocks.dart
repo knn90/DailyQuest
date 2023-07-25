@@ -92,26 +92,16 @@ class MockGetTodayQuestUseCase extends _i1.Mock
 /// See the documentation for Mockito's code generation for more information.
 class MockAddTaskUseCase extends _i1.Mock implements _i6.AddTaskUseCase {
   @override
-  _i5.Future<_i2.DailyQuest> execute(
-    _i7.Task? task,
-    _i2.DailyQuest? quest,
-  ) =>
-      (super.noSuchMethod(
+  _i5.Future<_i2.DailyQuest> execute(_i7.Task? task) => (super.noSuchMethod(
         Invocation.method(
           #execute,
-          [
-            task,
-            quest,
-          ],
+          [task],
         ),
         returnValue: _i5.Future<_i2.DailyQuest>.value(_FakeDailyQuest_0(
           this,
           Invocation.method(
             #execute,
-            [
-              task,
-              quest,
-            ],
+            [task],
           ),
         )),
         returnValueForMissingStub:
@@ -119,10 +109,7 @@ class MockAddTaskUseCase extends _i1.Mock implements _i6.AddTaskUseCase {
           this,
           Invocation.method(
             #execute,
-            [
-              task,
-              quest,
-            ],
+            [task],
           ),
         )),
       ) as _i5.Future<_i2.DailyQuest>);

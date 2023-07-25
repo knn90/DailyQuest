@@ -11,10 +11,8 @@ class AddTaskUseCaseImpl implements AddTaskUseCase {
   AddTaskUseCaseImpl({required this.repository});
 
   @override
-  Future<DailyQuest> execute(Task task, DailyQuest quest) async {
-    // final todayQuest = await repository.getLastDailyQuest();
-    final updatedQuest = quest.addTask(task);
-    await repository.updateQuest(quest: updatedQuest);
-    return updatedQuest;
+  Future<DailyQuest> execute(Task task) async {
+    final quest = await repository.addTask(task: task);
+    return quest;
   }
 }

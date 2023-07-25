@@ -19,29 +19,27 @@ void main() {
   });
 
   const insertingTask = Task(title: 'title', description: 'description');
-  const quest = DailyQuest(timestamp: 'timestamp', tasks: []);
   const updatedQuest =
       DailyQuest(timestamp: 'timestamp', tasks: [insertingTask]);
   test('should add task to the today quest', () async {
     // arrange
-    when(mockRepository.getLastDailyQuest()).thenAnswer((_) async => quest);
-    when(mockRepository.updateQuest(quest: quest)).thenAnswer((_) async => ());
+    when(mockRepository.addTask(task: insertingTask))
+        .thenAnswer((_) async => updatedQuest);
     // act
-    final result = await useCase.execute(insertingTask, quest);
+    final result = await useCase.execute(insertingTask);
     // assert
     expect(result, updatedQuest);
-
-    verify(mockRepository.updateQuest(quest: result));
+    verify(mockRepository.addTask(task: insertingTask));
     verifyNoMoreInteractions(mockRepository);
   });
 
   test('should throw when repository updateQuest fails', () async {
     // arrange
     final exception = Exception('Update Quest fails');
-    when(mockRepository.updateQuest(quest: updatedQuest)).thenThrow(exception);
+    when(mockRepository.addTask(task: insertingTask)).thenThrow(exception);
     // assert
     expect(
-      () => useCase.execute(insertingTask, quest),
+      () => useCase.execute(insertingTask),
       throwsA(isA<Exception>()),
     );
   });

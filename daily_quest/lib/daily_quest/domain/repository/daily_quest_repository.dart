@@ -6,5 +6,5 @@ abstract class DailyQuestRepository {
   Future<DailyQuest> getLastDailyQuest();
   Future<void> insertDailyQuest({required DailyQuest quest});
   Future<void> updateQuest({required DailyQuest quest});
-  Future<void> addTask({required Task task});
+  Future<DailyQuest> addTask({required Task task});
 }
