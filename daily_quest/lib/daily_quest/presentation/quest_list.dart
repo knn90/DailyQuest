@@ -29,7 +29,9 @@ class DailyQuestList extends ConsumerWidget {
                     return Dismissible(
                       key: Key("${task.title}_${task.description}"),
                       direction: DismissDirection.endToStart,
-                      onDismissed: (direction) => {},
+                      onDismissed: (direction) {
+                        ref.read(questListProvider.notifier).removeTask(index);
+                      },
                       background: Container(color: Colors.red),
                       child: ListTile(
                           leading: Checkbox(
