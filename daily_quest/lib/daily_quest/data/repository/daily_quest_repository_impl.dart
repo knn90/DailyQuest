@@ -43,4 +43,10 @@ class DailyQuestRepositoryImpl implements DailyQuestRepository {
         task: LocalTask.fromEntity(task), index: index);
     return localQuest.toEntity();
   }
+
+  @override
+  Future<DailyQuest> toggleTask({required Task task, required int index}) {
+    // TODO: implement toggleTask
+    throw UnimplementedError();
+  }
 }
