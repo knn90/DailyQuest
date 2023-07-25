@@ -10,4 +10,5 @@ abstract class DailyQuestLocalDataSource {
   Future<LocalDailyQuest> editTask(
       {required LocalTask task, required int index});
   Future<LocalDailyQuest> toggleTask({required int index});
+  Future<LocalDailyQuest> removeTask({required int index});
 }

@@ -152,4 +152,26 @@ void main() {
       verifyNoMoreInteractions(mockDataSource);
     });
   });
+
+  group('Remove task', () {
+    test('should throw when removing task fails', () async {
+      // arrange
+      final exception = Exception('Remove task fails');
+      when(mockDataSource.removeTask(index: 4)).thenThrow(exception);
+      // assert
+      expect(() => repository.removeTask(index: 4), throwsException);
+    });
+
+    test('should foward remove task message to dataSource', () async {
+      // arrange
+      when(mockDataSource.removeTask(index: 5))
+          .thenAnswer((_) async => localQuest);
+      // act
+      final result = await repository.removeTask(index: 5);
+      // assert
+      expect(result, dailyQuest);
+      verify(mockDataSource.removeTask(index: 5));
+      verifyNoMoreInteractions(mockDataSource);
+    });
+  });
 }
