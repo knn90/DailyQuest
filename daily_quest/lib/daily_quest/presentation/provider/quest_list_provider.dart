@@ -1,5 +1,3 @@
-import 'package:daily_quest/daily_quest/domain/usecase/add_task_usecase_impl.dart';
-import 'package:daily_quest/daily_quest/domain/usecase/edit_task_usecase_impl.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive/hive.dart';
 
@@ -9,7 +7,9 @@ import '../../data/repository/daily_quest_repository_impl.dart';
 import '../../domain/entity/daily_quest.dart';
 import '../../domain/helper/quest_validator_impl.dart';
 import '../../domain/helper/timestamp_provider.dart';
-import '../../domain/usecase/get_today_quest_usecase_impl.dart';
+import '../../domain/usecase/add_task_usecase.dart';
+import '../../domain/usecase/edit_task_usecase.dart';
+import '../../domain/usecase/get_today_quest_usecase.dart';
 import '../quest_list_notifier.dart';
 
 final questListProvider =

@@ -2,7 +2,7 @@ import 'package:daily_quest/daily_quest/domain/entity/daily_quest.dart';
 import 'package:daily_quest/daily_quest/domain/entity/task.dart';
 import 'package:daily_quest/daily_quest/domain/repository/daily_quest_repository.dart';
 import 'package:daily_quest/daily_quest/domain/usecase/edit_task_usecase.dart';
-import 'package:daily_quest/daily_quest/domain/usecase/edit_task_usecase_impl.dart';
+
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
