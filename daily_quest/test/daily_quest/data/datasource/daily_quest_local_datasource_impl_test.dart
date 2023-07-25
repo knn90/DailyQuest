@@ -26,6 +26,38 @@ void main() {
     dataSource = DailyQuestLocalDataSourceImpl(box: mockBox);
   });
 
+  group('edit task', () {
+    test('should throw on empty database', () async {
+      // arrange
+      when(mockBox.isEmpty).thenReturn(true);
+
+      // assert
+      expect(() => dataSource.editTask(task: task, index: 1),
+          throwsA(isA<DailyQuestNotFound>()));
+    });
+
+    test('should update task at correct index', () async {
+      const oldQuest = LocalDailyQuest(timestamp: 'timestamp', tasks: [task]);
+      const editedTask =
+          LocalTask(title: 'edited title', description: 'edited description');
+      const editedQuest =
+          LocalDailyQuest(timestamp: 'timestamp', tasks: [editedTask]);
+      // arrange
+      when(mockBox.length).thenReturn(1);
+      when(mockBox.getAt(0)).thenReturn(oldQuest);
+      // act
+      final result = await dataSource.editTask(task: editedTask, index: 0);
+      // assert
+      expect(result, editedQuest);
+      verifyInOrder([
+        mockBox.isEmpty,
+        mockBox.length,
+        mockBox.getAt(0),
+        mockBox.putAt(0, editedQuest),
+      ]);
+      verifyNoMoreInteractions(mockBox);
+    });
+  });
   group('addTask', () {
     test('should throw DailyQuestNotFound on empty database', () async {
       // arrange
@@ -106,7 +138,7 @@ void main() {
   });
 
   group('updateQuest', () {
-    test('should throw on empty data base', () async {
+    test('should throw on empty database', () async {
       // arrange
       when(mockBox.isEmpty).thenReturn(true);
 
@@ -127,6 +159,7 @@ void main() {
         mockBox.length,
         mockBox.putAt(0, latestQuest),
       ]);
+      verifyNoMoreInteractions(mockBox);
     });
   });
 }
