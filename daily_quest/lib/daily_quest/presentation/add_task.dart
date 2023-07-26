@@ -19,9 +19,9 @@ class AddTask extends ConsumerWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
             children: [
-              TaskDetails(
-                title: title,
-                description: description,
+              const TaskDetails(
+                title: '',
+                description: '',
               ),
               const SizedBox(height: 20),
               ElevatedButton(

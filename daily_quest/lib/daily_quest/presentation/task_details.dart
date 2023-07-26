@@ -51,7 +51,9 @@ class TaskDetailsState extends ConsumerState<TaskDetails> {
               hintText: "Title",
             ),
             controller: _titleController,
-            onChanged: (value) => title.state = value,
+            onChanged: (value) {
+              title.state = value;
+            },
           ),
           const SizedBox(height: 20),
           TextField(
