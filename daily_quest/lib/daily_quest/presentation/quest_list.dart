@@ -21,8 +21,7 @@ class DailyQuestList extends ConsumerWidget {
         data: (data) {
           return Container(
             padding: const EdgeInsets.all(16),
-            decoration:
-                BoxDecoration(color: Theme.of(context).scaffoldBackgroundColor),
+            decoration: BoxDecoration(color: Theme.of(context).cardColor),
             child: Column(
               children: [
                 Expanded(
@@ -30,12 +29,15 @@ class DailyQuestList extends ConsumerWidget {
                     decoration: BoxDecoration(
                       borderRadius: const BorderRadius.all(Radius.circular(16)),
                       color: Theme.of(context)
-                          .appBarTheme
-                          .backgroundColor, // Your desired background color
+                          .cardColor, // Your desired background color
                       boxShadow: [
                         BoxShadow(
-                            color:
-                                Theme.of(context).shadowColor.withOpacity(0.2),
+                            color: Theme.of(context)
+                                .shadowColor
+                                .withRed(5)
+                                .withGreen(34)
+                                .withBlue(97)
+                                .withOpacity(0.1),
                             blurRadius: 8),
                       ],
                     ),
@@ -78,14 +80,14 @@ class DailyQuestList extends ConsumerWidget {
                                   title: Text(
                                     task.title,
                                     style:
-                                        Theme.of(context).textTheme.titleSmall,
+                                        Theme.of(context).textTheme.titleMedium,
                                   ),
                                   subtitle: Text(
                                     task.description,
                                     style: Theme.of(context)
                                         .textTheme
                                         .bodySmall
-                                        ?.copyWith(
+                                        ?.apply(
                                             color: Theme.of(context)
                                                 .colorScheme
                                                 .secondary),
@@ -106,10 +108,15 @@ class DailyQuestList extends ConsumerWidget {
                         },
                         separatorBuilder: (context, index) {
                           return Divider(
-                            height: 1,
+                            height: 2,
                             indent: 0,
                             endIndent: 0,
-                            color: Theme.of(context).dividerColor,
+                            color: Theme.of(context)
+                                .shadowColor
+                                .withRed(5)
+                                .withGreen(34)
+                                .withBlue(97)
+                                .withOpacity(0.1),
                           );
                         },
                       ),
