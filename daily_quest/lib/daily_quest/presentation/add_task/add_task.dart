@@ -1,22 +1,17 @@
 import 'package:daily_quest/daily_quest/presentation/provider/quest_list_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../domain/entity/task.dart';
+import '../task_details/task_details.dart';
 
-import '../domain/entity/task.dart';
-import 'task_details.dart';
-
-class EditTask extends ConsumerWidget {
-  const EditTask({super.key, required this.task, required this.index});
-  final Task task;
-  final int index;
-
+class AddTask extends ConsumerWidget {
+  const AddTask({super.key});
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final editedTitle = ref.watch(taskTitleProvider(task.title));
-    final editedDescription =
-        ref.watch(taskDescriptionProvicer(task.description));
+    final title = ref.watch(taskTitleProvider(''));
+    final description = ref.watch(taskDescriptionProvicer(''));
     return Scaffold(
-      appBar: AppBar(title: const Text("Edit Quest")),
+      appBar: AppBar(title: const Text("Add Task")),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(16),
@@ -24,11 +19,13 @@ class EditTask extends ConsumerWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
             children: [
-              TaskDetails(title: task.title, description: task.description),
+              const TaskDetails(
+                title: '',
+                description: '',
+              ),
               const SizedBox(height: 20),
               ElevatedButton(
-                  onPressed: _onSubmitPressed(
-                      context, ref, editedTitle, editedDescription),
+                  onPressed: _onSubmitPressed(context, ref, title, description),
                   child: const Text("Submit")),
             ],
           ),
@@ -47,9 +44,9 @@ class EditTask extends ConsumerWidget {
       return null;
     } else {
       return () {
-        ref
-            .read(questListProvider.notifier)
-            .editTask(Task(title: title, description: description), index);
+        ref.read(questListProvider.notifier).addTask(
+              Task(title: title, description: description),
+            );
         Navigator.pop(context);
       };
     }

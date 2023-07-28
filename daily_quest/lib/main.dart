@@ -4,7 +4,7 @@ import 'package:hive_flutter/adapters.dart';
 
 import 'daily_quest/data/model/local_daily_quest.dart';
 import 'daily_quest/data/model/local_task.dart';
-import 'daily_quest/presentation/quest_list.dart';
+import 'daily_quest/presentation/today_quest/quest_list.dart';
 
 const dailyQuestBox = 'DailyQuest';
 
@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
       title: 'Daily Quest',
       theme: ThemeData(useMaterial3: true, colorScheme: lightColorScheme),
       darkTheme: ThemeData(useMaterial3: true, colorScheme: darkColorScheme),
-      home: const DailyQuestList(),
+      home: const TodayQuest(),
     );
   }
 }
