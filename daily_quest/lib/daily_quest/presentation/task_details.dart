@@ -44,11 +44,11 @@ class TaskDetailsState extends ConsumerState<TaskDetails> {
       padding: const EdgeInsets.all(16),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
-        mainAxisSize: MainAxisSize.min,
         children: [
           TextField(
             decoration: const InputDecoration(
               hintText: "Title",
+              filled: false,
             ),
             controller: _titleController,
             onChanged: (value) {
@@ -59,10 +59,12 @@ class TaskDetailsState extends ConsumerState<TaskDetails> {
           TextField(
             decoration: const InputDecoration(
               hintText: "Description",
+              filled: false,
             ),
             controller: _descriptionController,
             onChanged: (value) => description.state = value,
-            maxLines: 5,
+            maxLines: 14,
+            minLines: 1,
           ),
         ],
       ),

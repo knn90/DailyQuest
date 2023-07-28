@@ -1,5 +1,4 @@
 import 'package:daily_quest/daily_quest/presentation/provider/quest_list_provider.dart';
-import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -19,34 +18,30 @@ class DailyQuestList extends ConsumerWidget {
       ),
       body: dailyQuest.when(
         data: (data) {
-          return Container(
-            padding: const EdgeInsets.all(16),
-            decoration: BoxDecoration(color: Theme.of(context).cardColor),
-            child: Column(
-              children: [
-                Expanded(
-                  child: Container(
-                    decoration: BoxDecoration(
-                      borderRadius: const BorderRadius.all(Radius.circular(16)),
-                      color: Theme.of(context)
-                          .cardColor, // Your desired background color
-                      boxShadow: [
-                        BoxShadow(
-                            color: Theme.of(context)
-                                .shadowColor
-                                .withRed(5)
-                                .withGreen(34)
-                                .withBlue(97)
-                                .withOpacity(0.1),
-                            blurRadius: 8),
-                      ],
-                    ),
-                    child: ClipRect(
-                      child: ListView.separated(
-                        itemCount: data.tasks.length,
-                        itemBuilder: (context, index) {
-                          var task = data.tasks[index];
-                          return Dismissible(
+          return Stack(children: [
+            Container(
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                  color: Theme.of(context).colorScheme.background),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text("Today checklists",
+                      textAlign: TextAlign.start,
+                      style: Theme.of(context)
+                          .textTheme
+                          .headlineMedium
+                          ?.copyWith(fontWeight: FontWeight.bold)),
+                  const SizedBox(height: 20),
+                  Expanded(
+                    child: ListView.separated(
+                      itemCount: data.tasks.length,
+                      itemBuilder: (context, index) {
+                        var task = data.tasks[index];
+                        return ClipRRect(
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(16)),
+                          child: Dismissible(
                             key: Key("${task.title}_${task.description}"),
                             direction: DismissDirection.endToStart,
                             onDismissed: (direction) {
@@ -54,17 +49,17 @@ class DailyQuestList extends ConsumerWidget {
                                   .read(questListProvider.notifier)
                                   .removeTask(index);
                             },
-                            background: ClipRect(
-                              child: Container(
+                            background: Container(
                                 decoration: BoxDecoration(
                                     color: Theme.of(context).colorScheme.error,
-                                    borderRadius: index == 0
-                                        ? const BorderRadius.only(
-                                            topRight: Radius.circular(16))
-                                        : null),
-                              ),
-                            ),
-                            child: ListTileTheme(
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(16)))),
+                            child: Container(
+                              clipBehavior: Clip.antiAlias,
+                              decoration: BoxDecoration(
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .onInverseSurface),
                               child: ListTile(
                                   leading: Padding(
                                     padding: const EdgeInsets.only(top: 5),
@@ -84,13 +79,8 @@ class DailyQuestList extends ConsumerWidget {
                                   ),
                                   subtitle: Text(
                                     task.description,
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodySmall
-                                        ?.apply(
-                                            color: Theme.of(context)
-                                                .colorScheme
-                                                .secondary),
+                                    style:
+                                        Theme.of(context).textTheme.bodySmall,
                                   ),
                                   titleAlignment: ListTileTitleAlignment.top,
                                   onTap: () {
@@ -104,43 +94,40 @@ class DailyQuestList extends ConsumerWidget {
                                     );
                                   }),
                             ),
-                          );
-                        },
-                        separatorBuilder: (context, index) {
-                          return Divider(
-                            height: 2,
-                            indent: 0,
-                            endIndent: 0,
-                            color: Theme.of(context)
-                                .shadowColor
-                                .withRed(5)
-                                .withGreen(34)
-                                .withBlue(97)
-                                .withOpacity(0.1),
-                          );
-                        },
-                      ),
+                          ),
+                        );
+                      },
+                      separatorBuilder: (context, index) {
+                        return const Divider(
+                          height: 10,
+                          indent: 0,
+                          endIndent: 0,
+                          color: Colors.transparent,
+                        );
+                      },
                     ),
                   ),
-                ),
-                const SizedBox(height: 10),
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                      textStyle: const TextStyle(fontSize: 20)),
-                  child: const Text("+"),
-                  onPressed: () => {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        fullscreenDialog: true,
-                        builder: (context) => const AddTask(),
-                      ),
-                    )
-                  },
-                ),
-                const SizedBox(height: 30),
-              ],
+                  const SizedBox(height: 20),
+                ],
+              ),
             ),
-          );
+            Positioned.fill(
+              bottom: 40,
+              child: Align(
+                  alignment: Alignment.bottomCenter,
+                  child: FloatingActionButton(
+                    onPressed: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          fullscreenDialog: true,
+                          builder: (context) => const AddTask(),
+                        ),
+                      );
+                    },
+                    child: const Icon(Icons.add_circle_sharp),
+                  )),
+            )
+          ]);
         },
         error: (error, stackTrace) {
           return Text('Error: $error');
