@@ -51,6 +51,7 @@ class TaskDetailsState extends ConsumerState<TaskDetails> {
               filled: false,
             ),
             controller: _titleController,
+            autofocus: true,
             onChanged: (value) {
               title.state = value;
             },
