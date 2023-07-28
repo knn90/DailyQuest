@@ -27,18 +27,31 @@ class EditTask extends ConsumerWidget {
               TaskDetails(title: task.title, description: task.description),
               const SizedBox(height: 20),
               ElevatedButton(
-                  onPressed: () {
-                    ref.read(questListProvider.notifier).editTask(
-                        Task(
-                            title: editedTitle, description: editedDescription),
-                        index);
-                    Navigator.pop(context);
-                  },
+                  onPressed: _onSubmitPressed(
+                      context, ref, editedTitle, editedDescription),
                   child: const Text("Submit")),
             ],
           ),
         ),
       ),
     );
+  }
+
+  _onSubmitPressed(
+    BuildContext context,
+    WidgetRef ref,
+    String title,
+    String description,
+  ) {
+    if (title.isEmpty) {
+      return null;
+    } else {
+      return () {
+        ref
+            .read(questListProvider.notifier)
+            .editTask(Task(title: title, description: description), index);
+        Navigator.pop(context);
+      };
+    }
   }
 }

@@ -25,17 +25,30 @@ class AddTask extends ConsumerWidget {
               ),
               const SizedBox(height: 20),
               ElevatedButton(
-                  onPressed: () {
-                    ref.read(questListProvider.notifier).addTask(
-                          Task(title: title, description: description),
-                        );
-                    Navigator.pop(context);
-                  },
+                  onPressed: _onSubmitPressed(context, ref, title, description),
                   child: const Text("Submit")),
             ],
           ),
         ),
       ),
     );
+  }
+
+  _onSubmitPressed(
+    BuildContext context,
+    WidgetRef ref,
+    String title,
+    String description,
+  ) {
+    if (title.isEmpty) {
+      return null;
+    } else {
+      return () {
+        ref.read(questListProvider.notifier).addTask(
+              Task(title: title, description: description),
+            );
+        Navigator.pop(context);
+      };
+    }
   }
 }
