@@ -10,4 +10,5 @@ abstract class DailyQuestRepository {
   Future<DailyQuest> editTask({required Task task, required int index});
   Future<DailyQuest> toggleTask({required int index});
   Future<DailyQuest> removeTask({required int index});
+  Future<DailyQuest> moveTask({required int fromIndex, required int toIndex});
 }

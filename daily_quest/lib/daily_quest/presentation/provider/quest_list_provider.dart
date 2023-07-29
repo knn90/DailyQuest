@@ -30,7 +30,8 @@ final questListProvider =
   final editTaskUseCase = EditTaskUseCaseImpl(repository: repository);
   final toggleTaskUseCase = ToggleTaskUseCaseImpl(repository: repository);
   final removeTaskUseCase = RemoveTaskUseCaseImpl(repository: repository);
-  final moveTaskUseCase = MoveTaskUseCaseImpl();
+  final moveTaskUseCase = MoveTaskUseCaseImpl(repository: repository);
+
   return TodayQuestNotifier(
     ref: ref,
     getTodayQuestUseCase: getTodayQuestUseCase,

@@ -57,4 +57,10 @@ class DailyQuestRepositoryImpl implements DailyQuestRepository {
     final localQuest = await dataSource.removeTask(index: index);
     return localQuest.toEntity();
   }
+
+  @override
+  Future<DailyQuest> moveTask({required int fromIndex, required int toIndex}) {
+    // TODO: implement moveTask
+    throw UnimplementedError();
+  }
 }

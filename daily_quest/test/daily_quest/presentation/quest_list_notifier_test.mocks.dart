@@ -231,7 +231,7 @@ class MockMoveTaskUseCase extends _i1.Mock implements _i11.MoveTaskUseCase {
   ) =>
       (super.noSuchMethod(
         Invocation.method(
-          #moveTask,
+          #execute,
           [
             fromIndex,
             toIndex,
@@ -240,7 +240,7 @@ class MockMoveTaskUseCase extends _i1.Mock implements _i11.MoveTaskUseCase {
         returnValue: _i5.Future<_i2.DailyQuest>.value(_FakeDailyQuest_0(
           this,
           Invocation.method(
-            #moveTask,
+            #execute,
             [
               fromIndex,
               toIndex,
@@ -251,7 +251,7 @@ class MockMoveTaskUseCase extends _i1.Mock implements _i11.MoveTaskUseCase {
             _i5.Future<_i2.DailyQuest>.value(_FakeDailyQuest_0(
           this,
           Invocation.method(
-            #moveTask,
+            #execute,
             [
               fromIndex,
               toIndex,
