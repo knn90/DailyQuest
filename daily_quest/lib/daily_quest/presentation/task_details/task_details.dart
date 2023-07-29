@@ -51,6 +51,7 @@ class TaskDetailsState extends ConsumerState<TaskDetails> {
               filled: false,
             ),
             controller: _titleController,
+            style: Theme.of(context).textTheme.titleMedium,
             autofocus: true,
             onChanged: (value) {
               title.state = value;
@@ -63,6 +64,7 @@ class TaskDetailsState extends ConsumerState<TaskDetails> {
               filled: false,
             ),
             controller: _descriptionController,
+            style: Theme.of(context).textTheme.bodyMedium,
             onChanged: (value) => description.state = value,
             maxLines: 14,
             minLines: 1,

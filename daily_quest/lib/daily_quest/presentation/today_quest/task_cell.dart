@@ -34,6 +34,7 @@ class TaskCell extends ConsumerWidget {
             style: Theme.of(context).textTheme.bodySmall,
           ),
           titleAlignment: ListTileTitleAlignment.top,
+          contentPadding: const EdgeInsets.only(left: 16, right: 40),
           onTap: () {
             Navigator.of(context).push<Task>(
               MaterialPageRoute(
