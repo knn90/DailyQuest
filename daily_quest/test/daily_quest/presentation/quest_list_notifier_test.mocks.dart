@@ -13,12 +13,14 @@ import 'package:daily_quest/daily_quest/domain/usecase/edit_task_usecase.dart'
     as _i8;
 import 'package:daily_quest/daily_quest/domain/usecase/get_today_quest_usecase.dart'
     as _i4;
+import 'package:daily_quest/daily_quest/domain/usecase/move_task_usecase.dart'
+    as _i11;
 import 'package:daily_quest/daily_quest/domain/usecase/remove_task_usecase.dart'
     as _i10;
 import 'package:daily_quest/daily_quest/domain/usecase/toggle_task_usecase.dart'
     as _i9;
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:mockito/src/dummies.dart' as _i11;
+import 'package:mockito/src/dummies.dart' as _i12;
 import 'package:riverpod/src/internals.dart' as _i3;
 
 // ignore_for_file: type=lint
@@ -218,6 +220,47 @@ class MockRemoveTaskUseCase extends _i1.Mock implements _i10.RemoveTaskUseCase {
       ) as _i5.Future<_i2.DailyQuest>);
 }
 
+/// A class which mocks [MoveTaskUseCase].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockMoveTaskUseCase extends _i1.Mock implements _i11.MoveTaskUseCase {
+  @override
+  _i5.Future<_i2.DailyQuest> execute(
+    int? fromIndex,
+    int? toIndex,
+  ) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #moveTask,
+          [
+            fromIndex,
+            toIndex,
+          ],
+        ),
+        returnValue: _i5.Future<_i2.DailyQuest>.value(_FakeDailyQuest_0(
+          this,
+          Invocation.method(
+            #moveTask,
+            [
+              fromIndex,
+              toIndex,
+            ],
+          ),
+        )),
+        returnValueForMissingStub:
+            _i5.Future<_i2.DailyQuest>.value(_FakeDailyQuest_0(
+          this,
+          Invocation.method(
+            #moveTask,
+            [
+              fromIndex,
+              toIndex,
+            ],
+          ),
+        )),
+      ) as _i5.Future<_i2.DailyQuest>);
+}
+
 /// A class which mocks [Ref].
 ///
 /// See the documentation for Mockito's code generation for more information.
@@ -241,14 +284,14 @@ class MockRef<State extends Object?> extends _i1.Mock
           #refresh,
           [provider],
         ),
-        returnValue: _i11.dummyValue<T>(
+        returnValue: _i12.dummyValue<T>(
           this,
           Invocation.method(
             #refresh,
             [provider],
           ),
         ),
-        returnValueForMissingStub: _i11.dummyValue<T>(
+        returnValueForMissingStub: _i12.dummyValue<T>(
           this,
           Invocation.method(
             #refresh,
@@ -345,14 +388,14 @@ class MockRef<State extends Object?> extends _i1.Mock
           #read,
           [provider],
         ),
-        returnValue: _i11.dummyValue<T>(
+        returnValue: _i12.dummyValue<T>(
           this,
           Invocation.method(
             #read,
             [provider],
           ),
         ),
-        returnValueForMissingStub: _i11.dummyValue<T>(
+        returnValueForMissingStub: _i12.dummyValue<T>(
           this,
           Invocation.method(
             #read,
@@ -376,14 +419,14 @@ class MockRef<State extends Object?> extends _i1.Mock
           #watch,
           [provider],
         ),
-        returnValue: _i11.dummyValue<T>(
+        returnValue: _i12.dummyValue<T>(
           this,
           Invocation.method(
             #watch,
             [provider],
           ),
         ),
-        returnValueForMissingStub: _i11.dummyValue<T>(
+        returnValueForMissingStub: _i12.dummyValue<T>(
           this,
           Invocation.method(
             #watch,

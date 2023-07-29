@@ -3,6 +3,7 @@ import 'package:daily_quest/daily_quest/domain/entity/task.dart';
 import 'package:daily_quest/daily_quest/domain/usecase/add_task_usecase.dart';
 import 'package:daily_quest/daily_quest/domain/usecase/edit_task_usecase.dart';
 import 'package:daily_quest/daily_quest/domain/usecase/get_today_quest_usecase.dart';
+import 'package:daily_quest/daily_quest/domain/usecase/move_task_usecase.dart';
 import 'package:daily_quest/daily_quest/domain/usecase/remove_task_usecase.dart';
 import 'package:daily_quest/daily_quest/domain/usecase/toggle_task_usecase.dart';
 import 'package:daily_quest/daily_quest/presentation/quest_list_notifier.dart';
@@ -18,6 +19,7 @@ import 'quest_list_notifier_test.mocks.dart';
   MockSpec<EditTaskUseCase>(),
   MockSpec<ToggleTaskUseCase>(),
   MockSpec<RemoveTaskUseCase>(),
+  MockSpec<MoveTaskUseCase>(),
   MockSpec<Ref>()
 ])
 void main() {
@@ -27,6 +29,7 @@ void main() {
   late MockEditTaskUseCase mockEditTaskUseCase;
   late MockToggleTaskUseCase mockToggleTaskUseCase;
   late MockRemoveTaskUseCase mockRemoveTaskUseCase;
+  late MockMoveTaskUseCase mockMoveTaskUseCase;
   late MockRef mockRef;
 
   setUp(() {
@@ -35,6 +38,7 @@ void main() {
     mockEditTaskUseCase = MockEditTaskUseCase();
     mockToggleTaskUseCase = MockToggleTaskUseCase();
     mockRemoveTaskUseCase = MockRemoveTaskUseCase();
+    mockMoveTaskUseCase = MockMoveTaskUseCase();
     mockRef = MockRef();
     questListNotifier = TodayQuestNotifier(
       ref: mockRef,
@@ -43,6 +47,7 @@ void main() {
       editTaskUseCase: mockEditTaskUseCase,
       toggleTaskUseCase: mockToggleTaskUseCase,
       removeTaskUseCase: mockRemoveTaskUseCase,
+      moveTaskUseCase: mockMoveTaskUseCase,
     );
   });
 
@@ -276,6 +281,51 @@ void main() {
         // assert
         verify(mockRemoveTaskUseCase.excecute(2));
         verifyNoMoreInteractions(mockRemoveTaskUseCase);
+      },
+      timeout: const Timeout(Duration(milliseconds: 500)),
+    );
+  });
+
+  group('move task', () {
+    test(
+      'should throw on move task fails',
+      () async {
+        // arrange
+        final exception = Exception('Move task fails');
+        when(mockMoveTaskUseCase.execute(0, 3)).thenThrow(exception);
+        expectLater(
+            questListNotifier.stream,
+            emitsInOrder([
+              const AsyncLoading<DailyQuest>(),
+              predicate<AsyncError<DailyQuest>>((value) {
+                expect(value, isA<AsyncError<DailyQuest>>());
+                return true;
+              })
+            ]));
+        // act
+        await questListNotifier.moveTask(0, 3);
+        // assert
+        verify(mockMoveTaskUseCase.execute(0, 3));
+      },
+      timeout: const Timeout(Duration(milliseconds: 500)),
+    );
+
+    test(
+      'should update notifier with correct state',
+      () async {
+        const quest = DailyQuest(timestamp: 'timestamp', tasks: []);
+        when(mockMoveTaskUseCase.execute(1, 4)).thenAnswer((_) async => quest);
+        expectLater(
+            questListNotifier.stream,
+            emitsInOrder(const [
+              AsyncLoading<DailyQuest>(),
+              AsyncValue.data(quest),
+            ]));
+        // act
+        await questListNotifier.moveTask(1, 4);
+        // assert
+        verify(mockMoveTaskUseCase.execute(1, 4));
+        verifyNoMoreInteractions(mockMoveTaskUseCase);
       },
       timeout: const Timeout(Duration(milliseconds: 500)),
     );
