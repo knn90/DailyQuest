@@ -21,7 +21,7 @@ import 'quest_list_notifier_test.mocks.dart';
   MockSpec<Ref>()
 ])
 void main() {
-  late QuestListNotifier questListNotifier;
+  late TodayQuestNotifier questListNotifier;
   late MockGetTodayQuestUseCase mockGetTodayQuestUseCase;
   late MockAddTaskUseCase mockAddTaskUseCase;
   late MockEditTaskUseCase mockEditTaskUseCase;
@@ -36,7 +36,7 @@ void main() {
     mockToggleTaskUseCase = MockToggleTaskUseCase();
     mockRemoveTaskUseCase = MockRemoveTaskUseCase();
     mockRef = MockRef();
-    questListNotifier = QuestListNotifier(
+    questListNotifier = TodayQuestNotifier(
       ref: mockRef,
       getTodayQuestUseCase: mockGetTodayQuestUseCase,
       addTaskUseCase: mockAddTaskUseCase,

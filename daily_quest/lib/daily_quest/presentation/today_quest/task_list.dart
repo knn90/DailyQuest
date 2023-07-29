@@ -18,6 +18,7 @@ class TaskList extends ConsumerWidget {
       itemBuilder: (context, index) {
         var task = tasks[index];
         return ClipRRect(
+          key: Key("${task.title}_${task.description}"),
           borderRadius: const BorderRadius.all(Radius.circular(16)),
           child: Dismissible(
             key: Key("${task.title}_${task.description}"),

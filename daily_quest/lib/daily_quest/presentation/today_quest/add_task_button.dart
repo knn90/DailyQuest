@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../add_task/add_task.dart';
@@ -13,6 +12,11 @@ class AddTaskButton extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.only(bottom: 20),
       child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          shape: const CircleBorder(),
+          backgroundColor: Theme.of(context).colorScheme.primaryContainer,
+          padding: const EdgeInsets.all(20), // <-- Splash color
+        ),
         onPressed: () {
           Navigator.of(context).push(
             MaterialPageRoute(
@@ -21,12 +25,7 @@ class AddTaskButton extends StatelessWidget {
             ),
           );
         },
-        child: Icon(Icons.add),
-        style: ElevatedButton.styleFrom(
-          shape: const CircleBorder(),
-          backgroundColor: Theme.of(context).colorScheme.primaryContainer,
-          padding: const EdgeInsets.all(20), // <-- Splash color
-        ),
+        child: const Icon(Icons.add),
       ),
     );
   }

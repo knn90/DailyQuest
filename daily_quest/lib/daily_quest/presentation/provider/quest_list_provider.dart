@@ -15,7 +15,7 @@ import '../../domain/usecase/get_today_quest_usecase.dart';
 import '../quest_list_notifier.dart';
 
 final questListProvider =
-    StateNotifierProvider<QuestListNotifier, AsyncValue<DailyQuest>>((ref) {
+    StateNotifierProvider<TodayQuestNotifier, AsyncValue<DailyQuest>>((ref) {
   final box = Hive.box(dailyQuestBox);
   final dataSource = DailyQuestLocalDataSourceImpl(box: box);
   final repository = DailyQuestRepositoryImpl(dataSource: dataSource);
@@ -29,7 +29,7 @@ final questListProvider =
   final editTaskUseCase = EditTaskUseCaseImpl(repository: repository);
   final toggleTaskUseCase = ToggleTaskUseCaseImpl(repository: repository);
   final removeTaskUseCase = RemoveTaskUseCaseImpl(repository: repository);
-  return QuestListNotifier(
+  return TodayQuestNotifier(
     ref: ref,
     getTodayQuestUseCase: getTodayQuestUseCase,
     addTaskUseCase: addTaskUseCase,

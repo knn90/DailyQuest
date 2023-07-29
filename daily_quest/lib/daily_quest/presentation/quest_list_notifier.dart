@@ -7,8 +7,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../domain/entity/task.dart';
 import '../domain/usecase/get_today_quest_usecase.dart';
 
-class QuestListNotifier extends StateNotifier<AsyncValue<DailyQuest>> {
-  QuestListNotifier({
+class TodayQuestNotifier extends StateNotifier<AsyncValue<DailyQuest>> {
+  TodayQuestNotifier({
     required this.ref,
     required GetTodayQuestUseCase getTodayQuestUseCase,
     required AddTaskUseCase addTaskUseCase,
