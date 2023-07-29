@@ -14,11 +14,11 @@ class TaskList extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return ListView.separated(
+      padding: const EdgeInsets.only(bottom: 80),
       itemCount: tasks.length,
       itemBuilder: (context, index) {
         var task = tasks[index];
         return ClipRRect(
-          key: Key("${task.title}_${task.description}"),
           borderRadius: const BorderRadius.all(Radius.circular(16)),
           child: Dismissible(
             key: Key("${task.title}_${task.description}"),
