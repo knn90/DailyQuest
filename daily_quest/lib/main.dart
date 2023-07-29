@@ -4,7 +4,7 @@ import 'package:hive_flutter/adapters.dart';
 
 import 'daily_quest/data/model/local_daily_quest.dart';
 import 'daily_quest/data/model/local_task.dart';
-import 'daily_quest/presentation/today_quest/quest_list.dart';
+import 'daily_quest/presentation/today_quest/today_quest.dart';
 
 const dailyQuestBox = 'DailyQuest';
 
