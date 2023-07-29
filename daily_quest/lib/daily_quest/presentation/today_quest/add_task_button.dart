@@ -10,12 +10,12 @@ class AddTaskButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.only(bottom: 20),
+      padding: const EdgeInsets.only(bottom: 10),
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           shape: const CircleBorder(),
           backgroundColor: Theme.of(context).colorScheme.primaryContainer,
-          padding: const EdgeInsets.all(20), // <-- Splash color
+          padding: const EdgeInsets.all(20),
         ),
         onPressed: () {
           Navigator.of(context).push(
