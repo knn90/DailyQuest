@@ -254,4 +254,72 @@ void main() {
       verifyNoMoreInteractions(mockBox);
     });
   });
+
+  group('moving task', () {
+    test('should throw on empty database', () {
+      // arrange
+      when(mockBox.isEmpty).thenReturn(true);
+      // assert
+      expect(() => dataSource.moveTask(fromIndex: 1, toIndex: 2),
+          throwsA(isA<DailyQuestNotFound>()));
+      verify(mockBox.isEmpty);
+      verifyNoMoreInteractions(mockBox);
+    });
+
+    test('should throw when moving to an index out of bound index', () async {
+      // arrange
+      const quest = LocalDailyQuest(timestamp: 'timestamp', tasks: [
+        LocalTask(title: 'title', description: 'description'),
+        LocalTask(title: 'title', description: 'description'),
+      ]);
+      when(mockBox.length).thenReturn(1);
+      when(mockBox.getAt(0)).thenReturn(quest);
+
+      // assert
+      expect(() => dataSource.moveTask(fromIndex: 1, toIndex: 2),
+          throwsA(isA<TaskIndexOutOfBound>()));
+    });
+
+    test('should throw when moving from an index out of bound index', () async {
+      // arrange
+      const quest = LocalDailyQuest(timestamp: 'timestamp', tasks: [
+        LocalTask(title: 'title', description: 'description'),
+        LocalTask(title: 'title', description: 'description'),
+      ]);
+      when(mockBox.length).thenReturn(1);
+      when(mockBox.getAt(0)).thenReturn(quest);
+
+      // assert
+      expect(() => dataSource.moveTask(fromIndex: -1, toIndex: 1),
+          throwsA(isA<TaskIndexOutOfBound>()));
+    });
+
+    test('should move the task to correct index', () async {
+      // arrange
+      const quest = LocalDailyQuest(timestamp: 'timestamp', tasks: [
+        LocalTask(title: 'title1', description: 'description1'),
+        LocalTask(title: 'title2', description: 'description2'),
+        LocalTask(title: 'title3', description: 'description3'),
+      ]);
+      const movedQuest = LocalDailyQuest(timestamp: 'timestamp', tasks: [
+        LocalTask(title: 'title2', description: 'description2'),
+        LocalTask(title: 'title3', description: 'description3'),
+        LocalTask(title: 'title1', description: 'description1'),
+      ]);
+      when(mockBox.length).thenReturn(1);
+      when(mockBox.getAt(0)).thenReturn(quest);
+      // act
+      final result = await dataSource.moveTask(fromIndex: 0, toIndex: 2);
+      // assert
+      expect(result, movedQuest);
+
+      verifyInOrder([
+        mockBox.isEmpty,
+        mockBox.length,
+        mockBox.getAt(0),
+        mockBox.putAt(0, movedQuest),
+      ]);
+      verifyNoMoreInteractions(mockBox);
+    });
+  });
 }
