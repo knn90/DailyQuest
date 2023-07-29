@@ -174,4 +174,28 @@ void main() {
       verifyNoMoreInteractions(mockDataSource);
     });
   });
+
+  group('Move task', () {
+    test('should throw when moving task fails', () async {
+      // arrange
+      final exception = Exception('Remove task fails');
+      when(mockDataSource.moveTask(fromIndex: 2, toIndex: 3))
+          .thenThrow(exception);
+      // assert
+      expect(
+          () => repository.moveTask(fromIndex: 2, toIndex: 3), throwsException);
+    });
+
+    test('should foward remove task message to dataSource', () async {
+      // arrange
+      when(mockDataSource.moveTask(fromIndex: 2, toIndex: 4))
+          .thenAnswer((_) async => localQuest);
+      // act
+      final result = await repository.moveTask(fromIndex: 2, toIndex: 4);
+      // assert
+      expect(result, dailyQuest);
+      verify(mockDataSource.moveTask(fromIndex: 2, toIndex: 4));
+      verifyNoMoreInteractions(mockDataSource);
+    });
+  });
 }

@@ -59,8 +59,10 @@ class DailyQuestRepositoryImpl implements DailyQuestRepository {
   }
 
   @override
-  Future<DailyQuest> moveTask({required int fromIndex, required int toIndex}) {
-    // TODO: implement moveTask
-    throw UnimplementedError();
+  Future<DailyQuest> moveTask(
+      {required int fromIndex, required int toIndex}) async {
+    final localQuest =
+        await dataSource.moveTask(fromIndex: fromIndex, toIndex: toIndex);
+    return localQuest.toEntity();
   }
 }
