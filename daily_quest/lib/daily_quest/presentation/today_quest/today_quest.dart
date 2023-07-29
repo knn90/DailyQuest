@@ -27,10 +27,7 @@ class TodayQuest extends ConsumerWidget {
               children: [
                 Text("Today checklists",
                     textAlign: TextAlign.start,
-                    style: Theme.of(context)
-                        .textTheme
-                        .headlineMedium
-                        ?.copyWith(fontWeight: FontWeight.bold)),
+                    style: Theme.of(context).textTheme.headlineMedium),
                 const SizedBox(height: 20),
                 Expanded(
                   child: TaskList(tasks: data.tasks),
