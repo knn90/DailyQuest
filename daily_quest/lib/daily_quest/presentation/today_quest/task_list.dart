@@ -34,7 +34,12 @@ class TaskList extends ConsumerWidget {
               child: TaskCell(task: task, index: index),
             );
           },
-          onReorder: (oldIndex, newIndex) {},
+          onReorder: (oldIndex, newIndex) {
+            if (oldIndex < newIndex) {
+              newIndex -= 1;
+            }
+            ref.read(questListProvider.notifier).moveTask(oldIndex, newIndex);
+          },
         ),
       ),
     );

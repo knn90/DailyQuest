@@ -34,7 +34,8 @@ class TodayQuest extends ConsumerWidget {
                         style: Theme.of(context)
                             .textTheme
                             .headlineSmall
-                            ?.copyWith(fontWeight: FontWeight.bold)),
+                            ?.copyWith(fontWeight: FontWeight.bold)
+                            .copyWith(letterSpacing: -1.5)),
                     Text(" $doneTasks out of $totalTasks",
                         textAlign: TextAlign.start,
                         style: Theme.of(context)
