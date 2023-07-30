@@ -13,10 +13,11 @@ class TaskList extends ConsumerWidget {
   final List<Task> tasks;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final theme = Theme.of(context);
     return ClipRRect(
       borderRadius: const BorderRadius.all(Radius.circular(16)),
       child: Container(
-        color: Theme.of(context).colorScheme.onInverseSurface,
+        color: theme.colorScheme.onInverseSurface,
         child: ReorderableListView.builder(
           padding: const EdgeInsets.only(bottom: 70),
           itemCount: tasks.length,
@@ -29,7 +30,7 @@ class TaskList extends ConsumerWidget {
                 ref.read(todayQuestProvider.notifier).removeTask(index);
               },
               background: Container(
-                color: Theme.of(context).colorScheme.error,
+                color: theme.colorScheme.error,
               ),
               child: TaskCell(task: task, index: index),
             );

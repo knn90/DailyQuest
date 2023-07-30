@@ -2,8 +2,8 @@ import 'package:daily_quest/daily_quest/presentation/provider/today_quest_provid
 import 'package:daily_quest/daily_quest/presentation/today_quest/task_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../../l10n/strings.dart';
 import 'add_task_button.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class TodayQuest extends ConsumerWidget {
   const TodayQuest({super.key});
@@ -11,10 +11,11 @@ class TodayQuest extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final dailyQuest = ref.watch(todayQuestProvider);
-    final localizations = AppLocalizations.of(context);
+    final strings = Strings.of(context);
+    final theme = Theme.of(context);
     return Scaffold(
       appBar: AppBar(
-        title: Text(AppLocalizations.of(context).quest),
+        title: Text(strings.quest),
       ),
       floatingActionButton: const AddTaskButton(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
@@ -24,29 +25,22 @@ class TodayQuest extends ConsumerWidget {
           final doneTasks = data.tasks.where((task) => task.isDone).length;
           return Container(
             padding: const EdgeInsets.all(16),
-            decoration:
-                BoxDecoration(color: Theme.of(context).colorScheme.background),
+            decoration: BoxDecoration(color: theme.colorScheme.background),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
                   children: [
-                    Text(localizations.todayChecklists,
+                    Text(strings.todayChecklists,
                         textAlign: TextAlign.start,
-                        style: Theme.of(context)
-                            .textTheme
-                            .headlineSmall
+                        style: theme.textTheme.headlineSmall
                             ?.copyWith(fontWeight: FontWeight.bold)
                             .copyWith(letterSpacing: -1.5)),
-                    Text(
-                        localizations.doneOutOfTaskCount(doneTasks, totalTasks),
+                    Text(strings.doneOutOfTaskCount(doneTasks, totalTasks),
                         textAlign: TextAlign.start,
-                        style: Theme.of(context)
-                            .textTheme
-                            .headlineSmall
-                            ?.copyWith(
-                                color: Theme.of(context).colorScheme.primary,
-                                fontWeight: FontWeight.bold)),
+                        style: theme.textTheme.headlineSmall?.copyWith(
+                            color: theme.colorScheme.primary,
+                            fontWeight: FontWeight.bold)),
                   ],
                 ),
                 const SizedBox(height: 20),

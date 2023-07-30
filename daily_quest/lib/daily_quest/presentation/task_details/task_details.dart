@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+import '../../../l10n/strings.dart';
 
 final taskTitleProvider =
     StateProvider.autoDispose.family<String, String>((ref, title) => title);
@@ -41,7 +42,8 @@ class TaskDetailsState extends ConsumerState<TaskDetails> {
         ref.watch(taskTitleProvider(widget.title).notifier);
     StateController<String> description =
         ref.watch(taskDescriptionProvicer(widget.description).notifier);
-    final localization = AppLocalizations.of(context);
+    final strings = Strings.of(context);
+    final theme = Theme.of(context);
     return Padding(
       padding: const EdgeInsets.all(16),
       child: Column(
@@ -49,11 +51,11 @@ class TaskDetailsState extends ConsumerState<TaskDetails> {
         children: [
           TextField(
             decoration: InputDecoration(
-              hintText: localization.taskTitleHint,
+              hintText: strings.taskTitleHint,
               filled: false,
             ),
             controller: _titleController,
-            style: Theme.of(context).textTheme.titleMedium,
+            style: theme.textTheme.titleMedium,
             autofocus: true,
             onChanged: (value) {
               title.state = value;
@@ -62,11 +64,11 @@ class TaskDetailsState extends ConsumerState<TaskDetails> {
           const SizedBox(height: 20),
           TextField(
             decoration: InputDecoration(
-              hintText: localization.taskDescriptionHint,
+              hintText: strings.taskDescriptionHint,
               filled: false,
             ),
             controller: _descriptionController,
-            style: Theme.of(context).textTheme.bodyMedium,
+            style: theme.textTheme.bodyMedium,
             onChanged: (value) => description.state = value,
             maxLines: 14,
             minLines: 1,

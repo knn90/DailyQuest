@@ -13,6 +13,7 @@ class TaskCell extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final theme = Theme.of(context);
     return Column(
       children: [
         ListTile(
@@ -27,11 +28,11 @@ class TaskCell extends ConsumerWidget {
           ),
           title: Text(
             task.title,
-            style: Theme.of(context).textTheme.titleMedium,
+            style: theme.textTheme.titleMedium,
           ),
           subtitle: Text(
             task.description,
-            style: Theme.of(context).textTheme.bodySmall,
+            style: theme.textTheme.bodySmall,
           ),
           titleAlignment: ListTileTitleAlignment.top,
           contentPadding: const EdgeInsets.only(left: 16, right: 40),
@@ -48,7 +49,7 @@ class TaskCell extends ConsumerWidget {
         ),
         Container(
           height: 1,
-          color: Theme.of(context).colorScheme.background,
+          color: theme.colorScheme.background,
         )
       ],
     );
