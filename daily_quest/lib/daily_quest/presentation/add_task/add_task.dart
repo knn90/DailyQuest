@@ -1,8 +1,9 @@
-import 'package:daily_quest/daily_quest/presentation/provider/quest_list_provider.dart';
+import 'package:daily_quest/daily_quest/presentation/provider/today_quest_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../domain/entity/task.dart';
 import '../task_details/task_details.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AddTask extends ConsumerWidget {
   const AddTask({super.key});
@@ -10,8 +11,9 @@ class AddTask extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final title = ref.watch(taskTitleProvider(''));
     final description = ref.watch(taskDescriptionProvicer(''));
+    final localization = AppLocalizations.of(context);
     return Scaffold(
-      appBar: AppBar(title: const Text("Add Task")),
+      appBar: AppBar(title: Text(localization.addTask)),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(16),
@@ -26,7 +28,7 @@ class AddTask extends ConsumerWidget {
               const SizedBox(height: 20),
               ElevatedButton(
                   onPressed: _onSubmitPressed(context, ref, title, description),
-                  child: const Text("Submit")),
+                  child: Text(localization.submit)),
             ],
           ),
         ),
@@ -44,7 +46,7 @@ class AddTask extends ConsumerWidget {
       return null;
     } else {
       return () {
-        ref.read(questListProvider.notifier).addTask(
+        ref.read(todayQuestProvider.notifier).addTask(
               Task(title: title, description: description),
             );
         Navigator.pop(context);

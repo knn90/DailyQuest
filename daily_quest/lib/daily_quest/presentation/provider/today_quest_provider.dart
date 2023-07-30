@@ -13,9 +13,9 @@ import '../../domain/helper/timestamp_provider.dart';
 import '../../domain/usecase/add_task_usecase.dart';
 import '../../domain/usecase/edit_task_usecase.dart';
 import '../../domain/usecase/get_today_quest_usecase.dart';
-import '../quest_list_notifier.dart';
+import 'today_quest_notifier.dart';
 
-final questListProvider =
+final todayQuestProvider =
     StateNotifierProvider<TodayQuestNotifier, AsyncValue<DailyQuest>>((ref) {
   final box = Hive.box(dailyQuestBox);
   final dataSource = DailyQuestLocalDataSourceImpl(box: box);

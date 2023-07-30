@@ -1,9 +1,10 @@
-import 'package:daily_quest/daily_quest/presentation/provider/quest_list_provider.dart';
+import 'package:daily_quest/daily_quest/presentation/provider/today_quest_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../domain/entity/task.dart';
 import '../task_details/task_details.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class EditTask extends ConsumerWidget {
   const EditTask({super.key, required this.task, required this.index});
@@ -15,8 +16,10 @@ class EditTask extends ConsumerWidget {
     final editedTitle = ref.watch(taskTitleProvider(task.title));
     final editedDescription =
         ref.watch(taskDescriptionProvicer(task.description));
+    final localization = AppLocalizations.of(context);
+
     return Scaffold(
-      appBar: AppBar(title: const Text("Edit Quest")),
+      appBar: AppBar(title: Text(localization.editTask)),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(16),
@@ -29,7 +32,7 @@ class EditTask extends ConsumerWidget {
               ElevatedButton(
                   onPressed: _onSubmitPressed(
                       context, ref, editedTitle, editedDescription),
-                  child: const Text("Submit")),
+                  child: Text(localization.submit)),
             ],
           ),
         ),
@@ -48,7 +51,7 @@ class EditTask extends ConsumerWidget {
     } else {
       return () {
         ref
-            .read(questListProvider.notifier)
+            .read(todayQuestProvider.notifier)
             .editTask(Task(title: title, description: description), index);
         Navigator.pop(context);
       };

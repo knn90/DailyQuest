@@ -5,6 +5,7 @@ import 'package:hive_flutter/adapters.dart';
 import 'daily_quest/data/model/local_daily_quest.dart';
 import 'daily_quest/data/model/local_task.dart';
 import 'daily_quest/presentation/today_quest/today_quest.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 const dailyQuestBox = 'DailyQuest';
 
@@ -24,10 +25,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Daily Quest',
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
       theme: ThemeData(useMaterial3: true, colorScheme: lightColorScheme),
       darkTheme: ThemeData(useMaterial3: true, colorScheme: darkColorScheme),
       home: const TodayQuest(),
+      onGenerateTitle: (context) => AppLocalizations.of(context).dailyQuest,
     );
   }
 }

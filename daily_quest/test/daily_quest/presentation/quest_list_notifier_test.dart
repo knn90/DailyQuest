@@ -6,7 +6,7 @@ import 'package:daily_quest/daily_quest/domain/usecase/get_today_quest_usecase.d
 import 'package:daily_quest/daily_quest/domain/usecase/move_task_usecase.dart';
 import 'package:daily_quest/daily_quest/domain/usecase/remove_task_usecase.dart';
 import 'package:daily_quest/daily_quest/domain/usecase/toggle_task_usecase.dart';
-import 'package:daily_quest/daily_quest/presentation/quest_list_notifier.dart';
+import 'package:daily_quest/daily_quest/presentation/provider/today_quest_notifier.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';

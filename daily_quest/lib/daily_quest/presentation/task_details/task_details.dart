@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 final taskTitleProvider =
     StateProvider.autoDispose.family<String, String>((ref, title) => title);
@@ -40,14 +41,15 @@ class TaskDetailsState extends ConsumerState<TaskDetails> {
         ref.watch(taskTitleProvider(widget.title).notifier);
     StateController<String> description =
         ref.watch(taskDescriptionProvicer(widget.description).notifier);
+    final localization = AppLocalizations.of(context);
     return Padding(
       padding: const EdgeInsets.all(16),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           TextField(
-            decoration: const InputDecoration(
-              hintText: "Title",
+            decoration: InputDecoration(
+              hintText: localization.taskTitleHint,
               filled: false,
             ),
             controller: _titleController,
@@ -59,8 +61,8 @@ class TaskDetailsState extends ConsumerState<TaskDetails> {
           ),
           const SizedBox(height: 20),
           TextField(
-            decoration: const InputDecoration(
-              hintText: "Description",
+            decoration: InputDecoration(
+              hintText: localization.taskDescriptionHint,
               filled: false,
             ),
             controller: _descriptionController,

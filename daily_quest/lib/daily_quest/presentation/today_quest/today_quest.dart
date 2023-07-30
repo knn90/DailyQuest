@@ -1,18 +1,20 @@
-import 'package:daily_quest/daily_quest/presentation/provider/quest_list_provider.dart';
+import 'package:daily_quest/daily_quest/presentation/provider/today_quest_provider.dart';
 import 'package:daily_quest/daily_quest/presentation/today_quest/task_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'add_task_button.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class TodayQuest extends ConsumerWidget {
   const TodayQuest({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final dailyQuest = ref.watch(questListProvider);
+    final dailyQuest = ref.watch(todayQuestProvider);
+    final localizations = AppLocalizations.of(context);
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Quests'),
+        title: Text(AppLocalizations.of(context).quest),
       ),
       floatingActionButton: const AddTaskButton(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
@@ -29,14 +31,15 @@ class TodayQuest extends ConsumerWidget {
               children: [
                 Row(
                   children: [
-                    Text("Today checklists",
+                    Text(localizations.todayChecklists,
                         textAlign: TextAlign.start,
                         style: Theme.of(context)
                             .textTheme
                             .headlineSmall
                             ?.copyWith(fontWeight: FontWeight.bold)
                             .copyWith(letterSpacing: -1.5)),
-                    Text(" $doneTasks out of $totalTasks",
+                    Text(
+                        localizations.doneOutOfTaskCount(doneTasks, totalTasks),
                         textAlign: TextAlign.start,
                         style: Theme.of(context)
                             .textTheme

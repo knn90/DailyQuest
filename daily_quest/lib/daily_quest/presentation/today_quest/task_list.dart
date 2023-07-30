@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../domain/entity/task.dart';
-import '../provider/quest_list_provider.dart';
+import '../provider/today_quest_provider.dart';
 
 class TaskList extends ConsumerWidget {
   const TaskList({
@@ -26,7 +26,7 @@ class TaskList extends ConsumerWidget {
               key: Key("${task.title}_${task.description}"),
               direction: DismissDirection.endToStart,
               onDismissed: (direction) {
-                ref.read(questListProvider.notifier).removeTask(index);
+                ref.read(todayQuestProvider.notifier).removeTask(index);
               },
               background: Container(
                 color: Theme.of(context).colorScheme.error,
@@ -38,7 +38,7 @@ class TaskList extends ConsumerWidget {
             if (oldIndex < newIndex) {
               newIndex -= 1;
             }
-            ref.read(questListProvider.notifier).moveTask(oldIndex, newIndex);
+            ref.read(todayQuestProvider.notifier).moveTask(oldIndex, newIndex);
           },
         ),
       ),

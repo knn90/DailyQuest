@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../domain/entity/task.dart';
 import '../edit_task/edit_task.dart';
-import '../provider/quest_list_provider.dart';
+import '../provider/today_quest_provider.dart';
 
 class TaskCell extends ConsumerWidget {
   const TaskCell({super.key, required this.task, required this.index});
@@ -21,7 +21,7 @@ class TaskCell extends ConsumerWidget {
             child: Checkbox(
               value: task.isDone,
               onChanged: (value) {
-                ref.read(questListProvider.notifier).toggleTask(index);
+                ref.read(todayQuestProvider.notifier).toggleTask(index);
               },
             ),
           ),

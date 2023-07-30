@@ -5,8 +5,8 @@ import 'package:daily_quest/daily_quest/domain/usecase/move_task_usecase.dart';
 import 'package:daily_quest/daily_quest/domain/usecase/remove_task_usecase.dart';
 import 'package:daily_quest/daily_quest/domain/usecase/toggle_task_usecase.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../domain/entity/task.dart';
-import '../domain/usecase/get_today_quest_usecase.dart';
+import '../../domain/entity/task.dart';
+import '../../domain/usecase/get_today_quest_usecase.dart';
 
 class TodayQuestNotifier extends StateNotifier<AsyncValue<DailyQuest>> {
   TodayQuestNotifier({

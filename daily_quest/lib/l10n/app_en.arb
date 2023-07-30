@@ -1,0 +1,42 @@
+{
+  "helloWorld": "Hello World!",
+  "@helloWorld": {
+    "description": "The conventional newborn programmer greeting"
+  },
+  "dailyQuest": "Daily Quest",
+  "@dailyQuest": {
+    "description": "The app title"
+  },
+  "quest": "Quest",
+  "@quest": {
+    "description": "The home screen navigation title"
+  },
+  "todayChecklists": "Today checklists",
+  "@todayChecklists": {
+    "description": "The home screen header"
+  },
+  "doneOutOfTaskCount": " {done} out of {taskCount}",
+  "@doneOutOfTaskCount": {
+    "description": "The home screen header of current status"
+  },
+  "taskTitleHint": "Title",
+  "@taskTitleHint": {
+    "description": "Task details title textfield hint"
+  },
+  "taskDescriptionHint": "Description",
+  "@taskDescriptionHint": {
+    "description": "Tast details decription textfield hint"
+  },
+  "addTask": "Add Task",
+  "@addTask": {
+    "description": "Add task screen title"
+  },
+  "editTask": "Edit Task",
+  "@addTask": {
+    "description": "Edit task screen title"
+  },
+  "submit": "Submit",
+  "@submit": {
+    "description": "Submit button title"
+  }
+}
