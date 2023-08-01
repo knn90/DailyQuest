@@ -5,7 +5,6 @@ import 'package:hive_flutter/adapters.dart';
 import 'authentication/presentation/log_in.dart';
 import 'daily_quest/data/model/local_daily_quest.dart';
 import 'daily_quest/data/model/local_task.dart';
-import 'daily_quest/presentation/today_quest/today_quest.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 const dailyQuestBox = 'DailyQuest';
