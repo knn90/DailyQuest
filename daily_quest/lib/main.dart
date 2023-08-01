@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_flutter/adapters.dart';
 
+import 'authentication/presentation/log_in.dart';
 import 'daily_quest/data/model/local_daily_quest.dart';
 import 'daily_quest/data/model/local_task.dart';
 import 'daily_quest/presentation/today_quest/today_quest.dart';
@@ -29,7 +30,7 @@ class MyApp extends StatelessWidget {
       supportedLocales: AppLocalizations.supportedLocales,
       theme: ThemeData(useMaterial3: true, colorScheme: lightColorScheme),
       darkTheme: ThemeData(useMaterial3: true, colorScheme: darkColorScheme),
-      home: const TodayQuest(),
+      home: const LoginOption(),
       onGenerateTitle: (context) => AppLocalizations.of(context).dailyQuest,
     );
   }
