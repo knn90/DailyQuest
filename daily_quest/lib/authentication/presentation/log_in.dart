@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 
+import '../../l10n/images.dart';
+
 class LoginOption extends StatelessWidget {
   const LoginOption({super.key});
 
@@ -50,20 +52,24 @@ class LoginOption extends StatelessWidget {
 
 Row _orDivider(BuildContext context) {
   final theme = Theme.of(context);
+  final color = theme.colorScheme.onPrimaryContainer;
   final strings = Strings.of(context);
   return Row(
     mainAxisAlignment: MainAxisAlignment.center,
     children: [
       Expanded(
         child: Divider(
-          color: theme.colorScheme.onPrimaryContainer,
+          color: color,
           endIndent: 10,
         ),
       ),
-      Text(strings.or),
+      Text(
+        strings.or,
+        style: theme.textTheme.bodyMedium?.copyWith(color: color),
+      ),
       Expanded(
         child: Divider(
-          color: theme.colorScheme.onPrimaryContainer,
+          color: color,
           indent: 10,
         ),
       ),
@@ -116,7 +122,7 @@ class SignInButton extends StatelessWidget {
   }) {
     return SignInButton(
       title: Strings.of(context).signin_google,
-      icon: 'assets/images/google-logo.svg',
+      icon: Images.google_logo,
       onPressed: onPressed,
     );
   }
@@ -127,7 +133,7 @@ class SignInButton extends StatelessWidget {
   }) {
     return SignInButton(
       title: Strings.of(context).signin_apple,
-      icon: 'assets/images/apple-logo.svg',
+      icon: Images.apple_logo,
       onPressed: onPressed,
     );
   }
