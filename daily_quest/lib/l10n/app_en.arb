@@ -1,8 +1,4 @@
 {
-  "helloWorld": "Hello World!",
-  "@helloWorld": {
-    "description": "The conventional newborn programmer greeting"
-  },
   "dailyQuest": "Daily Quest",
   "@dailyQuest": {
     "description": "The app title"
@@ -32,11 +28,19 @@
     "description": "Add task screen title"
   },
   "editTask": "Edit Task",
-  "@addTask": {
+  "@editTask": {
     "description": "Edit task screen title"
   },
   "submit": "Submit",
-  "@submit": {
-    "description": "Submit button title"
-  }
+
+  
+  "signin": "Sign in",
+  "or": "or",
+  "signup": "Sign up",
+  "signin_google": "Sign in with Google",
+  "signin_apple": "Sign in with Apple",
+  "signin_email": "Continue with email",
+  "signin_guest": "Continue as a Guest",
+  "emailTextFieldHint": "Email",
+  "passwordTextFieldHint": "Password"
 }

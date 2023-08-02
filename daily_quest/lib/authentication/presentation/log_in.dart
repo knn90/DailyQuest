@@ -1,3 +1,4 @@
+import 'package:daily_quest/l10n/strings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
@@ -8,7 +9,7 @@ class LoginOption extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-
+    final strings = Strings.of(context);
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(32.0),
@@ -19,7 +20,7 @@ class LoginOption extends StatelessWidget {
             Padding(
               padding:
                   const EdgeInsets.symmetric(horizontal: 32.0, vertical: 5),
-              child: Text("Sign in",
+              child: Text(strings.signin,
                   style: theme.textTheme.headlineSmall
                       ?.copyWith(fontWeight: FontWeight.bold)),
             ),
@@ -27,17 +28,17 @@ class LoginOption extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 const EmailLogin(),
-                SignInButton.email(onPressed: () {}),
+                SignInButton.email(context: context, onPressed: () {}),
                 const SizedBox(height: 20),
-                _orDivider(theme),
+                _orDivider(context),
                 const SizedBox(height: 20),
-                SignInButton.google(onPressed: () {}),
+                SignInButton.google(context: context, onPressed: () {}),
                 const SizedBox(height: 10),
-                SignInButton.apple(onPressed: () {}),
+                SignInButton.apple(context: context, onPressed: () {}),
                 const SizedBox(height: 10),
-                SignInButton.guest(onPressed: () {}),
+                SignInButton.guest(context: context, onPressed: () {}),
                 const SizedBox(height: 10),
-                _signUpButton(),
+                _signUpButton(context),
               ],
             ),
           ],
@@ -47,7 +48,9 @@ class LoginOption extends StatelessWidget {
   }
 }
 
-Row _orDivider(ThemeData theme) {
+Row _orDivider(BuildContext context) {
+  final theme = Theme.of(context);
+  final strings = Strings.of(context);
   return Row(
     mainAxisAlignment: MainAxisAlignment.center,
     children: [
@@ -57,7 +60,7 @@ Row _orDivider(ThemeData theme) {
           endIndent: 10,
         ),
       ),
-      const Text('or'),
+      Text(strings.or),
       Expanded(
         child: Divider(
           color: theme.colorScheme.onPrimaryContainer,
@@ -68,14 +71,15 @@ Row _orDivider(ThemeData theme) {
   );
 }
 
-OutlinedButton _signUpButton() {
+OutlinedButton _signUpButton(BuildContext context) {
+  final strings = Strings.of(context);
   return OutlinedButton(
     onPressed: () {},
     style: OutlinedButton.styleFrom(
       fixedSize: const Size(250, 48),
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
     ),
-    child: const Text('Sign up'),
+    child: Text(strings.signup),
   );
 }
 
@@ -106,28 +110,46 @@ class SignInButton extends StatelessWidget {
     );
   }
 
-  static SignInButton google({required Function onPressed}) {
+  static SignInButton google({
+    required BuildContext context,
+    required Function onPressed,
+  }) {
     return SignInButton(
-      title: 'Sign in with Google',
+      title: Strings.of(context).signin_google,
       icon: 'assets/images/google-logo.svg',
       onPressed: onPressed,
     );
   }
 
-  static SignInButton apple({required Function onPressed}) {
+  static SignInButton apple({
+    required BuildContext context,
+    required Function onPressed,
+  }) {
     return SignInButton(
-      title: 'Sign in with Apple',
+      title: Strings.of(context).signin_apple,
       icon: 'assets/images/apple-logo.svg',
       onPressed: onPressed,
     );
   }
 
-  static SignInButton email({required Function onPressed}) {
-    return SignInButton(title: 'Continue with email', onPressed: onPressed);
+  static SignInButton email({
+    required BuildContext context,
+    required Function onPressed,
+  }) {
+    return SignInButton(
+      title: Strings.of(context).signin_email,
+      onPressed: onPressed,
+    );
   }
 
-  static SignInButton guest({required Function onPressed}) {
-    return SignInButton(title: 'Continue as a Guest', onPressed: onPressed);
+  static SignInButton guest({
+    required BuildContext context,
+    required Function onPressed,
+  }) {
+    return SignInButton(
+      title: Strings.of(context).signin_guest,
+      onPressed: onPressed,
+    );
   }
 }
 
@@ -165,14 +187,16 @@ class EmailLoginState extends ConsumerState<EmailLogin> {
     StateController<String> password =
         ref.watch(loginPasswordProvicer.notifier);
     final theme = Theme.of(context);
+    final strings = Strings.of(context);
+
     return Padding(
       padding: const EdgeInsets.fromLTRB(32, 0, 32, 32),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           TextField(
-            decoration: const InputDecoration(
-              hintText: 'Email',
+            decoration: InputDecoration(
+              hintText: strings.emailTextFieldHint,
               filled: false,
             ),
             controller: _emailController,
@@ -185,8 +209,8 @@ class EmailLoginState extends ConsumerState<EmailLogin> {
           ),
           const SizedBox(height: 10),
           TextField(
-            decoration: const InputDecoration(
-              hintText: 'Password',
+            decoration: InputDecoration(
+              hintText: strings.passwordTextFieldHint,
               filled: false,
             ),
             controller: _passwordController,
