@@ -1,9 +1,9 @@
-import 'package:daily_quest/l10n/strings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 
-import '../../l10n/images.dart';
+import '../../shared/images.dart';
+import '../../shared/strings.dart';
 
 class LoginOption extends StatelessWidget {
   const LoginOption({super.key});
@@ -122,7 +122,7 @@ class SignInButton extends StatelessWidget {
   }) {
     return SignInButton(
       title: Strings.of(context).signin_google,
-      icon: Images.google_logo,
+      icon: Images.googleLogo,
       onPressed: onPressed,
     );
   }
@@ -133,7 +133,7 @@ class SignInButton extends StatelessWidget {
   }) {
     return SignInButton(
       title: Strings.of(context).signin_apple,
-      icon: Images.apple_logo,
+      icon: Images.appleLogo,
       onPressed: onPressed,
     );
   }
