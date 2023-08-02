@@ -8,6 +8,7 @@ class LoginOption extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(32.0),
@@ -28,24 +29,7 @@ class LoginOption extends StatelessWidget {
                 const EmailLogin(),
                 SignInButton.email(onPressed: () {}),
                 const SizedBox(height: 20),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Expanded(
-                      child: Divider(
-                        color: theme.colorScheme.onPrimaryContainer,
-                        endIndent: 10,
-                      ),
-                    ),
-                    const Text('or'),
-                    Expanded(
-                      child: Divider(
-                        color: theme.colorScheme.onPrimaryContainer,
-                        indent: 10,
-                      ),
-                    ),
-                  ],
-                ),
+                _orDivider(theme),
                 const SizedBox(height: 20),
                 SignInButton.google(onPressed: () {}),
                 const SizedBox(height: 10),
@@ -53,15 +37,7 @@ class LoginOption extends StatelessWidget {
                 const SizedBox(height: 10),
                 SignInButton.guest(onPressed: () {}),
                 const SizedBox(height: 10),
-                OutlinedButton(
-                  onPressed: () {},
-                  style: OutlinedButton.styleFrom(
-                    fixedSize: const Size(250, 48),
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 10, vertical: 15),
-                  ),
-                  child: const Text('Sign up'),
-                )
+                _signUpButton(),
               ],
             ),
           ],
@@ -69,6 +45,38 @@ class LoginOption extends StatelessWidget {
       ),
     );
   }
+}
+
+Row _orDivider(ThemeData theme) {
+  return Row(
+    mainAxisAlignment: MainAxisAlignment.center,
+    children: [
+      Expanded(
+        child: Divider(
+          color: theme.colorScheme.onPrimaryContainer,
+          endIndent: 10,
+        ),
+      ),
+      const Text('or'),
+      Expanded(
+        child: Divider(
+          color: theme.colorScheme.onPrimaryContainer,
+          indent: 10,
+        ),
+      ),
+    ],
+  );
+}
+
+OutlinedButton _signUpButton() {
+  return OutlinedButton(
+    onPressed: () {},
+    style: OutlinedButton.styleFrom(
+      fixedSize: const Size(250, 48),
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
+    ),
+    child: const Text('Sign up'),
+  );
 }
 
 class SignInButton extends StatelessWidget {
