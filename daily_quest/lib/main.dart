@@ -1,4 +1,5 @@
 import 'package:daily_quest/shared/theme_constant.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_flutter/adapters.dart';
@@ -8,15 +9,28 @@ import 'daily_quest/data/model/local_daily_quest.dart';
 import 'daily_quest/data/model/local_task.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import 'firebase_options.dart';
+
 const dailyQuestBox = 'DailyQuest';
 
 void main() async {
+  await _initHive();
+  await _initFirebase();
+  runApp(const ProviderScope(child: MyApp()));
+}
+
+Future<void> _initHive() async {
   await Hive.initFlutter();
   Hive.registerAdapter(LocalDailyQuestAdapter());
   Hive.registerAdapter(LocalTaskAdapter());
   await Hive.openBox(dailyQuestBox);
+}
 
-  runApp(const ProviderScope(child: MyApp()));
+Future<void> _initFirebase() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
 }
 
 class MyApp extends StatelessWidget {

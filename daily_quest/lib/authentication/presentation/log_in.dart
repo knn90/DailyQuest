@@ -1,17 +1,16 @@
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:daily_quest/authentication/presentation/log_in_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../shared/images.dart';
 import '../../shared/strings.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 
-class LoginOption extends StatelessWidget {
+class LoginOption extends ConsumerWidget {
   const LoginOption({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
     final strings = Strings.of(context);
     return Scaffold(
@@ -38,7 +37,9 @@ class LoginOption extends StatelessWidget {
                 const SizedBox(height: 20),
                 SignInButton.google(
                   context: context,
-                  onPressed: () {},
+                  onPressed: () {
+                    ref.read(loginProvider.notifier).signInWithGoogle();
+                  },
                 ),
                 const SizedBox(height: 10),
                 SignInButton.apple(context: context, onPressed: () {}),
@@ -52,24 +53,6 @@ class LoginOption extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  Future<UserCredential> signInWithGoogle() async {
-    // Trigger the authentication flow
-    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
-
-    // Obtain the auth details from the request
-    final GoogleSignInAuthentication? googleAuth =
-        await googleUser?.authentication;
-
-    // Create a new credential
-    final credential = GoogleAuthProvider.credential(
-      accessToken: googleAuth?.accessToken,
-      idToken: googleAuth?.idToken,
-    );
-
-    // Once signed in, return the UserCredential
-    return await FirebaseAuth.instance.signInWithCredential(credential);
   }
 }
 
@@ -121,11 +104,11 @@ class SignInButton extends StatelessWidget {
   });
   final String title;
   final String? icon;
-  final Function onPressed;
+  final void Function() onPressed;
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: onPressed(),
+      onPressed: onPressed,
       style: ElevatedButton.styleFrom(
           fixedSize: const Size(250, 48),
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 15)),
@@ -141,7 +124,7 @@ class SignInButton extends StatelessWidget {
 
   static SignInButton google({
     required BuildContext context,
-    required Function onPressed,
+    required void Function() onPressed,
   }) {
     return SignInButton(
       title: Strings.of(context).signin_google,
@@ -152,7 +135,7 @@ class SignInButton extends StatelessWidget {
 
   static SignInButton apple({
     required BuildContext context,
-    required Function onPressed,
+    required void Function() onPressed,
   }) {
     return SignInButton(
       title: Strings.of(context).signin_apple,
@@ -163,7 +146,7 @@ class SignInButton extends StatelessWidget {
 
   static SignInButton email({
     required BuildContext context,
-    required Function onPressed,
+    required void Function() onPressed,
   }) {
     return SignInButton(
       title: Strings.of(context).signin_email,
@@ -173,7 +156,7 @@ class SignInButton extends StatelessWidget {
 
   static SignInButton guest({
     required BuildContext context,
-    required Function onPressed,
+    required void Function() onPressed,
   }) {
     return SignInButton(
       title: Strings.of(context).signin_guest,
