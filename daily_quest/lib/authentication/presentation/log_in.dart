@@ -1,9 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../shared/images.dart';
 import '../../shared/strings.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class LoginOption extends StatelessWidget {
   const LoginOption({super.key});
@@ -34,7 +36,10 @@ class LoginOption extends StatelessWidget {
                 const SizedBox(height: 20),
                 _orDivider(context),
                 const SizedBox(height: 20),
-                SignInButton.google(context: context, onPressed: () {}),
+                SignInButton.google(
+                  context: context,
+                  onPressed: () {},
+                ),
                 const SizedBox(height: 10),
                 SignInButton.apple(context: context, onPressed: () {}),
                 const SizedBox(height: 10),
@@ -47,6 +52,24 @@ class LoginOption extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Future<UserCredential> signInWithGoogle() async {
+    // Trigger the authentication flow
+    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+
+    // Obtain the auth details from the request
+    final GoogleSignInAuthentication? googleAuth =
+        await googleUser?.authentication;
+
+    // Create a new credential
+    final credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth?.accessToken,
+      idToken: googleAuth?.idToken,
+    );
+
+    // Once signed in, return the UserCredential
+    return await FirebaseAuth.instance.signInWithCredential(credential);
   }
 }
 
@@ -102,7 +125,7 @@ class SignInButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: () {},
+      onPressed: onPressed(),
       style: ElevatedButton.styleFrom(
           fixedSize: const Size(250, 48),
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 15)),
@@ -221,6 +244,9 @@ class EmailLoginState extends ConsumerState<EmailLogin> {
             ),
             controller: _passwordController,
             style: theme.textTheme.titleMedium,
+            obscureText: true,
+            enableSuggestions: false,
+            autocorrect: false,
             onChanged: (value) => password.state = value,
             maxLines: 1,
           ),
