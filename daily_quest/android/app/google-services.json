@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "11722392050",
+    "project_id": "dailyquest-7272a",
+    "storage_bucket": "dailyquest-7272a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:11722392050:android:d1b571f32ff22b9704eb6b",
+        "android_client_info": {
+          "package_name": "com.example.daily_quest"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "11722392050-33a6qiqankkp09umk0r1gd8kgkeigvum.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA9LGaIGnPCzPEEpIiBfCAkPTRjBvsGpfM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "11722392050-33a6qiqankkp09umk0r1gd8kgkeigvum.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "11722392050-qufoi74rccfsjh5gu2a13nd27t5bghad.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.dailyQuest"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
