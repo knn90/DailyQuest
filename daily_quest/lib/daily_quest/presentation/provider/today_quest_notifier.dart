@@ -10,7 +10,6 @@ import '../../domain/usecase/get_today_quest_usecase.dart';
 
 class TodayQuestNotifier extends StateNotifier<AsyncValue<DailyQuest>> {
   TodayQuestNotifier({
-    required this.ref,
     required GetTodayQuestUseCase getTodayQuestUseCase,
     required AddTaskUseCase addTaskUseCase,
     required EditTaskUseCase editTaskUseCase,
@@ -26,7 +25,6 @@ class TodayQuestNotifier extends StateNotifier<AsyncValue<DailyQuest>> {
         super(const AsyncValue.loading()) {
     getTodayQuest();
   }
-  final Ref ref;
   final GetTodayQuestUseCase _getTodayQuestUseCase;
   final AddTaskUseCase _addTaskUseCase;
   final EditTaskUseCase _editTaskUseCase;

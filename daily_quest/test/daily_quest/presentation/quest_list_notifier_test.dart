@@ -30,7 +30,6 @@ void main() {
   late MockToggleTaskUseCase mockToggleTaskUseCase;
   late MockRemoveTaskUseCase mockRemoveTaskUseCase;
   late MockMoveTaskUseCase mockMoveTaskUseCase;
-  late MockRef mockRef;
 
   setUp(() {
     mockGetTodayQuestUseCase = MockGetTodayQuestUseCase();
@@ -39,9 +38,7 @@ void main() {
     mockToggleTaskUseCase = MockToggleTaskUseCase();
     mockRemoveTaskUseCase = MockRemoveTaskUseCase();
     mockMoveTaskUseCase = MockMoveTaskUseCase();
-    mockRef = MockRef();
     questListNotifier = TodayQuestNotifier(
-      ref: mockRef,
       getTodayQuestUseCase: mockGetTodayQuestUseCase,
       addTaskUseCase: mockAddTaskUseCase,
       editTaskUseCase: mockEditTaskUseCase,

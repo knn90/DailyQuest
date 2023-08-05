@@ -33,7 +33,6 @@ final todayQuestProvider =
   final moveTaskUseCase = MoveTaskUseCaseImpl(repository: repository);
 
   return TodayQuestNotifier(
-    ref: ref,
     getTodayQuestUseCase: getTodayQuestUseCase,
     addTaskUseCase: addTaskUseCase,
     editTaskUseCase: editTaskUseCase,
