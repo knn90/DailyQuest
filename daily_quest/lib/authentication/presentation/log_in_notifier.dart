@@ -1,31 +1,40 @@
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:daily_quest/authentication/domain/usecase/google_sign_in_usecase.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 
-class LoginNotifier extends StateNotifier<AsyncValue<UserCredential>> {
-  LoginNotifier() : super(const AsyncValue.loading());
+class LoginNotifier extends StateNotifier<AsyncValue<void>> {
+  LoginNotifier({required googleSignInUseCase})
+      : _googleSignInUseCase = googleSignInUseCase,
+        super(const AsyncValue<void>.data(()));
 
-  Future<void> signInWithGoogle() async {
-    // Trigger the authentication flow
-    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+  final GoogleSignInUseCase _googleSignInUseCase;
 
-    // Obtain the auth details from the request
-    final GoogleSignInAuthentication? googleAuth =
-        await googleUser?.authentication;
+  signInWithGoogle() async {
+    state = const AsyncValue.loading();
+    try {
+      await _googleSignInUseCase.execute();
+      state = const AsyncValue.data(());
+    } catch (e, stackTrace) {
+      state = AsyncValue.error(e, stackTrace);
+    }
 
-    // Create a new credential
-    final credential = GoogleAuthProvider.credential(
-      accessToken: googleAuth?.accessToken,
-      idToken: googleAuth?.idToken,
-    );
+    // final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
 
-    // Once signed in, return the UserCredential
-    final userCred =
-        await FirebaseAuth.instance.signInWithCredential(credential);
+    // // Obtain the auth details from the request
+    // final GoogleSignInAuthentication? googleAuth =
+    //     await googleUser?.authentication;
+
+    // final credential = GoogleAuthProvider.credential(
+    //   accessToken: googleAuth?.accessToken,
+    //   idToken: googleAuth?.idToken,
+    // );
+
+    // final userCred =
+    //     await FirebaseAuth.instance.signInWithCredential(credential);
   }
 }
 
 final loginProvider =
-    StateNotifierProvider<LoginNotifier, AsyncValue<UserCredential>>((ref) {
-  return LoginNotifier();
+    StateNotifierProvider<LoginNotifier, AsyncValue<void>>((ref) {
+  final googleSignInUseCase = GoogleSignInUseCaseImpl();
+  return LoginNotifier(googleSignInUseCase: googleSignInUseCase);
 });
