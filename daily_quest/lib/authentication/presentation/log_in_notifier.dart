@@ -1,3 +1,4 @@
+import 'package:daily_quest/authentication/data/datasource/authentication_datasource_impl.dart';
 import 'package:daily_quest/authentication/data/repository/authentication_repository_impl.dart';
 import 'package:daily_quest/authentication/domain/usecase/google_sign_in_usecase.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -36,7 +37,8 @@ class LoginNotifier extends StateNotifier<AsyncValue<void>> {
 
 final loginProvider =
     StateNotifierProvider<LoginNotifier, AsyncValue<void>>((ref) {
-  final repository = AuthenticationRepositoryImpl();
+  final dataSource = AuthenticationDataSourceImpl();
+  final repository = AuthenticationRepositoryImpl(dataSource: dataSource);
   final googleSignInUseCase = GoogleSignInUseCaseImpl(repository: repository);
   return LoginNotifier(googleSignInUseCase: googleSignInUseCase);
 });

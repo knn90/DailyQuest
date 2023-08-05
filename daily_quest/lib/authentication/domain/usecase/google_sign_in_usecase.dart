@@ -10,7 +10,7 @@ class GoogleSignInUseCaseImpl implements GoogleSignInUseCase {
   GoogleSignInUseCaseImpl({required repository}) : _repository = repository;
 
   @override
-  Future<void> execute() async {
-    _repository.googleSignIn();
+  Future<void> execute() {
+    return _repository.googleSignIn();
   }
 }
