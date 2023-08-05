@@ -18,20 +18,6 @@ class LoginNotifier extends StateNotifier<AsyncValue<void>> {
     } catch (e, stackTrace) {
       state = AsyncValue.error(e, stackTrace);
     }
-
-    // final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
-
-    // // Obtain the auth details from the request
-    // final GoogleSignInAuthentication? googleAuth =
-    //     await googleUser?.authentication;
-
-    // final credential = GoogleAuthProvider.credential(
-    //   accessToken: googleAuth?.accessToken,
-    //   idToken: googleAuth?.idToken,
-    // );
-
-    // final userCred =
-    //     await FirebaseAuth.instance.signInWithCredential(credential);
   }
 }
 
