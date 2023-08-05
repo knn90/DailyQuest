@@ -15,42 +15,45 @@ class LoginOption extends ConsumerWidget {
     final strings = Strings.of(context);
     return Scaffold(
       body: SafeArea(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.all(16),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 32.0, vertical: 5),
-                child: Text(strings.signin,
-                    style: theme.textTheme.headlineSmall
-                        ?.copyWith(fontWeight: FontWeight.bold)),
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  const EmailLogin(),
-                  SignInButton.email(context: context, onPressed: () {}),
-                  const SizedBox(height: 20),
-                  _orDivider(context),
-                  const SizedBox(height: 20),
-                  SignInButton.google(
-                    context: context,
-                    onPressed: () {
-                      ref.read(loginProvider.notifier).signInWithGoogle();
-                    },
-                  ),
-                  const SizedBox(height: 10),
-                  SignInButton.apple(context: context, onPressed: () {}),
-                  const SizedBox(height: 10),
-                  SignInButton.guest(context: context, onPressed: () {}),
-                  const SizedBox(height: 10),
-                  _signUpButton(context),
-                ],
-              ),
-            ],
+        child: Center(
+          child: SingleChildScrollView(
+            keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 32.0, vertical: 5),
+                  child: Text(strings.signin,
+                      style: theme.textTheme.headlineSmall
+                          ?.copyWith(fontWeight: FontWeight.bold)),
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    const EmailLogin(),
+                    SignInButton.email(context: context, onPressed: () {}),
+                    const SizedBox(height: 20),
+                    _orDivider(context),
+                    const SizedBox(height: 20),
+                    SignInButton.google(
+                      context: context,
+                      onPressed: () {
+                        ref.read(loginProvider.notifier).signInWithGoogle();
+                      },
+                    ),
+                    const SizedBox(height: 10),
+                    SignInButton.apple(context: context, onPressed: () {}),
+                    const SizedBox(height: 10),
+                    SignInButton.guest(context: context, onPressed: () {}),
+                    const SizedBox(height: 10),
+                    _signUpButton(context),
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),
