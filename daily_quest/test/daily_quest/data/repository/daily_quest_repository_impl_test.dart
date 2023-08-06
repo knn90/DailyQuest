@@ -69,19 +69,6 @@ void main() {
     });
   });
 
-  group('update daily quest', () {
-    test('should update the quest', () async {
-      // arrange
-      when(mockDataSource.update(quest: localQuest))
-          .thenAnswer((_) async => ());
-      // act
-      await repository.updateQuest(quest: dailyQuest);
-      // assert
-      verify(mockDataSource.update(quest: localQuest));
-      verifyNoMoreInteractions(mockDataSource);
-    });
-  });
-
   group('add task', () {
     const localTask = LocalTask(title: 'title', description: 'description');
     const task = Task(title: 'title', description: 'description');
