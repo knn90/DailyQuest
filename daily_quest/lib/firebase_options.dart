@@ -17,10 +17,7 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      throw UnsupportedError(
-        'DefaultFirebaseOptions have not been configured for web - '
-        'you can reconfigure this by running the FlutterFire CLI again.',
-      );
+      return web;
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
@@ -28,10 +25,7 @@ class DefaultFirebaseOptions {
       case TargetPlatform.iOS:
         return ios;
       case TargetPlatform.macOS:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for macos - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return macos;
       case TargetPlatform.windows:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for windows - '
@@ -49,6 +43,16 @@ class DefaultFirebaseOptions {
     }
   }
 
+  static const FirebaseOptions web = FirebaseOptions(
+    apiKey: 'AIzaSyCEluoc4PSygGW1cjlxMFy_GlXreQde7os',
+    appId: '1:11722392050:web:e560f6284411a3d904eb6b',
+    messagingSenderId: '11722392050',
+    projectId: 'dailyquest-7272a',
+    authDomain: 'dailyquest-7272a.firebaseapp.com',
+    storageBucket: 'dailyquest-7272a.appspot.com',
+    measurementId: 'G-789S5LXNSR',
+  );
+
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyA9LGaIGnPCzPEEpIiBfCAkPTRjBvsGpfM',
     appId: '1:11722392050:android:d1b571f32ff22b9704eb6b',
@@ -65,5 +69,15 @@ class DefaultFirebaseOptions {
     storageBucket: 'dailyquest-7272a.appspot.com',
     iosClientId: '11722392050-qufoi74rccfsjh5gu2a13nd27t5bghad.apps.googleusercontent.com',
     iosBundleId: 'com.example.dailyQuest',
+  );
+
+  static const FirebaseOptions macos = FirebaseOptions(
+    apiKey: 'AIzaSyAp0VDyuHFnUKJj6OsLhXGPy54OUxA4cb4',
+    appId: '1:11722392050:ios:aed2f9791d80806e04eb6b',
+    messagingSenderId: '11722392050',
+    projectId: 'dailyquest-7272a',
+    storageBucket: 'dailyquest-7272a.appspot.com',
+    iosClientId: '11722392050-tmppjclkqlgenenvg337ridoo83lvu0j.apps.googleusercontent.com',
+    iosBundleId: 'com.example.dailyQuest.RunnerTests',
   );
 }
