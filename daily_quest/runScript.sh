@@ -11,7 +11,7 @@ do
         break
     elif [ $option -eq 2 ]
     then 
-        dart run build_runner build
+        flutter gen-l10n
         break
     else
         echo "Invalid option, please re-input:"
