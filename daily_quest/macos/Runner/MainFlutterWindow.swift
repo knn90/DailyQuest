@@ -24,39 +24,47 @@ class MainFlutterWindow: NSWindow {
     authenticationChannel.setMethodCallHandler { [weak self] (call, result) in
       switch call.method {
         case "googleSignIn":
-          self?.googleSignIn() 
+          self?.googleSignIn(completion: { signInResult in
+              result(signInResult)
+          })
           return
         default:
           result(FlutterMethodNotImplemented)
        }
     }
-
-    RegisterGeneratedPlugins(registry: registry)
   }
 
-  private func googleSignIn() {
+    private func googleSignIn(completion: @escaping (Bool) -> Void) {
     print("Signin with Google on MacOS")
-    guard let clientID = FirebaseApp.app()?.options.clientID else { return }
+    guard let clientID = FirebaseApp.app()?.options.clientID else {
+        fatalError("Missing ClientID")
+    }
 
-    // Create Google Sign In configuration object.
     let config = GIDConfiguration(clientID: clientID)
     GIDSignIn.sharedInstance.configuration = config
 
-    // Start the sign in flow!
     GIDSignIn.sharedInstance.signIn(withPresenting: self) { [unowned self] result, error in
         guard error == nil else {
+            completion(false)
             return
         }
 
         guard let user = result?.user,
           let idToken = user.idToken?.tokenString
         else {
-            return 
+            completion(false)
+            return
         }
 
         let credential = GoogleAuthProvider.credential(withIDToken: idToken,
                                                        accessToken: user.accessToken.tokenString)
-        // ...
+        Auth.auth().signIn(with: credential) { authResult, authError in
+            guard authError == nil else {
+                completion(false)
+                return
+            }
+            completion(true)
+        }
       }
   }
 }
