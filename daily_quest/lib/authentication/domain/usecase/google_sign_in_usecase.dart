@@ -1,7 +1,7 @@
 import 'package:daily_quest/authentication/domain/repository/authentication_repository.dart';
 
 abstract class GoogleSignInUseCase {
-  Future<void> execute();
+  Future<bool> execute();
 }
 
 class GoogleSignInUseCaseImpl implements GoogleSignInUseCase {
@@ -10,7 +10,7 @@ class GoogleSignInUseCaseImpl implements GoogleSignInUseCase {
   GoogleSignInUseCaseImpl({required repository}) : _repository = repository;
 
   @override
-  Future<void> execute() {
+  Future<bool> execute() {
     return _repository.googleSignIn();
   }
 }

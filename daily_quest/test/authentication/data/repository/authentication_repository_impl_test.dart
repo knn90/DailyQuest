@@ -26,10 +26,11 @@ void main() {
 
   test('should forward google sign in message to dataSource', () async {
     // arrange
-    when(mockDataSource.googleSignIn()).thenAnswer((_) async => ());
+    when(mockDataSource.googleSignIn()).thenAnswer((_) async => true);
     // act
-    await sut.googleSignIn();
+    final result = await sut.googleSignIn();
     // assert
+    expect(result, true);
     verify(mockDataSource.googleSignIn());
     verifyNoMoreInteractions(mockDataSource);
   });

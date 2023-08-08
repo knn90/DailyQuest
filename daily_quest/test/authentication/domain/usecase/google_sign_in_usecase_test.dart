@@ -29,10 +29,11 @@ void main() {
 
   test('should forward signin with google message repository', () async {
     // arrange
-    when(mockRepository.googleSignIn()).thenAnswer((_) async => ());
+    when(mockRepository.googleSignIn()).thenAnswer((_) async => true);
     // act
-    await sut.execute();
+    final result = await sut.execute();
     // assert
+    expect(result, true);
     verify(mockRepository.googleSignIn());
     verifyNoMoreInteractions(mockRepository);
   });

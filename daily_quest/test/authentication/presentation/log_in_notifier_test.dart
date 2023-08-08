@@ -24,9 +24,9 @@ void main() {
       expectLater(
           sut.stream,
           emitsInOrder([
-            const AsyncLoading<void>(),
-            predicate<AsyncValue<void>>((value) {
-              expect(value, isA<AsyncError<void>>());
+            const AsyncLoading<bool>(),
+            predicate<AsyncValue<bool>>((value) {
+              expect(value, isA<AsyncError<bool>>());
               return true;
             })
           ]));
@@ -40,15 +40,15 @@ void main() {
   );
 
   test(
-    'should return void value when usecase success',
+    'should return true value when usecase success',
     () async {
       // arrange
-      when(mockGoogleSignInUseCase.execute()).thenAnswer((_) async => (()));
+      when(mockGoogleSignInUseCase.execute()).thenAnswer((_) async => (true));
       expectLater(
         sut.stream,
         emitsInOrder([
-          const AsyncLoading<void>(),
-          const AsyncValue<void>.data(()),
+          const AsyncLoading<bool>(),
+          const AsyncValue<bool>.data(true),
         ]),
       );
       // act

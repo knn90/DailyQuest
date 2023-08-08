@@ -8,22 +8,24 @@ import 'package:google_sign_in/google_sign_in.dart';
 class AuthenticationDataSourceImpl implements AuthenticationDataSource {
   static const platform = MethodChannel('com.dailyquest/authentication');
   @override
-  Future<void> googleSignIn() async {
+  Future<bool> googleSignIn() async {
     if (Platform.isMacOS) {
-      await _macOSGoogleSignIn();
+      return await _macOSGoogleSignIn();
     } else {
-      await _googleSignIn();
+      return await _googleSignIn();
     }
   }
 
-  _macOSGoogleSignIn() async {
-    await platform.invokeMethod('googleSignIn');
+  Future<bool> _macOSGoogleSignIn() {
+    return platform
+        .invokeMethod<bool>('googleSignIn')
+        .then((value) => value ?? false);
   }
 
-  _googleSignIn() async {
+  Future<bool> _googleSignIn() async {
     final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
 
-    if (googleUser == null) return;
+    if (googleUser == null) return false;
     // Obtain the auth details from the request
     final GoogleSignInAuthentication googleAuth =
         await googleUser.authentication;
@@ -33,5 +35,6 @@ class AuthenticationDataSourceImpl implements AuthenticationDataSource {
       idToken: googleAuth.idToken,
     );
     await FirebaseAuth.instance.signInWithCredential(credential);
+    return true;
   }
 }

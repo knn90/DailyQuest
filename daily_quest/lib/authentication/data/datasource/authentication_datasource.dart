@@ -1,3 +1,3 @@
 abstract class AuthenticationDataSource {
-  Future<void> googleSignIn();
+  Future<bool> googleSignIn();
 }

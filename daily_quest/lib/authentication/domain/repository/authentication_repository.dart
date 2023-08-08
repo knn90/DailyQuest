@@ -1,3 +1,3 @@
 abstract class AuthenticationRepository {
-  Future<void> googleSignIn();
+  Future<bool> googleSignIn();
 }

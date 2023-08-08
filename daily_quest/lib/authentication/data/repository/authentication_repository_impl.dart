@@ -8,7 +8,7 @@ class AuthenticationRepositoryImpl implements AuthenticationRepository {
       : _dataSource = dataSource;
 
   @override
-  Future<void> googleSignIn() {
+  Future<bool> googleSignIn() {
     return _dataSource.googleSignIn();
   }
 }
