@@ -22,7 +22,7 @@ class LoginNotifier extends StateNotifier<AsyncValue<bool>> {
 }
 
 final loginProvider =
-    StateNotifierProvider<LoginNotifier, AsyncValue<void>>((ref) {
+    StateNotifierProvider<LoginNotifier, AsyncValue<bool>>((ref) {
   final dataSource = AuthenticationDataSourceImpl();
   final repository = AuthenticationRepositoryImpl(dataSource: dataSource);
   final googleSignInUseCase = GoogleSignInUseCaseImpl(repository: repository);

@@ -1,5 +1,7 @@
 import 'package:daily_quest/authentication/presentation/log_in_notifier.dart';
+import 'package:daily_quest/daily_quest/presentation/today_quest/today_quest.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -13,47 +15,66 @@ class LoginOption extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
     final strings = Strings.of(context);
+    final authProvider = ref.watch(loginProvider);
     return Scaffold(
       body: SafeArea(
         child: Center(
-          child: SingleChildScrollView(
-            keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 32.0, vertical: 5),
-                  child: Text(strings.signin,
-                      style: theme.textTheme.headlineSmall
-                          ?.copyWith(fontWeight: FontWeight.bold)),
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    const EmailLogin(),
-                    SignInButton.email(context: context, onPressed: () {}),
-                    const SizedBox(height: 20),
-                    _orDivider(context),
-                    const SizedBox(height: 20),
-                    SignInButton.google(
-                      context: context,
-                      onPressed: () {
-                        ref.read(loginProvider.notifier).signInWithGoogle();
-                      },
+          child: authProvider.when(
+            data: (isLoggedIn) {
+              if (isLoggedIn) {
+                SchedulerBinding.instance.addPostFrameCallback((_) {
+                  Navigator.of(context).pushReplacement(
+                    MaterialPageRoute(
+                      builder: (context) => const TodayQuest(),
                     ),
-                    const SizedBox(height: 10),
-                    SignInButton.apple(context: context, onPressed: () {}),
-                    const SizedBox(height: 10),
-                    SignInButton.guest(context: context, onPressed: () {}),
-                    const SizedBox(height: 10),
-                    _signUpButton(context),
+                  );
+                });
+              }
+              return SingleChildScrollView(
+                keyboardDismissBehavior:
+                    ScrollViewKeyboardDismissBehavior.onDrag,
+                padding: const EdgeInsets.all(16),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 32.0, vertical: 5),
+                      child: Text(strings.signin,
+                          style: theme.textTheme.headlineSmall
+                              ?.copyWith(fontWeight: FontWeight.bold)),
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        const EmailLogin(),
+                        SignInButton.email(context: context, onPressed: () {}),
+                        const SizedBox(height: 20),
+                        _orDivider(context),
+                        const SizedBox(height: 20),
+                        SignInButton.google(
+                          context: context,
+                          onPressed: () {
+                            ref.read(loginProvider.notifier).signInWithGoogle();
+                          },
+                        ),
+                        const SizedBox(height: 10),
+                        SignInButton.apple(context: context, onPressed: () {}),
+                        const SizedBox(height: 10),
+                        SignInButton.guest(context: context, onPressed: () {}),
+                        const SizedBox(height: 10),
+                        _signUpButton(context),
+                      ],
+                    ),
                   ],
                 ),
-              ],
-            ),
+              );
+            },
+            error: (error, stackTrace) {
+              return Text('Error: $error');
+            },
+            loading: () => const CircularProgressIndicator(),
           ),
         ),
       ),
