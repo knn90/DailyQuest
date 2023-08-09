@@ -17,9 +17,9 @@ class AuthenticationDataSourceImpl implements AuthenticationDataSource {
   }
 
   @override
-  Future<bool> autoSignIn() {
-    // TODO: implement autoSignIn
-    throw UnimplementedError();
+  Future<bool> autoSignIn() async {
+    await FirebaseAuth.instance.currentUser?.delete();
+    return Future.value(FirebaseAuth.instance.currentUser != null);
   }
 
   Future<bool> _macOSGoogleSignIn() async {

@@ -8,7 +8,9 @@ class SignInNotifier extends StateNotifier<AsyncValue<bool>> {
   SignInNotifier({required googleSignInUseCase, required autoSignInUseCase})
       : _googleSignInUseCase = googleSignInUseCase,
         _autoSignInUseCase = autoSignInUseCase,
-        super(const AsyncValue<bool>.data(false));
+        super(const AsyncValue<bool>.loading()) {
+    autoSignIn();
+  }
 
   final GoogleSignInUseCase _googleSignInUseCase;
   final AutoSignInUseCase _autoSignInUseCase;
