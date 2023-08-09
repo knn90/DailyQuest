@@ -24,14 +24,13 @@ class AuthenticationDataSourceImpl implements AuthenticationDataSource {
 
   Future<bool> _macOSGoogleSignIn() async {
     final result = await platform.invokeMethod<bool>('googleSignIn');
-    return result ?? true;
+    return result ?? false;
   }
 
   Future<bool> _googleSignIn() async {
     final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
 
     if (googleUser == null) return false;
-    // Obtain the auth details from the request
     final GoogleSignInAuthentication googleAuth =
         await googleUser.authentication;
 
