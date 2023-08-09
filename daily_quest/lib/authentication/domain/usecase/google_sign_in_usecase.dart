@@ -4,7 +4,7 @@ abstract class GoogleSignInUseCase {
   Future<bool> execute();
 }
 
-class GoogleSignInUseCaseImpl implements GoogleSignInUseCase {
+final class GoogleSignInUseCaseImpl implements GoogleSignInUseCase {
   final AuthenticationRepository _repository;
 
   GoogleSignInUseCaseImpl({required repository}) : _repository = repository;
