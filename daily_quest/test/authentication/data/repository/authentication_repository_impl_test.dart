@@ -16,22 +16,45 @@ void main() {
     sut = AuthenticationRepositoryImpl(dataSource: mockDataSource);
   });
 
-  test('should throw when datasource throw', () async {
-    // arrange
-    final exception = Exception('Google sign in fails');
-    when(mockDataSource.googleSignIn()).thenThrow(exception);
-    // act
-    expect(() => sut.googleSignIn(), throwsException);
+  group('googleSignIn', () {
+    test('should throw when datasource throw', () async {
+      // arrange
+      final exception = Exception('Google sign in fails');
+      when(mockDataSource.googleSignIn()).thenThrow(exception);
+      // act
+      expect(() => sut.googleSignIn(), throwsException);
+    });
+
+    test('should forward google sign in message to dataSource', () async {
+      // arrange
+      when(mockDataSource.googleSignIn()).thenAnswer((_) async => true);
+      // act
+      final result = await sut.googleSignIn();
+      // assert
+      expect(result, true);
+      verify(mockDataSource.googleSignIn());
+      verifyNoMoreInteractions(mockDataSource);
+    });
   });
 
-  test('should forward google sign in message to dataSource', () async {
-    // arrange
-    when(mockDataSource.googleSignIn()).thenAnswer((_) async => true);
-    // act
-    final result = await sut.googleSignIn();
-    // assert
-    expect(result, true);
-    verify(mockDataSource.googleSignIn());
-    verifyNoMoreInteractions(mockDataSource);
+  group('autoSignIn', () {
+    test('should throw when datasource throw', () async {
+      // arrange
+      final exception = Exception('Google sign in fails');
+      when(mockDataSource.autoSignIn()).thenThrow(exception);
+      // act
+      expect(() => sut.autoSignIn(), throwsException);
+    });
+
+    test('should forward google sign in message to dataSource', () async {
+      // arrange
+      when(mockDataSource.autoSignIn()).thenAnswer((_) async => true);
+      // act
+      final result = await sut.autoSignIn();
+      // assert
+      expect(result, true);
+      verify(mockDataSource.autoSignIn());
+      verifyNoMoreInteractions(mockDataSource);
+    });
   });
 }

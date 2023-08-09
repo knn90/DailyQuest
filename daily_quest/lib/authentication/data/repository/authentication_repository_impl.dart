@@ -14,7 +14,6 @@ class AuthenticationRepositoryImpl implements AuthenticationRepository {
 
   @override
   Future<bool> autoSignIn() {
-    // TODO: implement autoSignIn
-    throw UnimplementedError();
+    return _dataSource.autoSignIn();
   }
 }
