@@ -1,4 +1,4 @@
-import 'package:daily_quest/authentication/presentation/log_in_notifier.dart';
+import 'package:daily_quest/authentication/presentation/sign_in_notifier.dart';
 import 'package:daily_quest/authentication/presentation/view/sign_in_button.dart';
 import 'package:daily_quest/authentication/presentation/view/sign_in_email.dart';
 import 'package:flutter/material.dart';
@@ -6,9 +6,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../shared/strings.dart';
 
-class LoginScreen extends ConsumerWidget {
+class SignInScreen extends ConsumerWidget {
   final VoidCallback onLoginSucceed;
-  const LoginScreen({required this.onLoginSucceed, super.key});
+  const SignInScreen({required this.onLoginSucceed, super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -17,8 +17,8 @@ class LoginScreen extends ConsumerWidget {
     final authProvider = ref.watch(signInStateProvider);
     return Center(
       child: authProvider.when(
-        data: (isLoggedIn) {
-          if (isLoggedIn) {
+        data: (isSignedIn) {
+          if (isSignedIn) {
             WidgetsBinding.instance.addPostFrameCallback((_) {
               onLoginSucceed();
             });

@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_flutter/adapters.dart';
 
-import 'authentication/presentation/log_in.dart';
+import 'authentication/presentation/sign_in.dart';
 import 'daily_quest/data/model/local_daily_quest.dart';
 import 'daily_quest/data/model/local_task.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -57,7 +57,7 @@ class AppCoordinator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(child: LoginScreen(
+      body: SafeArea(child: SignInScreen(
         onLoginSucceed: () {
           Navigator.of(context).pushReplacement(MaterialPageRoute(
               builder: (context) => const TodayQuestScreen()));
