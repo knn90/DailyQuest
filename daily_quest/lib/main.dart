@@ -1,3 +1,4 @@
+import 'package:daily_quest/daily_quest/presentation/today_quest/today_quest.dart';
 import 'package:daily_quest/shared/theme_constant.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -44,8 +45,24 @@ class MyApp extends StatelessWidget {
       supportedLocales: AppLocalizations.supportedLocales,
       theme: ThemeData(useMaterial3: true, colorScheme: lightColorScheme),
       darkTheme: ThemeData(useMaterial3: true, colorScheme: darkColorScheme),
-      home: const LoginScreen(),
+      home: const AppCoordinator(),
       onGenerateTitle: (context) => AppLocalizations.of(context).dailyQuest,
+    );
+  }
+}
+
+class AppCoordinator extends StatelessWidget {
+  const AppCoordinator({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: SafeArea(child: LoginScreen(
+        onLoginSucceed: () {
+          Navigator.of(context).pushReplacement(
+              MaterialPageRoute(builder: (context) => const TodayQuest()));
+        },
+      )),
     );
   }
 }
