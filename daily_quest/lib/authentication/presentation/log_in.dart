@@ -8,8 +8,8 @@ import 'package:flutter_svg/svg.dart';
 import '../../shared/images.dart';
 import '../../shared/strings.dart';
 
-class LoginOption extends ConsumerWidget {
-  const LoginOption({super.key});
+class LoginScreen extends ConsumerWidget {
+  const LoginScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

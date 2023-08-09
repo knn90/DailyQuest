@@ -44,7 +44,7 @@ class MyApp extends StatelessWidget {
       supportedLocales: AppLocalizations.supportedLocales,
       theme: ThemeData(useMaterial3: true, colorScheme: lightColorScheme),
       darkTheme: ThemeData(useMaterial3: true, colorScheme: darkColorScheme),
-      home: const LoginOption(),
+      home: const LoginScreen(),
       onGenerateTitle: (context) => AppLocalizations.of(context).dailyQuest,
     );
   }
