@@ -59,8 +59,8 @@ class AppCoordinator extends StatelessWidget {
     return Scaffold(
       body: SafeArea(child: LoginScreen(
         onLoginSucceed: () {
-          Navigator.of(context).pushReplacement(
-              MaterialPageRoute(builder: (context) => const TodayQuest()));
+          Navigator.of(context).pushReplacement(MaterialPageRoute(
+              builder: (context) => const TodayQuestScreen()));
         },
       )),
     );

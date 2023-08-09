@@ -5,8 +5,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../shared/strings.dart';
 import 'add_task_button.dart';
 
-class TodayQuest extends ConsumerWidget {
-  const TodayQuest({super.key});
+class TodayQuestScreen extends ConsumerWidget {
+  const TodayQuestScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
