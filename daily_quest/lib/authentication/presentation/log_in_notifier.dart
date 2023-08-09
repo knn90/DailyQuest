@@ -3,8 +3,8 @@ import 'package:daily_quest/authentication/data/repository/authentication_reposi
 import 'package:daily_quest/authentication/domain/usecase/google_sign_in_usecase.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class LoginNotifier extends StateNotifier<AsyncValue<bool>> {
-  LoginNotifier({required googleSignInUseCase})
+class SignInNotifier extends StateNotifier<AsyncValue<bool>> {
+  SignInNotifier({required googleSignInUseCase})
       : _googleSignInUseCase = googleSignInUseCase,
         super(const AsyncValue<bool>.data(false));
 
@@ -21,10 +21,10 @@ class LoginNotifier extends StateNotifier<AsyncValue<bool>> {
   }
 }
 
-final loginProvider =
-    StateNotifierProvider<LoginNotifier, AsyncValue<bool>>((ref) {
+final signInStateProvider =
+    StateNotifierProvider<SignInNotifier, AsyncValue<bool>>((ref) {
   final dataSource = AuthenticationDataSourceImpl();
   final repository = AuthenticationRepositoryImpl(dataSource: dataSource);
   final googleSignInUseCase = GoogleSignInUseCaseImpl(repository: repository);
-  return LoginNotifier(googleSignInUseCase: googleSignInUseCase);
+  return SignInNotifier(googleSignInUseCase: googleSignInUseCase);
 });

@@ -9,12 +9,12 @@ import 'log_in_notifier_test.mocks.dart';
 
 @GenerateNiceMocks([MockSpec<GoogleSignInUseCase>()])
 void main() {
-  late LoginNotifier sut;
+  late SignInNotifier sut;
   late MockGoogleSignInUseCase mockGoogleSignInUseCase;
 
   setUp(() {
     mockGoogleSignInUseCase = MockGoogleSignInUseCase();
-    sut = LoginNotifier(googleSignInUseCase: mockGoogleSignInUseCase);
+    sut = SignInNotifier(googleSignInUseCase: mockGoogleSignInUseCase);
   });
   test(
     'should thrown error when use case throws',
