@@ -52,8 +52,6 @@ class SignInScreen extends ConsumerWidget {
                               .read(signInStateProvider.notifier)
                               .signInWithGoogle()),
                       const SizedBox(height: 10),
-                      SignInButton.apple(context: context, onPressed: () {}),
-                      const SizedBox(height: 10),
                       SignInButton.guest(context: context, onPressed: () {}),
                       const SizedBox(height: 10),
                       _signUpButton(context),
