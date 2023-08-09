@@ -11,4 +11,10 @@ class AuthenticationRepositoryImpl implements AuthenticationRepository {
   Future<bool> googleSignIn() {
     return _dataSource.googleSignIn();
   }
+
+  @override
+  Future<bool> autoSignIn() {
+    // TODO: implement autoSignIn
+    throw UnimplementedError();
+  }
 }

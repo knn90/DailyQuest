@@ -39,7 +39,7 @@ final signInStateProvider =
   final dataSource = AuthenticationDataSourceImpl();
   final repository = AuthenticationRepositoryImpl(dataSource: dataSource);
   final googleSignInUseCase = GoogleSignInUseCaseImpl(repository: repository);
-  final autoSignInUseCase = AutoSignInUseCaseImpl();
+  final autoSignInUseCase = AutoSignInUseCaseImpl(repository: repository);
   return SignInNotifier(
     googleSignInUseCase: googleSignInUseCase,
     autoSignInUseCase: autoSignInUseCase,
