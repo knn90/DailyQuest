@@ -15,69 +15,81 @@ class SignInScreen extends ConsumerWidget {
     final theme = Theme.of(context);
     final strings = Strings.of(context);
     final authProvider = ref.watch(signInStateProvider);
-    return Center(
-      child: authProvider.when(
-        data: (isSignedIn) {
-          if (isSignedIn) {
-            WidgetsBinding.instance.addPostFrameCallback((_) {
-              onLoginSucceed();
-            });
-            return const CircularProgressIndicator();
-          } else {
-            return SingleChildScrollView(
-              keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
-              padding: const EdgeInsets.all(16),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 32.0, vertical: 5),
-                    child: Text(strings.signin,
-                        style: theme.textTheme.headlineSmall
-                            ?.copyWith(fontWeight: FontWeight.bold)),
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      const EmailLogin(),
-                      SignInButton.email(
-                          context: context,
-                          onPressed: () {
-                            final email = ref.read(signInEmailProvider);
-                            final password = ref.read(signInPasswordProvicer);
-                            ref
-                                .read(signInStateProvider.notifier)
-                                .signInWithEmail(
-                                  email: email,
-                                  password: password,
-                                );
-                          }),
-                      const SizedBox(height: 20),
-                      _orDivider(context),
-                      const SizedBox(height: 20),
-                      SignInButton.google(
-                          context: context,
-                          onPressed: () => ref
+    return Stack(
+      alignment: Alignment.center,
+      children: <Widget>[
+        Positioned.fill(
+          child: Center(
+              child: SingleChildScrollView(
+            keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 32.0, vertical: 5),
+                  child: Text(strings.signin,
+                      style: theme.textTheme.headlineSmall
+                          ?.copyWith(fontWeight: FontWeight.bold)),
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    const EmailLogin(),
+                    SignInButton.email(
+                        context: context,
+                        onPressed: () {
+                          final email = ref.read(signInEmailProvider);
+                          final password = ref.read(signInPasswordProvicer);
+                          ref
                               .read(signInStateProvider.notifier)
-                              .signInWithGoogle()),
-                      const SizedBox(height: 10),
-                      SignInButton.guest(context: context, onPressed: () {}),
-                      const SizedBox(height: 10),
-                      _signUpButton(context),
-                    ],
-                  ),
-                ],
+                              .signInWithEmail(
+                                email: email,
+                                password: password,
+                              );
+                        }),
+                    const SizedBox(height: 20),
+                    _orDivider(context),
+                    const SizedBox(height: 20),
+                    SignInButton.google(
+                        context: context,
+                        onPressed: () => ref
+                            .read(signInStateProvider.notifier)
+                            .signInWithGoogle()),
+                    const SizedBox(height: 10),
+                    SignInButton.guest(context: context, onPressed: () {}),
+                    const SizedBox(height: 10),
+                    _signUpButton(context),
+                  ],
+                ),
+              ],
+            ),
+          )),
+        ),
+        authProvider.when(
+          data: (isSignedIn) {
+            if (isSignedIn) {
+              WidgetsBinding.instance.addPostFrameCallback((_) {
+                onLoginSucceed();
+              });
+            }
+            return Container();
+          },
+          error: (error, stackTrace) {
+            return Container();
+          },
+          loading: () => Positioned.fill(
+            child: Container(
+              color: Colors.transparent,
+              child: const Center(
+                child: LoadingIndicator(),
               ),
-            );
-          }
-        },
-        error: (error, stackTrace) {
-          return Text('Error: $error');
-        },
-        loading: () => const CircularProgressIndicator(),
-      ),
+            ),
+          ),
+        ),
+      ],
     );
   }
 
@@ -121,5 +133,20 @@ class SignInScreen extends ConsumerWidget {
         ],
       ),
     );
+  }
+}
+
+class LoadingIndicator extends StatelessWidget {
+  const LoadingIndicator({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    return Container(
+        decoration: BoxDecoration(
+            color: theme.colorScheme.onBackground.withOpacity(0.2),
+            borderRadius: const BorderRadius.all(Radius.circular(16))),
+        padding: const EdgeInsets.all(32),
+        child: const CircularProgressIndicator());
   }
 }
