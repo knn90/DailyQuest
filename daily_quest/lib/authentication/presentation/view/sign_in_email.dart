@@ -3,8 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../shared/strings.dart';
 
-final loginEmailProvider = StateProvider.autoDispose((ref) => '');
-final loginPasswordProvicer = StateProvider.autoDispose((ref) => '');
+final signInEmailProvider = StateProvider.autoDispose((ref) => '');
+final signInPasswordProvicer = StateProvider.autoDispose((ref) => '');
 
 class EmailLogin extends ConsumerStatefulWidget {
   const EmailLogin({super.key});
@@ -33,9 +33,9 @@ class EmailLoginState extends ConsumerState<EmailLogin> {
 
   @override
   Widget build(BuildContext context) {
-    StateController<String> email = ref.watch(loginEmailProvider.notifier);
+    StateController<String> email = ref.watch(signInEmailProvider.notifier);
     StateController<String> password =
-        ref.watch(loginPasswordProvicer.notifier);
+        ref.watch(signInPasswordProvicer.notifier);
     final theme = Theme.of(context);
     final strings = Strings.of(context);
 

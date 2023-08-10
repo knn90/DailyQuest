@@ -26,7 +26,7 @@ class AuthenticationDataSourceImpl implements AuthenticationDataSource {
   Future<bool> emailSignIn(
       {required String email, required String password}) async {
     try {
-      final credential = await FirebaseAuth.instance
+      await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);
       return true;
     } on FirebaseAuthException catch (e) {

@@ -42,7 +42,18 @@ class SignInScreen extends ConsumerWidget {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       const EmailLogin(),
-                      SignInButton.email(context: context, onPressed: () {}),
+                      SignInButton.email(
+                          context: context,
+                          onPressed: () {
+                            final email = ref.read(signInEmailProvider);
+                            final password = ref.read(signInPasswordProvicer);
+                            ref
+                                .read(signInStateProvider.notifier)
+                                .signInWithEmail(
+                                  email: email,
+                                  password: password,
+                                );
+                          }),
                       const SizedBox(height: 20),
                       _orDivider(context),
                       const SizedBox(height: 20),
