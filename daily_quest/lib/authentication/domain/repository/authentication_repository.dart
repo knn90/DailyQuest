@@ -1,4 +1,5 @@
 abstract class AuthenticationRepository {
-  Future<bool> googleSignIn();
   Future<bool> autoSignIn();
+  Future<bool> googleSignIn();
+  Future<bool> emailSignIn();
 }

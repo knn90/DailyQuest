@@ -57,7 +57,7 @@ final signInStateProvider =
   final repository = AuthenticationRepositoryImpl(dataSource: dataSource);
   final googleSignInUseCase = GoogleSignInUseCaseImpl(repository: repository);
   final autoSignInUseCase = AutoSignInUseCaseImpl(repository: repository);
-  final emailSignInUseCase = EmailSignInUseCaseImpl();
+  final emailSignInUseCase = EmailSignInUseCaseImpl(repository: repository);
   return SignInNotifier(
     autoSignInUseCase: autoSignInUseCase,
     googleSignInUseCase: googleSignInUseCase,
