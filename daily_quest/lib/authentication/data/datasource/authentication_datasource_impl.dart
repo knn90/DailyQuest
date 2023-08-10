@@ -22,6 +22,12 @@ class AuthenticationDataSourceImpl implements AuthenticationDataSource {
     return Future.value(FirebaseAuth.instance.currentUser != null);
   }
 
+  @override
+  Future<bool> emailSignIn() {
+    // TODO: implement emailSignIn
+    throw UnimplementedError();
+  }
+
   Future<bool> _macOSGoogleSignIn() async {
     final result = await platform.invokeMethod<bool>('googleSignIn');
     return result ?? false;

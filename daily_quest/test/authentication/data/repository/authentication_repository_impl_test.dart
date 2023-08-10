@@ -16,6 +16,27 @@ void main() {
     sut = AuthenticationRepositoryImpl(dataSource: mockDataSource);
   });
 
+  group('autoSignIn', () {
+    test('should throw when datasource throw', () async {
+      // arrange
+      final exception = Exception('Google sign in fails');
+      when(mockDataSource.autoSignIn()).thenThrow(exception);
+      // act
+      expect(() => sut.autoSignIn(), throwsException);
+    });
+
+    test('should forward auto sign in message to dataSource', () async {
+      // arrange
+      when(mockDataSource.autoSignIn()).thenAnswer((_) async => true);
+      // act
+      final result = await sut.autoSignIn();
+      // assert
+      expect(result, true);
+      verify(mockDataSource.autoSignIn());
+      verifyNoMoreInteractions(mockDataSource);
+    });
+  });
+
   group('googleSignIn', () {
     test('should throw when datasource throw', () async {
       // arrange
@@ -37,23 +58,23 @@ void main() {
     });
   });
 
-  group('autoSignIn', () {
+  group('emailSignIn', () {
     test('should throw when datasource throw', () async {
       // arrange
       final exception = Exception('Google sign in fails');
-      when(mockDataSource.autoSignIn()).thenThrow(exception);
+      when(mockDataSource.emailSignIn()).thenThrow(exception);
       // act
-      expect(() => sut.autoSignIn(), throwsException);
+      expect(() => sut.emailSignIn(), throwsException);
     });
 
-    test('should forward google sign in message to dataSource', () async {
+    test('should forward email sign in message to dataSource', () async {
       // arrange
-      when(mockDataSource.autoSignIn()).thenAnswer((_) async => true);
+      when(mockDataSource.emailSignIn()).thenAnswer((_) async => true);
       // act
-      final result = await sut.autoSignIn();
+      final result = await sut.emailSignIn();
       // assert
       expect(result, true);
-      verify(mockDataSource.autoSignIn());
+      verify(mockDataSource.emailSignIn());
       verifyNoMoreInteractions(mockDataSource);
     });
   });

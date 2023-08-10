@@ -19,7 +19,6 @@ class AuthenticationRepositoryImpl implements AuthenticationRepository {
 
   @override
   Future<bool> emailSignIn() {
-    // TODO: implement emailSignIn
-    throw UnimplementedError();
+    return _dataSource.emailSignIn();
   }
 }
