@@ -1,3 +1,4 @@
+import 'package:daily_quest/authentication/presentation/helper/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -16,6 +17,11 @@ class EmailLogin extends ConsumerStatefulWidget {
 class EmailLoginState extends ConsumerState<EmailLogin> {
   late TextEditingController _emailController;
   late TextEditingController _passwordController;
+  bool _shouldValidateEmail = false;
+  bool get _isEmailValid {
+    final email = _emailController.value.text;
+    return !_shouldValidateEmail || EmailValidator.validate(email);
+  }
 
   @override
   void initState() {
@@ -44,17 +50,25 @@ class EmailLoginState extends ConsumerState<EmailLogin> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          TextField(
-            decoration: InputDecoration(
-              hintText: strings.emailTextFieldHint,
-              filled: false,
-            ),
-            controller: _emailController,
-            style: theme.textTheme.titleMedium,
-            autofocus: true,
-            maxLines: 1,
-            onChanged: (value) {
-              email.state = value;
+          ValueListenableBuilder(
+            valueListenable: _emailController,
+            builder: (context, _, __) {
+              return TextField(
+                decoration: InputDecoration(
+                  hintText: strings.emailTextFieldHint,
+                  filled: false,
+                  errorText:
+                      _isEmailValid ? null : strings.invalidEmailAddreddError,
+                ),
+                controller: _emailController,
+                style: theme.textTheme.titleMedium,
+                autofocus: true,
+                maxLines: 1,
+                onChanged: (value) {
+                  email.state = value;
+                  _shouldValidateEmail = true;
+                },
+              );
             },
           ),
           const SizedBox(height: 10),

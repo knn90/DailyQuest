@@ -33,7 +33,6 @@
   },
   "submit": "Submit",
 
-  
   "signin": "Sign in",
   "or": "or",
   "signup": "Sign up",
@@ -42,5 +41,6 @@
   "signin_email": "Continue with email",
   "signin_guest": "Continue as a Guest",
   "emailTextFieldHint": "Email",
-  "passwordTextFieldHint": "Password"
+  "passwordTextFieldHint": "Password",
+  "invalidEmailAddreddError": "Please enter a valid email address"
 }
