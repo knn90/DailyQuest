@@ -18,7 +18,7 @@ class AuthenticationRepositoryImpl implements AuthenticationRepository {
   }
 
   @override
-  Future<bool> emailSignIn() {
-    return _dataSource.emailSignIn();
+  Future<bool> emailSignIn({required String email, required String password}) {
+    return _dataSource.emailSignIn(email: email, password: password);
   }
 }

@@ -23,9 +23,20 @@ class AuthenticationDataSourceImpl implements AuthenticationDataSource {
   }
 
   @override
-  Future<bool> emailSignIn() {
-    // TODO: implement emailSignIn
-    throw UnimplementedError();
+  Future<bool> emailSignIn(
+      {required String email, required String password}) async {
+    try {
+      final credential = await FirebaseAuth.instance
+          .signInWithEmailAndPassword(email: email, password: password);
+      return true;
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        print('No user found for that email.');
+      } else if (e.code == 'wrong-password') {
+        print('Wrong password provided for that user.');
+      }
+      return false;
+    }
   }
 
   Future<bool> _macOSGoogleSignIn() async {

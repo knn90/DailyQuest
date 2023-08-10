@@ -40,10 +40,11 @@ class SignInNotifier extends StateNotifier<AsyncValue<bool>> {
     }
   }
 
-  signInWithEmail() async {
+  signInWithEmail({required String email, required String password}) async {
     state = const AsyncValue.loading();
     try {
-      final result = await _emailSignInUseCase.execute();
+      final result =
+          await _emailSignInUseCase.execute(email: email, password: password);
       state = AsyncValue<bool>.data(result);
     } catch (e, stackTrace) {
       state = AsyncValue.error(e, stackTrace);

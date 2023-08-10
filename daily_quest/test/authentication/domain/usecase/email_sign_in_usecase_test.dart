@@ -19,22 +19,26 @@ void main() {
   test('should throw when repository throws error', () async {
     // arrange
     final exception = Exception('google sign in fails');
-    when(mockRepository.emailSignIn()).thenThrow(exception);
+    when(mockRepository.emailSignIn(email: '', password: ''))
+        .thenThrow(exception);
     // act
-    expect(() => sut.execute(), throwsException);
+    expect(() => sut.execute(email: '', password: ''), throwsException);
     // assert
-    verify(mockRepository.emailSignIn());
+    verify(mockRepository.emailSignIn(email: '', password: ''));
     verifyNoMoreInteractions(mockRepository);
   });
 
   test('should forward signin with google message repository', () async {
     // arrange
-    when(mockRepository.emailSignIn()).thenAnswer((_) async => true);
+    const email = 'any@email.com';
+    const password = 'anypassword';
+    when(mockRepository.emailSignIn(email: email, password: password))
+        .thenAnswer((_) async => true);
     // act
-    final result = await sut.execute();
+    final result = await sut.execute(email: email, password: password);
     // assert
     expect(result, true);
-    verify(mockRepository.emailSignIn());
+    verify(mockRepository.emailSignIn(email: email, password: password));
     verifyNoMoreInteractions(mockRepository);
   });
 }

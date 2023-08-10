@@ -143,7 +143,10 @@ void main() {
       'should thrown error when use case throws',
       () async {
         // arrange
-        when(mockEmailSignInUseCase.execute()).thenThrow(throwsException);
+        const email = 'any@email.com';
+        const password = 'anypassword';
+        when(mockEmailSignInUseCase.execute(email: email, password: password))
+            .thenThrow(throwsException);
         expectLater(
             sut.stream,
             emitsInOrder([
@@ -154,9 +157,10 @@ void main() {
               })
             ]));
         // act
-        await sut.signInWithEmail();
+        await sut.signInWithEmail(email: email, password: password);
         // assert
-        verify(mockEmailSignInUseCase.execute());
+        verify(
+            mockEmailSignInUseCase.execute(email: email, password: password));
         verifyNoMoreInteractions(mockEmailSignInUseCase);
       },
       timeout: const Timeout(Duration(milliseconds: 500)),
@@ -166,7 +170,10 @@ void main() {
       'should return true value when usecase success',
       () async {
         // arrange
-        when(mockEmailSignInUseCase.execute()).thenAnswer((_) async => (true));
+        const email = 'any@email.com';
+        const password = 'anypassword';
+        when(mockEmailSignInUseCase.execute(email: email, password: password))
+            .thenAnswer((_) async => (true));
         expectLater(
           sut.stream,
           emitsInOrder([
@@ -175,9 +182,10 @@ void main() {
           ]),
         );
         // act
-        await sut.signInWithEmail();
+        await sut.signInWithEmail(email: email, password: password);
         // assert
-        verify(mockEmailSignInUseCase.execute());
+        verify(
+            mockEmailSignInUseCase.execute(email: email, password: password));
         verifyNoMoreInteractions(mockEmailSignInUseCase);
       },
       timeout: const Timeout(Duration(milliseconds: 500)),

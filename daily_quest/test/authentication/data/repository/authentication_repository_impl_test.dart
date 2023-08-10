@@ -62,19 +62,24 @@ void main() {
     test('should throw when datasource throw', () async {
       // arrange
       final exception = Exception('Google sign in fails');
-      when(mockDataSource.emailSignIn()).thenThrow(exception);
+      when(mockDataSource.emailSignIn(email: 'email', password: 'password'))
+          .thenThrow(exception);
       // act
-      expect(() => sut.emailSignIn(), throwsException);
+      expect(() => sut.emailSignIn(email: 'email', password: 'password'),
+          throwsException);
     });
 
     test('should forward email sign in message to dataSource', () async {
       // arrange
-      when(mockDataSource.emailSignIn()).thenAnswer((_) async => true);
+      const email = 'any@email.com';
+      const password = 'anypassword';
+      when(mockDataSource.emailSignIn(email: email, password: password))
+          .thenAnswer((_) async => true);
       // act
-      final result = await sut.emailSignIn();
+      final result = await sut.emailSignIn(email: email, password: password);
       // assert
       expect(result, true);
-      verify(mockDataSource.emailSignIn());
+      verify(mockDataSource.emailSignIn(email: email, password: password));
       verifyNoMoreInteractions(mockDataSource);
     });
   });
