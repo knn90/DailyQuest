@@ -9,30 +9,15 @@ import '../../shared/strings.dart';
 import '../domain/exception/authentication_exception.dart';
 
 class SignInScreen extends ConsumerWidget {
-  final VoidCallback onLoginSucceed;
-  const SignInScreen({required this.onLoginSucceed, super.key});
+  final VoidCallback _onLoginSucceed;
+  const SignInScreen({required onLoginSucceed, super.key})
+      : _onLoginSucceed = onLoginSucceed;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
     final strings = Strings.of(context);
-    ref.listen(signInStateProvider, (prev, next) {
-      if (next.isLoading) {
-        showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return const Center(child: LoadingIndicator());
-          },
-        );
-      } else if (next.hasError) {
-        Navigator.of(context).pop();
-        _handleSignInError(next.error!, context);
-      } else {
-        if (next.value ?? false) {
-          onLoginSucceed();
-        }
-      }
-    });
+    _bindSignInState(context, ref);
     return Center(
         child: SingleChildScrollView(
       keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
@@ -72,7 +57,11 @@ class SignInScreen extends ConsumerWidget {
               const SizedBox(height: 10),
               SignInButton.guest(context: context, onPressed: () {}),
               const SizedBox(height: 10),
-              _signUpButton(context),
+              OutlinedButton(
+                onPressed: () {},
+                style: authenticationButtonStyle,
+                child: Text(strings.signup),
+              ),
             ],
           ),
         ],
@@ -80,74 +69,82 @@ class SignInScreen extends ConsumerWidget {
     ));
   }
 
-  OutlinedButton _signUpButton(BuildContext context) {
-    final strings = Strings.of(context);
-    return OutlinedButton(
-      onPressed: () {},
-      style: OutlinedButton.styleFrom(
-        fixedSize: const Size(250, 48),
-        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
-      ),
-      child: Text(strings.signup),
-    );
-  }
-
   Widget _orDivider(BuildContext context) {
     final theme = Theme.of(context);
     final color = theme.colorScheme.onPrimaryContainer;
     final strings = Strings.of(context);
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Expanded(
-            child: Divider(
-              color: color,
-              endIndent: 10,
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Expanded(
+              child: Divider(
+                color: color,
+                endIndent: 10,
+              ),
             ),
-          ),
-          Text(
-            strings.or,
-            style: theme.textTheme.bodyMedium?.copyWith(color: color),
-          ),
-          Expanded(
-            child: Divider(
-              color: color,
-              indent: 10,
+            Text(
+              strings.or,
+              style: theme.textTheme.bodyMedium?.copyWith(color: color),
             ),
-          ),
-        ],
-      ),
+            Expanded(
+              child: Divider(color: color, indent: 10),
+            ),
+          ],
+        ));
+  }
+
+  _bindSignInState(BuildContext context, WidgetRef ref) {
+    ref.listen(signInStateProvider, (prev, next) {
+      if (next.isLoading) {
+        _handleLoading(context);
+      } else if (next.hasError) {
+        Navigator.of(context).pop();
+        _handleSignInError(next.error!, context);
+      } else {
+        if (next.value ?? false) {
+          _onLoginSucceed();
+        }
+      }
+    });
+  }
+
+  _handleLoading(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return const Center(child: LoadingIndicator());
+      },
     );
   }
-}
 
-_handleSignInError(Object error, BuildContext context) {
-  final strings = Strings.of(context);
-  var description = strings.signInErrorDescription;
-  if (error is UserNotFound) {
-    description = strings.userNotFoundErrorDescription;
-  } else if (error is WrongUserNamePassword) {
-    description = strings.wrongPasswordErrorDescription;
+  _handleSignInError(Object error, BuildContext context) {
+    final strings = Strings.of(context);
+    var description = strings.signInErrorDescription;
+    if (error is UserNotFound) {
+      description = strings.userNotFoundErrorDescription;
+    } else if (error is WrongUserNamePassword) {
+      description = strings.wrongPasswordErrorDescription;
+    }
+
+    showDialog<void>(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(strings.signInErrorTitle),
+          content: Text(description),
+          actions: <Widget>[
+            TextButton(
+              child: Text(strings.dialogOkButtonTitle),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
-
-  showDialog<void>(
-    context: context,
-    barrierDismissible: false,
-    builder: (BuildContext context) {
-      return AlertDialog(
-        title: Text(strings.signInErrorTitle),
-        content: Text(description),
-        actions: <Widget>[
-          TextButton(
-            child: Text(strings.dialogOkButtonTitle),
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-          ),
-        ],
-      );
-    },
-  );
 }

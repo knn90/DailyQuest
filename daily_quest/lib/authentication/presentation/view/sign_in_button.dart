@@ -18,9 +18,7 @@ class SignInButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: onPressed,
-      style: ElevatedButton.styleFrom(
-          fixedSize: const Size(250, 48),
-          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 15)),
+      style: authenticationButtonStyle,
       child: icon != null
           ? Row(children: [
               SvgPicture.asset(icon!),
@@ -73,3 +71,8 @@ class SignInButton extends StatelessWidget {
     );
   }
 }
+
+final authenticationButtonStyle = ElevatedButton.styleFrom(
+  fixedSize: const Size(250, 48),
+  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
+);
