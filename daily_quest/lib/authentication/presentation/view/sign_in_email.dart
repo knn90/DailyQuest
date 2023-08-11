@@ -18,6 +18,7 @@ class EmailLoginState extends ConsumerState<EmailLogin> {
   late TextEditingController _emailController;
   late TextEditingController _passwordController;
   bool _shouldValidateEmail = false;
+  bool _passwordVisible = true;
   bool get _isEmailValid {
     final email = _emailController.value.text;
     return !_shouldValidateEmail || EmailValidator.validate(email);
@@ -76,10 +77,21 @@ class EmailLoginState extends ConsumerState<EmailLogin> {
             decoration: InputDecoration(
               hintText: strings.passwordTextFieldHint,
               filled: false,
+              suffixIcon: IconButton(
+                icon: Icon(
+                    _passwordVisible ? Icons.visibility : Icons.visibility_off),
+                onPressed: () {
+                  setState(
+                    () {
+                      _passwordVisible = !_passwordVisible;
+                    },
+                  );
+                },
+              ),
             ),
             controller: _passwordController,
             style: theme.textTheme.titleMedium,
-            obscureText: true,
+            obscureText: _passwordVisible,
             enableSuggestions: false,
             autocorrect: false,
             onChanged: (value) => password.state = value,
