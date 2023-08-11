@@ -104,6 +104,7 @@ class SignInScreen extends ConsumerWidget {
         _handleSignInError(next.error!, context);
       } else {
         if (next.value ?? false) {
+          Navigator.of(context).pop();
           _onLoginSucceed();
         }
       }
