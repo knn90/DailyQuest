@@ -42,5 +42,10 @@
   "signin_guest": "Continue as a Guest",
   "emailTextFieldHint": "Email",
   "passwordTextFieldHint": "Password",
-  "invalidEmailAddreddError": "Please enter a valid email address"
+  "invalidEmailAddreddError": "Please enter a valid email address",
+  "signInErrorTitle": "Sign in failed",
+  "signInErrorDescription": "Something went wrong",
+  "userNotFoundErrorDescription": "Cannot find user with input email address",
+  "wrongPasswordErrorDescription": "Invalid email address or password",
+  "dialogOkButtonTitle": "OK"
 }

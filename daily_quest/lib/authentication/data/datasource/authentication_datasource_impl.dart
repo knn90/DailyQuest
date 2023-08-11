@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:daily_quest/authentication/data/datasource/authentication_datasource.dart';
+import 'package:daily_quest/authentication/domain/exception/authentication_exception.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -31,11 +32,12 @@ class AuthenticationDataSourceImpl implements AuthenticationDataSource {
       return true;
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
-        print('No user found for that email.');
+        throw UserNotFound();
       } else if (e.code == 'wrong-password') {
-        print('Wrong password provided for that user.');
+        throw WrongUserNamePassword();
+      } else {
+        throw SignInUnknownError();
       }
-      return false;
     }
   }
 
