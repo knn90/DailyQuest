@@ -46,6 +46,12 @@ class SignInScreen extends ConsumerWidget {
                           password: password,
                         );
                   }),
+              const SizedBox(height: 10),
+              OutlinedButton(
+                onPressed: () {},
+                style: authenticationButtonStyle,
+                child: Text(strings.signup),
+              ),
               const SizedBox(height: 20),
               _orDivider(context),
               const SizedBox(height: 20),
@@ -56,12 +62,6 @@ class SignInScreen extends ConsumerWidget {
                       .signInWithGoogle()),
               const SizedBox(height: 10),
               SignInButton.guest(context: context, onPressed: () {}),
-              const SizedBox(height: 10),
-              OutlinedButton(
-                onPressed: () {},
-                style: authenticationButtonStyle,
-                child: Text(strings.signup),
-              ),
             ],
           ),
         ],
