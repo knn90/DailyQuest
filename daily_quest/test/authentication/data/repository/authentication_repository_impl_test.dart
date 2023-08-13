@@ -83,4 +83,30 @@ void main() {
       verifyNoMoreInteractions(mockDataSource);
     });
   });
+
+  group('signup', () {
+    test('should throw when datasource throw', () async {
+      // arrange
+      final exception = Exception('Google sign in fails');
+      when(mockDataSource.signUp(email: 'email', password: 'password'))
+          .thenThrow(exception);
+      // act
+      expect(() => sut.signUp(email: 'email', password: 'password'),
+          throwsException);
+    });
+
+    test('should forward signup message to dataSource', () async {
+      // arrange
+      const email = 'any@email.com';
+      const password = 'anypassword';
+      when(mockDataSource.signUp(email: email, password: password))
+          .thenAnswer((_) async => true);
+      // act
+      final result = await sut.signUp(email: email, password: password);
+      // assert
+      expect(result, true);
+      verify(mockDataSource.signUp(email: email, password: password));
+      verifyNoMoreInteractions(mockDataSource);
+    });
+  });
 }

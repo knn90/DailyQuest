@@ -24,7 +24,6 @@ class AuthenticationRepositoryImpl implements AuthenticationRepository {
 
   @override
   Future<bool> signUp({required String email, required String password}) {
-    // TODO: implement signUp
-    throw UnimplementedError();
+    return _dataSource.signUp(email: email, password: password);
   }
 }

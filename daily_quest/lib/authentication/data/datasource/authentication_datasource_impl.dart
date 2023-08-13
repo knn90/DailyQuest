@@ -41,6 +41,12 @@ class AuthenticationDataSourceImpl implements AuthenticationDataSource {
     }
   }
 
+  @override
+  Future<bool> signUp({required String email, required String password}) {
+    // TODO: implement signUp
+    throw UnimplementedError();
+  }
+
   Future<bool> _macOSGoogleSignIn() async {
     final result = await platform.invokeMethod<bool>('googleSignIn');
     return result ?? false;
