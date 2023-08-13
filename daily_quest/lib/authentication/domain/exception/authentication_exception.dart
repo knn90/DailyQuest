@@ -1,5 +1,8 @@
-class UserNotFound implements Exception {}
-
-class WrongUserNamePassword implements Exception {}
-
-class SignInUnknownError implements Exception {}
+enum AuthenticationError implements Exception {
+  userNotFound,
+  wrongUserNamePassword,
+  signInUnknownError,
+  weakPasswordError,
+  userExistError,
+  signUpUnknownError,
+}

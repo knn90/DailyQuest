@@ -44,8 +44,12 @@
   "passwordTextFieldHint": "Password",
   "invalidEmailAddreddError": "Please enter a valid email address",
   "signInErrorTitle": "Sign in failed",
-  "signInErrorDescription": "Something went wrong",
+  "someThingWentWrongErrorTitle": "Error",
+  "someThingWentWrongErrorDescription": "Something went wrong. Please try again later.",
   "userNotFoundErrorDescription": "Cannot find user with input email address",
   "wrongPasswordErrorDescription": "Invalid email address or password",
-  "dialogOkButtonTitle": "OK"
+  "dialogOkButtonTitle": "OK",
+  "signUpErrorTitle": "Sign up failed",
+  "weakPasswordErrorDescription": "Your password is too weak, please pick a stronger password.",
+  "userExistErrorDescription": "Email address already exists. Please try to login" 
 }

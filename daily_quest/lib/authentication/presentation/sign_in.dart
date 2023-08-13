@@ -129,11 +129,37 @@ class SignInScreen extends ConsumerWidget {
 
   _handleSignInError(Object error, BuildContext context) {
     final strings = Strings.of(context);
-    var description = strings.signInErrorDescription;
-    if (error is UserNotFound) {
-      description = strings.userNotFoundErrorDescription;
-    } else if (error is WrongUserNamePassword) {
-      description = strings.wrongPasswordErrorDescription;
+    var errorTitle = '';
+    var errorDesciption = '';
+
+    switch (error) {
+      case AuthenticationError.userNotFound:
+        errorTitle = strings.signInErrorTitle;
+        errorDesciption = strings.userNotFoundErrorDescription;
+        break;
+      case AuthenticationError.wrongUserNamePassword:
+        errorTitle = strings.signInErrorTitle;
+        errorDesciption = strings.wrongPasswordErrorDescription;
+        break;
+      case AuthenticationError.signInUnknownError:
+        errorTitle = strings.signInErrorTitle;
+        errorDesciption = strings.someThingWentWrongErrorDescription;
+        break;
+      case AuthenticationError.weakPasswordError:
+        errorTitle = strings.signUpErrorTitle;
+        errorDesciption = strings.weakPasswordErrorDescription;
+        break;
+      case AuthenticationError.userExistError:
+        errorTitle = strings.signUpErrorTitle;
+        errorDesciption = strings.userExistErrorDescription;
+        break;
+      case AuthenticationError.signUpUnknownError:
+        errorTitle = strings.signUpErrorTitle;
+        errorDesciption = strings.someThingWentWrongErrorDescription;
+        break;
+      default:
+        errorTitle = strings.someThingWentWrongErrorDescription;
+        errorDesciption = strings.someThingWentWrongErrorDescription;
     }
 
     showDialog<void>(
@@ -141,8 +167,8 @@ class SignInScreen extends ConsumerWidget {
       barrierDismissible: false,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text(strings.signInErrorTitle),
-          content: Text(description),
+          title: Text(errorTitle),
+          content: Text(errorDesciption),
           actions: <Widget>[
             TextButton(
               child: Text(strings.dialogOkButtonTitle),

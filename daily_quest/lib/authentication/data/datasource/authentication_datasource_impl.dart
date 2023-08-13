@@ -19,7 +19,7 @@ class AuthenticationDataSourceImpl implements AuthenticationDataSource {
 
   @override
   Future<bool> autoSignIn() async {
-    await FirebaseAuth.instance.currentUser?.delete();
+    await FirebaseAuth.instance.signOut();
     return Future.value(FirebaseAuth.instance.currentUser != null);
   }
 
@@ -32,11 +32,11 @@ class AuthenticationDataSourceImpl implements AuthenticationDataSource {
       return true;
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
-        throw UserNotFound();
+        throw AuthenticationError.userNotFound;
       } else if (e.code == 'wrong-password') {
-        throw WrongUserNamePassword();
+        throw AuthenticationError.wrongUserNamePassword;
       } else {
-        throw SignInUnknownError();
+        throw AuthenticationError.signInUnknownError;
       }
     }
   }
@@ -44,19 +44,19 @@ class AuthenticationDataSourceImpl implements AuthenticationDataSource {
   @override
   Future<bool> signUp({required String email, required String password}) async {
     try {
-      final credential =
-          await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
       return true;
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
-        print('The password provided is too weak.');
+        throw AuthenticationError.weakPasswordError;
       } else if (e.code == 'email-already-in-use') {
-        print('The account already exists for that email.');
+        throw AuthenticationError.userExistError;
+      } else {
+        throw AuthenticationError.signUpUnknownError;
       }
-      return false;
     }
   }
 
