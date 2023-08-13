@@ -48,7 +48,14 @@ class SignInScreen extends ConsumerWidget {
                   }),
               const SizedBox(height: 10),
               OutlinedButton(
-                onPressed: () {},
+                onPressed: () {
+                  final email = ref.read(signInEmailProvider);
+                  final password = ref.read(signInPasswordProvicer);
+                  ref.read(signInStateProvider.notifier).signUp(
+                        email: email,
+                        password: password,
+                      );
+                },
                 style: authenticationButtonStyle,
                 child: Text(strings.signup),
               ),
