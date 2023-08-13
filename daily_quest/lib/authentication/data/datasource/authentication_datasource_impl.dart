@@ -8,6 +8,13 @@ import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthenticationDataSourceImpl implements AuthenticationDataSource {
   static const platform = MethodChannel('com.dailyquest/authentication');
+
+  @override
+  Future<bool> autoSignIn() async {
+    await FirebaseAuth.instance.signOut();
+    return Future.value(FirebaseAuth.instance.currentUser != null);
+  }
+
   @override
   Future<bool> googleSignIn() async {
     if (Platform.isMacOS) {
@@ -18,9 +25,13 @@ class AuthenticationDataSourceImpl implements AuthenticationDataSource {
   }
 
   @override
-  Future<bool> autoSignIn() async {
-    await FirebaseAuth.instance.signOut();
-    return Future.value(FirebaseAuth.instance.currentUser != null);
+  Future<bool> guestSignIn() async {
+    try {
+      await FirebaseAuth.instance.signInAnonymously();
+      return true;
+    } on FirebaseAuthException {
+      throw AuthenticationError.signInUnknownError;
+    }
   }
 
   @override

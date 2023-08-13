@@ -29,7 +29,6 @@ class AuthenticationRepositoryImpl implements AuthenticationRepository {
 
   @override
   Future<bool> guestSignIn() {
-    // TODO: implement guestSignIn
-    throw UnimplementedError();
+    return _dataSource.guestSignIn();
   }
 }

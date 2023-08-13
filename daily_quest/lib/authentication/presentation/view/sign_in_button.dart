@@ -61,6 +61,16 @@ class SignInButton extends StatelessWidget {
     );
   }
 
+  static SignInButton signUp({
+    required BuildContext context,
+    required void Function() onPressed,
+  }) {
+    return SignInButton(
+      title: Strings.of(context).signup,
+      onPressed: onPressed,
+    );
+  }
+
   static SignInButton guest({
     required BuildContext context,
     required void Function() onPressed,

@@ -47,7 +47,8 @@ class SignInScreen extends ConsumerWidget {
                         );
                   }),
               const SizedBox(height: 10),
-              OutlinedButton(
+              SignInButton.signUp(
+                context: context,
                 onPressed: () {
                   final email = ref.read(signInEmailProvider);
                   final password = ref.read(signInPasswordProvicer);
@@ -56,8 +57,6 @@ class SignInScreen extends ConsumerWidget {
                         password: password,
                       );
                 },
-                style: authenticationButtonStyle,
-                child: Text(strings.signup),
               ),
               const SizedBox(height: 20),
               _orDivider(context),
@@ -68,7 +67,11 @@ class SignInScreen extends ConsumerWidget {
                       .read(signInStateProvider.notifier)
                       .signInWithGoogle()),
               const SizedBox(height: 10),
-              SignInButton.guest(context: context, onPressed: () {}),
+              SignInButton.guest(
+                context: context,
+                onPressed: () =>
+                    ref.read(signInStateProvider.notifier).signInAsGuest(),
+              ),
             ],
           ),
         ],

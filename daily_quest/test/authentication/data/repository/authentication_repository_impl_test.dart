@@ -84,6 +84,27 @@ void main() {
     });
   });
 
+  group('guestSignIn', () {
+    test('should throw when datasource throw', () async {
+      // arrange
+      final exception = Exception('Google sign in fails');
+      when(mockDataSource.guestSignIn()).thenThrow(exception);
+      // act
+      expect(() => sut.guestSignIn(), throwsException);
+    });
+
+    test('should forward google sign in message to dataSource', () async {
+      // arrange
+      when(mockDataSource.guestSignIn()).thenAnswer((_) async => true);
+      // act
+      final result = await sut.guestSignIn();
+      // assert
+      expect(result, true);
+      verify(mockDataSource.guestSignIn());
+      verifyNoMoreInteractions(mockDataSource);
+    });
+  });
+
   group('signup', () {
     test('should throw when datasource throw', () async {
       // arrange
