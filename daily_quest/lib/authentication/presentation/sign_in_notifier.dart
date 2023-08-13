@@ -3,6 +3,7 @@ import 'package:daily_quest/authentication/data/repository/authentication_reposi
 import 'package:daily_quest/authentication/domain/usecase/auto_sign_in_usecase.dart';
 import 'package:daily_quest/authentication/domain/usecase/email_sign_in_usecase.dart';
 import 'package:daily_quest/authentication/domain/usecase/google_sign_in_usecase.dart';
+import 'package:daily_quest/authentication/domain/usecase/guest_sign_in_usecase.dart';
 import 'package:daily_quest/authentication/domain/usecase/sign_up_usecase.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -11,10 +12,12 @@ class SignInNotifier extends StateNotifier<AsyncValue<bool>> {
     required autoSignInUseCase,
     required googleSignInUseCase,
     required emailSignInUseCase,
+    required guestSignInUseCase,
     required signUpUseCase,
   })  : _autoSignInUseCase = autoSignInUseCase,
         _googleSignInUseCase = googleSignInUseCase,
         _emailSignInUseCase = emailSignInUseCase,
+        _guestSignInUseCase = guestSignInUseCase,
         _signUpUseCase = signUpUseCase,
         super(const AsyncValue<bool>.loading()) {
     autoSignIn();
@@ -22,6 +25,7 @@ class SignInNotifier extends StateNotifier<AsyncValue<bool>> {
   final AutoSignInUseCase _autoSignInUseCase;
   final GoogleSignInUseCase _googleSignInUseCase;
   final EmailSignInUseCase _emailSignInUseCase;
+  final GuestSignInUseCase _guestSignInUseCase;
   final SignUpUseCase _signUpUseCase;
 
   autoSignIn() async {
@@ -49,6 +53,13 @@ class SignInNotifier extends StateNotifier<AsyncValue<bool>> {
     });
   }
 
+  signInAsGuest() async {
+    state = const AsyncValue.loading();
+    state = await AsyncValue.guard(() async {
+      return await _guestSignInUseCase.execute();
+    });
+  }
+
   signUp({required String email, required String password}) async {
     state = const AsyncValue.loading();
     state = await AsyncValue.guard(() async {
@@ -64,11 +75,13 @@ final signInStateProvider =
   final googleSignInUseCase = GoogleSignInUseCaseImpl(repository: repository);
   final autoSignInUseCase = AutoSignInUseCaseImpl(repository: repository);
   final emailSignInUseCase = EmailSignInUseCaseImpl(repository: repository);
+  final guestSignInUseCase = GuestSignInUseCaseImpl(repository: repository);
   final signUpUseCase = SignUpUseCaseImpl(repository: repository);
   return SignInNotifier(
     autoSignInUseCase: autoSignInUseCase,
     googleSignInUseCase: googleSignInUseCase,
     emailSignInUseCase: emailSignInUseCase,
+    guestSignInUseCase: guestSignInUseCase,
     signUpUseCase: signUpUseCase,
   );
 });

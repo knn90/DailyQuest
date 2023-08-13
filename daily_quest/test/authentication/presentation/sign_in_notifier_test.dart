@@ -1,6 +1,7 @@
 import 'package:daily_quest/authentication/domain/usecase/auto_sign_in_usecase.dart';
 import 'package:daily_quest/authentication/domain/usecase/email_sign_in_usecase.dart';
 import 'package:daily_quest/authentication/domain/usecase/google_sign_in_usecase.dart';
+import 'package:daily_quest/authentication/domain/usecase/guest_sign_in_usecase.dart';
 import 'package:daily_quest/authentication/domain/usecase/sign_up_usecase.dart';
 import 'package:daily_quest/authentication/presentation/sign_in_notifier.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -15,23 +16,27 @@ import 'sign_in_notifier_test.mocks.dart';
   MockSpec<AutoSignInUseCase>(),
   MockSpec<EmailSignInUseCase>(),
   MockSpec<SignUpUseCase>(),
+  MockSpec<GuestSignInUseCase>()
 ])
 void main() {
   late SignInNotifier sut;
   late MockGoogleSignInUseCase mockGoogleSignInUseCase;
   late MockAutoSignInUseCase mockAutoSignInUseCase;
   late MockEmailSignInUseCase mockEmailSignInUseCase;
+  late MockGuestSignInUseCase mockGuestSignInUseCase;
   late MockSignUpUseCase mockSignUpUseCase;
 
   setUp(() {
     mockGoogleSignInUseCase = MockGoogleSignInUseCase();
     mockAutoSignInUseCase = MockAutoSignInUseCase();
     mockEmailSignInUseCase = MockEmailSignInUseCase();
+    mockGuestSignInUseCase = MockGuestSignInUseCase();
     mockSignUpUseCase = MockSignUpUseCase();
     sut = SignInNotifier(
       googleSignInUseCase: mockGoogleSignInUseCase,
       autoSignInUseCase: mockAutoSignInUseCase,
       emailSignInUseCase: mockEmailSignInUseCase,
+      guestSignInUseCase: mockGuestSignInUseCase,
       signUpUseCase: mockSignUpUseCase,
     );
   });
@@ -191,6 +196,52 @@ void main() {
         verify(
             mockEmailSignInUseCase.execute(email: email, password: password));
         verifyNoMoreInteractions(mockEmailSignInUseCase);
+      },
+      timeout: const Timeout(Duration(milliseconds: 500)),
+    );
+  });
+
+  group('Sign in as guest', () {
+    test(
+      'should thrown error when use case throws',
+      () async {
+        // arrange
+        when(mockGuestSignInUseCase.execute()).thenThrow(throwsException);
+        expectLater(
+            sut.stream,
+            emitsInOrder([
+              const AsyncLoading<bool>(),
+              predicate<AsyncValue<bool>>((value) {
+                expect(value, isA<AsyncError<bool>>());
+                return true;
+              })
+            ]));
+        // act
+        await sut.signInAsGuest();
+        // assert
+        verify(mockGuestSignInUseCase.execute());
+        verifyNoMoreInteractions(mockGuestSignInUseCase);
+      },
+      timeout: const Timeout(Duration(milliseconds: 500)),
+    );
+
+    test(
+      'should return true value when usecase success',
+      () async {
+        // arrange
+        when(mockGuestSignInUseCase.execute()).thenAnswer((_) async => (true));
+        expectLater(
+          sut.stream,
+          emitsInOrder([
+            const AsyncLoading<bool>(),
+            const AsyncValue<bool>.data(true),
+          ]),
+        );
+        // act
+        await sut.signInAsGuest();
+        // assert
+        verify(mockGuestSignInUseCase.execute());
+        verifyNoMoreInteractions(mockGuestSignInUseCase);
       },
       timeout: const Timeout(Duration(milliseconds: 500)),
     );
