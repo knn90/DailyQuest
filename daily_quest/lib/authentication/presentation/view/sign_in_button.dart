@@ -34,7 +34,7 @@ class SignInButton extends StatelessWidget {
     required void Function() onPressed,
   }) {
     return SignInButton(
-      title: Strings.of(context).signin_google,
+      title: Strings.of(context).signinGoogle,
       icon: Images.googleLogo,
       onPressed: onPressed,
     );
@@ -45,7 +45,7 @@ class SignInButton extends StatelessWidget {
     required void Function() onPressed,
   }) {
     return SignInButton(
-      title: Strings.of(context).signin_apple,
+      title: Strings.of(context).signinApple,
       icon: Images.appleLogo,
       onPressed: onPressed,
     );
@@ -56,7 +56,7 @@ class SignInButton extends StatelessWidget {
     required void Function() onPressed,
   }) {
     return SignInButton(
-      title: Strings.of(context).signin_email,
+      title: Strings.of(context).signinEmail,
       onPressed: onPressed,
     );
   }
@@ -66,7 +66,7 @@ class SignInButton extends StatelessWidget {
     required void Function() onPressed,
   }) {
     return SignInButton(
-      title: Strings.of(context).signin_guest,
+      title: Strings.of(context).signinGuest,
       onPressed: onPressed,
     );
   }
