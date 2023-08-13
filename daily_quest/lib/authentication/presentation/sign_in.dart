@@ -29,8 +29,10 @@ class SignInScreen extends ConsumerWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 32.0, vertical: 5),
             child: Text(strings.letStart,
-                style: theme.textTheme.headlineSmall
-                    ?.copyWith(fontWeight: FontWeight.bold)),
+                style: theme.textTheme.headlineMedium?.copyWith(
+                  fontWeight: FontWeight.bold,
+                  letterSpacing: -1.5,
+                )),
           ),
           Column(
             crossAxisAlignment: CrossAxisAlignment.center,
