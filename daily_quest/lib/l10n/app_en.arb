@@ -51,5 +51,6 @@
   "dialogOkButtonTitle": "OK",
   "signUpErrorTitle": "Sign up failed",
   "weakPasswordErrorDescription": "Your password is too weak, please pick a stronger password.",
-  "userExistErrorDescription": "Email address already exists. Please try to login" 
+  "userExistErrorDescription": "Email address already exists. Please try to login",
+  "resetPasswordTitle": "Reset password"
 }

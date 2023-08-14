@@ -47,7 +47,7 @@ class EmailLoginState extends ConsumerState<EmailLogin> {
     final strings = Strings.of(context);
 
     return Padding(
-      padding: const EdgeInsets.fromLTRB(32, 0, 32, 32),
+      padding: const EdgeInsets.fromLTRB(32, 0, 32, 5),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
