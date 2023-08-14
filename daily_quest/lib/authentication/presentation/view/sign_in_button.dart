@@ -13,7 +13,7 @@ class SignInButton extends StatelessWidget {
   });
   final String title;
   final String? icon;
-  final void Function() onPressed;
+  final void Function()? onPressed;
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(

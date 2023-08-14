@@ -1,3 +1,7 @@
+import 'package:flutter/material.dart';
+
+import '../../../shared/strings.dart';
+
 enum AuthenticationError implements Exception {
   userNotFound,
   wrongUserNamePassword,
@@ -5,4 +9,45 @@ enum AuthenticationError implements Exception {
   weakPasswordError,
   userExistError,
   signUpUnknownError,
+  resetPasswordUnknowError,
+}
+
+extension AuthenticationErrorParsing on AuthenticationError {
+  String title(BuildContext context) {
+    final strings = Strings.of(context);
+    switch (this) {
+      case AuthenticationError.userNotFound:
+        return strings.signInErrorTitle;
+      case AuthenticationError.wrongUserNamePassword:
+        return strings.signInErrorTitle;
+      case AuthenticationError.signInUnknownError:
+        return strings.signInErrorTitle;
+      case AuthenticationError.weakPasswordError:
+        return strings.signUpErrorTitle;
+      case AuthenticationError.userExistError:
+        return strings.signUpErrorTitle;
+      case AuthenticationError.signUpUnknownError:
+        return strings.signUpErrorTitle;
+      case AuthenticationError.resetPasswordUnknowError:
+        return strings.resetPasswordErrorTitle;
+      default:
+        return strings.someThingWentWrongErrorDescription;
+    }
+  }
+
+  String description(BuildContext context) {
+    final strings = Strings.of(context);
+    switch (this) {
+      case AuthenticationError.userNotFound:
+        return strings.userNotFoundErrorDescription;
+      case AuthenticationError.wrongUserNamePassword:
+        return strings.wrongPasswordErrorDescription;
+      case AuthenticationError.weakPasswordError:
+        return strings.weakPasswordErrorDescription;
+      case AuthenticationError.userExistError:
+        return strings.userExistErrorDescription;
+      default:
+        return strings.someThingWentWrongErrorDescription;
+    }
+  }
 }

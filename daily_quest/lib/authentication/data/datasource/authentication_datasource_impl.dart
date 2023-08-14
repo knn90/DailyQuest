@@ -76,8 +76,12 @@ class AuthenticationDataSourceImpl implements AuthenticationDataSource {
     try {
       await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
       return true;
-    } catch (e) {
-      return false;
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        throw AuthenticationError.userNotFound;
+      } else {
+        throw AuthenticationError.resetPasswordUnknowError;
+      }
     }
   }
 

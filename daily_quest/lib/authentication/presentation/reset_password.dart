@@ -1,14 +1,19 @@
+import 'package:daily_quest/authentication/presentation/reset_password_notifier.dart';
 import 'package:daily_quest/authentication/presentation/view/sign_in_button.dart';
+import 'package:daily_quest/common/presentation/helper/helpers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../shared/strings.dart';
+import '../domain/exception/authentication_exception.dart';
 import 'helper/email_validator.dart';
 
 final resetPasswordEmailProvider = StateProvider.autoDispose((ref) => '');
 
 class ResetPasswordScreen extends ConsumerStatefulWidget {
-  const ResetPasswordScreen({super.key});
+  final VoidCallback _onResetPasswordSucceed;
+  const ResetPasswordScreen({required onResetPasswordSucceed, super.key})
+      : _onResetPasswordSucceed = onResetPasswordSucceed;
 
   @override
   ConsumerState createState() => ResetPasswordScreenState();
@@ -40,6 +45,7 @@ class ResetPasswordScreenState extends ConsumerState<ResetPasswordScreen> {
         ref.watch(resetPasswordEmailProvider.notifier);
     final strings = Strings.of(context);
     final theme = Theme.of(context);
+    _bindResetPasswordState(context);
     return Scaffold(
       appBar: AppBar(title: Text(strings.dailyQuest)),
       body: SafeArea(
@@ -49,17 +55,16 @@ class ResetPasswordScreenState extends ConsumerState<ResetPasswordScreen> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(strings.resetPasswordTitle,
+            Text(strings.resetPasswordScreenTitle,
                 style: theme.textTheme.headlineSmall?.copyWith(
                   fontWeight: FontWeight.bold,
                   letterSpacing: -1.5,
                 )),
             const SizedBox(height: 10),
-            const Text(
-                'Enter the email address associated with your account and we\'ll send you a link to reset your password'),
+            Text(strings.resetPasswordScreenDescription),
             ValueListenableBuilder(
               valueListenable: _emailController,
-              builder: (context, _, __) {
+              builder: (context, value, __) {
                 return TextField(
                   decoration: InputDecoration(
                     hintText: strings.emailTextFieldHint,
@@ -79,18 +84,51 @@ class ResetPasswordScreenState extends ConsumerState<ResetPasswordScreen> {
               },
             ),
             const SizedBox(height: 20),
-            Center(
-              child: SignInButton(
-                  title: 'Continue',
-                  onPressed: () {
-                    if (_isEmailValid || email.state == '') {
-                      return;
-                    } else {}
-                  }),
-            )
+            ValueListenableBuilder(
+                valueListenable: _emailController,
+                builder: (context, value, __) {
+                  return Center(
+                      child: SignInButton(
+                    title: strings.continueButtonTitle,
+                    onPressed: (!_isEmailValid || value.text == '')
+                        ? null
+                        : () => ref
+                            .read(resetPasswordStateProvider.notifier)
+                            .resetPassword(email: email.state),
+                  ));
+                })
           ],
         ),
       )),
     );
+  }
+
+  _bindResetPasswordState(BuildContext context) {
+    ref.listen(resetPasswordStateProvider, (prev, next) {
+      if (next.isLoading) {
+        showLoading(context);
+      } else if (next.hasError) {
+        Navigator.of(context).pop();
+        _handleResetPasswordError(next.error!, context);
+      } else {
+        if (next.value ?? false) {
+          Navigator.of(context).pop();
+          widget._onResetPasswordSucceed();
+        }
+      }
+    });
+  }
+
+  _handleResetPasswordError(Object error, BuildContext context) {
+    final strings = Strings.of(context);
+    var errorTitle = strings.someThingWentWrongErrorDescription;
+    var errorDesciption = strings.someThingWentWrongErrorDescription;
+
+    if (error is AuthenticationError) {
+      errorTitle = error.title(context);
+      errorDesciption = error.description(context);
+    }
+
+    showErrorMessage(errorTitle, errorDesciption, context);
   }
 }

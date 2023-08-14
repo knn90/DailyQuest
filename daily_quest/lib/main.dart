@@ -67,7 +67,9 @@ class AppCoordinator extends StatelessWidget {
         },
         onResetPasswordPressed: () {
           navigator.push(MaterialPageRoute(
-              builder: (context) => const ResetPasswordScreen()));
+              builder: (context) => ResetPasswordScreen(
+                    onResetPasswordSucceed: () => navigator.pop(),
+                  )));
         },
       )),
     );

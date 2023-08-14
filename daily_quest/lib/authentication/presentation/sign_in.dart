@@ -1,10 +1,10 @@
 import 'package:daily_quest/authentication/presentation/sign_in_notifier.dart';
 import 'package:daily_quest/authentication/presentation/view/sign_in_button.dart';
 import 'package:daily_quest/authentication/presentation/view/sign_in_email.dart';
+import 'package:daily_quest/common/presentation/helper/helpers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../common/view/loading_indicator.dart';
 import '../../shared/strings.dart';
 import '../domain/exception/authentication_exception.dart';
 
@@ -128,7 +128,7 @@ class SignInScreen extends ConsumerWidget {
           padding: const EdgeInsets.only(right: 24, bottom: 5),
           child: TextButton(
               onPressed: _onResetPasswordPressed,
-              child: Text(Strings.of(context).resetPasswordTitle)),
+              child: Text(Strings.of(context).resetPasswordScreenTitle)),
         ),
       ],
     );
@@ -137,7 +137,7 @@ class SignInScreen extends ConsumerWidget {
   _bindSignInState(BuildContext context, WidgetRef ref) {
     ref.listen(signInStateProvider, (prev, next) {
       if (next.isLoading) {
-        _handleLoading(context);
+        showLoading(context);
       } else if (next.hasError) {
         Navigator.of(context).pop();
         _handleSignInError(next.error!, context);
@@ -150,67 +150,16 @@ class SignInScreen extends ConsumerWidget {
     });
   }
 
-  _handleLoading(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return const Center(child: LoadingIndicator());
-      },
-    );
-  }
-
   _handleSignInError(Object error, BuildContext context) {
     final strings = Strings.of(context);
-    var errorTitle = '';
-    var errorDesciption = '';
+    var errorTitle = strings.someThingWentWrongErrorDescription;
+    var errorDesciption = strings.someThingWentWrongErrorDescription;
 
-    switch (error) {
-      case AuthenticationError.userNotFound:
-        errorTitle = strings.signInErrorTitle;
-        errorDesciption = strings.userNotFoundErrorDescription;
-        break;
-      case AuthenticationError.wrongUserNamePassword:
-        errorTitle = strings.signInErrorTitle;
-        errorDesciption = strings.wrongPasswordErrorDescription;
-        break;
-      case AuthenticationError.signInUnknownError:
-        errorTitle = strings.signInErrorTitle;
-        errorDesciption = strings.someThingWentWrongErrorDescription;
-        break;
-      case AuthenticationError.weakPasswordError:
-        errorTitle = strings.signUpErrorTitle;
-        errorDesciption = strings.weakPasswordErrorDescription;
-        break;
-      case AuthenticationError.userExistError:
-        errorTitle = strings.signUpErrorTitle;
-        errorDesciption = strings.userExistErrorDescription;
-        break;
-      case AuthenticationError.signUpUnknownError:
-        errorTitle = strings.signUpErrorTitle;
-        errorDesciption = strings.someThingWentWrongErrorDescription;
-        break;
-      default:
-        errorTitle = strings.someThingWentWrongErrorDescription;
-        errorDesciption = strings.someThingWentWrongErrorDescription;
+    if (error is AuthenticationError) {
+      errorTitle = error.title(context);
+      errorDesciption = error.description(context);
     }
 
-    showDialog<void>(
-      context: context,
-      barrierDismissible: false,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text(errorTitle),
-          content: Text(errorDesciption),
-          actions: <Widget>[
-            TextButton(
-              child: Text(strings.dialogOkButtonTitle),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
-    );
+    showErrorMessage(errorTitle, errorDesciption, context);
   }
 }
