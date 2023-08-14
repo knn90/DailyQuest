@@ -7,7 +7,7 @@ import 'package:daily_quest/authentication/domain/usecase/guest_sign_in_usecase.
 import 'package:daily_quest/authentication/domain/usecase/sign_up_usecase.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class SignInNotifier extends StateNotifier<AsyncValue<bool>> {
+final class SignInNotifier extends StateNotifier<AsyncValue<bool>> {
   SignInNotifier({
     required autoSignInUseCase,
     required googleSignInUseCase,
