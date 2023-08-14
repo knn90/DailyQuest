@@ -10,76 +10,88 @@ import '../domain/exception/authentication_exception.dart';
 
 class SignInScreen extends ConsumerWidget {
   final VoidCallback _onLoginSucceed;
-  const SignInScreen({required onLoginSucceed, super.key})
-      : _onLoginSucceed = onLoginSucceed;
+  final VoidCallback _onResetPasswordPressed;
+  const SignInScreen(
+      {required onLoginSucceed, required onResetPasswordPressed, super.key})
+      : _onLoginSucceed = onLoginSucceed,
+        _onResetPasswordPressed = onResetPasswordPressed;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
     final strings = Strings.of(context);
     _bindSignInState(context, ref);
-    return Center(
+    return Scaffold(
+      appBar: AppBar(title: Text(strings.dailyQuest)),
+      body: SafeArea(
         child: SingleChildScrollView(
-      keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
-      padding: const EdgeInsets.all(16),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 32.0, vertical: 5),
-            child: Text(strings.letStart,
-                style: theme.textTheme.headlineMedium?.copyWith(
-                  fontWeight: FontWeight.bold,
-                  letterSpacing: -1.5,
-                )),
-          ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
+          keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 5),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const EmailLogin(),
-              _resetPasswordButton(context),
-              SignInButton.email(
-                  context: context,
-                  onPressed: () {
-                    final email = ref.read(signInEmailProvider);
-                    final password = ref.read(signInPasswordProvicer);
-                    ref.read(signInStateProvider.notifier).signInWithEmail(
-                          email: email,
-                          password: password,
-                        );
-                  }),
-              const SizedBox(height: 10),
-              SignInButton.signUp(
-                context: context,
-                onPressed: () {
-                  final email = ref.read(signInEmailProvider);
-                  final password = ref.read(signInPasswordProvicer);
-                  ref.read(signInStateProvider.notifier).signUp(
-                        email: email,
-                        password: password,
-                      );
-                },
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 32.0, vertical: 5),
+                child: Text(strings.letStart,
+                    style: theme.textTheme.headlineSmall?.copyWith(
+                      fontWeight: FontWeight.bold,
+                      letterSpacing: -1.5,
+                    )),
               ),
-              const SizedBox(height: 20),
-              _orDivider(context),
-              const SizedBox(height: 20),
-              SignInButton.google(
-                  context: context,
-                  onPressed: () => ref
-                      .read(signInStateProvider.notifier)
-                      .signInWithGoogle()),
-              const SizedBox(height: 10),
-              SignInButton.guest(
-                context: context,
-                onPressed: () =>
-                    ref.read(signInStateProvider.notifier).signInAsGuest(),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  const Padding(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 32, vertical: 5.0),
+                    child: EmailLogin(),
+                  ),
+                  _resetPasswordButton(context),
+                  SignInButton.email(
+                      context: context,
+                      onPressed: () {
+                        final email = ref.read(signInEmailProvider);
+                        final password = ref.read(signInPasswordProvicer);
+                        ref.read(signInStateProvider.notifier).signInWithEmail(
+                              email: email,
+                              password: password,
+                            );
+                      }),
+                  const SizedBox(height: 10),
+                  SignInButton.signUp(
+                    context: context,
+                    onPressed: () {
+                      final email = ref.read(signInEmailProvider);
+                      final password = ref.read(signInPasswordProvicer);
+                      ref.read(signInStateProvider.notifier).signUp(
+                            email: email,
+                            password: password,
+                          );
+                    },
+                  ),
+                  const SizedBox(height: 20),
+                  _orDivider(context),
+                  const SizedBox(height: 20),
+                  SignInButton.google(
+                      context: context,
+                      onPressed: () => ref
+                          .read(signInStateProvider.notifier)
+                          .signInWithGoogle()),
+                  const SizedBox(height: 10),
+                  SignInButton.guest(
+                    context: context,
+                    onPressed: () =>
+                        ref.read(signInStateProvider.notifier).signInAsGuest(),
+                  ),
+                ],
               ),
             ],
           ),
-        ],
+        ),
       ),
-    ));
+    );
   }
 
   Widget _orDivider(BuildContext context) {
@@ -115,7 +127,7 @@ class SignInScreen extends ConsumerWidget {
         Padding(
           padding: const EdgeInsets.only(right: 24, bottom: 5),
           child: TextButton(
-              onPressed: () {},
+              onPressed: () => _onResetPasswordPressed(),
               child: Text(Strings.of(context).resetPasswordTitle)),
         ),
       ],

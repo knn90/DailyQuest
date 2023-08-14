@@ -1,3 +1,4 @@
+import 'package:daily_quest/authentication/presentation/reset_password.dart';
 import 'package:daily_quest/daily_quest/presentation/today_quest/today_quest.dart';
 import 'package:daily_quest/shared/theme_constant.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -56,11 +57,17 @@ class AppCoordinator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final navigator = Navigator.of(context);
     return Scaffold(
-      body: SafeArea(child: SignInScreen(
+      body: SafeArea(
+          child: SignInScreen(
         onLoginSucceed: () {
-          Navigator.of(context).pushReplacement(MaterialPageRoute(
+          navigator.pushReplacement(MaterialPageRoute(
               builder: (context) => const TodayQuestScreen()));
+        },
+        onResetPasswordPressed: () {
+          navigator.push(MaterialPageRoute(
+              builder: (context) => const ResetPasswordScreen()));
         },
       )),
     );

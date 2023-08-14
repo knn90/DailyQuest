@@ -46,59 +46,56 @@ class EmailLoginState extends ConsumerState<EmailLogin> {
     final theme = Theme.of(context);
     final strings = Strings.of(context);
 
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(32, 0, 32, 5),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          ValueListenableBuilder(
-            valueListenable: _emailController,
-            builder: (context, _, __) {
-              return TextField(
-                decoration: InputDecoration(
-                  hintText: strings.emailTextFieldHint,
-                  filled: false,
-                  errorText:
-                      _isEmailValid ? null : strings.invalidEmailAddreddError,
-                ),
-                controller: _emailController,
-                style: theme.textTheme.titleMedium,
-                autofocus: true,
-                maxLines: 1,
-                onChanged: (value) {
-                  email.state = value;
-                  _shouldValidateEmail = true;
-                },
-              );
-            },
-          ),
-          const SizedBox(height: 10),
-          TextField(
-            decoration: InputDecoration(
-              hintText: strings.passwordTextFieldHint,
-              filled: false,
-              suffixIcon: IconButton(
-                icon: Icon(
-                    _passwordVisible ? Icons.visibility : Icons.visibility_off),
-                onPressed: () {
-                  setState(
-                    () {
-                      _passwordVisible = !_passwordVisible;
-                    },
-                  );
-                },
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        ValueListenableBuilder(
+          valueListenable: _emailController,
+          builder: (context, _, __) {
+            return TextField(
+              decoration: InputDecoration(
+                hintText: strings.emailTextFieldHint,
+                filled: false,
+                errorText:
+                    _isEmailValid ? null : strings.invalidEmailAddreddError,
               ),
+              controller: _emailController,
+              style: theme.textTheme.titleMedium,
+              autofocus: true,
+              maxLines: 1,
+              onChanged: (value) {
+                email.state = value;
+                _shouldValidateEmail = true;
+              },
+            );
+          },
+        ),
+        const SizedBox(height: 10),
+        TextField(
+          decoration: InputDecoration(
+            hintText: strings.passwordTextFieldHint,
+            filled: false,
+            suffixIcon: IconButton(
+              icon: Icon(
+                  _passwordVisible ? Icons.visibility : Icons.visibility_off),
+              onPressed: () {
+                setState(
+                  () {
+                    _passwordVisible = !_passwordVisible;
+                  },
+                );
+              },
             ),
-            controller: _passwordController,
-            style: theme.textTheme.titleMedium,
-            obscureText: _passwordVisible,
-            enableSuggestions: false,
-            autocorrect: false,
-            onChanged: (value) => password.state = value,
-            maxLines: 1,
           ),
-        ],
-      ),
+          controller: _passwordController,
+          style: theme.textTheme.titleMedium,
+          obscureText: _passwordVisible,
+          enableSuggestions: false,
+          autocorrect: false,
+          onChanged: (value) => password.state = value,
+          maxLines: 1,
+        ),
+      ],
     );
   }
 }
