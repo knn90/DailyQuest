@@ -1,5 +1,8 @@
+import 'package:daily_quest/authentication/data/repository/authentication_repository_impl.dart';
 import 'package:daily_quest/authentication/domain/usecase/reset_password_usecase.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import '../data/datasource/authentication_datasource_impl.dart';
 
 final class ResetPasswordNotifier extends StateNotifier<AsyncValue<bool>> {
   ResetPasswordNotifier({required resetPasswordUseCase})
@@ -17,6 +20,8 @@ final class ResetPasswordNotifier extends StateNotifier<AsyncValue<bool>> {
 
 final resetPasswordStateProvider =
     StateNotifierProvider<ResetPasswordNotifier, AsyncValue<bool>>((ref) {
-  final resetPasswordUseCase = ResetPasswordUseCaseImpl();
+  final dataSource = AuthenticationDataSourceImpl();
+  final repository = AuthenticationRepositoryImpl(dataSource: dataSource);
+  final resetPasswordUseCase = ResetPasswordUseCaseImpl(repository: repository);
   return ResetPasswordNotifier(resetPasswordUseCase: resetPasswordUseCase);
 });

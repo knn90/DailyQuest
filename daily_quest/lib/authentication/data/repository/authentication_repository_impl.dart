@@ -31,4 +31,10 @@ class AuthenticationRepositoryImpl implements AuthenticationRepository {
   Future<bool> guestSignIn() {
     return _dataSource.guestSignIn();
   }
+
+  @override
+  Future<bool> resetPassword() {
+    // TODO: implement resetPassword
+    throw UnimplementedError();
+  }
 }
