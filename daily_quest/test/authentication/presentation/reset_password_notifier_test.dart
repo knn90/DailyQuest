@@ -21,8 +21,10 @@ void main() {
       'should throw on usecase throw',
       () async {
         // arrange
+        const email = 'any@email.com';
         final exception = Exception('reset password fails');
-        when(mockResetPasswordUseCase.execute()).thenThrow(exception);
+        when(mockResetPasswordUseCase.execute(email: email))
+            .thenThrow(exception);
         expectLater(
             sut.stream,
             emitsInOrder([
@@ -33,9 +35,9 @@ void main() {
               })
             ]));
         // act
-        await sut.resetPassword();
+        await sut.resetPassword(email: email);
         // assert
-        verify(mockResetPasswordUseCase.execute());
+        verify(mockResetPasswordUseCase.execute(email: email));
         verifyNoMoreInteractions(mockResetPasswordUseCase);
       },
       timeout: const Timeout(Duration(milliseconds: 500)),
@@ -44,7 +46,9 @@ void main() {
       'should return false on usecase return false',
       () async {
         // arrange
-        when(mockResetPasswordUseCase.execute()).thenAnswer((_) async => false);
+        const email = 'any@email.com';
+        when(mockResetPasswordUseCase.execute(email: email))
+            .thenAnswer((_) async => false);
         expectLater(
             sut.stream,
             emitsInOrder([
@@ -52,9 +56,9 @@ void main() {
               const AsyncValue<bool>.data(false),
             ]));
         // act
-        await sut.resetPassword();
+        await sut.resetPassword(email: email);
         // assert
-        verify(mockResetPasswordUseCase.execute());
+        verify(mockResetPasswordUseCase.execute(email: email));
         verifyNoMoreInteractions(mockResetPasswordUseCase);
       },
       timeout: const Timeout(Duration(milliseconds: 500)),
@@ -63,7 +67,9 @@ void main() {
       'should return true on usecase return true',
       () async {
         // arrange
-        when(mockResetPasswordUseCase.execute()).thenAnswer((_) async => true);
+        const email = 'any@email.com';
+        when(mockResetPasswordUseCase.execute(email: email))
+            .thenAnswer((_) async => true);
         expectLater(
             sut.stream,
             emitsInOrder([
@@ -71,9 +77,9 @@ void main() {
               const AsyncValue<bool>.data(true),
             ]));
         // act
-        await sut.resetPassword();
+        await sut.resetPassword(email: email);
         // assert
-        verify(mockResetPasswordUseCase.execute());
+        verify(mockResetPasswordUseCase.execute(email: email));
         verifyNoMoreInteractions(mockResetPasswordUseCase);
       },
       timeout: const Timeout(Duration(milliseconds: 500)),

@@ -1,7 +1,7 @@
 import 'package:daily_quest/authentication/domain/repository/authentication_repository.dart';
 
 abstract class ResetPasswordUseCase {
-  Future<bool> execute();
+  Future<bool> execute({required String email});
 }
 
 final class ResetPasswordUseCaseImpl implements ResetPasswordUseCase {
@@ -9,7 +9,7 @@ final class ResetPasswordUseCaseImpl implements ResetPasswordUseCase {
 
   ResetPasswordUseCaseImpl({required repository}) : _repository = repository;
   @override
-  Future<bool> execute() {
-    return _repository.resetPassword();
+  Future<bool> execute({required String email}) {
+    return _repository.resetPassword(email: email);
   }
 }

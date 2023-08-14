@@ -10,10 +10,10 @@ final class ResetPasswordNotifier extends StateNotifier<AsyncValue<bool>> {
         super(const AsyncValue.data(false));
 
   final ResetPasswordUseCase _resetPasswordUseCase;
-  resetPassword() async {
+  resetPassword({required String email}) async {
     state = const AsyncValue.loading();
     state = await AsyncValue.guard(() async {
-      return await _resetPasswordUseCase.execute();
+      return await _resetPasswordUseCase.execute(email: email);
     });
   }
 }

@@ -4,5 +4,5 @@ abstract class AuthenticationDataSource {
   Future<bool> guestSignIn();
   Future<bool> emailSignIn({required String email, required String password});
   Future<bool> signUp({required String email, required String password});
-  Future<bool> resetPassword();
+  Future<bool> resetPassword({required String email});
 }

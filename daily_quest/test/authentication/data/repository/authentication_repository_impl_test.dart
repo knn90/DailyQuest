@@ -135,19 +135,22 @@ void main() {
     test('should throw when datasource throw', () async {
       // arrange
       final exception = Exception('reset password fails');
-      when(mockDataSource.resetPassword()).thenThrow(exception);
+      const email = 'any@email.com';
+      when(mockDataSource.resetPassword(email: email)).thenThrow(exception);
       // act
-      expect(() => sut.resetPassword(), throwsException);
+      expect(() => sut.resetPassword(email: email), throwsException);
     });
 
     test('should forward signup message to dataSource', () async {
       // arrange
-      when(mockDataSource.resetPassword()).thenAnswer((_) async => true);
+      const email = 'any@email.com';
+      when(mockDataSource.resetPassword(email: email))
+          .thenAnswer((_) async => true);
       // act
-      final result = await sut.resetPassword();
+      final result = await sut.resetPassword(email: email);
       // assert
       expect(result, true);
-      verify(mockDataSource.resetPassword());
+      verify(mockDataSource.resetPassword(email: email));
       verifyNoMoreInteractions(mockDataSource);
     });
   });

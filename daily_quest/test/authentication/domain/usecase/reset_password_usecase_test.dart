@@ -18,23 +18,26 @@ void main() {
 
   test('should throw when repository throws error', () async {
     // arrange
+    const email = 'any@email.com';
     final exception = Exception('reset password fails');
-    when(mockRepository.resetPassword()).thenThrow(exception);
+    when(mockRepository.resetPassword(email: email)).thenThrow(exception);
     // act
-    expect(() => sut.execute(), throwsException);
+    expect(() => sut.execute(email: email), throwsException);
     // assert
-    verify(mockRepository.resetPassword());
+    verify(mockRepository.resetPassword(email: email));
     verifyNoMoreInteractions(mockRepository);
   });
 
   test('should forward signin with google message repository', () async {
     // arrange
-    when(mockRepository.resetPassword()).thenAnswer((_) async => true);
+    const email = 'any@email.com';
+    when(mockRepository.resetPassword(email: email))
+        .thenAnswer((_) async => true);
     // act
-    final result = await sut.execute();
+    final result = await sut.execute(email: email);
     // assert
     expect(result, true);
-    verify(mockRepository.resetPassword());
+    verify(mockRepository.resetPassword(email: email));
     verifyNoMoreInteractions(mockRepository);
   });
 }

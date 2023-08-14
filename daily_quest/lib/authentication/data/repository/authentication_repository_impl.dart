@@ -33,7 +33,7 @@ class AuthenticationRepositoryImpl implements AuthenticationRepository {
   }
 
   @override
-  Future<bool> resetPassword() {
-    return _dataSource.resetPassword();
+  Future<bool> resetPassword({required String email}) {
+    return _dataSource.resetPassword(email: email);
   }
 }

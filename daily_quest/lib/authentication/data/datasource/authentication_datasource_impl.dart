@@ -72,9 +72,13 @@ class AuthenticationDataSourceImpl implements AuthenticationDataSource {
   }
 
   @override
-  Future<bool> resetPassword() {
-    // TODO: implement resetPassword
-    throw UnimplementedError();
+  Future<bool> resetPassword({required String email}) async {
+    try {
+      await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
+      return true;
+    } catch (e) {
+      return false;
+    }
   }
 
   Future<bool> _macOSGoogleSignIn() async {
