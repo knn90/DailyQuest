@@ -71,6 +71,12 @@ class AuthenticationDataSourceImpl implements AuthenticationDataSource {
     }
   }
 
+  @override
+  Future<bool> resetPassword() {
+    // TODO: implement resetPassword
+    throw UnimplementedError();
+  }
+
   Future<bool> _macOSGoogleSignIn() async {
     final result = await platform.invokeMethod<bool>('googleSignIn');
     return result ?? false;

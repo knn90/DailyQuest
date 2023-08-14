@@ -34,7 +34,6 @@ class AuthenticationRepositoryImpl implements AuthenticationRepository {
 
   @override
   Future<bool> resetPassword() {
-    // TODO: implement resetPassword
-    throw UnimplementedError();
+    return _dataSource.resetPassword();
   }
 }

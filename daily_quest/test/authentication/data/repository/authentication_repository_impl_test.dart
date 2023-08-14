@@ -108,7 +108,7 @@ void main() {
   group('signup', () {
     test('should throw when datasource throw', () async {
       // arrange
-      final exception = Exception('Google sign in fails');
+      final exception = Exception('sign up fails');
       when(mockDataSource.signUp(email: 'email', password: 'password'))
           .thenThrow(exception);
       // act
@@ -127,6 +127,27 @@ void main() {
       // assert
       expect(result, true);
       verify(mockDataSource.signUp(email: email, password: password));
+      verifyNoMoreInteractions(mockDataSource);
+    });
+  });
+
+  group('reset password', () {
+    test('should throw when datasource throw', () async {
+      // arrange
+      final exception = Exception('reset password fails');
+      when(mockDataSource.resetPassword()).thenThrow(exception);
+      // act
+      expect(() => sut.resetPassword(), throwsException);
+    });
+
+    test('should forward signup message to dataSource', () async {
+      // arrange
+      when(mockDataSource.resetPassword()).thenAnswer((_) async => true);
+      // act
+      final result = await sut.resetPassword();
+      // assert
+      expect(result, true);
+      verify(mockDataSource.resetPassword());
       verifyNoMoreInteractions(mockDataSource);
     });
   });
