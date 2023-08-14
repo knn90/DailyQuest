@@ -79,7 +79,15 @@ class ResetPasswordScreenState extends ConsumerState<ResetPasswordScreen> {
               },
             ),
             const SizedBox(height: 20),
-            Center(child: SignInButton(title: 'Continue', onPressed: () => {}))
+            Center(
+              child: SignInButton(
+                  title: 'Continue',
+                  onPressed: () {
+                    if (_isEmailValid || email.state == '') {
+                      return;
+                    } else {}
+                  }),
+            )
           ],
         ),
       )),

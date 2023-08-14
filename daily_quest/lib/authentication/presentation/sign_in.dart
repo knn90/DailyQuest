@@ -127,7 +127,7 @@ class SignInScreen extends ConsumerWidget {
         Padding(
           padding: const EdgeInsets.only(right: 24, bottom: 5),
           child: TextButton(
-              onPressed: () => _onResetPasswordPressed(),
+              onPressed: _onResetPasswordPressed,
               child: Text(Strings.of(context).resetPasswordTitle)),
         ),
       ],
