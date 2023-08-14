@@ -20,6 +20,7 @@ class SignInScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
     final strings = Strings.of(context);
+    final isEmailPasswordValid = ref.watch(signInValidationStateProvider);
     _bindSignInState(context, ref);
     return Scaffold(
       appBar: AppBar(title: Text(strings.dailyQuest)),
@@ -51,25 +52,14 @@ class SignInScreen extends ConsumerWidget {
                   _resetPasswordButton(context),
                   SignInButton.email(
                       context: context,
-                      onPressed: () {
-                        final email = ref.read(signInEmailProvider);
-                        final password = ref.read(signInPasswordProvicer);
-                        ref.read(signInStateProvider.notifier).signInWithEmail(
-                              email: email,
-                              password: password,
-                            );
-                      }),
+                      onPressed: (isEmailPasswordValid)
+                          ? () => _signInWithEmail(ref)
+                          : null),
                   const SizedBox(height: 10),
                   SignInButton.signUp(
                     context: context,
-                    onPressed: () {
-                      final email = ref.read(signInEmailProvider);
-                      final password = ref.read(signInPasswordProvicer);
-                      ref.read(signInStateProvider.notifier).signUp(
-                            email: email,
-                            password: password,
-                          );
-                    },
+                    onPressed:
+                        (isEmailPasswordValid) ? () => _signUp(ref) : null,
                   ),
                   const SizedBox(height: 20),
                   _orDivider(context),
@@ -92,6 +82,24 @@ class SignInScreen extends ConsumerWidget {
         ),
       ),
     );
+  }
+
+  _signInWithEmail(WidgetRef ref) {
+    final email = ref.read(signInEmailProvider);
+    final password = ref.read(signInPasswordProvicer);
+    ref.read(signInStateProvider.notifier).signInWithEmail(
+          email: email,
+          password: password,
+        );
+  }
+
+  _signUp(WidgetRef ref) {
+    final email = ref.read(signInEmailProvider);
+    final password = ref.read(signInPasswordProvicer);
+    ref.read(signInStateProvider.notifier).signUp(
+          email: email,
+          password: password,
+        );
   }
 
   Widget _orDivider(BuildContext context) {

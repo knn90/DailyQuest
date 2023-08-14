@@ -6,6 +6,12 @@ import '../../../shared/strings.dart';
 
 final signInEmailProvider = StateProvider.autoDispose((ref) => '');
 final signInPasswordProvicer = StateProvider.autoDispose((ref) => '');
+final signInValidationStateProvider = StateProvider.autoDispose((ref) {
+  final email = ref.watch(signInEmailProvider);
+  final password = ref.watch(signInPasswordProvicer);
+
+  return EmailValidator.validate(email) && password != '';
+});
 
 class EmailLogin extends ConsumerStatefulWidget {
   const EmailLogin({super.key});

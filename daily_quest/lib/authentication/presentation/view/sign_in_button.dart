@@ -53,7 +53,7 @@ class SignInButton extends StatelessWidget {
 
   static SignInButton email({
     required BuildContext context,
-    required void Function() onPressed,
+    required void Function()? onPressed,
   }) {
     return SignInButton(
       title: Strings.of(context).signinEmail,
@@ -63,7 +63,7 @@ class SignInButton extends StatelessWidget {
 
   static SignInButton signUp({
     required BuildContext context,
-    required void Function() onPressed,
+    required void Function()? onPressed,
   }) {
     return SignInButton(
       title: Strings.of(context).signup,
