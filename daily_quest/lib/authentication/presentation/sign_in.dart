@@ -38,17 +38,7 @@ class SignInScreen extends ConsumerWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               const EmailLogin(),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(right: 24, bottom: 5),
-                    child: TextButton(
-                        onPressed: () {},
-                        child: Text(strings.resetPasswordTitle)),
-                  ),
-                ],
-              ),
+              _resetPasswordButton(context),
               SignInButton.email(
                   context: context,
                   onPressed: () {
@@ -116,6 +106,20 @@ class SignInScreen extends ConsumerWidget {
             ),
           ],
         ));
+  }
+
+  Widget _resetPasswordButton(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(right: 24, bottom: 5),
+          child: TextButton(
+              onPressed: () {},
+              child: Text(Strings.of(context).resetPasswordTitle)),
+        ),
+      ],
+    );
   }
 
   _bindSignInState(BuildContext context, WidgetRef ref) {
