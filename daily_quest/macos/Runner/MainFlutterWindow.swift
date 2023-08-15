@@ -34,8 +34,7 @@ class MainFlutterWindow: NSWindow {
     }
   }
 
-    private func googleSignIn(completion: @escaping (Bool) -> Void) {
-    print("Signin with Google on MacOS")
+    private func googleSignIn(completion: @escaping (String?) -> Void) {
     guard let clientID = FirebaseApp.app()?.options.clientID else {
         fatalError("Missing ClientID")
     }
@@ -45,14 +44,14 @@ class MainFlutterWindow: NSWindow {
 
     GIDSignIn.sharedInstance.signIn(withPresenting: self) { [unowned self] result, error in
         guard error == nil else {
-            completion(false)
+            completion(nil)
             return
         }
 
         guard let user = result?.user,
           let idToken = user.idToken?.tokenString
         else {
-            completion(false)
+            completion(nil)
             return
         }
 
@@ -60,10 +59,10 @@ class MainFlutterWindow: NSWindow {
                                                        accessToken: user.accessToken.tokenString)
         Auth.auth().signIn(with: credential) { authResult, authError in
             guard authError == nil else {
-                completion(false)
+                completion(nil)
                 return
             }
-            completion(true)
+            completion(authResult?.user.uid)
         }
       }
   }

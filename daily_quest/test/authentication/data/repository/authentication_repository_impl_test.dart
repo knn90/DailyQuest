@@ -27,7 +27,7 @@ void main() {
 
     test('should forward auto sign in message to dataSource', () async {
       // arrange
-      when(mockDataSource.autoSignIn()).thenAnswer((_) async => true);
+      when(mockDataSource.autoSignIn()).thenAnswer((_) async => 'any');
       // act
       final result = await sut.autoSignIn();
       // assert
@@ -48,7 +48,7 @@ void main() {
 
     test('should forward google sign in message to dataSource', () async {
       // arrange
-      when(mockDataSource.googleSignIn()).thenAnswer((_) async => true);
+      when(mockDataSource.googleSignIn()).thenAnswer((_) async => 'any');
       // act
       final result = await sut.googleSignIn();
       // assert
@@ -74,7 +74,7 @@ void main() {
       const email = 'any@email.com';
       const password = 'anypassword';
       when(mockDataSource.emailSignIn(email: email, password: password))
-          .thenAnswer((_) async => true);
+          .thenAnswer((_) async => 'any');
       // act
       final result = await sut.emailSignIn(email: email, password: password);
       // assert
@@ -95,7 +95,7 @@ void main() {
 
     test('should forward google sign in message to dataSource', () async {
       // arrange
-      when(mockDataSource.guestSignIn()).thenAnswer((_) async => true);
+      when(mockDataSource.guestSignIn()).thenAnswer((_) async => 'any');
       // act
       final result = await sut.guestSignIn();
       // assert
@@ -121,7 +121,7 @@ void main() {
       const email = 'any@email.com';
       const password = 'anypassword';
       when(mockDataSource.signUp(email: email, password: password))
-          .thenAnswer((_) async => true);
+          .thenAnswer((_) async => 'any');
       // act
       final result = await sut.signUp(email: email, password: password);
       // assert
@@ -146,7 +146,7 @@ void main() {
       const email = 'any@email.com';
       when(mockDataSource.resetPassword(email: email))
           .thenAnswer((_) async => true);
-      // act
+      // act5
       final result = await sut.resetPassword(email: email);
       // assert
       expect(result, true);
