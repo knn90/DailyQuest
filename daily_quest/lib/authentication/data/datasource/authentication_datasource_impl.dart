@@ -11,7 +11,7 @@ class AuthenticationDataSourceImpl implements AuthenticationDataSource {
 
   @override
   Future<String> autoSignIn() async {
-    await FirebaseAuth.instance.signOut();
+    // await FirebaseAuth.instance.signOut();
     final user = FirebaseAuth.instance.currentUser;
     if (user != null) {
       return Future.value(user.uid);
