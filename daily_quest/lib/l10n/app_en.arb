@@ -44,6 +44,7 @@
   "passwordTextFieldHint": "Password",
   "invalidEmailAddreddError": "Please enter a valid email address",
   "signInErrorTitle": "Sign in failed",
+  "signInCancelledErrorDescription": "Sign in has been cancelled",
   "someThingWentWrongErrorTitle": "Error",
   "someThingWentWrongErrorDescription": "Something went wrong. Please try again later.",
   "userNotFoundErrorDescription": "Cannot find user with input email address",

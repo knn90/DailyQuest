@@ -6,6 +6,7 @@ enum AuthenticationError implements Exception {
   userNotFound,
   wrongUserNamePassword,
   signInUnknownError,
+  signInCancelled,
   weakPasswordError,
   userExistError,
   signUpUnknownError,
@@ -17,15 +18,12 @@ extension AuthenticationErrorParsing on AuthenticationError {
     final strings = Strings.of(context);
     switch (this) {
       case AuthenticationError.userNotFound:
-        return strings.signInErrorTitle;
       case AuthenticationError.wrongUserNamePassword:
-        return strings.signInErrorTitle;
+      case AuthenticationError.signInCancelled:
       case AuthenticationError.signInUnknownError:
         return strings.signInErrorTitle;
       case AuthenticationError.weakPasswordError:
-        return strings.signUpErrorTitle;
       case AuthenticationError.userExistError:
-        return strings.signUpErrorTitle;
       case AuthenticationError.signUpUnknownError:
         return strings.signUpErrorTitle;
       case AuthenticationError.resetPasswordUnknowError:
@@ -38,6 +36,8 @@ extension AuthenticationErrorParsing on AuthenticationError {
   String description(BuildContext context) {
     final strings = Strings.of(context);
     switch (this) {
+      case AuthenticationError.signInCancelled:
+        return strings.signInCancelledErrorDescription;
       case AuthenticationError.userNotFound:
         return strings.userNotFoundErrorDescription;
       case AuthenticationError.wrongUserNamePassword:

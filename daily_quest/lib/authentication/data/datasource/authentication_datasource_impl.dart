@@ -119,8 +119,7 @@ class AuthenticationDataSourceImpl implements AuthenticationDataSource {
     final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
 
     if (googleUser == null) {
-      // TODO: Change this to signin cancelled
-      throw AuthenticationError.signInUnknownError;
+      throw AuthenticationError.signInCancelled;
     }
     final GoogleSignInAuthentication googleAuth =
         await googleUser.authentication;
