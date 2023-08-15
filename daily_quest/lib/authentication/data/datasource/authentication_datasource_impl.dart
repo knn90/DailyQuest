@@ -7,12 +7,12 @@ import 'package:flutter/services.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthenticationDataSourceImpl implements AuthenticationDataSource {
+  FirebaseAuth firebaseAuth = FirebaseAuth.instance;
   static const platform = MethodChannel('com.dailyquest/authentication');
 
   @override
   Future<String> autoSignIn() async {
-    // await FirebaseAuth.instance.signOut();
-    final user = FirebaseAuth.instance.currentUser;
+    final user = firebaseAuth.currentUser;
     if (user != null) {
       return Future.value(user.uid);
     } else {
@@ -32,7 +32,7 @@ class AuthenticationDataSourceImpl implements AuthenticationDataSource {
   @override
   Future<String> guestSignIn() async {
     try {
-      final userCred = await FirebaseAuth.instance.signInAnonymously();
+      final userCred = await firebaseAuth.signInAnonymously();
       final user = userCred.user;
       if (user != null) {
         return Future.value(user.uid);
@@ -48,8 +48,8 @@ class AuthenticationDataSourceImpl implements AuthenticationDataSource {
   Future<String> emailSignIn(
       {required String email, required String password}) async {
     try {
-      final userCred = await FirebaseAuth.instance
-          .signInWithEmailAndPassword(email: email, password: password);
+      final userCred = await firebaseAuth.signInWithEmailAndPassword(
+          email: email, password: password);
       final user = userCred.user;
       if (user != null) {
         return Future.value(user.uid);
@@ -71,8 +71,7 @@ class AuthenticationDataSourceImpl implements AuthenticationDataSource {
   Future<String> signUp(
       {required String email, required String password}) async {
     try {
-      final userCred =
-          await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      final userCred = await firebaseAuth.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
@@ -96,7 +95,7 @@ class AuthenticationDataSourceImpl implements AuthenticationDataSource {
   @override
   Future<bool> resetPassword({required String email}) async {
     try {
-      FirebaseAuth.instance.sendPasswordResetEmail(email: email);
+      firebaseAuth.sendPasswordResetEmail(email: email);
       return true;
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
@@ -130,8 +129,7 @@ class AuthenticationDataSourceImpl implements AuthenticationDataSource {
       accessToken: googleAuth.accessToken,
       idToken: googleAuth.idToken,
     );
-    final userCred =
-        await FirebaseAuth.instance.signInWithCredential(credential);
+    final userCred = await firebaseAuth.signInWithCredential(credential);
     final user = userCred.user;
     if (user != null) {
       return Future.value(user.uid);
