@@ -7,21 +7,20 @@ import 'package:flutter/services.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthenticationDataSourceImpl implements AuthenticationDataSource {
-  FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+  final FirebaseAuth _firebaseAuth;
+
+  AuthenticationDataSourceImpl({FirebaseAuth? firebaseAuth})
+      : _firebaseAuth = firebaseAuth ?? FirebaseAuth.instance;
+
   static const platform = MethodChannel('com.dailyquest/authentication');
 
   @override
-  Future<String> autoSignIn() async {
-    final user = firebaseAuth.currentUser;
-    if (user != null) {
-      return Future.value(user.uid);
-    } else {
-      throw AuthenticationError.signInUnknownError;
-    }
+  Future<String?> autoSignIn() async {
+    return Future.value(_firebaseAuth.currentUser?.uid);
   }
 
   @override
-  Future<String> googleSignIn() async {
+  Future<String?> googleSignIn() async {
     if (Platform.isMacOS) {
       return await _macOSGoogleSignIn();
     } else {
@@ -30,32 +29,22 @@ class AuthenticationDataSourceImpl implements AuthenticationDataSource {
   }
 
   @override
-  Future<String> guestSignIn() async {
+  Future<String?> guestSignIn() async {
     try {
-      final userCred = await firebaseAuth.signInAnonymously();
-      final user = userCred.user;
-      if (user != null) {
-        return Future.value(user.uid);
-      } else {
-        throw AuthenticationError.signInUnknownError;
-      }
+      final userCred = await _firebaseAuth.signInAnonymously();
+      return Future.value(userCred.user?.uid);
     } on FirebaseAuthException {
       throw AuthenticationError.signInUnknownError;
     }
   }
 
   @override
-  Future<String> emailSignIn(
+  Future<String?> emailSignIn(
       {required String email, required String password}) async {
     try {
-      final userCred = await firebaseAuth.signInWithEmailAndPassword(
+      final userCred = await _firebaseAuth.signInWithEmailAndPassword(
           email: email, password: password);
-      final user = userCred.user;
-      if (user != null) {
-        return Future.value(user.uid);
-      } else {
-        throw AuthenticationError.signInUnknownError;
-      }
+      return Future.value(userCred.user?.uid);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         throw AuthenticationError.userNotFound;
@@ -68,19 +57,14 @@ class AuthenticationDataSourceImpl implements AuthenticationDataSource {
   }
 
   @override
-  Future<String> signUp(
+  Future<String?> signUp(
       {required String email, required String password}) async {
     try {
-      final userCred = await firebaseAuth.createUserWithEmailAndPassword(
+      final userCred = await _firebaseAuth.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
-      final user = userCred.user;
-      if (user != null) {
-        return Future.value(user.uid);
-      } else {
-        throw AuthenticationError.signInUnknownError;
-      }
+      return Future.value(userCred.user?.uid);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         throw AuthenticationError.weakPasswordError;
@@ -95,7 +79,7 @@ class AuthenticationDataSourceImpl implements AuthenticationDataSource {
   @override
   Future<bool> resetPassword({required String email}) async {
     try {
-      firebaseAuth.sendPasswordResetEmail(email: email);
+      _firebaseAuth.sendPasswordResetEmail(email: email);
       return true;
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
@@ -106,16 +90,12 @@ class AuthenticationDataSourceImpl implements AuthenticationDataSource {
     }
   }
 
-  Future<String> _macOSGoogleSignIn() async {
+  Future<String?> _macOSGoogleSignIn() async {
     final userId = await platform.invokeMethod<String?>('googleSignIn');
-    if (userId != null) {
-      return Future.value(userId);
-    } else {
-      throw AuthenticationError.signInUnknownError;
-    }
+    return Future.value(userId);
   }
 
-  Future<String> _googleSignIn() async {
+  Future<String?> _googleSignIn() async {
     final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
 
     if (googleUser == null) {
@@ -128,12 +108,7 @@ class AuthenticationDataSourceImpl implements AuthenticationDataSource {
       accessToken: googleAuth.accessToken,
       idToken: googleAuth.idToken,
     );
-    final userCred = await firebaseAuth.signInWithCredential(credential);
-    final user = userCred.user;
-    if (user != null) {
-      return Future.value(user.uid);
-    } else {
-      throw AuthenticationError.signInUnknownError;
-    }
+    final userCred = await _firebaseAuth.signInWithCredential(credential);
+    return Future.value(userCred.user?.uid);
   }
 }
