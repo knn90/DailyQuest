@@ -6,10 +6,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-class AuthenticationDataSourceImpl implements AuthenticationDataSource {
+class FirebaseAuthenticationDataSource implements AuthenticationDataSource {
   final FirebaseAuth _firebaseAuth;
 
-  AuthenticationDataSourceImpl({FirebaseAuth? firebaseAuth})
+  FirebaseAuthenticationDataSource({FirebaseAuth? firebaseAuth})
       : _firebaseAuth = firebaseAuth ?? FirebaseAuth.instance;
 
   static const platform = MethodChannel('com.dailyquest/authentication');

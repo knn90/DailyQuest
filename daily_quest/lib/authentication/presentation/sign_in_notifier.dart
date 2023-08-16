@@ -70,7 +70,7 @@ final class SignInNotifier extends StateNotifier<AsyncValue<bool>> {
 
 final signInStateProvider =
     StateNotifierProvider<SignInNotifier, AsyncValue<bool>>((ref) {
-  final dataSource = AuthenticationDataSourceImpl();
+  final dataSource = FirebaseAuthenticationDataSource();
   final repository = AuthenticationRepositoryImpl(dataSource: dataSource);
   final googleSignInUseCase = GoogleSignInUseCaseImpl(repository: repository);
   final autoSignInUseCase = AutoSignInUseCaseImpl(repository: repository);

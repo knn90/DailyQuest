@@ -1,11 +1,11 @@
-import 'package:daily_quest/authentication/data/datasource/authentication_datasource_impl.dart';
+import 'package:daily_quest/authentication/data/datasource/firebase_authentication_datasource.dart';
 import 'package:daily_quest/authentication/domain/exception/authentication_exception.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
-import 'authentication_datasource_impl_test.mocks.dart';
+import 'firebase_authentication_datasource_test.mocks.dart';
 
 @GenerateNiceMocks([
   MockSpec<FirebaseAuth>(),
@@ -13,12 +13,12 @@ import 'authentication_datasource_impl_test.mocks.dart';
   MockSpec<UserCredential>(),
 ])
 void main() {
-  late AuthenticationDataSourceImpl sut;
+  late FirebaseAuthenticationDataSource sut;
   late MockFirebaseAuth mockFirebaseAuth;
 
   setUp(() {
     mockFirebaseAuth = MockFirebaseAuth();
-    sut = AuthenticationDataSourceImpl(firebaseAuth: mockFirebaseAuth);
+    sut = FirebaseAuthenticationDataSource(firebaseAuth: mockFirebaseAuth);
   });
   MockUser mockUserWithId(String id) {
     MockUser user = MockUser();

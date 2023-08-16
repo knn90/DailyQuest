@@ -20,7 +20,7 @@ final class ResetPasswordNotifier extends StateNotifier<AsyncValue<bool>> {
 
 final resetPasswordStateProvider =
     StateNotifierProvider<ResetPasswordNotifier, AsyncValue<bool>>((ref) {
-  final dataSource = AuthenticationDataSourceImpl();
+  final dataSource = FirebaseAuthenticationDataSource();
   final repository = AuthenticationRepositoryImpl(dataSource: dataSource);
   final resetPasswordUseCase = ResetPasswordUseCaseImpl(repository: repository);
   return ResetPasswordNotifier(resetPasswordUseCase: resetPasswordUseCase);
