@@ -9,31 +9,31 @@ class AuthenticationRepositoryImpl implements AuthenticationRepository {
 
   @override
   Future<bool> googleSignIn() {
-    return _dataSource.googleSignIn().then((value) => true);
+    return _dataSource.googleSignIn().then((value) => value != null);
   }
 
   @override
   Future<bool> autoSignIn() {
-    return _dataSource.autoSignIn().then((value) => true);
+    return _dataSource.autoSignIn().then((value) => value != null);
   }
 
   @override
   Future<bool> emailSignIn({required String email, required String password}) {
     return _dataSource
         .emailSignIn(email: email, password: password)
-        .then((value) => true);
+        .then((value) => value != null);
   }
 
   @override
   Future<bool> signUp({required String email, required String password}) {
     return _dataSource
         .signUp(email: email, password: password)
-        .then((value) => true);
+        .then((value) => value != null);
   }
 
   @override
   Future<bool> guestSignIn() {
-    return _dataSource.guestSignIn().then((value) => true);
+    return _dataSource.guestSignIn().then((value) => value != null);
   }
 
   @override

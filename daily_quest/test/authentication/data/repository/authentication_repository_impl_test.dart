@@ -25,13 +25,24 @@ void main() {
       expect(() => sut.autoSignIn(), throwsException);
     });
 
-    test('should forward auto sign in message to dataSource', () async {
+    test('should return true when dataSource return a string', () async {
       // arrange
       when(mockDataSource.autoSignIn()).thenAnswer((_) async => 'any');
       // act
       final result = await sut.autoSignIn();
       // assert
       expect(result, true);
+      verify(mockDataSource.autoSignIn());
+      verifyNoMoreInteractions(mockDataSource);
+    });
+
+    test('should return false when dataSource return null', () async {
+      // arrange
+      when(mockDataSource.autoSignIn()).thenAnswer((_) async => null);
+      // act
+      final result = await sut.autoSignIn();
+      // assert
+      expect(result, false);
       verify(mockDataSource.autoSignIn());
       verifyNoMoreInteractions(mockDataSource);
     });
@@ -46,13 +57,24 @@ void main() {
       expect(() => sut.googleSignIn(), throwsException);
     });
 
-    test('should forward google sign in message to dataSource', () async {
+    test('should return true when datasource return a string', () async {
       // arrange
       when(mockDataSource.googleSignIn()).thenAnswer((_) async => 'any');
       // act
       final result = await sut.googleSignIn();
       // assert
       expect(result, true);
+      verify(mockDataSource.googleSignIn());
+      verifyNoMoreInteractions(mockDataSource);
+    });
+
+    test('should return false when datasource return null', () async {
+      // arrange
+      when(mockDataSource.googleSignIn()).thenAnswer((_) async => null);
+      // act
+      final result = await sut.googleSignIn();
+      // assert
+      expect(result, false);
       verify(mockDataSource.googleSignIn());
       verifyNoMoreInteractions(mockDataSource);
     });
@@ -69,7 +91,7 @@ void main() {
           throwsException);
     });
 
-    test('should forward email sign in message to dataSource', () async {
+    test('should return true when dataSource return a string', () async {
       // arrange
       const email = 'any@email.com';
       const password = 'anypassword';
@@ -79,6 +101,20 @@ void main() {
       final result = await sut.emailSignIn(email: email, password: password);
       // assert
       expect(result, true);
+      verify(mockDataSource.emailSignIn(email: email, password: password));
+      verifyNoMoreInteractions(mockDataSource);
+    });
+
+    test('should return false when dataSource return a string', () async {
+      // arrange
+      const email = 'any@email.com';
+      const password = 'anypassword';
+      when(mockDataSource.emailSignIn(email: email, password: password))
+          .thenAnswer((_) async => null);
+      // act
+      final result = await sut.emailSignIn(email: email, password: password);
+      // assert
+      expect(result, false);
       verify(mockDataSource.emailSignIn(email: email, password: password));
       verifyNoMoreInteractions(mockDataSource);
     });
@@ -93,13 +129,24 @@ void main() {
       expect(() => sut.guestSignIn(), throwsException);
     });
 
-    test('should forward google sign in message to dataSource', () async {
+    test('should true when dataSource return a string', () async {
       // arrange
       when(mockDataSource.guestSignIn()).thenAnswer((_) async => 'any');
       // act
       final result = await sut.guestSignIn();
       // assert
       expect(result, true);
+      verify(mockDataSource.guestSignIn());
+      verifyNoMoreInteractions(mockDataSource);
+    });
+
+    test('should false when dataSource return null', () async {
+      // arrange
+      when(mockDataSource.guestSignIn()).thenAnswer((_) async => null);
+      // act
+      final result = await sut.guestSignIn();
+      // assert
+      expect(result, false);
       verify(mockDataSource.guestSignIn());
       verifyNoMoreInteractions(mockDataSource);
     });
@@ -116,7 +163,7 @@ void main() {
           throwsException);
     });
 
-    test('should forward signup message to dataSource', () async {
+    test('should return true dataSource return a string', () async {
       // arrange
       const email = 'any@email.com';
       const password = 'anypassword';
@@ -126,6 +173,20 @@ void main() {
       final result = await sut.signUp(email: email, password: password);
       // assert
       expect(result, true);
+      verify(mockDataSource.signUp(email: email, password: password));
+      verifyNoMoreInteractions(mockDataSource);
+    });
+
+    test('should return false dataSource return null', () async {
+      // arrange
+      const email = 'any@email.com';
+      const password = 'anypassword';
+      when(mockDataSource.signUp(email: email, password: password))
+          .thenAnswer((_) async => null);
+      // act
+      final result = await sut.signUp(email: email, password: password);
+      // assert
+      expect(result, false);
       verify(mockDataSource.signUp(email: email, password: password));
       verifyNoMoreInteractions(mockDataSource);
     });
