@@ -5,12 +5,12 @@ import 'authentication_datasource.dart';
 final class CreateUserAuthenticationDataSourceDecorator
     implements AuthenticationDataSource {
   final AuthenticationDataSource _decorated;
-  final UsersStore _userDataSource;
+  final UsersStore _usersStore;
   CreateUserAuthenticationDataSourceDecorator({
     required AuthenticationDataSource decorated,
-    required UsersStore userDataSource,
+    required UsersStore usersStore,
   })  : _decorated = decorated,
-        _userDataSource = userDataSource;
+        _usersStore = usersStore;
 
   @override
   Future<String?> autoSignIn() {
@@ -27,26 +27,32 @@ final class CreateUserAuthenticationDataSourceDecorator
   Future<String?> googleSignIn() async {
     final userId = await _decorated.googleSignIn();
     if (userId != null) {
-      _userDataSource.createIfNotExistUser();
+      _usersStore.createIfNotExistUser();
     }
     return userId;
   }
 
   @override
-  Future<String?> guestSignIn() {
-    // TODO: implement guestSignIn
-    throw UnimplementedError();
+  Future<String?> guestSignIn() async {
+    final userId = await _decorated.guestSignIn();
+    if (userId != null) {
+      _usersStore.createIfNotExistUser();
+    }
+    return userId;
   }
 
   @override
   Future<bool> resetPassword({required String email}) {
-    // TODO: implement resetPassword
-    throw UnimplementedError();
+    return _decorated.resetPassword(email: email);
   }
 
   @override
-  Future<String?> signUp({required String email, required String password}) {
-    // TODO: implement signUp
-    throw UnimplementedError();
+  Future<String?> signUp(
+      {required String email, required String password}) async {
+    final userId = await _decorated.signUp(email: email, password: password);
+    if (userId != null) {
+      _usersStore.createIfNotExistUser();
+    }
+    return userId;
   }
 }
