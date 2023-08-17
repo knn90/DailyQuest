@@ -1,4 +1,4 @@
-import 'package:daily_quest/authentication/data/datasource/authentication_datasource_impl.dart';
+import 'package:daily_quest/authentication/data/datasource/firebase_authentication_datasource.dart';
 import 'package:daily_quest/authentication/data/repository/authentication_repository_impl.dart';
 import 'package:daily_quest/authentication/domain/usecase/auto_sign_in_usecase.dart';
 import 'package:daily_quest/authentication/domain/usecase/email_sign_in_usecase.dart';

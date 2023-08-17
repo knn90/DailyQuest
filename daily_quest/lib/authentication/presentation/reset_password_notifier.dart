@@ -2,7 +2,7 @@ import 'package:daily_quest/authentication/data/repository/authentication_reposi
 import 'package:daily_quest/authentication/domain/usecase/reset_password_usecase.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../data/datasource/authentication_datasource_impl.dart';
+import '../data/datasource/firebase_authentication_datasource.dart';
 
 final class ResetPasswordNotifier extends StateNotifier<AsyncValue<bool>> {
   ResetPasswordNotifier({required resetPasswordUseCase})
