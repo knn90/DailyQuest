@@ -1,4 +1,4 @@
-import 'package:daily_quest/authentication/data/datasource/user_datasoure.dart';
+import 'package:daily_quest/authentication/data/datasource/users_store.dart';
 
 import 'authentication_datasource.dart';
 

@@ -1,6 +1,7 @@
 import 'package:daily_quest/authentication/data/datasource/authentication_datasource.dart';
 import 'package:daily_quest/authentication/data/datasource/create_user_authentication_datasource_decorator.dart';
-import 'package:daily_quest/authentication/data/datasource/user_datasoure.dart';
+import 'package:daily_quest/authentication/data/datasource/users_store.dart';
+
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
