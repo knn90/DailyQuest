@@ -8,9 +8,11 @@ final class FirebaseUsersStore implements UsersStore {
   FirebaseUsersStore({DatabaseReference? usersRef})
       : _usersRef = usersRef ?? FirebaseDatabase.instance.ref('Users');
   @override
-  Future<void> createIfNotExistUser() {
-    // TODO: implement createIfNotExistUser
-    throw UnimplementedError();
+  Future<void> createIfNotExistUser(String userId) async {
+    final user = await getUser(userId);
+    if (user != null) {
+      return;
+    }
   }
 
   @override

@@ -50,4 +50,33 @@ void main() {
       verifyNoMoreInteractions(mockRef);
     });
   });
+
+  group('Create user if not exist', () {
+    test('should return on existing user', () async {
+      // arrange
+      const userId = 'any id';
+      when(mockRef.child(userId)).thenReturn(mockRef);
+      when(mockRef.get()).thenAnswer((_) async => mockSnapshot);
+      // act
+      await sut.createIfNotExistUser(userId);
+      // assert
+      verify(mockRef.child(userId));
+      verify(mockRef.get());
+      verifyNoMoreInteractions(mockRef);
+    });
+
+    test('should create new user on non existing user', () async {
+      // arrange
+      const userId = 'any id';
+      when(mockSnapshot.exists).thenReturn(false);
+      when(mockRef.child(userId)).thenReturn(mockRef);
+      when(mockRef.get()).thenAnswer((_) async => mockSnapshot);
+      // act
+      await sut.createIfNotExistUser(userId);
+      // assert
+      verify(mockRef.child(userId));
+      verify(mockRef.get());
+      verifyNoMoreInteractions(mockRef);
+    });
+  });
 }

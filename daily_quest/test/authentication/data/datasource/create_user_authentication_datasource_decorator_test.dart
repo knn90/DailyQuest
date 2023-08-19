@@ -86,15 +86,17 @@ void main() {
 
     test('should send create user when datasource return a string ', () async {
       // arrange
+      const userId = 'any string';
       when(mockAuthenticationDataSource.googleSignIn())
-          .thenAnswer((_) async => 'any string');
-      when(mockUsersStore.createIfNotExistUser()).thenAnswer((_) async => ());
+          .thenAnswer((_) async => userId);
+      when(mockUsersStore.createIfNotExistUser(userId))
+          .thenAnswer((_) async => ());
       // act
       final result = await sut.googleSignIn();
       // assert
-      expect(result, 'any string');
+      expect(result, userId);
       verify(mockAuthenticationDataSource.googleSignIn());
-      verify(mockUsersStore.createIfNotExistUser());
+      verify(mockUsersStore.createIfNotExistUser(userId));
       verifyNoMoreInteractions(mockAuthenticationDataSource);
     });
 
@@ -102,7 +104,6 @@ void main() {
       // arrange
       when(mockAuthenticationDataSource.googleSignIn())
           .thenAnswer((_) async => null);
-      when(mockUsersStore.createIfNotExistUser()).thenAnswer((_) async => ());
       // act
       final result = await sut.googleSignIn();
       // assert
@@ -116,8 +117,9 @@ void main() {
   group('guest sign in', () {
     test('should forward guest signin message to datasource', () async {
       // arrange
+      const userId = 'any string';
       when(mockAuthenticationDataSource.guestSignIn())
-          .thenAnswer((_) async => 'any string');
+          .thenAnswer((_) async => userId);
       // act
       final result = await sut.guestSignIn();
       // assert
@@ -128,15 +130,17 @@ void main() {
 
     test('should send create user when datasource return a string ', () async {
       // arrange
+      const userId = 'any string';
       when(mockAuthenticationDataSource.guestSignIn())
-          .thenAnswer((_) async => 'any string');
-      when(mockUsersStore.createIfNotExistUser()).thenAnswer((_) async => ());
+          .thenAnswer((_) async => userId);
+      when(mockUsersStore.createIfNotExistUser(userId))
+          .thenAnswer((_) async => ());
       // act
       final result = await sut.guestSignIn();
       // assert
       expect(result, 'any string');
       verify(mockAuthenticationDataSource.guestSignIn());
-      verify(mockUsersStore.createIfNotExistUser());
+      verify(mockUsersStore.createIfNotExistUser(userId));
       verifyNoMoreInteractions(mockAuthenticationDataSource);
     });
 
@@ -144,7 +148,6 @@ void main() {
       // arrange
       when(mockAuthenticationDataSource.guestSignIn())
           .thenAnswer((_) async => null);
-      when(mockUsersStore.createIfNotExistUser()).thenAnswer((_) async => ());
       // act
       final result = await sut.guestSignIn();
       // assert
@@ -172,17 +175,19 @@ void main() {
 
     test('should send create user when datasource return a string ', () async {
       // arrange
+      const userId = 'any string';
       when(mockAuthenticationDataSource.signUp(
               email: 'email', password: 'password'))
-          .thenAnswer((_) async => 'any string');
-      when(mockUsersStore.createIfNotExistUser()).thenAnswer((_) async => ());
+          .thenAnswer((_) async => userId);
+      when(mockUsersStore.createIfNotExistUser(userId))
+          .thenAnswer((_) async => ());
       // act
       final result = await sut.signUp(email: 'email', password: 'password');
       // assert
-      expect(result, 'any string');
+      expect(result, userId);
       verify(mockAuthenticationDataSource.signUp(
           email: 'email', password: 'password'));
-      verify(mockUsersStore.createIfNotExistUser());
+      verify(mockUsersStore.createIfNotExistUser(userId));
       verifyNoMoreInteractions(mockAuthenticationDataSource);
     });
 
