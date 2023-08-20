@@ -13,6 +13,9 @@ final class FirebaseUsersStore implements UsersStore {
     if (user != null) {
       return;
     }
+    _usersRef.child(userId).set({
+      'user_id': userId,
+    });
   }
 
   @override

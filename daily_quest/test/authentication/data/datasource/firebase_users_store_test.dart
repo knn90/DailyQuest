@@ -55,6 +55,7 @@ void main() {
     test('should return on existing user', () async {
       // arrange
       const userId = 'any id';
+      when(mockSnapshot.exists).thenReturn(true);
       when(mockRef.child(userId)).thenReturn(mockRef);
       when(mockRef.get()).thenAnswer((_) async => mockSnapshot);
       // act
@@ -76,6 +77,9 @@ void main() {
       // assert
       verify(mockRef.child(userId));
       verify(mockRef.get());
+      verify(mockRef.set({
+        'user_id': userId,
+      }));
       verifyNoMoreInteractions(mockRef);
     });
   });
