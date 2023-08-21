@@ -69,6 +69,7 @@ void main() {
     test('should create new user on non existing user', () async {
       // arrange
       const userId = 'any id';
+      const remoteUser = RemoteUser(id: userId);
       when(mockSnapshot.exists).thenReturn(false);
       when(mockRef.child(userId)).thenReturn(mockRef);
       when(mockRef.get()).thenAnswer((_) async => mockSnapshot);
@@ -77,9 +78,7 @@ void main() {
       // assert
       verify(mockRef.child(userId));
       verify(mockRef.get());
-      verify(mockRef.set({
-        'user_id': userId,
-      }));
+      verify(mockRef.set(remoteUser.toJson()));
       verifyNoMoreInteractions(mockRef);
     });
   });
