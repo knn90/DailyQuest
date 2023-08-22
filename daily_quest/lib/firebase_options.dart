@@ -17,7 +17,10 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      return web;
+      throw UnsupportedError(
+        'DefaultFirebaseOptions have not been configured for web - '
+        'you can reconfigure this by running the FlutterFire CLI again.',
+      );
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
@@ -43,21 +46,12 @@ class DefaultFirebaseOptions {
     }
   }
 
-  static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyCEluoc4PSygGW1cjlxMFy_GlXreQde7os',
-    appId: '1:11722392050:web:e560f6284411a3d904eb6b',
-    messagingSenderId: '11722392050',
-    projectId: 'dailyquest-7272a',
-    authDomain: 'dailyquest-7272a.firebaseapp.com',
-    storageBucket: 'dailyquest-7272a.appspot.com',
-    measurementId: 'G-789S5LXNSR',
-  );
-
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyA9LGaIGnPCzPEEpIiBfCAkPTRjBvsGpfM',
     appId: '1:11722392050:android:d1b571f32ff22b9704eb6b',
     messagingSenderId: '11722392050',
     projectId: 'dailyquest-7272a',
+    databaseURL: 'https://dailyquest-7272a-default-rtdb.asia-southeast1.firebasedatabase.app',
     storageBucket: 'dailyquest-7272a.appspot.com',
   );
 
@@ -66,6 +60,7 @@ class DefaultFirebaseOptions {
     appId: '1:11722392050:ios:40e5b579489e9e3d04eb6b',
     messagingSenderId: '11722392050',
     projectId: 'dailyquest-7272a',
+    databaseURL: 'https://dailyquest-7272a-default-rtdb.asia-southeast1.firebasedatabase.app',
     storageBucket: 'dailyquest-7272a.appspot.com',
     iosClientId: '11722392050-qufoi74rccfsjh5gu2a13nd27t5bghad.apps.googleusercontent.com',
     iosBundleId: 'com.example.dailyQuest',
@@ -73,9 +68,10 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions macos = FirebaseOptions(
     apiKey: 'AIzaSyAp0VDyuHFnUKJj6OsLhXGPy54OUxA4cb4',
-    appId: '1:11722392050:ios:aed2f9791d80806e04eb6b',
+    appId: '1:11722392050:ios:017cf061b11d26bc04eb6b',
     messagingSenderId: '11722392050',
     projectId: 'dailyquest-7272a',
+    databaseURL: 'https://dailyquest-7272a-default-rtdb.asia-southeast1.firebasedatabase.app',
     storageBucket: 'dailyquest-7272a.appspot.com',
     iosClientId: '11722392050-tmppjclkqlgenenvg337ridoo83lvu0j.apps.googleusercontent.com',
     iosBundleId: 'com.example.dailyQuest.RunnerTests',

@@ -19,16 +19,18 @@
 	<key>STORAGE_BUCKET</key>
 	<string>dailyquest-7272a.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
-	<false></false>
+	<false/>
 	<key>IS_ANALYTICS_ENABLED</key>
-	<false></false>
+	<false/>
 	<key>IS_APPINVITE_ENABLED</key>
-	<true></true>
+	<true/>
 	<key>IS_GCM_ENABLED</key>
-	<true></true>
+	<true/>
 	<key>IS_SIGNIN_ENABLED</key>
-	<true></true>
+	<true/>
 	<key>GOOGLE_APP_ID</key>
 	<string>1:11722392050:ios:40e5b579489e9e3d04eb6b</string>
+	<key>DATABASE_URL</key>
+	<string>https://dailyquest-7272a-default-rtdb.asia-southeast1.firebasedatabase.app</string>
 </dict>
 </plist>
