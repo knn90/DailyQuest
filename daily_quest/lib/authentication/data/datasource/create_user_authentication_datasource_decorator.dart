@@ -27,7 +27,7 @@ final class CreateUserAuthenticationDataSourceDecorator
   Future<String?> googleSignIn() async {
     final userId = await _decorated.googleSignIn();
     if (userId != null) {
-      _usersStore.createIfNotExistUser(userId);
+      await _usersStore.createIfNotExistUser(userId);
     }
     return userId;
   }
@@ -36,7 +36,7 @@ final class CreateUserAuthenticationDataSourceDecorator
   Future<String?> guestSignIn() async {
     final userId = await _decorated.guestSignIn();
     if (userId != null) {
-      _usersStore.createIfNotExistUser(userId);
+      await _usersStore.createIfNotExistUser(userId);
     }
     return userId;
   }

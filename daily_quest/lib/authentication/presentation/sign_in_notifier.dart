@@ -1,4 +1,6 @@
+import 'package:daily_quest/authentication/data/datasource/create_user_authentication_datasource_decorator.dart';
 import 'package:daily_quest/authentication/data/datasource/firebase_authentication_datasource.dart';
+import 'package:daily_quest/authentication/data/datasource/firebase_users_store.dart';
 import 'package:daily_quest/authentication/data/repository/authentication_repository_impl.dart';
 import 'package:daily_quest/authentication/domain/usecase/auto_sign_in_usecase.dart';
 import 'package:daily_quest/authentication/domain/usecase/email_sign_in_usecase.dart';
@@ -40,9 +42,11 @@ final class SignInNotifier extends StateNotifier<AsyncValue<bool>> {
 
   signInWithGoogle() async {
     state = const AsyncValue.loading();
-    state = await AsyncValue.guard(() async {
-      return await _googleSignInUseCase.execute();
-    });
+    try {
+      state = AsyncValue.data(await _googleSignInUseCase.execute());
+    } catch (e, stackTrace) {
+      state = AsyncValue.error(e, stackTrace);
+    }
   }
 
   signInWithEmail({required String email, required String password}) async {
@@ -71,7 +75,14 @@ final class SignInNotifier extends StateNotifier<AsyncValue<bool>> {
 final signInStateProvider =
     StateNotifierProvider<SignInNotifier, AsyncValue<bool>>((ref) {
   final dataSource = FirebaseAuthenticationDataSource();
-  final repository = AuthenticationRepositoryImpl(dataSource: dataSource);
+  final usersStore = FirebaseUsersStore();
+  final createUserIfNeededDecorator =
+      CreateUserAuthenticationDataSourceDecorator(
+    decorated: dataSource,
+    usersStore: usersStore,
+  );
+  final repository =
+      AuthenticationRepositoryImpl(dataSource: createUserIfNeededDecorator);
   final googleSignInUseCase = GoogleSignInUseCaseImpl(repository: repository);
   final autoSignInUseCase = AutoSignInUseCaseImpl(repository: repository);
   final emailSignInUseCase = EmailSignInUseCaseImpl(repository: repository);
