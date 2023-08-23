@@ -57,23 +57,23 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyAp0VDyuHFnUKJj6OsLhXGPy54OUxA4cb4',
-    appId: '1:11722392050:ios:40e5b579489e9e3d04eb6b',
+    appId: '1:11722392050:ios:df3d78b8f58f3b0104eb6b',
     messagingSenderId: '11722392050',
     projectId: 'dailyquest-7272a',
     databaseURL: 'https://dailyquest-7272a-default-rtdb.asia-southeast1.firebasedatabase.app',
     storageBucket: 'dailyquest-7272a.appspot.com',
-    iosClientId: '11722392050-qufoi74rccfsjh5gu2a13nd27t5bghad.apps.googleusercontent.com',
-    iosBundleId: 'com.example.dailyQuest',
+    iosClientId: '11722392050-goi1o3l5bgknaqdi36g6bm00ouaej409.apps.googleusercontent.com',
+    iosBundleId: 'com.example.dailyQuest.ios',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
     apiKey: 'AIzaSyAp0VDyuHFnUKJj6OsLhXGPy54OUxA4cb4',
-    appId: '1:11722392050:ios:017cf061b11d26bc04eb6b',
+    appId: '1:11722392050:ios:534fdc78e39583ca04eb6b',
     messagingSenderId: '11722392050',
     projectId: 'dailyquest-7272a',
     databaseURL: 'https://dailyquest-7272a-default-rtdb.asia-southeast1.firebasedatabase.app',
     storageBucket: 'dailyquest-7272a.appspot.com',
-    iosClientId: '11722392050-tmppjclkqlgenenvg337ridoo83lvu0j.apps.googleusercontent.com',
-    iosBundleId: 'com.example.dailyQuest.RunnerTests',
+    iosClientId: '11722392050-p3rvqqk6o99o14bsdvccc60vr9i9emcj.apps.googleusercontent.com',
+    iosBundleId: 'com.example.dailyQuest.macos',
   );
 }

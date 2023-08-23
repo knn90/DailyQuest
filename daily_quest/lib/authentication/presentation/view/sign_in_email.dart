@@ -2,7 +2,7 @@ import 'package:daily_quest/authentication/presentation/helper/email_validator.d
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../shared/strings.dart';
+import '../../../l10n/generated/l10n.dart';
 
 final signInEmailProvider = StateProvider.autoDispose((ref) => '');
 final signInPasswordProvicer = StateProvider.autoDispose((ref) => '');

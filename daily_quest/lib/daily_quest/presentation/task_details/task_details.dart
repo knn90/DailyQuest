@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../shared/strings.dart';
+import '../../../l10n/generated/l10n.dart';
 
 final taskTitleProvider =
     StateProvider.autoDispose.family<String, String>((ref, title) => title);

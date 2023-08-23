@@ -1,5 +1,6 @@
 import 'package:daily_quest/authentication/presentation/reset_password.dart';
 import 'package:daily_quest/daily_quest/presentation/today_quest/today_quest.dart';
+import 'package:daily_quest/l10n/generated/l10n.dart';
 import 'package:daily_quest/shared/theme_constant.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -9,8 +10,6 @@ import 'package:hive_flutter/adapters.dart';
 import 'authentication/presentation/sign_in.dart';
 import 'daily_quest/data/model/local_daily_quest.dart';
 import 'daily_quest/data/model/local_task.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
 import 'firebase_options.dart';
 
 const dailyQuestBox = 'DailyQuest';
@@ -42,12 +41,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      localizationsDelegates: AppLocalizations.localizationsDelegates,
-      supportedLocales: AppLocalizations.supportedLocales,
+      localizationsDelegates: Strings.localizationsDelegates,
+      supportedLocales: Strings.supportedLocales,
       theme: ThemeData(useMaterial3: true, colorScheme: lightColorScheme),
       darkTheme: ThemeData(useMaterial3: true, colorScheme: darkColorScheme),
       home: const AppCoordinator(),
-      onGenerateTitle: (context) => AppLocalizations.of(context).dailyQuest,
+      onGenerateTitle: (context) => Strings.of(context).dailyQuest,
     );
   }
 }

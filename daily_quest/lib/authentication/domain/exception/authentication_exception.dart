@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../shared/strings.dart';
+import '../../../l10n/generated/l10n.dart';
 
 enum AuthenticationError implements Exception {
   userNotFound,

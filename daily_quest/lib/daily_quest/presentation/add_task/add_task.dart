@@ -1,7 +1,7 @@
 import 'package:daily_quest/daily_quest/presentation/provider/today_quest_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../shared/strings.dart';
+import '../../../l10n/generated/l10n.dart';
 import '../../domain/entity/task.dart';
 import '../task_details/task_details.dart';
 

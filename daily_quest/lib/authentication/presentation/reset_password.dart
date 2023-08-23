@@ -4,7 +4,7 @@ import 'package:daily_quest/common/presentation/helper/helpers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../shared/strings.dart';
+import '../../l10n/generated/l10n.dart';
 import '../domain/exception/authentication_exception.dart';
 import 'helper/email_validator.dart';
 

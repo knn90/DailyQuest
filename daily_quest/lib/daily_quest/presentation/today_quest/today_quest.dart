@@ -2,7 +2,7 @@ import 'package:daily_quest/daily_quest/presentation/provider/today_quest_provid
 import 'package:daily_quest/daily_quest/presentation/today_quest/task_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../shared/strings.dart';
+import '../../../l10n/generated/l10n.dart';
 import 'add_task_button.dart';
 
 class TodayQuestScreen extends ConsumerWidget {

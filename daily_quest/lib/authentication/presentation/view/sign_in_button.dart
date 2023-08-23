@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
+import '../../../l10n/generated/l10n.dart';
 import '../../../shared/images.dart';
-import '../../../shared/strings.dart';
 
 class SignInButton extends StatelessWidget {
   const SignInButton({
