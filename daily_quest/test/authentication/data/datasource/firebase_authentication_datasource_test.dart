@@ -20,6 +20,7 @@ void main() {
     mockFirebaseAuth = MockFirebaseAuth();
     sut = FirebaseAuthenticationDataSource(firebaseAuth: mockFirebaseAuth);
   });
+
   MockUser mockUserWithId(String id) {
     MockUser user = MockUser();
     when(user.uid).thenReturn(id);

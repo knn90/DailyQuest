@@ -1,8 +1,14 @@
 import 'package:daily_quest/daily_quest/data/datasource/remote/daily_quest_remote_datasource.dart';
 import 'package:daily_quest/daily_quest/data/model/remote/remote_daily_quest.dart';
 import 'package:daily_quest/daily_quest/data/model/remote/remote_task.dart';
+import 'package:firebase_database/firebase_database.dart';
 
 final class FirebaseRemoteDataSource implements DailyQuestRemoteDataSource {
+  final DatabaseReference _dailyQuestRef;
+
+  FirebaseRemoteDataSource({DatabaseReference? dailyQuestRef})
+      : _dailyQuestRef =
+            dailyQuestRef ?? FirebaseDatabase.instance.ref('daily_quests');
   @override
   Future<RemoteDailyQuest> addTask({required RemoteTask task}) {
     // TODO: implement addTask
@@ -17,7 +23,7 @@ final class FirebaseRemoteDataSource implements DailyQuestRemoteDataSource {
   }
 
   @override
-  RemoteDailyQuest getLast() {
+  Future<RemoteDailyQuest> getLast() {
     // TODO: implement getLast
     throw UnimplementedError();
   }

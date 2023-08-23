@@ -14,16 +14,16 @@ final class FirebaseUsersStore implements UsersStore {
     if (user != null) {
       return;
     }
-    await _usersRef.child(userId).set({
-      'user_id': userId,
-    });
+    final createUser = RemoteUser(id: userId);
+    await _usersRef.child(userId).set(createUser.toJson());
   }
 
   @override
   Future<RemoteUser?> getUser(String userId) async {
     final snapshot = await _usersRef.child(userId).get();
     if (snapshot.exists) {
-      return RemoteUser(id: userId);
+      final map = snapshot.value as Map<String, dynamic>;
+      return RemoteUser.fromJson(map);
     } else {
       return null;
     }

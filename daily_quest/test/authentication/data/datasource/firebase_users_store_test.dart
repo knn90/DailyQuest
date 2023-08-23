@@ -18,19 +18,43 @@ void main() {
     sut = FirebaseUsersStore(usersRef: mockRef);
   });
 
+  void mockNonExistUser(String userId) {
+    when(mockSnapshot.exists).thenReturn(false);
+    when(mockRef.child(userId)).thenReturn(mockRef);
+    when(mockRef.get()).thenAnswer((_) async => mockSnapshot);
+  }
+
+  void mockExistingUser(String userId) {
+    when(mockSnapshot.exists).thenReturn(true);
+    when(mockSnapshot.value).thenReturn({'user_id': userId});
+    when(mockRef.child(userId)).thenReturn(mockRef);
+    when(mockRef.get()).thenAnswer((_) async => mockSnapshot);
+  }
+
+  void verifyCreateUser(String userId, RemoteUser remoteUser) {
+    verifyInOrder([
+      mockRef.child(userId),
+      mockRef.set(remoteUser.toJson()),
+    ]);
+  }
+
+  void verifyGetUser(String userId) {
+    verifyInOrder([
+      mockRef.child(userId),
+      mockRef.get(),
+    ]);
+  }
+
   group('getUser', () {
     test('should return null on non exist user', () async {
       // arrange
       const userId = 'any id';
-      when(mockSnapshot.exists).thenReturn(false);
-      when(mockRef.child(userId)).thenReturn(mockRef);
-      when(mockRef.get()).thenAnswer((_) async => mockSnapshot);
+      mockNonExistUser(userId);
       // act
       final result = await sut.getUser(userId);
       // assert
       expect(result, null);
-      verify(mockRef.child(userId));
-      verify(mockRef.get());
+      verifyGetUser(userId);
       verifyNoMoreInteractions(mockRef);
     });
 
@@ -38,31 +62,25 @@ void main() {
       // arrange
       const userId = 'any id';
       const remoteUser = RemoteUser(id: userId);
-      when(mockSnapshot.exists).thenReturn(true);
-      when(mockRef.child(userId)).thenReturn(mockRef);
-      when(mockRef.get()).thenAnswer((_) async => mockSnapshot);
+      mockExistingUser(userId);
       // act
       final result = await sut.getUser(userId);
       // assert
       expect(result?.id, remoteUser.id);
-      verify(mockRef.child(userId));
-      verify(mockRef.get());
+      verifyGetUser(userId);
       verifyNoMoreInteractions(mockRef);
     });
   });
 
-  group('Create user if not exist', () {
+  group('createIfNotExistUser', () {
     test('should return on existing user', () async {
       // arrange
       const userId = 'any id';
-      when(mockSnapshot.exists).thenReturn(true);
-      when(mockRef.child(userId)).thenReturn(mockRef);
-      when(mockRef.get()).thenAnswer((_) async => mockSnapshot);
+      mockExistingUser(userId);
       // act
       await sut.createIfNotExistUser(userId);
       // assert
-      verify(mockRef.child(userId));
-      verify(mockRef.get());
+      verifyGetUser(userId);
       verifyNoMoreInteractions(mockRef);
     });
 
@@ -70,15 +88,12 @@ void main() {
       // arrange
       const userId = 'any id';
       const remoteUser = RemoteUser(id: userId);
-      when(mockSnapshot.exists).thenReturn(false);
-      when(mockRef.child(userId)).thenReturn(mockRef);
-      when(mockRef.get()).thenAnswer((_) async => mockSnapshot);
+      mockNonExistUser(userId);
       // act
       await sut.createIfNotExistUser(userId);
       // assert
-      verify(mockRef.child(userId));
-      verify(mockRef.get());
-      verify(mockRef.set(remoteUser.toJson()));
+      verifyGetUser(userId);
+      verifyCreateUser(userId, remoteUser);
       verifyNoMoreInteractions(mockRef);
     });
   });
