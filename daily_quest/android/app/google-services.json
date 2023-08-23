@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "11722392050-4r3kklhor6qpa913amfnk9ar401l2b78.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.daily_quest",
+            "certificate_hash": "38428f6a6f09622996fefe0af71eab516a404af2"
+          }
+        },
+        {
           "client_id": "11722392050-33a6qiqankkp09umk0r1gd8kgkeigvum.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -32,10 +40,10 @@
               "client_type": 3
             },
             {
-              "client_id": "11722392050-qufoi74rccfsjh5gu2a13nd27t5bghad.apps.googleusercontent.com",
+              "client_id": "11722392050-goi1o3l5bgknaqdi36g6bm00ouaej409.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.example.dailyQuest"
+                "bundle_id": "com.example.dailyQuest.ios"
               }
             }
           ]
