@@ -5,7 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive/hive.dart';
 
 import '../../../main.dart';
-import '../../data/datasource/daily_quest_local_datasource_impl.dart';
+import '../../data/datasource/hive_local_datasource.dart';
 import '../../data/repository/daily_quest_repository_impl.dart';
 import '../../domain/entity/daily_quest.dart';
 import '../../domain/helper/quest_validator_impl.dart';
@@ -18,7 +18,7 @@ import 'today_quest_notifier.dart';
 final todayQuestProvider =
     StateNotifierProvider<TodayQuestNotifier, AsyncValue<DailyQuest>>((ref) {
   final box = Hive.box(dailyQuestBox);
-  final dataSource = DailyQuestLocalDataSourceImpl(box: box);
+  final dataSource = HiveLocalDataSource(box: box);
   final repository = DailyQuestRepositoryImpl(dataSource: dataSource);
   final validator =
       QuestValidatorImpl(timestampProvider: TimestampProvider.todayTimestamp);

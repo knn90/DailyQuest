@@ -4,10 +4,10 @@ import 'package:daily_quest/daily_quest/data/model/local_task.dart';
 import 'package:daily_quest/daily_quest/domain/exception/exceptions.dart';
 import 'package:hive/hive.dart';
 
-class DailyQuestLocalDataSourceImpl implements DailyQuestLocalDataSource {
+class HiveLocalDataSource implements DailyQuestLocalDataSource {
   final Box box;
 
-  DailyQuestLocalDataSourceImpl({required this.box});
+  HiveLocalDataSource({required this.box});
   @override
   LocalDailyQuest getLast() {
     if (box.isEmpty) {
