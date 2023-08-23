@@ -56,18 +56,18 @@ class AppCoordinator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final navigator = Navigator.of(context);
     return Scaffold(
       body: SafeArea(
           child: SignInScreen(
         onLoginSucceed: () {
-          navigator.pushReplacement(MaterialPageRoute(
+          Navigator.of(context).popUntil((route) => route.isFirst);
+          Navigator.of(context).pushReplacement(MaterialPageRoute(
               builder: (context) => const TodayQuestScreen()));
         },
         onResetPasswordPressed: () {
-          navigator.push(MaterialPageRoute(
+          Navigator.of(context).push(MaterialPageRoute(
               builder: (context) => ResetPasswordScreen(
-                    onResetPasswordSucceed: () => navigator.pop(),
+                    onResetPasswordSucceed: () => Navigator.of(context).pop(),
                   )));
         },
       )),
