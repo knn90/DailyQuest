@@ -5,7 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive/hive.dart';
 
 import '../../../main.dart';
-import '../../data/datasource/hive_local_datasource.dart';
+import '../../data/datasource/local/hive_local_datasource.dart';
 import '../../data/repository/daily_quest_repository_impl.dart';
 import '../../domain/entity/daily_quest.dart';
 import '../../domain/helper/quest_validator_impl.dart';
