@@ -1,8 +1,8 @@
-import 'package:daily_quest/daily_quest/data/model/local_daily_quest.dart';
-import 'package:daily_quest/daily_quest/data/model/local_task.dart';
+import 'package:daily_quest/daily_quest/data/model/local/local_daily_quest.dart';
 import 'package:daily_quest/daily_quest/domain/exception/exceptions.dart';
 import 'package:hive/hive.dart';
 
+import '../../model/local/local_task.dart';
 import 'daily_quest_local_datasource.dart';
 
 class HiveLocalDataSource implements DailyQuestLocalDataSource {

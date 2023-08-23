@@ -1,11 +1,10 @@
-import 'package:daily_quest/daily_quest/data/model/local_task.dart';
+import 'package:daily_quest/daily_quest/data/datasource/local/daily_quest_local_datasource.dart';
+import 'package:daily_quest/daily_quest/data/model/local/local_daily_quest.dart';
+import 'package:daily_quest/daily_quest/data/model/local/local_task.dart';
 import 'package:daily_quest/daily_quest/domain/entity/task.dart';
 
 import '../../domain/entity/daily_quest.dart';
 import '../../domain/repository/daily_quest_repository.dart';
-
-import '../datasource/local/daily_quest_local_datasource.dart';
-import '../model/local_daily_quest.dart';
 
 class DailyQuestRepositoryImpl implements DailyQuestRepository {
   final DailyQuestLocalDataSource dataSource;

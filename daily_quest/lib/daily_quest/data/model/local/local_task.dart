@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
-import '../../domain/entity/task.dart';
 import 'package:hive/hive.dart';
+
+import '../../../domain/entity/task.dart';
 part 'local_task.g.dart';
 
 @HiveType(typeId: 2)

@@ -1,14 +1,15 @@
-import 'package:daily_quest/daily_quest/data/datasource/daily_quest_local_datasource.dart';
-import 'package:daily_quest/daily_quest/data/datasource/hive_local_datasource.dart';
-import 'package:daily_quest/daily_quest/data/model/local_daily_quest.dart';
-import 'package:daily_quest/daily_quest/data/model/local_task.dart';
+import 'package:daily_quest/daily_quest/data/datasource/local/daily_quest_local_datasource.dart';
+import 'package:daily_quest/daily_quest/data/datasource/local/hive_local_datasource.dart';
+import 'package:daily_quest/daily_quest/data/model/local/local_daily_quest.dart';
+import 'package:daily_quest/daily_quest/data/model/local/local_task.dart';
+
 import 'package:daily_quest/daily_quest/domain/exception/exceptions.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:hive/hive.dart';
 import 'package:mockito/mockito.dart';
 
-import 'daily_quest_local_datasource_impl_test.mocks.dart';
+import 'hive_local_datasource_test.mocks.dart';
 
 @GenerateNiceMocks([MockSpec<Box>()])
 void main() {

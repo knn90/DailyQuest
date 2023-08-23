@@ -8,8 +8,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_flutter/adapters.dart';
 
 import 'authentication/presentation/sign_in.dart';
-import 'daily_quest/data/model/local_daily_quest.dart';
-import 'daily_quest/data/model/local_task.dart';
+import 'daily_quest/data/model/local/local_daily_quest.dart';
+import 'daily_quest/data/model/local/local_task.dart';
 import 'firebase_options.dart';
 
 const dailyQuestBox = 'DailyQuest';

@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:hive/hive.dart';
-import '../../domain/entity/daily_quest.dart';
+import '../../../domain/entity/daily_quest.dart';
 import 'local_task.dart';
 part 'local_daily_quest.g.dart';
 
