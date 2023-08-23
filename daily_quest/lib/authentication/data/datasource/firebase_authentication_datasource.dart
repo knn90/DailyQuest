@@ -16,6 +16,7 @@ class FirebaseAuthenticationDataSource implements AuthenticationDataSource {
 
   @override
   Future<String?> autoSignIn() async {
+    await _firebaseAuth.signOut();
     return Future.value(_firebaseAuth.currentUser?.uid);
   }
 
