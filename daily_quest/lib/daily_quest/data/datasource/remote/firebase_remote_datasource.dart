@@ -4,10 +4,17 @@ import 'package:daily_quest/daily_quest/data/model/remote/remote_task.dart';
 import 'package:firebase_database/firebase_database.dart';
 
 final class FirebaseRemoteDataSource implements DailyQuestRemoteDataSource {
+  final String _userId;
+  final String _timestamp;
   final DatabaseReference _dailyQuestRef;
 
-  FirebaseRemoteDataSource({DatabaseReference? dailyQuestRef})
-      : _dailyQuestRef =
+  FirebaseRemoteDataSource(
+      {required String userId,
+      required String timestamp,
+      DatabaseReference? dailyQuestRef})
+      : _userId = userId,
+        _timestamp = timestamp,
+        _dailyQuestRef =
             dailyQuestRef ?? FirebaseDatabase.instance.ref('daily_quests');
   @override
   Future<RemoteDailyQuest> addTask({required RemoteTask task}) {
@@ -23,9 +30,11 @@ final class FirebaseRemoteDataSource implements DailyQuestRemoteDataSource {
   }
 
   @override
-  Future<RemoteDailyQuest> getLast() {
-    // TODO: implement getLast
-    throw UnimplementedError();
+  Future<RemoteDailyQuest> getLast() async {
+    final snapshot =
+        await _dailyQuestRef.child(_userId).child(_timestamp).get();
+    final map = snapshot.value as Map<String, dynamic>;
+    return RemoteDailyQuest.fromJson(map);
   }
 
   @override
