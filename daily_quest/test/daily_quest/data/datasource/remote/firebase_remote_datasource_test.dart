@@ -23,19 +23,36 @@ void main() {
       dailyQuestRef: mockRef,
     );
   });
-  group('get last', () {
+  group('getLast', () {
     test('should get quest with correct timestamp', () async {
       // arrange
-      const timestamp = 'any timestamp';
       const remoteQuest = RemoteDailyQuest(timestamp: timestamp, tasks: []);
       when(mockRef.child(userId)).thenReturn(mockRef);
       when(mockRef.child(timestamp)).thenReturn(mockRef);
       when(mockRef.get()).thenAnswer((_) async => mockSnapshot);
+      when(mockSnapshot.exists).thenReturn(true);
       when(mockSnapshot.value).thenReturn(remoteQuest.toJson());
       // act
       final result = await sut.getLast();
       // assert
       expect(result, remoteQuest);
+      verifyInOrder([
+        mockRef.child(userId),
+        mockRef.child(timestamp),
+        mockRef.get(),
+      ]);
+    });
+
+    test('should return null on non-exist snapshot', () async {
+      // arrange
+      when(mockSnapshot.exists).thenReturn(false);
+      when(mockRef.child(userId)).thenReturn(mockRef);
+      when(mockRef.child(timestamp)).thenReturn(mockRef);
+      when(mockRef.get()).thenAnswer((_) async => mockSnapshot);
+      // act
+      final result = await sut.getLast();
+      // assert
+      expect(result, null);
       verifyInOrder([
         mockRef.child(userId),
         mockRef.child(timestamp),

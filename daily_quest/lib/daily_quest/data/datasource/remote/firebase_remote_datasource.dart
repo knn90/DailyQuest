@@ -30,11 +30,15 @@ final class FirebaseRemoteDataSource implements DailyQuestRemoteDataSource {
   }
 
   @override
-  Future<RemoteDailyQuest> getLast() async {
+  Future<RemoteDailyQuest?> getLast() async {
     final snapshot =
         await _dailyQuestRef.child(_userId).child(_timestamp).get();
-    final map = snapshot.value as Map<String, dynamic>;
-    return RemoteDailyQuest.fromJson(map);
+    if (snapshot.exists) {
+      final map = snapshot.value as Map<String, dynamic>;
+      return RemoteDailyQuest.fromJson(map);
+    } else {
+      return null;
+    }
   }
 
   @override
