@@ -23,7 +23,7 @@ void main() {
       dailyQuestRef: mockRef,
     );
   });
-  group('getLast', () {
+  group('getTodayQuest', () {
     test('should get quest with correct timestamp', () async {
       // arrange
       const remoteQuest = RemoteDailyQuest(timestamp: timestamp, tasks: []);
@@ -33,7 +33,7 @@ void main() {
       when(mockSnapshot.exists).thenReturn(true);
       when(mockSnapshot.value).thenReturn(remoteQuest.toJson());
       // act
-      final result = await sut.getLast();
+      final result = await sut.getTodayQuest();
       // assert
       expect(result, remoteQuest);
       verifyInOrder([
@@ -50,7 +50,7 @@ void main() {
       when(mockRef.child(timestamp)).thenReturn(mockRef);
       when(mockRef.get()).thenAnswer((_) async => mockSnapshot);
       // act
-      final result = await sut.getLast();
+      final result = await sut.getTodayQuest();
       // assert
       expect(result, null);
       verifyInOrder([

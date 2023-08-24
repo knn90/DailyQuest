@@ -30,7 +30,7 @@ final class FirebaseRemoteDataSource implements DailyQuestRemoteDataSource {
   }
 
   @override
-  Future<RemoteDailyQuest?> getLast() async {
+  Future<RemoteDailyQuest?> getTodayQuest() async {
     final snapshot =
         await _dailyQuestRef.child(_userId).child(_timestamp).get();
     if (snapshot.exists) {

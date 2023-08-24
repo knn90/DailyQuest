@@ -2,7 +2,7 @@ import 'package:daily_quest/daily_quest/data/model/remote/remote_daily_quest.dar
 import 'package:daily_quest/daily_quest/data/model/remote/remote_task.dart';
 
 abstract class DailyQuestRemoteDataSource {
-  Future<RemoteDailyQuest?> getLast();
+  Future<RemoteDailyQuest?> getTodayQuest();
   Future<void> insert({required RemoteDailyQuest quest});
   Future<void> update({required RemoteDailyQuest quest});
   Future<RemoteDailyQuest> addTask({required RemoteTask task});
