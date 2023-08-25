@@ -75,6 +75,11 @@ void main() {
       when(mockRef.set(remoteQuest.toJson())).thenThrow(exception);
       // assert
       expect(() => sut.createQuest(quest: remoteQuest), throwsException);
+      verifyInOrder([
+        mockRef.child(userId),
+        mockRef.child(timestamp),
+        mockRef.set(remoteQuest.toJson()),
+      ]);
     });
 
     test('shold return void on firebase create quest successfully', () async {
@@ -90,6 +95,40 @@ void main() {
         mockRef.child(userId),
         mockRef.child(timestamp),
         mockRef.set(remoteQuest.toJson()),
+      ]);
+      verifyNoMoreInteractions(mockRef);
+    });
+  });
+
+  group('updateQuest', () {
+    test('should throw when firebase throw exception', () async {
+      // arrange
+      final exception = Exception('create new quest failed');
+      final remoteQuest = RemoteDailyQuestFactory.make();
+      mockPathForUserRef();
+      when(mockRef.update(remoteQuest.toJson())).thenThrow(exception);
+      // assert
+      expect(() => sut.updateQuest(quest: remoteQuest), throwsException);
+      verifyInOrder([
+        mockRef.child(userId),
+        mockRef.child(timestamp),
+        mockRef.update(remoteQuest.toJson()),
+      ]);
+    });
+
+    test('shold return void on firebase update quest successfully', () async {
+      // arrange
+      final remoteQuest = RemoteDailyQuestFactory.make(
+          tasks: RemoteTaskFactory.makeList(count: 1));
+      mockPathForUserRef();
+      when(mockRef.update(remoteQuest.toJson())).thenAnswer((_) async => ());
+      // act
+      await sut.updateQuest(quest: remoteQuest);
+      // assert;
+      verifyInOrder([
+        mockRef.child(userId),
+        mockRef.child(timestamp),
+        mockRef.update(remoteQuest.toJson()),
       ]);
       verifyNoMoreInteractions(mockRef);
     });
