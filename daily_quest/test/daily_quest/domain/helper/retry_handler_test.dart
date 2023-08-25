@@ -15,7 +15,7 @@ void main() {
       }
 
       // act
-      sut.retry(callback);
+      sut.retryOnThrow(callback);
       // assert
       expect(callCount, 3);
     });
@@ -30,7 +30,7 @@ void main() {
     }
 
     // act
-    sut.retry(callback);
+    sut.retryOnThrow(callback);
     // assert
     expect(callCount, 1);
   });

@@ -5,7 +5,7 @@ class RetryHandler {
   RetryHandler({int? maxRetryAttempt})
       : _maxRetryAttempt = maxRetryAttempt ?? 5;
 
-  retry(Function callback) {
+  retryOnThrow(Function callback) {
     if (retryCount > _maxRetryAttempt) {
       return;
     }
@@ -13,7 +13,7 @@ class RetryHandler {
       retryCount += 1;
       callback();
     } catch (e) {
-      retry(callback);
+      retryOnThrow(callback);
     }
   }
 }
