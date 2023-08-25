@@ -42,9 +42,8 @@ final class FirebaseRemoteDataSource implements DailyQuestRemoteDataSource {
   }
 
   @override
-  Future<void> insert({required RemoteDailyQuest quest}) {
-    // TODO: implement insert
-    throw UnimplementedError();
+  Future<void> createQuest({required RemoteDailyQuest quest}) async {
+    await _dailyQuestRef.child(_userId).child(_timestamp).set(quest.toJson());
   }
 
   @override

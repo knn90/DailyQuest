@@ -1,5 +1,6 @@
 import 'package:daily_quest/daily_quest/data/datasource/remote/firebase_remote_datasource.dart';
 import 'package:daily_quest/daily_quest/data/model/remote/remote_daily_quest.dart';
+import 'package:daily_quest/daily_quest/data/model/remote/remote_task.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
@@ -58,6 +59,70 @@ void main() {
         mockRef.child(timestamp),
         mockRef.get(),
       ]);
+      verifyNoMoreInteractions(mockRef);
     });
   });
+
+  group('createQuest', () {
+    test('should throw on firebase throws error', () async {
+      // arrange
+      final exception = Exception('create new quest failed');
+      final remoteQuest = RemoteDailyQuestFactory.make(
+          tasks: RemoteTaskFactory.makeList(count: 1));
+      when(mockRef.child(userId)).thenReturn(mockRef);
+      when(mockRef.child(timestamp)).thenReturn(mockRef);
+      when(mockRef.set(remoteQuest.toJson())).thenThrow(exception);
+      // assert
+      expect(() => sut.createQuest(quest: remoteQuest), throwsException);
+    });
+
+    test('shold return void on firebase create quest successfully', () async {
+      // arrange
+      final remoteQuest = RemoteDailyQuestFactory.make(
+          tasks: RemoteTaskFactory.makeList(count: 1));
+      when(mockRef.child(userId)).thenReturn(mockRef);
+      when(mockRef.child(timestamp)).thenReturn(mockRef);
+      when(mockRef.set(remoteQuest.toJson())).thenAnswer((_) async => ());
+      // act
+      await sut.createQuest(quest: remoteQuest);
+      // assert
+      verifyInOrder([
+        mockRef.child(userId),
+        mockRef.child(timestamp),
+        mockRef.set(remoteQuest.toJson()),
+      ]);
+      verifyNoMoreInteractions(mockRef);
+    });
+  });
+}
+
+final class RemoteDailyQuestFactory {
+  static RemoteDailyQuest make({
+    String timestamp = 'any time stamp',
+    List<RemoteTask> tasks = const [],
+  }) {
+    return RemoteDailyQuest(timestamp: timestamp, tasks: tasks);
+  }
+}
+
+final class RemoteTaskFactory {
+  static List<RemoteTask> makeList({required int count}) {
+    List<RemoteTask> list = [];
+    for (var i = 0; i < count; i++) {
+      list.add(make(
+        title: 'title {$i}',
+        desciption: 'decription {$i}',
+        isDone: i % 2 == 0,
+      ));
+    }
+    return list;
+  }
+
+  static RemoteTask make({
+    String title = 'any title',
+    String desciption = 'any description',
+    bool isDone = false,
+  }) {
+    return RemoteTask(title: title, description: desciption, isDone: isDone);
+  }
 }
