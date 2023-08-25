@@ -24,12 +24,16 @@ void main() {
       dailyQuestRef: mockRef,
     );
   });
+  mockPathForUserRef() {
+    when(mockRef.child(userId)).thenReturn(mockRef);
+    when(mockRef.child(timestamp)).thenReturn(mockRef);
+  }
+
   group('getTodayQuest', () {
     test('should get quest with correct timestamp', () async {
       // arrange
       const remoteQuest = RemoteDailyQuest(timestamp: timestamp, tasks: []);
-      when(mockRef.child(userId)).thenReturn(mockRef);
-      when(mockRef.child(timestamp)).thenReturn(mockRef);
+      mockPathForUserRef();
       when(mockRef.get()).thenAnswer((_) async => mockSnapshot);
       when(mockSnapshot.exists).thenReturn(true);
       when(mockSnapshot.value).thenReturn(remoteQuest.toJson());
@@ -46,9 +50,8 @@ void main() {
 
     test('should return null on non-exist snapshot', () async {
       // arrange
+      mockPathForUserRef();
       when(mockSnapshot.exists).thenReturn(false);
-      when(mockRef.child(userId)).thenReturn(mockRef);
-      when(mockRef.child(timestamp)).thenReturn(mockRef);
       when(mockRef.get()).thenAnswer((_) async => mockSnapshot);
       // act
       final result = await sut.getTodayQuest();
@@ -67,10 +70,8 @@ void main() {
     test('should throw on firebase throws error', () async {
       // arrange
       final exception = Exception('create new quest failed');
-      final remoteQuest = RemoteDailyQuestFactory.make(
-          tasks: RemoteTaskFactory.makeList(count: 1));
-      when(mockRef.child(userId)).thenReturn(mockRef);
-      when(mockRef.child(timestamp)).thenReturn(mockRef);
+      final remoteQuest = RemoteDailyQuestFactory.make();
+      mockPathForUserRef();
       when(mockRef.set(remoteQuest.toJson())).thenThrow(exception);
       // assert
       expect(() => sut.createQuest(quest: remoteQuest), throwsException);
@@ -80,8 +81,7 @@ void main() {
       // arrange
       final remoteQuest = RemoteDailyQuestFactory.make(
           tasks: RemoteTaskFactory.makeList(count: 1));
-      when(mockRef.child(userId)).thenReturn(mockRef);
-      when(mockRef.child(timestamp)).thenReturn(mockRef);
+      mockPathForUserRef();
       when(mockRef.set(remoteQuest.toJson())).thenAnswer((_) async => ());
       // act
       await sut.createQuest(quest: remoteQuest);
