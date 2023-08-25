@@ -7,6 +7,10 @@ final class FirebaseRemoteDataSource implements DailyQuestRemoteDataSource {
   final String _timestamp;
   final DatabaseReference _dailyQuestRef;
 
+  DatabaseReference get _timestampRef {
+    return _dailyQuestRef.child(_userId).child(_timestamp);
+  }
+
   FirebaseRemoteDataSource(
       {required String userId,
       required String timestamp,
@@ -18,8 +22,7 @@ final class FirebaseRemoteDataSource implements DailyQuestRemoteDataSource {
 
   @override
   Future<RemoteDailyQuest?> getTodayQuest() async {
-    final snapshot =
-        await _dailyQuestRef.child(_userId).child(_timestamp).get();
+    final snapshot = await _timestampRef.get();
     if (snapshot.exists) {
       final map = snapshot.value as Map<String, dynamic>;
       return RemoteDailyQuest.fromJson(map);
@@ -30,14 +33,11 @@ final class FirebaseRemoteDataSource implements DailyQuestRemoteDataSource {
 
   @override
   Future<void> createQuest({required RemoteDailyQuest quest}) async {
-    await _dailyQuestRef.child(_userId).child(_timestamp).set(quest.toJson());
+    await _timestampRef.set(quest.toJson());
   }
 
   @override
   Future<void> updateQuest({required RemoteDailyQuest quest}) async {
-    await _dailyQuestRef
-        .child(_userId)
-        .child(_timestamp)
-        .update(quest.toJson());
+    await _timestampRef.update(quest.toJson());
   }
 }
