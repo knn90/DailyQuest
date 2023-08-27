@@ -1,4 +1,4 @@
-import 'package:daily_quest/daily_quest/domain/helper/retry_handler.dart';
+import 'package:daily_quest/daily_quest/data/datasource/helper/retry_handler.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {

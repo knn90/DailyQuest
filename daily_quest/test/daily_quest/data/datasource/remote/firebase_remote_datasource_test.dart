@@ -1,11 +1,12 @@
 import 'package:daily_quest/daily_quest/data/datasource/remote/firebase_remote_datasource.dart';
 import 'package:daily_quest/daily_quest/data/model/remote/remote_daily_quest.dart';
-import 'package:daily_quest/daily_quest/data/model/remote/remote_task.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
+import '../../../../factory/remote_quest_factory.dart';
+import '../../../../factory/remote_task_factory.dart';
 import 'firebase_remote_datasource_test.mocks.dart';
 
 @GenerateNiceMocks([MockSpec<DatabaseReference>(), MockSpec<DataSnapshot>()])
@@ -133,35 +134,4 @@ void main() {
       verifyNoMoreInteractions(mockRef);
     });
   });
-}
-
-final class RemoteDailyQuestFactory {
-  static RemoteDailyQuest make({
-    String timestamp = 'any time stamp',
-    List<RemoteTask> tasks = const [],
-  }) {
-    return RemoteDailyQuest(timestamp: timestamp, tasks: tasks);
-  }
-}
-
-final class RemoteTaskFactory {
-  static List<RemoteTask> makeList({required int count}) {
-    List<RemoteTask> list = [];
-    for (var i = 0; i < count; i++) {
-      list.add(make(
-        title: 'title {$i}',
-        desciption: 'decription {$i}',
-        isDone: i % 2 == 0,
-      ));
-    }
-    return list;
-  }
-
-  static RemoteTask make({
-    String title = 'any title',
-    String desciption = 'any description',
-    bool isDone = false,
-  }) {
-    return RemoteTask(title: title, description: desciption, isDone: isDone);
-  }
 }
