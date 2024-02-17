@@ -1,0 +1,31 @@
+{
+  "configurations" : [
+    {
+      "id" : "4BA917C7-82AA-4873-85B6-465B62E7383D",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "testExecutionOrdering" : "random"
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:DailyQuest.xcodeproj",
+        "identifier" : "6A7802642B8097E700DAA470",
+        "name" : "DailyQuestTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:DailyQuest.xcodeproj",
+        "identifier" : "6A78026E2B8097E700DAA470",
+        "name" : "DailyQuestUITests"
+      }
+    }
+  ],
+  "version" : 1
+}

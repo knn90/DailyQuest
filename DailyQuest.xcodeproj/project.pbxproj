@@ -34,6 +34,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		6A2B498C2B809A000050603C /* DailyQuest.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = DailyQuest.xctestplan; sourceTree = "<group>"; };
 		6A7802552B8097E400DAA470 /* DailyQuest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DailyQuest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6A7802582B8097E400DAA470 /* DailyQuestApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyQuestApp.swift; sourceTree = "<group>"; };
 		6A78025A2B8097E400DAA470 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -74,6 +75,7 @@
 		6A78024C2B8097E400DAA470 = {
 			isa = PBXGroup;
 			children = (
+				6A2B498C2B809A000050603C /* DailyQuest.xctestplan */,
 				6A7802572B8097E400DAA470 /* DailyQuest */,
 				6A7802682B8097E700DAA470 /* DailyQuestTests */,
 				6A7802722B8097E700DAA470 /* DailyQuestUITests */,
