@@ -100,12 +100,11 @@
 		6A7802572B8097E400DAA470 /* DailyQuest */ = {
 			isa = PBXGroup;
 			children = (
+				6A7B584D2BDE3D2F00721D2E /* Models */,
+				6A7B584C2BDE3D1D00721D2E /* Presentations */,
 				6A7802582B8097E400DAA470 /* DailyQuestApp.swift */,
 				6A78025C2B8097E600DAA470 /* Assets.xcassets */,
 				6A78025E2B8097E600DAA470 /* Preview Content */,
-				6A2B498D2B80B2620050603C /* QuestView.swift */,
-				6A2B498F2B80B2950050603C /* TaskView.swift */,
-				6A2B49912B80B2B60050603C /* Task.swift */,
 			);
 			path = DailyQuest;
 			sourceTree = "<group>";
@@ -133,6 +132,23 @@
 				6A7802752B8097E700DAA470 /* DailyQuestUITestsLaunchTests.swift */,
 			);
 			path = DailyQuestUITests;
+			sourceTree = "<group>";
+		};
+		6A7B584C2BDE3D1D00721D2E /* Presentations */ = {
+			isa = PBXGroup;
+			children = (
+				6A2B498D2B80B2620050603C /* QuestView.swift */,
+				6A2B498F2B80B2950050603C /* TaskView.swift */,
+			);
+			path = Presentations;
+			sourceTree = "<group>";
+		};
+		6A7B584D2BDE3D2F00721D2E /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				6A2B49912B80B2B60050603C /* Task.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
