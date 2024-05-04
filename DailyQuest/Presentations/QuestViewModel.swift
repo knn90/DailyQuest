@@ -7,7 +7,7 @@
 
 import Foundation
 protocol QuestService {
-    func getDailyQuest()
+    func getDailyQuest() async
 }
 
 final class QuestViewModel: ObservableObject {
@@ -17,6 +17,8 @@ final class QuestViewModel: ObservableObject {
         Task(id: "3", title: "Long task", description: "Not so long description", isCompleted: false),
         Task(id: "4", title: "Super long long long long long long long task", description: "do something really long long long long time. It's not enought. It's should be longer", isCompleted: false)
     ]
+    
+    @Published var isLoading = false
 
     private let service: QuestService
 
@@ -24,8 +26,10 @@ final class QuestViewModel: ObservableObject {
         self.service = service
     }
 
-    func getDailyQuest() {
-        service.getDailyQuest()
+    func getDailyQuest() async {
+        isLoading = true
+        await service.getDailyQuest()
+        isLoading = false
     }
 }
 
