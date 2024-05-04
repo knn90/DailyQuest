@@ -18,13 +18,6 @@
         "identifier" : "6A7802642B8097E700DAA470",
         "name" : "DailyQuestTests"
       }
-    },
-    {
-      "target" : {
-        "containerPath" : "container:DailyQuest.xcodeproj",
-        "identifier" : "6A78026E2B8097E700DAA470",
-        "name" : "DailyQuestUITests"
-      }
     }
   ],
   "version" : 1
