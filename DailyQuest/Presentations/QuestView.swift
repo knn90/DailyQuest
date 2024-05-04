@@ -23,6 +23,5 @@ struct QuestView: View {
 }
 
 #Preview {
-    QuestView(viewModel: QuestViewModel())
+    QuestView(viewModel: QuestViewModel(service: PreviewQuestService()))
 }
-

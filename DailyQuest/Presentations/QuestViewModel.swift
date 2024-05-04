@@ -6,6 +6,9 @@
 //
 
 import Foundation
+protocol QuestService {
+    func getDailyQuest()
+}
 
 final class QuestViewModel: ObservableObject {
     @Published var tasks: [Task] = [
@@ -15,6 +18,14 @@ final class QuestViewModel: ObservableObject {
         Task(id: "4", title: "Super long long long long long long long task", description: "do something really long long long long time. It's not enought. It's should be longer", isCompleted: false)
     ]
 
-    init() {}
+    private let service: QuestService
+
+    init(service: QuestService) {
+        self.service = service
+    }
+
+    func getDailyQuest() {
+        service.getDailyQuest()
+    }
 }
 
