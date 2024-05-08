@@ -39,8 +39,20 @@ final class QuestViewModelTests: XCTestCase {
         XCTAssertTrue(service.isGetDailyQuestCalled)
     }
 
-    func test_getDailyQuest_updatesIsLoadingStateCorrectly() async {
+    func test_getDailyQuest_updatesIsLoadingStateCorrectlyWhenGetDailyQuestSuccess() async {
         let (sut, _) = makeSUT()
+        var captureIsLoadingState = [Bool]()
+        sut.$isLoading
+            .sink(receiveValue: { captureIsLoadingState.append($0)})
+            .store(in: &disposeBag)
+
+        await sut.getDailyQuest()
+
+        XCTAssertEqual(captureIsLoadingState, [false, true, false])
+    }
+
+    func test_getDailyQuest_updatesIsLoadingStateCorrectlyWhenGetDailyQuestFailed() async {
+        let (sut, _) = makeSUT(stubResult: .failure(anyNSError()))
         var captureIsLoadingState = [Bool]()
         sut.$isLoading
             .sink(receiveValue: { captureIsLoadingState.append($0)})
@@ -68,6 +80,14 @@ final class QuestViewModelTests: XCTestCase {
         XCTAssertEqual(sut.tasks, stubTasks)
     }
 
+    func test_getDailyQuest_updatesisShowingErrorToTrueWhenGetDailyQuestFailed() async {
+        let (sut, _) = makeSUT(stubResult: .failure(anyNSError()))
+
+        XCTAssertFalse(sut.isShowingError)
+        await sut.getDailyQuest()
+        XCTAssertTrue(sut.isShowingError)
+    }
+
     private func makeSUT(
         stubResult: Result<[DailyTask], Error> = .success([]),
         file: StaticString = #filePath,
@@ -91,9 +111,9 @@ final class StubQuestService: QuestService {
         self.stubResult = stubResult
     }
 
-    func getDailyQuest() async -> [DailyTask] {
+    func getDailyQuest() async throws -> [DailyTask] {
         isGetDailyQuestCalled = true
-        return (try? stubResult.get()) ?? []
+        return try stubResult.get()
     }
 }
 
@@ -111,4 +131,8 @@ func uniqueTask() -> DailyTask {
         title: "unique title",
         description: "unique description",
         isCompleted: false)
+}
+
+func anyNSError() -> NSError {
+    NSError(domain: "any error", code: -10010, userInfo: nil)
 }

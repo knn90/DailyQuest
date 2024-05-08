@@ -7,11 +7,13 @@
 
 import Foundation
 protocol QuestService {
-    func getDailyQuest() async -> [DailyTask]
+    func getDailyQuest() async throws -> [DailyTask]
 }
 
 final class QuestViewModel: ObservableObject {
     @Published var tasks: [DailyTask] = []
+    @Published var isShowingError = false
+    
 //    [
 //        DailyTask(id: "1", title: "Short task", description: "short description", isCompleted: false),
 //        DailyTask(id: "2", title: "Second short task", description: "do something really long long long long time. It's not enought. It's should be longer", isCompleted: false),
@@ -29,7 +31,12 @@ final class QuestViewModel: ObservableObject {
 
     func getDailyQuest() async {
         isLoading = true
-        tasks = await service.getDailyQuest()
+        do {
+            tasks = try await service.getDailyQuest()
+        } catch {
+            isShowingError = true
+        }
+
         isLoading = false
     }
 }
