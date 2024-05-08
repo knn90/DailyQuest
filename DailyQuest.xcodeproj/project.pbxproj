@@ -16,6 +16,8 @@
 		6A7B584F2BDE40E500721D2E /* QuestViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A7B584E2BDE40E500721D2E /* QuestViewModel.swift */; };
 		6A7B58512BDE415800721D2E /* QuestViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A7B58502BDE415800721D2E /* QuestViewModelTests.swift */; };
 		6A7B58532BDE465600721D2E /* PreviewQuestService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A7B58522BDE465600721D2E /* PreviewQuestService.swift */; };
+		6AF2E46A2BEB408A00430FC1 /* XCTestCase+TrackForMemoryLeaks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF2E4692BEB408A00430FC1 /* XCTestCase+TrackForMemoryLeaks.swift */; };
+		6AF2E46C2BEB40AB00430FC1 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF2E46B2BEB40AB00430FC1 /* Helpers.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -41,6 +43,8 @@
 		6A7B584E2BDE40E500721D2E /* QuestViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestViewModel.swift; sourceTree = "<group>"; };
 		6A7B58502BDE415800721D2E /* QuestViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestViewModelTests.swift; sourceTree = "<group>"; };
 		6A7B58522BDE465600721D2E /* PreviewQuestService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewQuestService.swift; sourceTree = "<group>"; };
+		6AF2E4692BEB408A00430FC1 /* XCTestCase+TrackForMemoryLeaks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+TrackForMemoryLeaks.swift"; sourceTree = "<group>"; };
+		6AF2E46B2BEB40AB00430FC1 /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +108,7 @@
 		6A7802682B8097E700DAA470 /* DailyQuestTests */ = {
 			isa = PBXGroup;
 			children = (
+				6AF2E4682BEB407700430FC1 /* Helpers */,
 				6A7B58502BDE415800721D2E /* QuestViewModelTests.swift */,
 			);
 			path = DailyQuestTests;
@@ -125,6 +130,15 @@
 				6A2B49912B80B2B60050603C /* DailyTask.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		6AF2E4682BEB407700430FC1 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				6AF2E4692BEB408A00430FC1 /* XCTestCase+TrackForMemoryLeaks.swift */,
+				6AF2E46B2BEB40AB00430FC1 /* Helpers.swift */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -240,6 +254,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6AF2E46A2BEB408A00430FC1 /* XCTestCase+TrackForMemoryLeaks.swift in Sources */,
+				6AF2E46C2BEB40AB00430FC1 /* Helpers.swift in Sources */,
 				6A7B58512BDE415800721D2E /* QuestViewModelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

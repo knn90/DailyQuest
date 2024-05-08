@@ -96,8 +96,8 @@ final class QuestViewModelTests: XCTestCase {
         let service = StubQuestService(stubResult: stubResult)
         let sut = QuestViewModel(service: service)
         
-        trackForMemoryLeak(sut, file: file, line: line)
-        trackForMemoryLeak(service, file: file, line: line)
+        trackForMemoryLeaks(sut, file: file, line: line)
+        trackForMemoryLeaks(service, file: file, line: line)
 
         return (sut, service)
     }
@@ -117,22 +117,5 @@ final class StubQuestService: QuestService {
     }
 }
 
-extension XCTestCase {
-    func trackForMemoryLeak(_ instance: AnyObject, file: StaticString = #filePath, line: UInt = #line) {
-        addTeardownBlock { [weak instance] in
-            XCTAssertNil(instance, "Instance is not dealocated. Potential memory leak", file: file, line: line)
-        }
-    }
-}
 
-func uniqueTask() -> DailyTask {
-    DailyTask(
-        id: UUID().uuidString,
-        title: "unique title",
-        description: "unique description",
-        isCompleted: false)
-}
 
-func anyNSError() -> NSError {
-    NSError(domain: "any error", code: -10010, userInfo: nil)
-}
