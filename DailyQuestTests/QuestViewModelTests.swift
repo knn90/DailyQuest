@@ -23,13 +23,15 @@ final class QuestViewModelTests: XCTestCase {
         disposeBag = nil
         super.tearDown()
     }
-
+    
+    @MainActor
     func test_tasks_isEmptyUponCreation() {
         let (sut, _) = makeSUT()
 
         XCTAssertTrue(sut.tasks.isEmpty)
     }
 
+    @MainActor
     func test_getDailyQuest_sendsRequestToQuestService() async {
         let (sut, service) = makeSUT()
 
@@ -39,6 +41,7 @@ final class QuestViewModelTests: XCTestCase {
         XCTAssertTrue(service.isGetDailyQuestCalled)
     }
 
+    @MainActor
     func test_getDailyQuest_updatesIsLoadingStateCorrectlyWhenGetDailyQuestSuccess() async {
         let (sut, _) = makeSUT()
         var captureIsLoadingState = [Bool]()
@@ -51,6 +54,7 @@ final class QuestViewModelTests: XCTestCase {
         XCTAssertEqual(captureIsLoadingState, [false, true, false])
     }
 
+    @MainActor
     func test_getDailyQuest_updatesIsLoadingStateCorrectlyWhenGetDailyQuestFailed() async {
         let (sut, _) = makeSUT(stubResult: .failure(anyNSError()))
         var captureIsLoadingState = [Bool]()
@@ -63,6 +67,7 @@ final class QuestViewModelTests: XCTestCase {
         XCTAssertEqual(captureIsLoadingState, [false, true, false])
     }
 
+    @MainActor
     func test_getDailyQuest_tasksStayEmptyWhenGetDailyQuestSuccessWithEmpty() async {
         let (sut, _) = makeSUT(stubResult: .success([]))
 
@@ -71,6 +76,7 @@ final class QuestViewModelTests: XCTestCase {
         XCTAssertTrue(sut.tasks.isEmpty)
     }
 
+    @MainActor
     func test_getDailyQuest_updatesTasksWhenGetDailyQuestSuccessWithNonEmptyArray() async {
         let stubTasks = [uniqueTask(), uniqueTask(), uniqueTask()]
         let (sut, _) = makeSUT(stubResult: .success(stubTasks))
@@ -80,6 +86,7 @@ final class QuestViewModelTests: XCTestCase {
         XCTAssertEqual(sut.tasks, stubTasks)
     }
 
+    @MainActor
     func test_getDailyQuest_updatesisShowingErrorToTrueWhenGetDailyQuestFailed() async {
         let (sut, _) = makeSUT(stubResult: .failure(anyNSError()))
 
@@ -88,6 +95,7 @@ final class QuestViewModelTests: XCTestCase {
         XCTAssertTrue(sut.isShowingError)
     }
 
+    @MainActor
     private func makeSUT(
         stubResult: Result<[DailyTask], Error> = .success([]),
         file: StaticString = #filePath,

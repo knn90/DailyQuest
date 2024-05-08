@@ -19,6 +19,9 @@ struct QuestView: View {
         List($viewModel.tasks) { task in
             TaskView(task: task)
         }
+        .task {
+            await viewModel.getDailyQuest()
+        }
     }
 }
 
