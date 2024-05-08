@@ -8,6 +8,7 @@
 import Foundation
 
 final class PreviewQuestService: QuestService {
-    func getDailyQuest() {
+    func getDailyQuest() -> [DailyTask]{
+        return []
     }
 }

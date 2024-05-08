@@ -24,6 +24,12 @@ final class QuestViewModelTests: XCTestCase {
         super.tearDown()
     }
 
+    func test_tasks_isEmptyUponCreation() {
+        let (sut, _) = makeSUT()
+
+        XCTAssertTrue(sut.tasks.isEmpty)
+    }
+
     func test_getDailyQuest_sendsRequestToQuestService() async {
         let (sut, service) = makeSUT()
 
@@ -45,11 +51,20 @@ final class QuestViewModelTests: XCTestCase {
         XCTAssertEqual(captureIsLoadingState, [false, true, false])
     }
 
+    func test_getDailyQuest_tasksStayEmptyWhenGetDailyQuestSuccessWithEmpty() async {
+        let (sut, _) = makeSUT(stubResult: .success([]))
+
+        await sut.getDailyQuest()
+
+        XCTAssertTrue(sut.tasks.isEmpty)
+    }
+
     private func makeSUT(
+        stubResult: Result<[DailyTask], Error> = .success([]),
         file: StaticString = #filePath,
         line: UInt = #line
     ) -> (QuestViewModel, StubQuestService) {
-        let service = StubQuestService()
+        let service = StubQuestService(stubResult: stubResult)
         let sut = QuestViewModel(service: service)
         
         trackForMemoryLeak(sut, file: file, line: line)
@@ -61,13 +76,15 @@ final class QuestViewModelTests: XCTestCase {
 
 final class StubQuestService: QuestService {
     private(set) var isGetDailyQuestCalled = false
+    private(set) var stubResult: Result<[DailyTask], Error>
 
-    func getDailyQuest() async {
-        isGetDailyQuestCalled = true
+    init(stubResult: Result<[DailyTask], Error>) {
+        self.stubResult = stubResult
     }
 
-    func getDailyQuestCompleted() {
-
+    func getDailyQuest() async -> [DailyTask] {
+        isGetDailyQuestCalled = true
+        return []
     }
 }
 
