@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct TaskView: View {
-    @Binding var task: Task
+    @Binding var task: DailyTask
 
     var body: some View {
         HStack(alignment: .checkboxTitleAlignmentGuide) {
@@ -52,5 +52,5 @@ fileprivate extension VerticalAlignment {
 }
 
 #Preview {
-    TaskView(task: .constant(Task(id: "1", title: "title", description: "description", isCompleted: true)))
+    TaskView(task: .constant(DailyTask(id: "1", title: "title", description: "description", isCompleted: true)))
 }
