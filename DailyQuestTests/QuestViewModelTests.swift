@@ -24,10 +24,8 @@ final class QuestViewModelTests: XCTestCase {
         super.tearDown()
     }
 
-
     func test_getDailyQuest_sendsRequestToQuestService() async {
-        let service = StubQuestService()
-        let sut = QuestViewModel(service: service)
+        let (sut, service) = makeSUT()
 
         XCTAssertFalse(service.isGetDailyQuestCalled)
         await sut.getDailyQuest()
@@ -36,8 +34,7 @@ final class QuestViewModelTests: XCTestCase {
     }
 
     func test_getDailyQuest_updatesIsLoadingStateCorrectly() async {
-        let service = StubQuestService()
-        let sut = QuestViewModel(service: service)
+        let (sut, _) = makeSUT()
         var captureIsLoadingState = [Bool]()
         sut.$isLoading
             .sink(receiveValue: { captureIsLoadingState.append($0)})
@@ -46,6 +43,19 @@ final class QuestViewModelTests: XCTestCase {
         await sut.getDailyQuest()
 
         XCTAssertEqual(captureIsLoadingState, [false, true, false])
+    }
+
+    private func makeSUT(
+        file: StaticString = #filePath,
+        line: UInt = #line
+    ) -> (QuestViewModel, StubQuestService) {
+        let service = StubQuestService()
+        let sut = QuestViewModel(service: service)
+        
+        trackForMemoryLeak(sut, file: file, line: line)
+        trackForMemoryLeak(service, file: file, line: line)
+
+        return (sut, service)
     }
 }
 
@@ -58,5 +68,13 @@ final class StubQuestService: QuestService {
 
     func getDailyQuestCompleted() {
 
+    }
+}
+
+extension XCTestCase {
+    func trackForMemoryLeak(_ instance: AnyObject, file: StaticString = #filePath, line: UInt = #line) {
+        addTeardownBlock { [weak instance] in
+            XCTAssertNil(instance, "Instance is not dealocated. Potential memory leak", file: file, line: line)
+        }
     }
 }
