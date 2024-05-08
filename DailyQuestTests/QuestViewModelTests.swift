@@ -59,6 +59,15 @@ final class QuestViewModelTests: XCTestCase {
         XCTAssertTrue(sut.tasks.isEmpty)
     }
 
+    func test_getDailyQuest_updatesTasksWhenGetDailyQuestSuccessWithNonEmptyArray() async {
+        let stubTasks = [uniqueTask(), uniqueTask(), uniqueTask()]
+        let (sut, _) = makeSUT(stubResult: .success(stubTasks))
+
+        await sut.getDailyQuest()
+
+        XCTAssertEqual(sut.tasks, stubTasks)
+    }
+
     private func makeSUT(
         stubResult: Result<[DailyTask], Error> = .success([]),
         file: StaticString = #filePath,
@@ -84,7 +93,7 @@ final class StubQuestService: QuestService {
 
     func getDailyQuest() async -> [DailyTask] {
         isGetDailyQuestCalled = true
-        return []
+        return (try? stubResult.get()) ?? []
     }
 }
 
@@ -94,4 +103,12 @@ extension XCTestCase {
             XCTAssertNil(instance, "Instance is not dealocated. Potential memory leak", file: file, line: line)
         }
     }
+}
+
+func uniqueTask() -> DailyTask {
+    DailyTask(
+        id: UUID().uuidString,
+        title: "unique title",
+        description: "unique description",
+        isCompleted: false)
 }

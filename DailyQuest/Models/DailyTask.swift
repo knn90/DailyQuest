@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct DailyTask: Identifiable{
+struct DailyTask: Identifiable, Equatable {
     let id: String
     var title: String
     var description: String
