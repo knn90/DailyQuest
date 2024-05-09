@@ -6,9 +6,6 @@
 //
 
 import Foundation
-protocol QuestService {
-    func getDailyQuest() async throws -> [DailyTask]
-}
 
 @MainActor
 final class QuestViewModel: ObservableObject {
