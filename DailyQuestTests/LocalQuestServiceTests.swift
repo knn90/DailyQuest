@@ -9,22 +9,6 @@ import Foundation
 import XCTest
 @testable import DailyQuest
 
-protocol QuestRepository {
-    func fetch() async throws -> [DailyTask]
-}
-
-final class LocalQuestService: QuestService {
-    private let repository: QuestRepository
-
-    init(repository: QuestRepository) {
-        self.repository = repository
-    }
-
-    func getDailyQuest() async throws -> [DailyTask] {
-        try await repository.fetch()
-    }
-}
-
 final class LocalQuestServiceTests: XCTestCase {
     func test_fetch_deliverDailyTaskArrayOnFetchSuccess() async throws {
         let stubTasks = [uniqueTask(), uniqueTask(), uniqueTask()]
