@@ -10,6 +10,8 @@
 		6A0E9E2F2BEDE489001CB2AA /* LocalQuestServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A0E9E2E2BEDE489001CB2AA /* LocalQuestServiceTests.swift */; };
 		6A0E9E312BEE10E1001CB2AA /* LocalQuestService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A0E9E302BEE10E1001CB2AA /* LocalQuestService.swift */; };
 		6A0E9E332BEE10ED001CB2AA /* QuestRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A0E9E322BEE10ED001CB2AA /* QuestRepository.swift */; };
+		6A0E9E372BEF43AF001CB2AA /* TimestampGeneratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A0E9E362BEF43AF001CB2AA /* TimestampGeneratorTests.swift */; };
+		6A0E9E392BEF4941001CB2AA /* TimestampGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A0E9E382BEF4941001CB2AA /* TimestampGenerator.swift */; };
 		6A2B498E2B80B2620050603C /* QuestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A2B498D2B80B2620050603C /* QuestView.swift */; };
 		6A2B49902B80B2950050603C /* TaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A2B498F2B80B2950050603C /* TaskView.swift */; };
 		6A2B49922B80B2B60050603C /* DailyTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A2B49912B80B2B60050603C /* DailyTask.swift */; };
@@ -38,6 +40,8 @@
 		6A0E9E2E2BEDE489001CB2AA /* LocalQuestServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalQuestServiceTests.swift; sourceTree = "<group>"; };
 		6A0E9E302BEE10E1001CB2AA /* LocalQuestService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalQuestService.swift; sourceTree = "<group>"; };
 		6A0E9E322BEE10ED001CB2AA /* QuestRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestRepository.swift; sourceTree = "<group>"; };
+		6A0E9E362BEF43AF001CB2AA /* TimestampGeneratorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimestampGeneratorTests.swift; sourceTree = "<group>"; };
+		6A0E9E382BEF4941001CB2AA /* TimestampGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimestampGenerator.swift; sourceTree = "<group>"; };
 		6A2B498C2B809A000050603C /* DailyQuest.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = DailyQuest.xctestplan; sourceTree = "<group>"; };
 		6A2B498D2B80B2620050603C /* QuestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestView.swift; sourceTree = "<group>"; };
 		6A2B498F2B80B2950050603C /* TaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskView.swift; sourceTree = "<group>"; };
@@ -73,6 +77,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6A0E9E3A2BEF4952001CB2AA /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				6A0E9E382BEF4941001CB2AA /* TimestampGenerator.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
 		6A356B602BED001500EEE7E6 /* Services */ = {
 			isa = PBXGroup;
 			children = (
@@ -105,6 +117,7 @@
 		6A7802572B8097E400DAA470 /* DailyQuest */ = {
 			isa = PBXGroup;
 			children = (
+				6A0E9E3A2BEF4952001CB2AA /* Helpers */,
 				6A356B602BED001500EEE7E6 /* Services */,
 				6A7B584D2BDE3D2F00721D2E /* Models */,
 				6A7B584C2BDE3D1D00721D2E /* Presentations */,
@@ -130,6 +143,7 @@
 				6AF2E4682BEB407700430FC1 /* Helpers */,
 				6A7B58502BDE415800721D2E /* QuestViewModelTests.swift */,
 				6A0E9E2E2BEDE489001CB2AA /* LocalQuestServiceTests.swift */,
+				6A0E9E362BEF43AF001CB2AA /* TimestampGeneratorTests.swift */,
 			);
 			path = DailyQuestTests;
 			sourceTree = "<group>";
@@ -264,6 +278,7 @@
 				6A0E9E312BEE10E1001CB2AA /* LocalQuestService.swift in Sources */,
 				6A356B622BED002800EEE7E6 /* QuestService.swift in Sources */,
 				6A7802592B8097E400DAA470 /* DailyQuestApp.swift in Sources */,
+				6A0E9E392BEF4941001CB2AA /* TimestampGenerator.swift in Sources */,
 				6A7B58532BDE465600721D2E /* PreviewQuestService.swift in Sources */,
 				6A2B49922B80B2B60050603C /* DailyTask.swift in Sources */,
 				6A7B584F2BDE40E500721D2E /* QuestViewModel.swift in Sources */,
@@ -277,6 +292,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6A0E9E372BEF43AF001CB2AA /* TimestampGeneratorTests.swift in Sources */,
 				6A0E9E2F2BEDE489001CB2AA /* LocalQuestServiceTests.swift in Sources */,
 				6AF2E46A2BEB408A00430FC1 /* XCTestCase+TrackForMemoryLeaks.swift in Sources */,
 				6AF2E46C2BEB40AB00430FC1 /* Helpers.swift in Sources */,
