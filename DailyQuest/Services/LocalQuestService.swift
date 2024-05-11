@@ -14,7 +14,7 @@ final class LocalQuestService: QuestService {
         self.repository = repository
     }
 
-    func getDailyQuest() async throws -> [DailyTask] {
+    func getTodayQuest() async throws -> [DailyTask] {
         try await repository.fetch()
     }
 }

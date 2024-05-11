@@ -7,6 +7,7 @@
 
 import Foundation
 import XCTest
+@testable import DailyQuest
 
 final class TimestampGeneratorTests: XCTestCase {
     func test_getTodayTimestamp_afterDayStarted() {

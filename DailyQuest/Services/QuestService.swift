@@ -8,5 +8,5 @@
 import Foundation
 
 protocol QuestService {
-    func getDailyQuest() async throws -> [DailyTask]
+    func getTodayQuest() async throws -> [DailyTask]
 }

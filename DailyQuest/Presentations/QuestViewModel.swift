@@ -22,7 +22,7 @@ final class QuestViewModel: ObservableObject {
     func getDailyQuest() async {
         isLoading = true
         do {
-            tasks = try await service.getDailyQuest()
+            tasks = try await service.getTodayQuest()
         } catch {
             isShowingError = true
         }

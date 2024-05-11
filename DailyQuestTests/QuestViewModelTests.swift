@@ -108,7 +108,7 @@ final class StubQuestService: QuestService {
         self.stubResult = stubResult
     }
 
-    func getDailyQuest() async throws -> [DailyTask] {
+    func getTodayQuest() async throws -> [DailyTask] {
         return try stubResult.get()
     }
 }

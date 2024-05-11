@@ -8,7 +8,7 @@
 import Foundation
 
 final class PreviewQuestService: QuestService {
-    func getDailyQuest() -> [DailyTask] {
+    func getTodayQuest() -> [DailyTask] {
         [
             DailyTask(id: "1", title: "Short task", description: "short description", isCompleted: false),
             DailyTask(id: "2", title: "Second short task", description: "do something really long long long long time. It's not enought. It's should be longer", isCompleted: false),

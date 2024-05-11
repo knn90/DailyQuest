@@ -10,21 +10,21 @@ import XCTest
 @testable import DailyQuest
 
 final class LocalQuestServiceTests: XCTestCase {
-    func test_fetch_deliverDailyTaskArrayOnFetchSuccess() async throws {
+    func test_getTodayQuest_deliverDailyTaskArrayOnFetchSuccess() async throws {
         let stubTasks = [uniqueTask(), uniqueTask(), uniqueTask()]
         let sut = makeSUT(stubResult: .success(stubTasks))
 
-        let receivedTasks = try await sut.getDailyQuest()
+        let receivedTasks = try await sut.getTodayQuest()
 
         XCTAssertEqual(receivedTasks, stubTasks)
     }
 
-    func test_fetch_throwsErrorOnFetchFailed() async throws {
+    func test_getTodayQuest_throwsErrorOnFetchFailed() async throws {
         let stubError = anyNSError()
         let sut = makeSUT(stubResult: .failure(stubError))
 
         do {
-            _ = try await sut.getDailyQuest()
+            _ = try await sut.getTodayQuest()
         } catch let receivedError {
             XCTAssertEqual(receivedError as NSError, stubError)
         }
