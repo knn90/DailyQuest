@@ -12,7 +12,8 @@ func uniqueTask() -> DailyTask {
     DailyTask(
         id: UUID().uuidString,
         title: "unique title",
-        description: "unique description",
+        description: "unique description", 
+        createdAt: Date(),
         isCompleted: false)
 }
 
