@@ -9,8 +9,8 @@ import Foundation
 
 struct DailyTask: Identifiable, Hashable {
     let id: String
-    var title: String
-    var description: String
+    let title: String
+    let description: String
     let createdAt: Date
     var isCompleted: Bool
 }
