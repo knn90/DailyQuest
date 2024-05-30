@@ -10,16 +10,6 @@ import XCTest
 @testable import DailyQuest
 
 final class LocalQuestServiceTests: XCTestCase {
-    func test_getTodayQuest_deliverDailyTaskArrayOnFetchSuccess() async throws {
-        let stubTasks = [uniqueTask(), uniqueTask(), uniqueTask()]
-        let stubQuest = uniqueQuest(tasks: stubTasks)
-        let sut = makeSUT(stubResult: .success(stubQuest))
-
-        let receivedQuest = try await sut.getTodayQuest()
-
-        XCTAssertEqual(receivedQuest, stubQuest)
-    }
-
     func test_getTodayQuest_throwsErrorOnFetchFailed() async throws {
         let stubError = anyNSError()
         let sut = makeSUT(stubResult: .failure(stubError))
@@ -29,6 +19,16 @@ final class LocalQuestServiceTests: XCTestCase {
         } catch let receivedError {
             XCTAssertEqual(receivedError as NSError, stubError)
         }
+    }
+
+    func test_getTodayQuest_deliverDailyTaskArrayOnFetchSuccess() async throws {
+        let stubTasks = [uniqueTask(), uniqueTask(), uniqueTask()]
+        let stubQuest = uniqueQuest(tasks: stubTasks)
+        let sut = makeSUT(stubResult: .success(stubQuest))
+
+        let receivedQuest = try await sut.getTodayQuest()
+
+        XCTAssertEqual(receivedQuest, stubQuest)
     }
 
     private func makeSUT(
