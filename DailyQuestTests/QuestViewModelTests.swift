@@ -59,7 +59,7 @@ final class QuestViewModelTests: XCTestCase {
 
     @MainActor
     func test_getDailyQuest_tasksStayEmpty_getDailyQuestSuccessWithEmpty() async {
-        let sut = makeSUT(stubResult: .success([]))
+        let sut = makeSUT(stubResult: .success(emptyQuest()))
 
         await sut.getDailyQuest()
 
@@ -69,7 +69,7 @@ final class QuestViewModelTests: XCTestCase {
     @MainActor
     func test_getDailyQuest_updatesTasks_getDailyQuestSuccessWithNonEmptyArray() async {
         let stubTasks = [uniqueTask(), uniqueTask(), uniqueTask()]
-        let sut = makeSUT(stubResult: .success(stubTasks))
+        let sut = makeSUT(stubResult: .success(uniqueQuest(tasks: stubTasks)))
 
         await sut.getDailyQuest()
 
@@ -87,7 +87,7 @@ final class QuestViewModelTests: XCTestCase {
 
     @MainActor
     private func makeSUT(
-        stubResult: Result<[DailyTask], Error> = .success([]),
+        stubResult: Result<DailyQuest, Error> = .success(emptyQuest()),
         file: StaticString = #filePath,
         line: UInt = #line
     ) -> QuestViewModel {
@@ -102,13 +102,13 @@ final class QuestViewModelTests: XCTestCase {
 }
 
 final class StubQuestService: QuestService {
-    private(set) var stubResult: Result<[DailyTask], Error>
+    private(set) var stubResult: Result<DailyQuest, Error>
 
-    init(stubResult: Result<[DailyTask], Error>) {
+    init(stubResult: Result<DailyQuest, Error>) {
         self.stubResult = stubResult
     }
 
-    func getTodayQuest() async throws -> [DailyTask] {
+    func getTodayQuest() async throws -> DailyQuest {
         return try stubResult.get()
     }
 }

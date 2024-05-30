@@ -8,10 +8,6 @@
 import Foundation
 import SwiftData
 
-protocol QuestRepository {
-    func fetch() async throws -> [DailyTask]
-}
-
 @Model
 final class LocalDailyQuest {
     @Attribute(.unique) 
@@ -45,6 +41,12 @@ final class LocalDailyTask {
         self.isCompleted = isCompleted
         self.createdAt = createdAt
     }
+}
+
+protocol QuestStore {
+    func retrieve(for date: String) async throws -> DailyQuest?
+    func insert(quest: DailyQuest) throws
+    func update(quest: DailyQuest) async throws
 }
 
 final class SwiftDataQuestStore {
@@ -87,12 +89,6 @@ final class SwiftDataQuestStore {
         oldQuest?.tasks = quest.tasks.toLocals()
         try context.save()
     }
-}
-
-struct DailyQuest: Equatable {
-    let id: String
-    let timestamp: String
-    let tasks: [DailyTask]
 }
 
 private extension DailyQuest {

@@ -16,6 +16,7 @@
 		6A2B49902B80B2950050603C /* TaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A2B498F2B80B2950050603C /* TaskView.swift */; };
 		6A2B49922B80B2B60050603C /* DailyTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A2B49912B80B2B60050603C /* DailyTask.swift */; };
 		6A356B622BED002800EEE7E6 /* QuestService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A356B612BED002800EEE7E6 /* QuestService.swift */; };
+		6A5B3BBD2C083AC200840228 /* DailyQuest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A5B3BBC2C083AC200840228 /* DailyQuest.swift */; };
 		6A7802592B8097E400DAA470 /* DailyQuestApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A7802582B8097E400DAA470 /* DailyQuestApp.swift */; };
 		6A78025D2B8097E600DAA470 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6A78025C2B8097E600DAA470 /* Assets.xcassets */; };
 		6A7802602B8097E600DAA470 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6A78025F2B8097E600DAA470 /* Preview Assets.xcassets */; };
@@ -48,6 +49,7 @@
 		6A2B498F2B80B2950050603C /* TaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskView.swift; sourceTree = "<group>"; };
 		6A2B49912B80B2B60050603C /* DailyTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyTask.swift; sourceTree = "<group>"; };
 		6A356B612BED002800EEE7E6 /* QuestService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestService.swift; sourceTree = "<group>"; };
+		6A5B3BBC2C083AC200840228 /* DailyQuest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyQuest.swift; sourceTree = "<group>"; };
 		6A7802552B8097E400DAA470 /* DailyQuest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DailyQuest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6A7802582B8097E400DAA470 /* DailyQuestApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyQuestApp.swift; sourceTree = "<group>"; };
 		6A78025C2B8097E600DAA470 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -165,6 +167,7 @@
 			isa = PBXGroup;
 			children = (
 				6A2B49912B80B2B60050603C /* DailyTask.swift */,
+				6A5B3BBC2C083AC200840228 /* DailyQuest.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -292,6 +295,7 @@
 				6A2B498E2B80B2620050603C /* QuestView.swift in Sources */,
 				6A0E9E332BEE10ED001CB2AA /* QuestRepository.swift in Sources */,
 				6A2B49902B80B2950050603C /* TaskView.swift in Sources */,
+				6A5B3BBD2C083AC200840228 /* DailyQuest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -99,14 +99,6 @@ final class SwiftDataQuestStoreTests: XCTestCase {
     }
 }
 
-func uniqueQuest(timestamp: String = UUID().uuidString) -> DailyQuest {
-    DailyQuest(id: UUID().uuidString, timestamp: timestamp, tasks: [])
-}
-
-func anyQuest(id: String, timestamp: String, tasks: [DailyTask]) -> DailyQuest {
-    DailyQuest(id: id, timestamp: timestamp, tasks: tasks)
-}
-
 func orderedTasks() -> [DailyTask] {
     let firstDate = Date()
     let firstTask = DailyTask(id: "first", title: "first title", description: "first description", createdAt: firstDate, isCompleted: false)

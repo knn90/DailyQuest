@@ -8,13 +8,14 @@
 import Foundation
 
 final class LocalQuestService: QuestService {
-    private let repository: QuestRepository
+    private let store: QuestStore
 
-    init(repository: QuestRepository) {
-        self.repository = repository
+    init(store: QuestStore) {
+        self.store = store
     }
 
-    func getTodayQuest() async throws -> [DailyTask] {
-        try await repository.fetch()
+    func getTodayQuest() async throws -> DailyQuest {
+        let todayTimestamp = TimestampGenerator.generateTodayTimestamp()
+        return try await store.retrieve(for: todayTimestamp)!
     }
 }

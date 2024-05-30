@@ -12,11 +12,12 @@ import XCTest
 final class LocalQuestServiceTests: XCTestCase {
     func test_getTodayQuest_deliverDailyTaskArrayOnFetchSuccess() async throws {
         let stubTasks = [uniqueTask(), uniqueTask(), uniqueTask()]
-        let sut = makeSUT(stubResult: .success(stubTasks))
+        let stubQuest = uniqueQuest(tasks: stubTasks)
+        let sut = makeSUT(stubResult: .success(stubQuest))
 
-        let receivedTasks = try await sut.getTodayQuest()
+        let receivedQuest = try await sut.getTodayQuest()
 
-        XCTAssertEqual(receivedTasks, stubTasks)
+        XCTAssertEqual(receivedQuest, stubQuest)
     }
 
     func test_getTodayQuest_throwsErrorOnFetchFailed() async throws {
@@ -31,28 +32,36 @@ final class LocalQuestServiceTests: XCTestCase {
     }
 
     private func makeSUT(
-        stubResult: Result<[DailyTask], Error> = .success([]),
+        stubResult: Result<DailyQuest, Error> = .success(emptyQuest()),
         file: StaticString = #filePath,
         line: UInt = #line
     ) -> LocalQuestService {
-        let repository = StubQuestRepository(stubResult: stubResult)
-        let sut = LocalQuestService(repository: repository)
+        let questStore = StubQuestStore(stubResult: stubResult)
+        let sut = LocalQuestService(store: questStore)
 
         trackForMemoryLeaks(sut, file: file, line: line)
-        trackForMemoryLeaks(repository, file: file, line: line)
+        trackForMemoryLeaks(questStore, file: file, line: line)
 
         return sut
     }
 }
 
-private class StubQuestRepository: QuestRepository {
-    private(set) var stubResult: Result<[DailyTask], Error>
+private class StubQuestStore: QuestStore {
+    private(set) var stubResult: Result<DailyQuest, Error>
 
-    init(stubResult: Result<[DailyTask], Error>) {
+    init(stubResult: Result<DailyQuest, Error>) {
         self.stubResult = stubResult
     }
 
-    func fetch() async throws -> [DailyTask] {
+    func retrieve(for date: String) async throws -> DailyQuest? {
         return try stubResult.get()
+    }
+
+    func insert(quest: DailyQuest) throws {
+
+    }
+
+    func update(quest: DailyQuest) async throws {
+
     }
 }
