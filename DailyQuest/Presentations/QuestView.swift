@@ -16,12 +16,16 @@ struct QuestView: View {
     }
 
     var body: some View {
-        List($viewModel.tasks) { task in
-            TaskView(task: task)
-        }
-        .task {
-            await viewModel.getDailyQuest()
-        }
+        NavigationView(content: {
+            List($viewModel.tasks) { task in
+                TaskView(task: task)
+            }
+            .task {
+                await viewModel.getDailyQuest()
+            }
+            .navigationTitle("Today Quest")
+        })
+
     }
 }
 
