@@ -11,7 +11,7 @@ import SwiftUI
 struct DailyQuestApp: App {
     var body: some Scene {
         WindowGroup {
-            QuestView(viewModel: QuestViewModel(service: PreviewQuestService()))
+            QuestView(viewModel: QuestViewModel(service: LocalQuestService(store: try! SwiftDataQuestStore())))
         }
     }
 }

@@ -8,7 +8,7 @@
 import Foundation
 import SwiftData
 
-final class SwiftDataQuestStore {
+final class SwiftDataQuestStore: QuestStore {
     private let container: ModelContainer
     private let context: ModelContext
 
