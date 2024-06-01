@@ -14,8 +14,19 @@ final class LocalQuestService: QuestService {
         self.store = store
     }
 
-    func getTodayQuest() async throws -> DailyQuest {
+    func getTodayQuest() throws -> DailyQuest {
         let todayTimestamp = TimestampGenerator.generateTodayTimestamp()
-        return try await store.retrieve(for: todayTimestamp)!
+        if let todayQuest = try store.retrieve(for: todayTimestamp) {
+            return todayQuest
+        } else {
+            let newQuest = DailyQuest(id: UUID().uuidString, timestamp: todayTimestamp, tasks: [])
+            try store.insert(quest: newQuest)
+            return newQuest
+        }
+    }
+
+    func updateQuest(_ quest: DailyQuest) throws {
+        try store.update(quest: quest)
+        
     }
 }

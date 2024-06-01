@@ -44,14 +44,18 @@ final class LocalDailyTask {
 }
 
 protocol QuestStore {
-    func retrieve(for date: String) async throws -> DailyQuest?
+    func retrieve(for date: String) throws -> DailyQuest?
     func insert(quest: DailyQuest) throws
-    func update(quest: DailyQuest) async throws
+    func update(quest: DailyQuest) throws
 }
 
 final class SwiftDataQuestStore {
     private let container: ModelContainer
     private let context: ModelContext
+
+    enum Error: Swift.Error {
+        case questNotFound
+    }
 
     init(inMemoryOnly: Bool = false) throws {
         let schema = Schema([LocalDailyQuest.self, LocalDailyTask.self])
@@ -60,7 +64,7 @@ final class SwiftDataQuestStore {
         self.context = ModelContext(container)
     }
 
-    func retrieve(for date: String) async throws -> DailyQuest? {
+    func retrieve(for date: String) throws -> DailyQuest? {
         let predicate = #Predicate<LocalDailyQuest> {
             $0.timestamp == date
         }
@@ -75,18 +79,20 @@ final class SwiftDataQuestStore {
         try context.save()
     }
 
-    func update(quest: DailyQuest) async throws {
+    func update(quest: DailyQuest) throws {
         let timestamp = quest.timestamp
         let predicate = #Predicate<LocalDailyQuest> {
             $0.timestamp == timestamp
         }
 
         let fetchDescriptor = FetchDescriptor<LocalDailyQuest>(predicate: predicate)
-        let oldQuest = try context.fetch(fetchDescriptor).first
+        guard let oldQuest = try context.fetch(fetchDescriptor).first else {
+            throw Error.questNotFound
+        }
 
-        oldQuest?.id = quest.id
-        oldQuest?.timestamp = quest.timestamp
-        oldQuest?.tasks = quest.tasks.toLocals()
+        oldQuest.id = quest.id
+        oldQuest.timestamp = quest.timestamp
+        oldQuest.tasks = quest.tasks.toLocals()
         try context.save()
     }
 }

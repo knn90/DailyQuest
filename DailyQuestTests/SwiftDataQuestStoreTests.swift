@@ -12,64 +12,78 @@ import XCTest
 
 final class SwiftDataQuestStoreTests: XCTestCase {
 
-    func test_retrieve_returnNilOnEmptyStore() async throws {
+    func test_retrieve_returnNilOnEmptyStore() throws {
         let sut = try makeSUT()
 
-        let localQuest = try await sut.retrieve(for: "any string")
+        let localQuest = try sut.retrieve(for: "any string")
         XCTAssertNil(localQuest)
     }
 
-    func test_retrieveTwice_OnEmptyStore_staysEmpty() async throws {
+    func test_retrieveTwice_OnEmptyStore_staysEmpty() throws {
         let timestamp = "any timestamp"
         let sut = try makeSUT()
 
-        let firstRetrieval = try await sut.retrieve(for: timestamp)
+        let firstRetrieval = try sut.retrieve(for: timestamp)
         XCTAssertNil(firstRetrieval)
 
-        let secondRetrieval = try await sut.retrieve(for: timestamp)
+        let secondRetrieval = try sut.retrieve(for: timestamp)
         XCTAssertNil(secondRetrieval)
     }
 
-    func test_retrieve_returnInsertedQuestOnNonEmptyStore() async throws {
+    func test_retrieve_returnInsertedQuestOnNonEmptyStore() throws {
         let timestamp = "any timestamp"
         let insertingQuest = uniqueQuest(timestamp: timestamp)
         let sut = try makeSUT()
 
         try sut.insert(quest: insertingQuest)
-        let insertedQuest = try await sut.retrieve(for: timestamp)
+        let insertedQuest = try sut.retrieve(for: timestamp)
 
         XCTAssertEqual(insertedQuest, insertingQuest)
     }
 
-    func test_retrieveTwice_OnNonEmptyStore_doesNotHaveAnySideEffect() async throws {
+    func test_retrieveTwice_OnNonEmptyStore_doesNotHaveAnySideEffect() throws {
         let timestamp = "any timestamp"
         let insertingQuest = uniqueQuest(timestamp: timestamp)
         let sut = try makeSUT()
         
         try sut.insert(quest: insertingQuest)
 
-        let firstRetrieval = try await sut.retrieve(for: timestamp)
+        let firstRetrieval = try sut.retrieve(for: timestamp)
         XCTAssertEqual(firstRetrieval, insertingQuest)
 
-        let secondRetrieval = try await sut.retrieve(for: timestamp)
+        let secondRetrieval = try sut.retrieve(for: timestamp)
         XCTAssertEqual(secondRetrieval, insertingQuest)
     }
 
-    func test_insertToEmptyStore_savesQuestSuccessful() async throws {
+    func test_insertToEmptyStore_savesQuestSuccessful() throws {
         let timestamp = "any timestamp"
         let insertingQuest = uniqueQuest(timestamp: timestamp)
         let sut = try makeSUT()
         
-        let beforeInsertion = try await sut.retrieve(for: timestamp)
+        let beforeInsertion = try sut.retrieve(for: timestamp)
         XCTAssertNil(beforeInsertion)
 
         try sut.insert(quest: insertingQuest)
 
-        let afterInsertion = try await sut.retrieve(for: timestamp)
+        let afterInsertion = try sut.retrieve(for: timestamp)
         XCTAssertNotNil(afterInsertion)
     }
 
-    func test_updateQuest_overrideSavedQuest() async throws {
+    func test_updateQuest_throwsQuestNotFoundErrorOnEmptyStore() throws {
+        let questId = "questId"
+        let timestamp = "timestamp"
+        let sut = try makeSUT()
+
+        do {
+            let updatingQuest = anyQuest(id: questId, timestamp: timestamp, tasks: orderedTasks())
+            try sut.update(quest:updatingQuest)
+            XCTFail("Expect to throws quest not found error")
+        } catch {
+            XCTAssertEqual(error as? SwiftDataQuestStore.Error, SwiftDataQuestStore.Error.questNotFound)
+        }
+    }
+
+    func test_updateQuest_overrideSavedQuest() throws {
         let questId = "questId"
         let timestamp = "timestamp"
         let sut = try makeSUT()
@@ -78,9 +92,9 @@ final class SwiftDataQuestStoreTests: XCTestCase {
         try sut.insert(quest: oldQuest)
 
         let updatingQuest = anyQuest(id: questId, timestamp: timestamp, tasks: orderedTasks())
-        try await sut.update(quest:updatingQuest)
+        try sut.update(quest:updatingQuest)
 
-        let updatedQuest = try await sut.retrieve(for: timestamp)
+        let updatedQuest = try sut.retrieve(for: timestamp)
         
         XCTAssertEqual(updatedQuest?.id, updatingQuest.id)
         XCTAssertEqual(updatedQuest?.timestamp, updatingQuest.timestamp)
