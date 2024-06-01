@@ -8,47 +8,6 @@
 import Foundation
 import SwiftData
 
-@Model
-final class LocalDailyQuest {
-    @Attribute(.unique) 
-    var id: String
-    @Attribute(.unique) 
-    var timestamp: String
-    @Relationship(deleteRule: .cascade, inverse: \LocalDailyTask.quest)
-    var tasks: [LocalDailyTask]
-
-
-    init(id: String, timestamp: String, tasks: [LocalDailyTask]) {
-        self.id = id
-        self.timestamp = timestamp
-        self.tasks = tasks
-    }
-}
-
-@Model
-final class LocalDailyTask {
-    @Attribute(.unique) var id: String
-    var title: String
-    var taskDescription: String
-    var createdAt: Date
-    var isCompleted: Bool
-    var quest: LocalDailyQuest?
-
-    init(id: String, title: String, taskDescription: String, createdAt: Date, isCompleted: Bool) {
-        self.id = id
-        self.title = title
-        self.taskDescription = taskDescription
-        self.isCompleted = isCompleted
-        self.createdAt = createdAt
-    }
-}
-
-protocol QuestStore {
-    func retrieve(for date: String) throws -> DailyQuest?
-    func insert(quest: DailyQuest) throws
-    func update(quest: DailyQuest) throws
-}
-
 final class SwiftDataQuestStore {
     private let container: ModelContainer
     private let context: ModelContext
@@ -65,12 +24,10 @@ final class SwiftDataQuestStore {
     }
 
     func retrieve(for date: String) throws -> DailyQuest? {
-        let predicate = #Predicate<LocalDailyQuest> {
-            $0.timestamp == date
-        }
+        let localQuest = try context
+            .fetch(LocalDailyQuest.fetchDescriptor(timestamp: date))
+            .first
 
-        let fetchDescriptor = FetchDescriptor<LocalDailyQuest>(predicate: predicate)
-        let localQuest = try context.fetch(fetchDescriptor).first
         return localQuest?.toModel()
     }
 
@@ -80,13 +37,7 @@ final class SwiftDataQuestStore {
     }
 
     func update(quest: DailyQuest) throws {
-        let timestamp = quest.timestamp
-        let predicate = #Predicate<LocalDailyQuest> {
-            $0.timestamp == timestamp
-        }
-
-        let fetchDescriptor = FetchDescriptor<LocalDailyQuest>(predicate: predicate)
-        guard let oldQuest = try context.fetch(fetchDescriptor).first else {
+        guard let oldQuest = try context.fetch(LocalDailyQuest.fetchDescriptor(timestamp: quest.timestamp)).first else {
             throw Error.questNotFound
         }
 

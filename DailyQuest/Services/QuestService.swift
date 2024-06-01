@@ -9,4 +9,5 @@ import Foundation
 
 protocol QuestService {
     func getTodayQuest() throws -> DailyQuest
+    func updateQuest(_ quest: DailyQuest) throws 
 }

@@ -111,6 +111,9 @@ final class StubQuestService: QuestService {
     func getTodayQuest() throws -> DailyQuest {
         return try stubResult.get()
     }
+
+    func updateQuest(_ quest: DailyQuest) throws {
+    }
 }
 
 

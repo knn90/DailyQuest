@@ -20,4 +20,7 @@ final class PreviewQuestService: QuestService {
             ]
         )
     }
+
+    func updateQuest(_ quest: DailyQuest) throws {
+    }
 }
