@@ -8,8 +8,10 @@
 import SwiftUI
 
 struct QuestView: View {
-    
     @ObservedObject private var viewModel: QuestViewModel
+    @State private var isAddingTask = false
+    @State private var newTask = ""
+    @FocusState private var isFocused: Bool
 
     init(viewModel: QuestViewModel) {
         self.viewModel = viewModel
@@ -17,15 +19,28 @@ struct QuestView: View {
 
     var body: some View {
         NavigationView(content: {
-            List($viewModel.tasks) { task in
-                TaskView(task: task)
-            }
-            .task {
-                await viewModel.getDailyQuest()
+            ZStack(alignment: .bottom) {
+                List {
+                    if isAddingTask {
+                        addTaskView
+                    }
+                    ForEach($viewModel.tasks) { task in
+                        TaskView(task: task)
+                    }
+                }.task {
+                    viewModel.getDailyQuest()
+                }
+
+                PlusButton(isAddingTask: $isAddingTask)
             }
             .navigationTitle("Today Quest")
         })
+    }
 
+    private var addTaskView: some View {
+        Section {
+            AddTaskView(taskTitle: $newTask, isAddingTask: $isAddingTask)
+        }
     }
 }
 

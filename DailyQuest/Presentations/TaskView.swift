@@ -54,3 +54,6 @@ fileprivate extension VerticalAlignment {
 #Preview {
     TaskView(task: .constant(DailyTask(id: "1", title: "title", description: "description", createdAt: Date(), isCompleted: true)))
 }
+#Preview {
+    TaskView(task: .constant(DailyTask(id: "2", title: "Long long long long long long long long long long long long title", description: "description", createdAt: Date(), isCompleted: true)))
+}
