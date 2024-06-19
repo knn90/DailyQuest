@@ -19,7 +19,7 @@ final class QuestViewModel: ObservableObject {
         self.service = service
     }
 
-    func getDailyQuest() async {
+    func getDailyQuest() {
         isLoading = true
         do {
             tasks = try service.getTodayQuest().tasks

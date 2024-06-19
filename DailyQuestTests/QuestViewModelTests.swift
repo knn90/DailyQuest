@@ -32,56 +32,56 @@ final class QuestViewModelTests: XCTestCase {
     }
 
     @MainActor
-    func test_getDailyQuest_updatesIsLoadingStateCorrectly_getDailyQuestSuccess() async {
+    func test_getDailyQuest_updatesIsLoadingStateCorrectly_getDailyQuestSuccess() {
         let sut = makeSUT()
         var captureIsLoadingState = [Bool]()
         sut.$isLoading
             .sink(receiveValue: { captureIsLoadingState.append($0)})
             .store(in: &disposeBag)
 
-        await sut.getDailyQuest()
+        sut.getDailyQuest()
 
         XCTAssertEqual(captureIsLoadingState, [false, true, false])
     }
 
     @MainActor
-    func test_getDailyQuest_updatesIsLoadingStateCorrectly_getDailyQuestFailed() async {
+    func test_getDailyQuest_updatesIsLoadingStateCorrectly_getDailyQuestFailed() {
         let sut = makeSUT(stubResult: .failure(anyNSError()))
         var captureIsLoadingState = [Bool]()
         sut.$isLoading
             .sink(receiveValue: { captureIsLoadingState.append($0)})
             .store(in: &disposeBag)
 
-        await sut.getDailyQuest()
+        sut.getDailyQuest()
 
         XCTAssertEqual(captureIsLoadingState, [false, true, false])
     }
 
     @MainActor
-    func test_getDailyQuest_tasksStayEmpty_getDailyQuestSuccessWithEmpty() async {
+    func test_getDailyQuest_tasksStayEmpty_getDailyQuestSuccessWithEmpty() {
         let sut = makeSUT(stubResult: .success(emptyQuest()))
 
-        await sut.getDailyQuest()
+        sut.getDailyQuest()
 
         XCTAssertTrue(sut.tasks.isEmpty)
     }
 
     @MainActor
-    func test_getDailyQuest_updatesTasks_getDailyQuestSuccessWithNonEmptyArray() async {
+    func test_getDailyQuest_updatesTasks_getDailyQuestSuccessWithNonEmptyArray() {
         let stubTasks = [uniqueTask(), uniqueTask(), uniqueTask()]
         let sut = makeSUT(stubResult: .success(uniqueQuest(tasks: stubTasks)))
 
-        await sut.getDailyQuest()
+        sut.getDailyQuest()
 
         XCTAssertEqual(sut.tasks, stubTasks)
     }
 
     @MainActor
-    func test_getDailyQuest_updatesisShowingErrorToTrue_getDailyQuestFailed() async {
+    func test_getDailyQuest_updatesisShowingErrorToTrue_getDailyQuestFailed() {
         let sut = makeSUT(stubResult: .failure(anyNSError()))
 
         XCTAssertFalse(sut.isShowingError)
-        await sut.getDailyQuest()
+        sut.getDailyQuest()
         XCTAssertTrue(sut.isShowingError)
     }
 
