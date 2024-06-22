@@ -8,7 +8,8 @@
 import Foundation
 import XCTest
 import QuestServices
-@testable import DailyQuest
+
+@testable import QuestLocalStore
 
 final class LocalQuestServiceTests: XCTestCase {
     func test_getTodayQuest_throwsErrorOnRetrieveFailed() throws {

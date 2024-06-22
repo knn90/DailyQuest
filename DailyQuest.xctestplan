@@ -25,6 +25,13 @@
         "identifier" : "QuestServicesTests",
         "name" : "QuestServicesTests"
       }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:QuestLocalStore",
+        "identifier" : "QuestLocalStoreTests",
+        "name" : "QuestLocalStoreTests"
+      }
     }
   ],
   "version" : 1
