@@ -9,14 +9,14 @@ import Foundation
 import QuestServices
 
 @MainActor
-final class QuestViewModel: ObservableObject {
+public final class QuestViewModel: ObservableObject {
     @Published var tasks: [DailyTask] = []
     @Published var isShowingError = false
     @Published var isLoading = false
 
     private let service: QuestService
 
-    init(service: QuestService) {
+    public init(service: QuestService) {
         self.service = service
     }
 

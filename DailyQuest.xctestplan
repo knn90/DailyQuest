@@ -32,6 +32,13 @@
         "identifier" : "QuestLocalStoreTests",
         "name" : "QuestLocalStoreTests"
       }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:QuestPresentation",
+        "identifier" : "QuestPresentationTests",
+        "name" : "QuestPresentationTests"
+      }
     }
   ],
   "version" : 1

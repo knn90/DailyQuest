@@ -9,7 +9,7 @@ import Foundation
 import XCTest
 import Combine
 import QuestServices
-@testable import DailyQuest
+@testable import QuestPresentation
 
 final class QuestViewModelTests: XCTestCase {
     var disposeBag: Set<AnyCancellable>!

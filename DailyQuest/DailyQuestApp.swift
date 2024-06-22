@@ -7,6 +7,7 @@
 
 import SwiftUI
 import QuestLocalStore
+import QuestPresentation
 
 @main
 struct DailyQuestApp: App {
