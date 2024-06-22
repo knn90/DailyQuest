@@ -18,6 +18,13 @@
         "identifier" : "6A7802642B8097E700DAA470",
         "name" : "DailyQuestTests"
       }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:QuestServices",
+        "identifier" : "QuestServicesTests",
+        "name" : "QuestServicesTests"
+      }
     }
   ],
   "version" : 1

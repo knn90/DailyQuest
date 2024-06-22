@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 60;
+	objectVersion = 56;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -19,7 +19,6 @@
 		6A7B58512BDE415800721D2E /* QuestViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A7B58502BDE415800721D2E /* QuestViewModelTests.swift */; };
 		6A7B58532BDE465600721D2E /* PreviewQuestService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A7B58522BDE465600721D2E /* PreviewQuestService.swift */; };
 		6A9271382C268386002427AB /* QuestServices in Frameworks */ = {isa = PBXBuildFile; productRef = 6A9271372C268386002427AB /* QuestServices */; };
-		6A92714D2C26892F002427AB /* QuestServices in Frameworks */ = {isa = PBXBuildFile; productRef = 6A92714C2C26892F002427AB /* QuestServices */; };
 		6A965CB42BF205E60097A22F /* SwiftDataQuestStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A965CB32BF205E60097A22F /* SwiftDataQuestStoreTests.swift */; };
 		6AC273DB2C22CC3100ACC8C3 /* PlusButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AC273DA2C22CC3100ACC8C3 /* PlusButton.swift */; };
 		6AC273DD2C22DCAE00ACC8C3 /* AddTaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AC273DC2C22DCAE00ACC8C3 /* AddTaskView.swift */; };
@@ -47,6 +46,7 @@
 		6A2B498C2B809A000050603C /* DailyQuest.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = DailyQuest.xctestplan; sourceTree = "<group>"; };
 		6A2B498D2B80B2620050603C /* QuestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestView.swift; sourceTree = "<group>"; };
 		6A2B498F2B80B2950050603C /* TaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskView.swift; sourceTree = "<group>"; };
+		6A6A58992C26B1E200E0E29A /* QuestServices */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = QuestServices; sourceTree = "<group>"; };
 		6A7802552B8097E400DAA470 /* DailyQuest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DailyQuest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6A7802582B8097E400DAA470 /* DailyQuestApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyQuestApp.swift; sourceTree = "<group>"; };
 		6A78025C2B8097E600DAA470 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -78,7 +78,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6A92714D2C26892F002427AB /* QuestServices in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -96,6 +95,7 @@
 		6A78024C2B8097E400DAA470 = {
 			isa = PBXGroup;
 			children = (
+				6A6A58992C26B1E200E0E29A /* QuestServices */,
 				6A2B498C2B809A000050603C /* DailyQuest.xctestplan */,
 				6A7802572B8097E400DAA470 /* DailyQuest */,
 				6A7802682B8097E700DAA470 /* DailyQuestTests */,
@@ -239,7 +239,6 @@
 			);
 			name = DailyQuestTests;
 			packageProductDependencies = (
-				6A92714C2C26892F002427AB /* QuestServices */,
 			);
 			productName = DailyQuestTests;
 			productReference = 6A7802652B8097E700DAA470 /* DailyQuestTests.xctest */;
@@ -274,7 +273,6 @@
 			);
 			mainGroup = 6A78024C2B8097E400DAA470;
 			packageReferences = (
-				6A9271362C268386002427AB /* XCLocalSwiftPackageReference "QuestServices" */,
 			);
 			productRefGroup = 6A7802562B8097E400DAA470 /* Products */;
 			projectDirPath = "";
@@ -597,21 +595,9 @@
 		};
 /* End XCConfigurationList section */
 
-/* Begin XCLocalSwiftPackageReference section */
-		6A9271362C268386002427AB /* XCLocalSwiftPackageReference "QuestServices" */ = {
-			isa = XCLocalSwiftPackageReference;
-			relativePath = QuestServices;
-		};
-/* End XCLocalSwiftPackageReference section */
-
 /* Begin XCSwiftPackageProductDependency section */
 		6A9271372C268386002427AB /* QuestServices */ = {
 			isa = XCSwiftPackageProductDependency;
-			productName = QuestServices;
-		};
-		6A92714C2C26892F002427AB /* QuestServices */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 6A9271362C268386002427AB /* XCLocalSwiftPackageReference "QuestServices" */;
 			productName = QuestServices;
 		};
 /* End XCSwiftPackageProductDependency section */
