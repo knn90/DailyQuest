@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import QuestServices
 
 final class LocalQuestService: QuestService {
     private let store: QuestStore

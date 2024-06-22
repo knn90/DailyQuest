@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftData
+import QuestServices
 
 final class SwiftDataQuestStore: QuestStore {
     private let container: ModelContainer

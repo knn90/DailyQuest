@@ -56,6 +56,17 @@
                ReferencedContainer = "container:DailyQuest.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO"
+            parallelizable = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "6A9271402C268740002427AB"
+               BuildableName = "QuestServicesTests.xctest"
+               BlueprintName = "QuestServicesTests"
+               ReferencedContainer = "container:DailyQuest.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction

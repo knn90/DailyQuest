@@ -7,7 +7,6 @@
 
 import Foundation
 import QuestServices
-@testable import DailyQuest
 
 func uniqueQuest(timestamp: String = UUID().uuidString, tasks: [DailyTask] = []) -> DailyQuest {
     DailyQuest(id: UUID().uuidString, timestamp: timestamp, tasks: tasks)

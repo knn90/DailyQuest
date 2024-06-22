@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import QuestServices
 
 protocol QuestStore {
     func retrieve(for date: String) throws -> DailyQuest?

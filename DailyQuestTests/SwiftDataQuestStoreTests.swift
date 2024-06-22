@@ -7,7 +7,7 @@
 
 import Foundation
 import XCTest
-
+import QuestServices
 @testable import DailyQuest
 
 final class SwiftDataQuestStoreTests: XCTestCase {

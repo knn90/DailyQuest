@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import QuestServices
 
 final class PreviewQuestService: QuestService {
     func getTodayQuest() -> DailyQuest {

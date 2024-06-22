@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import QuestServices
 
 @MainActor
 final class QuestViewModel: ObservableObject {
