@@ -10,7 +10,7 @@ import QuestServices
 
 @MainActor
 public final class QuestViewModel: ObservableObject {
-    @Published var tasks: [DailyTask] = []
+    @Published var tasks: [PresentationTask] = []
     @Published var isShowingError = false
     @Published var isLoading = false
 
@@ -23,7 +23,7 @@ public final class QuestViewModel: ObservableObject {
     func getDailyQuest() {
         isLoading = true
         do {
-            tasks = try service.getTodayQuest().tasks
+//            tasks = try service.getTodayQuest().tasks
         } catch {
             isShowingError = true
         }
@@ -32,3 +32,16 @@ public final class QuestViewModel: ObservableObject {
     }
 }
 
+struct PresentationTask: Identifiable {
+    let id: String
+    var title: String
+    var description: String
+    var isCompleted: Bool
+
+    init(id: String, title: String, description: String, isCompleted: Bool) {
+        self.id = id
+        self.title = title
+        self.description = description
+        self.isCompleted = isCompleted
+    }
+}

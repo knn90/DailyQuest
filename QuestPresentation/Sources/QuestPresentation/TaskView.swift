@@ -9,7 +9,7 @@ import SwiftUI
 import QuestServices
 
 struct TaskView: View {
-    @Binding var task: DailyTask
+    @Binding var task: PresentationTask
 
     var body: some View {
         HStack(alignment: .checkboxTitleAlignmentGuide) {
@@ -53,8 +53,8 @@ fileprivate extension VerticalAlignment {
 }
 
 #Preview {
-    TaskView(task: .constant(DailyTask(id: "1", title: "title", description: "description", createdAt: Date(), isCompleted: true)))
+    TaskView(task: .constant(PresentationTask(id: "1", title: "title", description: "description", isCompleted: true)))
 }
 #Preview {
-    TaskView(task: .constant(DailyTask(id: "2", title: "Long long long long long long long long long long long long title", description: "description", createdAt: Date(), isCompleted: true)))
+    TaskView(task: .constant(PresentationTask(id: "2", title: "Long long long long long long long long long long long long title", description: "description", isCompleted: true)))
 }
