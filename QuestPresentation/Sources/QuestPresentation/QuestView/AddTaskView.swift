@@ -16,12 +16,15 @@ struct AddTaskView: View {
         self._taskTitle = taskTitle
         self.isAddingTask = isAddingTask
     }
-
+    
     var body: some View {
         TextField("Add task", text: $taskTitle)
             .focused($isFocused)
             .onAppear {
                 isFocused = isAddingTask
+            }
+            .onDisappear {
+                taskTitle = ""
             }
             .onChange(of: isAddingTask) { _, newValue in
                 isFocused = newValue

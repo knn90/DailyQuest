@@ -33,6 +33,7 @@ public struct QuestView: View {
                 PlusButton(isAddingTask: $isAddingTask)
             }
             .navigationTitle("Today Quest")
+            .scrollDismissesKeyboard(.interactively)
         })
     }
 
@@ -42,7 +43,6 @@ public struct QuestView: View {
                 .onSubmit {
                     Task {
                         await viewModel.addTask(title: newTask)
-                        newTask = ""
                         isAddingTask = false
                     }
                 }
