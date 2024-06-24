@@ -13,7 +13,8 @@ import QuestPresentation
 struct DailyQuestApp: App {
     var body: some Scene {
         WindowGroup {
-            QuestView(viewModel: QuestViewModel(service: LocalQuestService(store: try! SwiftDataQuestStore())))
+            Text("abc")
+//            QuestView(viewModel: QuestViewModel(service: LocalQuestService(store: try! SwiftDataQuestStore())))
         }
     }
 }

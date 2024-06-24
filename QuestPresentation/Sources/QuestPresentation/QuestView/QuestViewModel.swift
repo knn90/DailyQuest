@@ -6,24 +6,27 @@
 //
 
 import Foundation
-import QuestServices
+
+protocol QuestViewModelDelegate {
+    func getDailyTasks() async throws -> [PresentationTask]
+}
 
 @MainActor
-public final class QuestViewModel: ObservableObject {
+final class QuestViewModel: ObservableObject {
     @Published var tasks: [PresentationTask] = []
     @Published var isShowingError = false
     @Published var isLoading = false
 
-    private let service: QuestService
+    private var delegate: QuestViewModelDelegate
 
-    public init(service: QuestService) {
-        self.service = service
+    init(delegate: QuestViewModelDelegate) {
+        self.delegate = delegate
     }
 
-    func getDailyQuest() {
+    func getDailyQuest() async {
         isLoading = true
         do {
-//            tasks = try service.getTodayQuest().tasks
+            tasks = try await delegate.getDailyTasks()
         } catch {
             isShowingError = true
         }
@@ -32,7 +35,7 @@ public final class QuestViewModel: ObservableObject {
     }
 }
 
-struct PresentationTask: Identifiable {
+struct PresentationTask: Identifiable, Equatable {
     let id: String
     var title: String
     var description: String
