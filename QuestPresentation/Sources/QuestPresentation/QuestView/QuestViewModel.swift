@@ -34,17 +34,3 @@ final class QuestViewModel: ObservableObject {
         isLoading = false
     }
 }
-
-struct PresentationTask: Identifiable, Equatable {
-    let id: String
-    var title: String
-    var description: String
-    var isCompleted: Bool
-
-    init(id: String, title: String, description: String, isCompleted: Bool) {
-        self.id = id
-        self.title = title
-        self.description = description
-        self.isCompleted = isCompleted
-    }
-}

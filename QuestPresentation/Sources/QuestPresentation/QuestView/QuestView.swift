@@ -44,24 +44,17 @@ public struct QuestView: View {
     }
 }
 
-//#Preview {
-//    QuestView(viewModel: QuestViewModel(service: PreviewQuestService()))
-//}
-//
-//final class PreviewQuestService: QuestService {
-//    func getTodayQuest() -> DailyQuest {
-//        DailyQuest(
-//            id: "",
-//            timestamp: "",
-//            tasks: [
-//                DailyTask(id: "1", title: "Short task", description: "short description", createdAt: Date(), isCompleted: false),
-//                DailyTask(id: "2", title: "Second short task", description: "do something really long long long long time. It's not enought. It's should be longer", createdAt: Date(), isCompleted: false),
-//                DailyTask(id: "3", title: "Long task", description: "Not so long description", createdAt: Date(), isCompleted: false),
-//                DailyTask(id: "4", title: "Super long long long long long long long task", description: "do something really long long long long time. It's not enought. It's should be longer", createdAt: Date(), isCompleted: false)
-//            ]
-//        )
-//    }
-//
-//    func updateQuest(_ quest: DailyQuest) throws {
-//    }
-//}
+#Preview {
+    QuestView(viewModel: QuestViewModel(delegate: PreviewQuestViewDelegate()))
+}
+
+private final class PreviewQuestViewDelegate: QuestViewModelDelegate {
+    func getDailyTasks() async throws -> [PresentationTask] {
+        [
+            PresentationTask(id: "1", title: "Short task", description: "short description", isCompleted: false),
+            PresentationTask(id: "2", title: "Second short task", description: "do something really long long long long time. It's not enought. It's should be longer", isCompleted: false),
+            PresentationTask(id: "3", title: "Long task", description: "Not so long description", isCompleted: false),
+            PresentationTask(id: "4", title: "Super long long long long long long long task", description: "do something really long long long long time. It's not enought. It's should be longer", isCompleted: false)
+        ]
+    }
+}

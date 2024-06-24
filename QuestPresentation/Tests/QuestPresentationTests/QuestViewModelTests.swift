@@ -8,7 +8,6 @@
 import Foundation
 import XCTest
 import Combine
-import QuestServices
 @testable import QuestPresentation
 
 final class QuestViewModelTests: XCTestCase {

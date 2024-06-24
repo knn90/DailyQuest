@@ -12,7 +12,7 @@ public struct DailyTask: Identifiable, Hashable {
     public let title: String
     public let description: String
     public let createdAt: Date
-    public var isCompleted: Bool
+    public let isCompleted: Bool
 
     public init(id: String, title: String, description: String, createdAt: Date, isCompleted: Bool) {
         self.id = id
