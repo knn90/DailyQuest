@@ -25,9 +25,11 @@ struct TaskView: View {
                         context[.firstTextBaseline]
                     }
                     .foregroundStyle(task.isCompleted ? .tertiary : .primary)
-                Text(task.description)
-                    .foregroundStyle(task.isCompleted ? .quaternary : .secondary)
-                    .font(.subheadline)
+                if !task.description.isEmpty {
+                    Text(task.description)
+                        .foregroundStyle(task.isCompleted ? .quaternary : .secondary)
+                        .font(.subheadline)
+                }
             }
             Spacer()
         }

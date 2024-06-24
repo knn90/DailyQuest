@@ -11,7 +11,6 @@ public struct QuestView: View {
     @ObservedObject private var viewModel: QuestViewModel
     @State private var isAddingTask = false
     @State private var newTask = ""
-    @FocusState private var isFocused: Bool
 
     init(viewModel: QuestViewModel) {
         self.viewModel = viewModel
@@ -43,6 +42,8 @@ public struct QuestView: View {
                 .onSubmit {
                     Task {
                         await viewModel.addTask(title: newTask)
+                        newTask = ""
+                        isAddingTask = false
                     }
                 }
         }

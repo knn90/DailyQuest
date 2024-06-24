@@ -19,7 +19,7 @@ final class SwiftDataQuestStore: QuestStore {
 
     init(inMemoryOnly: Bool = false) throws {
         let schema = Schema([LocalDailyQuest.self, LocalDailyTask.self])
-        let config = ModelConfiguration(schema: schema, isStoredInMemoryOnly: true)
+        let config = ModelConfiguration(schema: schema, isStoredInMemoryOnly: inMemoryOnly)
         self.container = try ModelContainer(for: schema, configurations: config)
         self.context = ModelContext(container)
     }
@@ -27,9 +27,9 @@ final class SwiftDataQuestStore: QuestStore {
     func retrieve(for date: String) throws -> DailyQuest? {
         let localQuest = try context
             .fetch(LocalDailyQuest.fetchDescriptor(timestamp: date))
-            .first
 
-        return localQuest?.toModel()
+
+        return localQuest.first?.toModel()
     }
 
     func insert(quest: DailyQuest) throws {
