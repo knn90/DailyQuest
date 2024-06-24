@@ -10,7 +10,7 @@ import SwiftUI
 public struct QuestView: View {
     @ObservedObject private var viewModel: QuestViewModel
     @State private var isAddingTask = false
-    @State private var newTask = ""
+    @Namespace var topID
 
     init(viewModel: QuestViewModel) {
         self.viewModel = viewModel
@@ -19,17 +19,7 @@ public struct QuestView: View {
     public var body: some View {
         NavigationView(content: {
             ZStack(alignment: .bottom) {
-                List {
-                    if isAddingTask {
-                        addTaskView
-                    }
-                    ForEach($viewModel.tasks) { task in
-                        TaskView(task: task)
-                    }
-                }.task {
-                    await viewModel.getDailyQuest()
-                }
-
+                taskListView
                 PlusButton(isAddingTask: $isAddingTask)
             }
             .navigationTitle("Today Quest")
@@ -39,13 +29,28 @@ public struct QuestView: View {
 
     private var addTaskView: some View {
         Section {
-            AddTaskView(taskTitle: $newTask, isAddingTask: isAddingTask)
-                .onSubmit {
-                    Task {
-                        await viewModel.addTask(title: newTask)
-                        isAddingTask = false
-                    }
+            AddTaskView(isAddingTask: $isAddingTask, viewModel: viewModel)
+        }
+        .id(topID)
+    }
+
+    private var taskListView: some View {
+        ScrollViewReader { proxy in
+            List {
+                if isAddingTask {
+                    addTaskView
                 }
+                ForEach($viewModel.tasks) { task in
+                    TaskView(task: task)
+                }
+            }.task {
+                await viewModel.getDailyQuest()
+            }
+            .onChange(of: isAddingTask) {
+                if isAddingTask {
+                    proxy.scrollTo(topID)
+                }
+            }
         }
     }
 }

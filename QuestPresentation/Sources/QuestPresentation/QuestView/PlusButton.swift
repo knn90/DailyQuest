@@ -18,9 +18,7 @@ struct PlusButton: View {
 
     var body: some View {
         Button(action: {
-            withAnimation {
-                isAddingTask.toggle()
-            }
+            isAddingTask.toggle()
         }, label: {
             Image(systemName: "plus.circle.fill")
                 .resizable()
@@ -28,6 +26,7 @@ struct PlusButton: View {
         .foregroundColor(.cyan)
         .frame(width: 64, height: 64)
         .rotationEffect(Angle(degrees: isAddingTask ? 45 : 0))
+        .animation(.default, value: isAddingTask)
         .padding(.bottom, 24)
     }
 }
