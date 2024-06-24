@@ -85,12 +85,33 @@ final class QuestViewModelTests: XCTestCase {
     }
 
     @MainActor
+    func test_addTask_updatesisShowingErrorToTrue_addTaskFailed() async {
+        let sut = makeSUT(stubAddTaskResult: .failure(anyNSError()))
+
+        XCTAssertFalse(sut.isShowingError)
+        await sut.addTask(title: "title")
+        XCTAssertTrue(sut.isShowingError)
+    }
+
+    @MainActor
+    func test_addTask_appendsNewTaskToTasksArray_addTaskSuccessful() async {
+        let title = "Any Title"
+        let task = PresentationTask(id: "any", title: title, description: "", isCompleted: true)
+        let sut = makeSUT(stubAddTaskResult: .success(task))
+
+        XCTAssertTrue(sut.tasks.isEmpty)
+        await sut.addTask(title: title)
+        XCTAssertEqual(sut.tasks, [task])
+    }
+
+    @MainActor
     private func makeSUT(
-        stubResult: Result<[PresentationTask], Error> = .success([]),
+        stubResult: Result<[PresentationTask], Error> = .failure(anyNSError()),
+        stubAddTaskResult: Result<PresentationTask, Error> = .failure(anyNSError()),
         file: StaticString = #filePath,
         line: UInt = #line
     ) -> QuestViewModel {
-        let delegate = StubDelegate(stubResult: stubResult)
+        let delegate = StubDelegate(stubResult: stubResult, stubAddTaskResult: stubAddTaskResult)
         let sut = QuestViewModel(delegate: delegate)
 
         trackForMemoryLeaks(sut, file: file, line: line)
@@ -103,12 +124,22 @@ final class QuestViewModelTests: XCTestCase {
 final class StubDelegate: QuestViewModelDelegate {
 
     private(set) var stubResult: Result<[PresentationTask], Error>
+    private(set) var stubAddTaskResult: Result<PresentationTask, Error>
 
-    init(stubResult: Result<[PresentationTask], Error>) {
+    init(
+        stubResult: Result<[PresentationTask], Error>,
+        stubAddTaskResult: Result<PresentationTask, Error>
+    ) {
         self.stubResult = stubResult
+        self.stubAddTaskResult = stubAddTaskResult
     }
 
     func getDailyTasks() async throws -> [PresentationTask] {
         return try stubResult.get()
+    }
+
+    func addTask(title: String) throws -> PresentationTask {
+        return try stubAddTaskResult.get()
+
     }
 }

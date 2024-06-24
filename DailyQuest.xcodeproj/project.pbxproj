@@ -10,7 +10,6 @@
 		6A7802592B8097E400DAA470 /* DailyQuestApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A7802582B8097E400DAA470 /* DailyQuestApp.swift */; };
 		6A78025D2B8097E600DAA470 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6A78025C2B8097E600DAA470 /* Assets.xcassets */; };
 		6A7802602B8097E600DAA470 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6A78025F2B8097E600DAA470 /* Preview Assets.xcassets */; };
-		6A7B58532BDE465600721D2E /* PreviewQuestService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A7B58522BDE465600721D2E /* PreviewQuestService.swift */; };
 		6A9271382C268386002427AB /* QuestServices in Frameworks */ = {isa = PBXBuildFile; productRef = 6A9271372C268386002427AB /* QuestServices */; };
 		6AABFDAE2C26B89200E2C977 /* QuestLocalStore in Frameworks */ = {isa = PBXBuildFile; productRef = 6AABFDAD2C26B89200E2C977 /* QuestLocalStore */; };
 		6AC0FEE52C26BDE6001DCBCD /* QuestPresentation in Frameworks */ = {isa = PBXBuildFile; productRef = 6AC0FEE42C26BDE6001DCBCD /* QuestPresentation */; };
@@ -35,7 +34,6 @@
 		6A78025C2B8097E600DAA470 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6A78025F2B8097E600DAA470 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		6A7802652B8097E700DAA470 /* DailyQuestTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DailyQuestTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		6A7B58522BDE465600721D2E /* PreviewQuestService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewQuestService.swift; sourceTree = "<group>"; };
 		6AABFDAC2C26B83400E2C977 /* QuestLocalStore */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = QuestLocalStore; sourceTree = "<group>"; };
 		6AC0FEE32C26BD88001DCBCD /* QuestPresentation */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = QuestPresentation; sourceTree = "<group>"; };
 		6ACD8F992C26B9DF00B8CCEA /* QuestServices */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = QuestServices; sourceTree = "<group>"; };
@@ -101,7 +99,6 @@
 			isa = PBXGroup;
 			children = (
 				6A78025F2B8097E600DAA470 /* Preview Assets.xcassets */,
-				6A7B58522BDE465600721D2E /* PreviewQuestService.swift */,
 			);
 			path = "Preview Content";
 			sourceTree = "<group>";
@@ -240,7 +237,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				6A7802592B8097E400DAA470 /* DailyQuestApp.swift in Sources */,
-				6A7B58532BDE465600721D2E /* PreviewQuestService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

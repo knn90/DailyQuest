@@ -9,6 +9,7 @@ import Foundation
 
 protocol QuestViewModelDelegate {
     func getDailyTasks() async throws -> [PresentationTask]
+    func addTask(title: String) async throws -> PresentationTask
 }
 
 @MainActor
@@ -32,5 +33,14 @@ final class QuestViewModel: ObservableObject {
         }
 
         isLoading = false
+    }
+
+    func addTask(title: String) async {
+        do {
+            let task = try await delegate.addTask(title: title)
+            tasks.append(task)
+        } catch {
+            isShowingError = true
+        }
     }
 }

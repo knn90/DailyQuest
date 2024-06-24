@@ -9,6 +9,6 @@ import Foundation
 
 public protocol QuestService {
     func getTodayQuest() async throws -> DailyQuest
-    func addTask(title: String) throws
+    func addTask(title: String) async throws -> DailyTask
 }
 
