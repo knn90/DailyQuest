@@ -11,7 +11,11 @@ import QuestServices
 public final class LocalQuestService: QuestService {
     private let store: QuestStore
 
-    public init(store: QuestStore) {
+    public convenience init() throws {
+        self.init(store: try SwiftDataQuestStore())
+    }
+
+    init(store: QuestStore) {
         self.store = store
     }
 
@@ -28,6 +32,16 @@ public final class LocalQuestService: QuestService {
 
     public func updateQuest(_ quest: DailyQuest) throws {
         try store.update(quest: quest)
+
+    }
+
+    public func addTask(title: String) throws {
+        let todayTimestamp = TimestampGenerator.generateTodayTimestamp()
+        guard var todayQuest = try store.retrieve(for: todayTimestamp) else {
+            return
+        }
+
         
+
     }
 }

@@ -8,7 +8,8 @@
 import Foundation
 import XCTest
 import QuestServices
-import QuestLocalStore
+
+@testable import QuestLocalStore
 
 final class SwiftDataQuestStoreTests: XCTestCase {
 
@@ -76,7 +77,7 @@ final class SwiftDataQuestStoreTests: XCTestCase {
 
         do {
             let updatingQuest = anyQuest(id: questId, timestamp: timestamp, tasks: orderedTasks())
-            try sut.update(quest:updatingQuest)
+            try sut.update(quest: updatingQuest)
             XCTFail("Expect to throws quest not found error")
         } catch {
             XCTAssertEqual(error as? SwiftDataQuestStore.Error, SwiftDataQuestStore.Error.questNotFound)

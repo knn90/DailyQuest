@@ -9,22 +9,22 @@ import Foundation
 import SwiftData
 import QuestServices
 
-public final class SwiftDataQuestStore: QuestStore {
+final class SwiftDataQuestStore: QuestStore {
     private let container: ModelContainer
     private let context: ModelContext
 
-    public enum Error: Swift.Error {
+    enum Error: Swift.Error {
         case questNotFound
     }
 
-    public init(inMemoryOnly: Bool = false) throws {
+    init(inMemoryOnly: Bool = false) throws {
         let schema = Schema([LocalDailyQuest.self, LocalDailyTask.self])
         let config = ModelConfiguration(schema: schema, isStoredInMemoryOnly: true)
         self.container = try ModelContainer(for: schema, configurations: config)
         self.context = ModelContext(container)
     }
 
-    public func retrieve(for date: String) throws -> DailyQuest? {
+    func retrieve(for date: String) throws -> DailyQuest? {
         let localQuest = try context
             .fetch(LocalDailyQuest.fetchDescriptor(timestamp: date))
             .first
@@ -32,12 +32,12 @@ public final class SwiftDataQuestStore: QuestStore {
         return localQuest?.toModel()
     }
 
-    public func insert(quest: DailyQuest) throws {
+    func insert(quest: DailyQuest) throws {
         context.insert(quest.toLocal())
         try context.save()
     }
 
-    public func update(quest: DailyQuest) throws {
+    func update(quest: DailyQuest) throws {
         guard let oldQuest = try context.fetch(LocalDailyQuest.fetchDescriptor(timestamp: quest.timestamp)).first else {
             throw Error.questNotFound
         }

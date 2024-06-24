@@ -24,4 +24,8 @@ final class PreviewQuestService: QuestService {
 
     func updateQuest(_ quest: DailyQuest) throws {
     }
+
+    func addTask(title: String) throws {
+        
+    }
 }

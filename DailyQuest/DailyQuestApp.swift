@@ -13,7 +13,7 @@ import QuestPresentation
 struct DailyQuestApp: App {
     var body: some Scene {
         WindowGroup {
-            QuestViewComposer.compose(service: LocalQuestService(store: try! SwiftDataQuestStore()))
+            QuestViewComposer.compose(service: try! LocalQuestService())
         }
     }
 }
