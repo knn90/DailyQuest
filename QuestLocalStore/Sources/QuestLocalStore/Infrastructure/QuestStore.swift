@@ -11,5 +11,5 @@ import QuestServices
 protocol QuestStore {
     func retrieve(for date: String) throws -> DailyQuest?
     func insert(quest: DailyQuest) throws
-    func update(quest: DailyQuest) throws
+    func addTask(_ task: DailyTask, for date: String) throws
 }

@@ -45,27 +45,27 @@ final class LocalQuestServiceTests: XCTestCase {
         XCTAssertEqual(receivedQuest.tasks, [])
     }
 
-    func test_updateQuest_sendsUpdateMessageToQuestStore() throws {
-        let quest = uniqueQuest()
+    func test_addTask_sendsAddTaskMessageToQuestStore() throws {
+        let title = "any title"
         let (sut, questStore) = makeSUT()
 
-        try sut.updateQuest(quest)
+        try sut.addTask(title: title)
 
-        XCTAssertEqual(questStore.message, [.update(quest)])
+        XCTAssertEqual(questStore.message, [.addTask(title)])
     }
 
-    func test_updateQuest_throwsErrorWhenStoreUpdatingFailed() {
-        
+    func test_addTasks_throwsErrorWhenStoreAddingTaskFailed() {
         let stubError = anyNSError()
         let (sut, _) = makeSUT(stubResult: .failure(stubError))
 
         do {
-            try sut.updateQuest(uniqueQuest())
+            try sut.addTask(title: "any title")
             XCTFail("Expect to throws error")
         } catch {
             XCTAssertEqual(error as NSError, stubError)
         }
     }
+
 
     private func makeSUT(
         stubResult: Result<DailyQuest?, Error> = .success(nil),
@@ -89,7 +89,7 @@ private class StubQuestStore: QuestStore {
     enum Message: Equatable {
         case retrieve
         case insert
-        case update(DailyQuest)
+        case addTask(String)
     }
 
     init(stubResult: Result<DailyQuest?, Error>) {
@@ -103,11 +103,10 @@ private class StubQuestStore: QuestStore {
 
     func insert(quest: DailyQuest) throws {
         message.append(.insert)
-
     }
 
-    func update(quest: DailyQuest) throws {
-        message.append(.update(quest))
+    func addTask(_ task: DailyTask, for date: String) throws {
+        message.append(.addTask(task.title))
         _ = try stubResult.get()
     }
 }

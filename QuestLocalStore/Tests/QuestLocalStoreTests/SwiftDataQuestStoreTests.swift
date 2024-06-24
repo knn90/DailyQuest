@@ -70,21 +70,18 @@ final class SwiftDataQuestStoreTests: XCTestCase {
         XCTAssertNotNil(afterInsertion)
     }
 
-    func test_updateQuest_throwsQuestNotFoundErrorOnEmptyStore() throws {
-        let questId = "questId"
-        let timestamp = "timestamp"
+    func test_addTask_throwsQuestNotFoundErrorOnEmptyStore() throws {
         let sut = try makeSUT()
 
         do {
-            let updatingQuest = anyQuest(id: questId, timestamp: timestamp, tasks: orderedTasks())
-            try sut.update(quest: updatingQuest)
+            try sut.addTask(uniqueTask(), for: "timestamp")
             XCTFail("Expect to throws quest not found error")
         } catch {
             XCTAssertEqual(error as? SwiftDataQuestStore.Error, SwiftDataQuestStore.Error.questNotFound)
         }
     }
 
-    func test_updateQuest_overrideSavedQuest() throws {
+    func test_addTask_appendTaskToTaskArray() throws {
         let questId = "questId"
         let timestamp = "timestamp"
         let sut = try makeSUT()
@@ -92,14 +89,19 @@ final class SwiftDataQuestStoreTests: XCTestCase {
         let oldQuest = anyQuest(id: questId, timestamp: timestamp, tasks: [])
         try sut.insert(quest: oldQuest)
 
-        let updatingQuest = anyQuest(id: questId, timestamp: timestamp, tasks: orderedTasks())
-        try sut.update(quest:updatingQuest)
+        let task1 = uniqueTask()
+        let task2 = uniqueTask()
+        let task3 = uniqueTask()
+
+        try sut.addTask(task1, for: timestamp)
+        try sut.addTask(task2, for: timestamp)
+        try sut.addTask(task3, for: timestamp)
 
         let updatedQuest = try sut.retrieve(for: timestamp)
         
-        XCTAssertEqual(updatedQuest?.id, updatingQuest.id)
-        XCTAssertEqual(updatedQuest?.timestamp, updatingQuest.timestamp)
-        XCTAssertEqual(Set(updatedQuest!.tasks), Set(updatingQuest.tasks))
+        XCTAssertEqual(updatedQuest?.id, oldQuest.id)
+        XCTAssertEqual(updatedQuest?.timestamp, oldQuest.timestamp)
+        XCTAssertEqual(Set(updatedQuest?.tasks ?? []), [task1, task2, task3])
     }
 
     private func makeSUT(

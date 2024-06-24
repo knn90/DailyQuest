@@ -30,18 +30,9 @@ public final class LocalQuestService: QuestService {
         }
     }
 
-    public func updateQuest(_ quest: DailyQuest) throws {
-        try store.update(quest: quest)
-
-    }
-
     public func addTask(title: String) throws {
         let todayTimestamp = TimestampGenerator.generateTodayTimestamp()
-        guard var todayQuest = try store.retrieve(for: todayTimestamp) else {
-            return
-        }
-
-        
-
+        let task = DailyTask(id: UUID().uuidString, title: title, description: "", createdAt: Date(), isCompleted: false)
+        try store.addTask(task, for: todayTimestamp)
     }
 }

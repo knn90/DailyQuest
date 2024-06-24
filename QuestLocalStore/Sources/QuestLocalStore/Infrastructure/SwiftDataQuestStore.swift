@@ -37,14 +37,11 @@ final class SwiftDataQuestStore: QuestStore {
         try context.save()
     }
 
-    func update(quest: DailyQuest) throws {
-        guard let oldQuest = try context.fetch(LocalDailyQuest.fetchDescriptor(timestamp: quest.timestamp)).first else {
+    func addTask(_ task: DailyTask, for date: String) throws {
+        guard let quest = try context.fetch(LocalDailyQuest.fetchDescriptor(timestamp: date)).first else {
             throw Error.questNotFound
         }
-
-        oldQuest.id = quest.id
-        oldQuest.timestamp = quest.timestamp
-        oldQuest.tasks = quest.tasks.toLocals()
+        quest.tasks.append(task.toLocal())
         try context.save()
     }
 }
