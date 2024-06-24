@@ -9,12 +9,12 @@ import SwiftUI
 
 struct AddTaskView: View {
     @Binding private var taskTitle: String
-    @Binding private var isAddingTask: Bool
     @FocusState private var isFocused: Bool
+    private var isAddingTask: Bool
 
-    init(taskTitle: Binding<String>, isAddingTask: Binding<Bool>) {
+    init(taskTitle: Binding<String>, isAddingTask: Bool) {
         self._taskTitle = taskTitle
-        self._isAddingTask = isAddingTask
+        self.isAddingTask = isAddingTask
     }
 
     var body: some View {
@@ -28,3 +28,4 @@ struct AddTaskView: View {
             }
     }
 }
+

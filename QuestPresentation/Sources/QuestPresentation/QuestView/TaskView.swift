@@ -33,7 +33,6 @@ struct TaskView: View {
             }
             Spacer()
         }
-        .background(.white)
         .animation(.default, value: task.isCompleted)
         .onTapGesture {
             task.isCompleted.toggle()

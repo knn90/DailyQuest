@@ -38,7 +38,7 @@ public struct QuestView: View {
 
     private var addTaskView: some View {
         Section {
-            AddTaskView(taskTitle: $newTask, isAddingTask: $isAddingTask)
+            AddTaskView(taskTitle: $newTask, isAddingTask: isAddingTask)
                 .onSubmit {
                     Task {
                         await viewModel.addTask(title: newTask)
