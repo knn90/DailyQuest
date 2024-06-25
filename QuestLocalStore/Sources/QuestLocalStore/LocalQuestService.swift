@@ -19,21 +19,38 @@ public final class LocalQuestService: QuestService {
         self.store = store
     }
 
-    public func getTodayQuest() throws -> DailyQuest {
-        let todayTimestamp = TimestampGenerator.generateTodayTimestamp()
-        if let todayQuest = try store.retrieve(for: todayTimestamp) {
-            return todayQuest
+    public func getQuest(date: Date) throws -> DailyQuest {
+        let calendar = Calendar.current
+        if let todayQuest = try store.retrieve() {
+            if calendar.isDate(todayQuest.timestamp, equalTo: date, toGranularity: .day) {
+                return todayQuest
+            } else {
+                let refreshQuest = DailyQuest(
+                    id: todayQuest.id,
+                    timestamp: date,
+                    tasks: todayQuest.tasks.map {
+                        DailyTask(
+                            id: $0.id,
+                            title: $0.title,
+                            description: $0.description,
+                            createdAt: $0.createdAt,
+                            isCompleted: false
+                        )
+                    })
+                try store.update(quest: refreshQuest)
+
+                return refreshQuest
+            }
         } else {
-            let newQuest = DailyQuest(id: UUID().uuidString, timestamp: todayTimestamp, tasks: [])
+            let newQuest = DailyQuest(id: UUID().uuidString, timestamp: Date(), tasks: [])
             try store.insert(quest: newQuest)
             return newQuest
         }
     }
 
     public func addTask(title: String) throws -> DailyTask {
-        let todayTimestamp = TimestampGenerator.generateTodayTimestamp()
         let task = DailyTask(id: UUID().uuidString, title: title, description: "", createdAt: Date(), isCompleted: false)
-        try store.addTask(task, for: todayTimestamp)
+        try store.addTask(task)
 
         return task
     }

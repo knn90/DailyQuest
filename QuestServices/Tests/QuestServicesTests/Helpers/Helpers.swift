@@ -9,14 +9,14 @@ import Foundation
 import QuestServices
 
 func uniqueQuest(timestamp: String = UUID().uuidString, tasks: [DailyTask] = []) -> DailyQuest {
-    DailyQuest(id: UUID().uuidString, timestamp: timestamp, tasks: tasks)
+    DailyQuest(id: UUID().uuidString, timestamp: fixedDate(), tasks: tasks)
 }
 
 func emptyQuest() -> DailyQuest {
-    DailyQuest(id: "", timestamp: "", tasks: [])
+    DailyQuest(id: "", timestamp: fixedDate(), tasks: [])
 }
-func anyQuest(id: String, timestamp: String, tasks: [DailyTask]) -> DailyQuest {
-    DailyQuest(id: id, timestamp: timestamp, tasks: tasks)
+func anyQuest(id: String, timestamp: Date, tasks: [DailyTask]) -> DailyQuest {
+    DailyQuest(id: id, timestamp: fixedDate(), tasks: tasks)
 }
 
 func uniqueTask() -> DailyTask {
@@ -26,6 +26,10 @@ func uniqueTask() -> DailyTask {
         description: "unique description", 
         createdAt: Date(),
         isCompleted: false)
+}
+
+func fixedDate() -> Date {
+    Date(timeIntervalSince1970: 1234567890)
 }
 
 func anyNSError() -> NSError {

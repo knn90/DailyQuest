@@ -9,15 +9,15 @@ import Foundation
 import QuestServices
 @testable import QuestLocalStore
 
-func uniqueQuest(timestamp: String = UUID().uuidString, tasks: [DailyTask] = []) -> DailyQuest {
+func uniqueQuest(timestamp: Date = fixedDate(), tasks: [DailyTask] = []) -> DailyQuest {
     DailyQuest(id: UUID().uuidString, timestamp: timestamp, tasks: tasks)
 }
 
 func emptyQuest() -> DailyQuest {
-    DailyQuest(id: "", timestamp: "", tasks: [])
+    DailyQuest(id: "", timestamp: fixedDate(), tasks: [])
 }
-func anyQuest(id: String, timestamp: String, tasks: [DailyTask]) -> DailyQuest {
-    DailyQuest(id: id, timestamp: timestamp, tasks: tasks)
+func anyQuest(id: String, timestamp: Date, tasks: [DailyTask]) -> DailyQuest {
+    DailyQuest(id: id, timestamp: fixedDate(), tasks: tasks)
 }
 
 func uniqueTask() -> DailyTask {
@@ -29,6 +29,19 @@ func uniqueTask() -> DailyTask {
         isCompleted: false)
 }
 
+func completedTask() -> DailyTask {
+    DailyTask(
+        id: UUID().uuidString,
+        title: "unique title",
+        description: "unique description",
+        createdAt: Date(),
+        isCompleted: true)
+}
+
 func anyNSError() -> NSError {
     NSError(domain: "any error", code: -10010, userInfo: nil)
+}
+
+func fixedDate() -> Date {
+    Date(timeIntervalSince1970: 4852390935)
 }

@@ -13,22 +13,18 @@ final class LocalDailyQuest {
     @Attribute(.unique)
     var id: String
     @Attribute(.unique)
-    var timestamp: String
+    var timestamp: Date
     @Relationship(deleteRule: .cascade, inverse: \LocalDailyTask.quest)
     var tasks: [LocalDailyTask]
 
 
-    init(id: String, timestamp: String, tasks: [LocalDailyTask]) {
+    init(id: String, timestamp: Date, tasks: [LocalDailyTask]) {
         self.id = id
         self.timestamp = timestamp
         self.tasks = tasks
     }
 
-    static func fetchDescriptor(timestamp: String) -> FetchDescriptor<LocalDailyQuest> {
-        let predicate = #Predicate<LocalDailyQuest> {
-            $0.timestamp == timestamp
-        }
-
-        return FetchDescriptor<LocalDailyQuest>(predicate: predicate)
+    static func fetchDescriptor() -> FetchDescriptor<LocalDailyQuest> {
+        return FetchDescriptor<LocalDailyQuest>()
     }
 }

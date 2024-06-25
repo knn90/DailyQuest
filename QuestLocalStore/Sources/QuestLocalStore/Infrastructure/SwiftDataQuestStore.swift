@@ -24,11 +24,10 @@ final class SwiftDataQuestStore: QuestStore {
         self.context = ModelContext(container)
     }
 
-    func retrieve(for date: String) throws -> DailyQuest? {
+    func retrieve() throws -> DailyQuest? {
         let localQuest = try context
-            .fetch(LocalDailyQuest.fetchDescriptor(timestamp: date))
-
-
+            .fetch(LocalDailyQuest.fetchDescriptor())
+        
         return localQuest.first?.toModel()
     }
 
@@ -37,8 +36,19 @@ final class SwiftDataQuestStore: QuestStore {
         try context.save()
     }
 
-    func addTask(_ task: DailyTask, for date: String) throws {
-        guard let quest = try context.fetch(LocalDailyQuest.fetchDescriptor(timestamp: date)).first else {
+    func update(quest: DailyQuest) throws {
+        guard let oldQuest = try context.fetch(LocalDailyQuest.fetchDescriptor()).first else {
+            throw Error.questNotFound
+        }
+
+        oldQuest.id = quest.id
+        oldQuest.timestamp = quest.timestamp
+        oldQuest.tasks = quest.tasks.toLocals()
+        try context.save()
+    }
+
+    func addTask(_ task: DailyTask) throws {
+        guard let quest = try context.fetch(LocalDailyQuest.fetchDescriptor()).first else {
             throw Error.questNotFound
         }
         quest.tasks.append(task.toLocal())

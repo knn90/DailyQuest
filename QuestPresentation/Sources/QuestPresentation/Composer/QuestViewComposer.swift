@@ -26,7 +26,7 @@ final class QuestViewAdapter: QuestViewModelDelegate {
     }
 
     func getDailyTasks() async throws -> [PresentationTask] {
-        let quest = try await service.getTodayQuest()
+        let quest = try await service.getQuest(date: Date())
 
         return quest.tasks.map { $0.toPresentationModel() }
     }

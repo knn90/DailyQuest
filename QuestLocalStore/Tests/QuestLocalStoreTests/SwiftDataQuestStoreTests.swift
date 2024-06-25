@@ -16,57 +16,55 @@ final class SwiftDataQuestStoreTests: XCTestCase {
     func test_retrieve_returnNilOnEmptyStore() throws {
         let sut = try makeSUT()
 
-        let localQuest = try sut.retrieve(for: "any string")
+        let localQuest = try sut.retrieve()
         XCTAssertNil(localQuest)
     }
 
     func test_retrieveTwice_OnEmptyStore_staysEmpty() throws {
-        let timestamp = "any timestamp"
         let sut = try makeSUT()
 
-        let firstRetrieval = try sut.retrieve(for: timestamp)
+        let firstRetrieval = try sut.retrieve()
         XCTAssertNil(firstRetrieval)
 
-        let secondRetrieval = try sut.retrieve(for: timestamp)
+        let secondRetrieval = try sut.retrieve()
         XCTAssertNil(secondRetrieval)
     }
 
     func test_retrieve_returnInsertedQuestOnNonEmptyStore() throws {
-        let timestamp = "any timestamp"
-        let insertingQuest = uniqueQuest(timestamp: timestamp)
+        let insertingQuest = uniqueQuest()
         let sut = try makeSUT()
 
         try sut.insert(quest: insertingQuest)
-        let insertedQuest = try sut.retrieve(for: timestamp)
+        let insertedQuest = try sut.retrieve()
 
         XCTAssertEqual(insertedQuest, insertingQuest)
     }
 
     func test_retrieveTwice_OnNonEmptyStore_doesNotHaveAnySideEffect() throws {
-        let timestamp = "any timestamp"
+        let timestamp = Date(timeIntervalSince1970: 9383202462)
         let insertingQuest = uniqueQuest(timestamp: timestamp)
         let sut = try makeSUT()
         
         try sut.insert(quest: insertingQuest)
 
-        let firstRetrieval = try sut.retrieve(for: timestamp)
+        let firstRetrieval = try sut.retrieve()
         XCTAssertEqual(firstRetrieval, insertingQuest)
 
-        let secondRetrieval = try sut.retrieve(for: timestamp)
+        let secondRetrieval = try sut.retrieve()
         XCTAssertEqual(secondRetrieval, insertingQuest)
     }
 
     func test_insertToEmptyStore_savesQuestSuccessful() throws {
-        let timestamp = "any timestamp"
+        let timestamp = Date(timeIntervalSince1970: 947239357230)
         let insertingQuest = uniqueQuest(timestamp: timestamp)
         let sut = try makeSUT()
         
-        let beforeInsertion = try sut.retrieve(for: timestamp)
+        let beforeInsertion = try sut.retrieve()
         XCTAssertNil(beforeInsertion)
 
         try sut.insert(quest: insertingQuest)
 
-        let afterInsertion = try sut.retrieve(for: timestamp)
+        let afterInsertion = try sut.retrieve()
         XCTAssertNotNil(afterInsertion)
     }
 
@@ -74,7 +72,7 @@ final class SwiftDataQuestStoreTests: XCTestCase {
         let sut = try makeSUT()
 
         do {
-            try sut.addTask(uniqueTask(), for: "timestamp")
+            try sut.addTask(uniqueTask())
             XCTFail("Expect to throws quest not found error")
         } catch {
             XCTAssertEqual(error as? SwiftDataQuestStore.Error, SwiftDataQuestStore.Error.questNotFound)
@@ -83,7 +81,7 @@ final class SwiftDataQuestStoreTests: XCTestCase {
 
     func test_addTask_appendTaskToTaskArray() throws {
         let questId = "questId"
-        let timestamp = "timestamp"
+        let timestamp = Date(timeIntervalSince1970: 9348289582)
         let sut = try makeSUT()
         
         let oldQuest = anyQuest(id: questId, timestamp: timestamp, tasks: [])
@@ -93,11 +91,11 @@ final class SwiftDataQuestStoreTests: XCTestCase {
         let task2 = uniqueTask()
         let task3 = uniqueTask()
 
-        try sut.addTask(task1, for: timestamp)
-        try sut.addTask(task2, for: timestamp)
-        try sut.addTask(task3, for: timestamp)
+        try sut.addTask(task1)
+        try sut.addTask(task2)
+        try sut.addTask(task3)
 
-        let updatedQuest = try sut.retrieve(for: timestamp)
+        let updatedQuest = try sut.retrieve()
         
         XCTAssertEqual(updatedQuest?.id, oldQuest.id)
         XCTAssertEqual(updatedQuest?.timestamp, oldQuest.timestamp)
