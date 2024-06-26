@@ -15,16 +15,19 @@ struct TaskDetailsView: View {
     }
 
     var body: some View {
-        VStack(spacing: 16) {
-            TextField("Title", text: $task.title)
-                .font(.title2)
-                .padding(.horizontal, 4)
-                .padding(.vertical, 8)
-                .background(.white)
-                .cornerRadius(8)
-            TextEditor(text: $task.description)
-                .cornerRadius(8)
-                .frame(maxHeight: 300)
+        ZStack(alignment: .bottom) {
+            Form {
+                Section("Title") {
+                    TextField("Title", text: $task.title)
+                        .font(.title3)
+                }
+                Section("Description") {
+                    TextEditor(text: $task.description)
+                        .frame(minHeight: 250)
+                }
+            }
+            .scrollDismissesKeyboard(.interactively)
+
             Button(action: {
             }, label: {
                 Image(systemName: "square.and.pencil.circle.fill")
@@ -32,11 +35,9 @@ struct TaskDetailsView: View {
             })
             .foregroundColor(.cyan)
             .frame(width: 64, height: 64)
-            Spacer()
+            .padding(.bottom, 24)
         }
-        .padding()
-        .cornerRadius(8)
-        .background(Color(uiColor: .systemGroupedBackground))
+        .navigationBarTitleDisplayMode(.inline)
     }
 }
 

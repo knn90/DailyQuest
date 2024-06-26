@@ -50,7 +50,6 @@ public struct QuestView: View {
                             path.append(task.wrappedValue)
                         }
                         .listRowInsets(EdgeInsets())
-
                 }
             }.task {
                 await viewModel.getDailyQuest()
