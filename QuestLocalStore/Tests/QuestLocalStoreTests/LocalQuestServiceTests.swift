@@ -25,6 +25,18 @@ final class LocalQuestServiceTests: XCTestCase {
         }
     }
 
+    func test_getTodayQuest_sendsRetrieveMessageToQuestStore_OnRetrieveWithSameDate() throws {
+        let stubTasks = [uniqueTask(), uniqueTask(), completedTask()]
+
+        let timestamp = Date(timeIntervalSince1970: 92893423)
+        let stubQuest = uniqueQuest(timestamp: timestamp, tasks: stubTasks)
+        let (sut, store) = makeSUT(stubResult: .success(stubQuest))
+
+        _ = try sut.getQuest(date: timestamp)
+
+        XCTAssertEqual(store.message, [.retrieve])
+    }
+
     func test_getTodayQuest_deliverExistingDailyQuestOnRetrieveSuccessWithSameDate() throws {
         let stubTasks = [uniqueTask(), uniqueTask(), completedTask()]
 
@@ -35,6 +47,16 @@ final class LocalQuestServiceTests: XCTestCase {
         let receivedQuest = try sut.getQuest(date: timestamp)
 
         XCTAssertEqual(receivedQuest, stubQuest)
+    }
+
+    func test_getTodayQuest_sendsUpdateMessageToQuestStore_OnRetrieveWithDifferentDate() throws {
+        let stubTasks = [uniqueTask(), uniqueTask(), uniqueTask()]
+        let stubQuest = uniqueQuest(timestamp: fixedDate(),tasks: stubTasks)
+        let (sut, questStore) = makeSUT(stubResult: .success(stubQuest))
+
+        _ = try sut.getQuest(date: Date(timeIntervalSince1970: 49823284))
+
+        XCTAssertEqual(questStore.message, [.retrieve, .update])
     }
 
     func test_getTodayQuest_deliverExistingDailyQuestOnRetrieveSuccessWithDifferentDate() throws {
@@ -64,34 +86,11 @@ final class LocalQuestServiceTests: XCTestCase {
         XCTAssertEqual(receivedQuest.tasks, [])
     }
 
-//    func test_getTodayQuest_sendsUpdateMessageToQuestStore_whenTheQuestIsNotForToday() throws {
-//        let stubTasks = [uniqueTask(), uniqueTask(), uniqueTask()]
-//        let stubQuest = uniqueQuest(tasks: stubTasks)
-//        let (sut, questStore) = makeSUT(stubResult: .success(stubQuest))
-//
-//        let receivedQuest = try sut.getTodayQuest()
-//
-//        XCTAssertEqual(questStore.message, [.retrieve, .update(stubQuest)])
-//    }
-
-//    func test_updateQuest_throwsErrorWhenStoreUpdatingFailed() {
-//
-//        let stubError = anyNSError()
-//        let (sut, _) = makeSUT(stubResult: .failure(stubError))
-//
-//        do {
-//            try sut.updateQuest(uniqueQuest())
-//            XCTFail("Expect to throws error")
-//        } catch {
-//            XCTAssertEqual(error as NSError, stubError)
-//        }
-//    }
-
     func test_addTask_sendsAddTaskMessageToQuestStore() throws {
         let title = "any title"
         let (sut, questStore) = makeSUT()
 
-        try sut.addTask(title: title)
+        _ = try sut.addTask(title: title)
 
         XCTAssertEqual(questStore.message, [.addTask(title)])
     }
@@ -101,7 +100,7 @@ final class LocalQuestServiceTests: XCTestCase {
         let (sut, _) = makeSUT(stubResult: .failure(stubError))
 
         do {
-            try sut.addTask(title: "any title")
+            _ = try sut.addTask(title: "any title")
             XCTFail("Expect to throws error")
         } catch {
             XCTAssertEqual(error as NSError, stubError)
@@ -130,7 +129,7 @@ private class StubQuestStore: QuestStore {
     enum Message: Equatable {
         case retrieve
         case insert
-        case update(DailyQuest)
+        case update
         case addTask(String)
     }
 
@@ -148,7 +147,7 @@ private class StubQuestStore: QuestStore {
     }
 
     func update(quest: DailyQuest) throws {
-        message.append(.update(quest))
+        message.append(.update)
         _ = try stubResult.get()
     }
 
