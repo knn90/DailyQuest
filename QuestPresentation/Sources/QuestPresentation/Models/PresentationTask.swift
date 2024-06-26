@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct PresentationTask: Identifiable, Equatable {
+struct PresentationTask: Identifiable, Hashable {
     let id: String
     var title: String
     var description: String

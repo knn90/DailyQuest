@@ -10,6 +10,7 @@ import SwiftUI
 public struct QuestView: View {
     @ObservedObject private var viewModel: QuestViewModel
     @State private var isAddingTask = false
+    @State private var path = NavigationPath()
     @Namespace var topID
 
     init(viewModel: QuestViewModel) {
@@ -17,14 +18,17 @@ public struct QuestView: View {
     }
 
     public var body: some View {
-        NavigationView(content: {
+        NavigationStack(path: $path) {
             ZStack(alignment: .bottom) {
                 taskListView
                 PlusButton(isAddingTask: $isAddingTask)
             }
             .navigationTitle("Today Quest")
             .scrollDismissesKeyboard(.interactively)
-        })
+            .navigationDestination(for: PresentationTask.self) {  task in
+                TaskDetailsView(task: task)
+            }
+        }
     }
 
     private var addTaskView: some View {
@@ -42,6 +46,11 @@ public struct QuestView: View {
                 }
                 ForEach($viewModel.tasks) { task in
                     TaskView(task: task)
+                        .onTapGesture {
+                            path.append(task.wrappedValue)
+                        }
+                        .listRowInsets(EdgeInsets())
+
                 }
             }.task {
                 await viewModel.getDailyQuest()

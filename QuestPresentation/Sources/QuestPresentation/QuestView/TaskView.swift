@@ -11,19 +11,19 @@ struct TaskView: View {
     @Binding var task: PresentationTask
 
     var body: some View {
-        HStack(alignment: .checkboxTitleAlignmentGuide) {
+        HStack() {
             VStack {
                 Image(systemName: task.isCompleted ? "checkmark.square" : "square")
-                    .alignmentGuide(.checkboxTitleAlignmentGuide) { context in
-                        context[.firstTextBaseline]
-                }
+                    .frame(width: 32, height: 32)
             }
+            .padding(8)
+            .onTapGesture {
+                task.isCompleted.toggle()
+            }
+
             VStack(alignment: .leading, spacing: 3) {
                 Text(task.title)
                     .font(.headline)
-                    .alignmentGuide(.checkboxTitleAlignmentGuide) { context in
-                        context[.firstTextBaseline]
-                    }
                     .foregroundStyle(task.isCompleted ? .tertiary : .primary)
                 if !task.description.isEmpty {
                     Text(task.description)
@@ -31,25 +31,11 @@ struct TaskView: View {
                         .font(.subheadline)
                 }
             }
+            .padding(.vertical, 8)
             Spacer()
         }
         .animation(.default, value: task.isCompleted)
-        .onTapGesture {
-            task.isCompleted.toggle()
-        }
     }
-}
-
-fileprivate extension VerticalAlignment {
-    struct CheckboxTitleAlignment: AlignmentID {
-        static func defaultValue(in context: ViewDimensions) -> CGFloat {
-            context[VerticalAlignment.center]
-        }
-    }
-
-    static let checkboxTitleAlignmentGuide = VerticalAlignment(
-        CheckboxTitleAlignment.self
-    )
 }
 
 #Preview {
