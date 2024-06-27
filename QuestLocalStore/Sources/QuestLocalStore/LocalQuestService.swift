@@ -30,7 +30,7 @@ public final class LocalQuestService: QuestService {
                     timestamp: date,
                     tasks: todayQuest.tasks.map {
                         DailyTask(
-                            id: $0.id,
+                            id: UUID().uuidString,
                             title: $0.title,
                             description: $0.description,
                             createdAt: $0.createdAt,

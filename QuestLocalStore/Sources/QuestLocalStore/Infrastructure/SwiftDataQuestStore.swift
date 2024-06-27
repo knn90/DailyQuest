@@ -40,10 +40,8 @@ final class SwiftDataQuestStore: QuestStore {
         guard let oldQuest = try context.fetch(LocalDailyQuest.fetchDescriptor()).first else {
             throw Error.questNotFound
         }
-
-        oldQuest.id = quest.id
-        oldQuest.timestamp = quest.timestamp
-        oldQuest.tasks = quest.tasks.toLocals()
+        context.delete(oldQuest)
+        context.insert(quest.toLocal())
         try context.save()
     }
 

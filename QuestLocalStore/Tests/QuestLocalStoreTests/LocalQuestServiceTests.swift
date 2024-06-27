@@ -69,7 +69,6 @@ final class LocalQuestServiceTests: XCTestCase {
         let anotherDateTimestamp = Date(timeIntervalSince1970: 563483739)
         let receivedQuest = try sut.getQuest(date: anotherDateTimestamp)
 
-        XCTAssertEqual(receivedQuest.tasks.first?.id, stubTask.id)
         XCTAssertEqual(receivedQuest.tasks.first?.title, stubTask.title)
         XCTAssertEqual(receivedQuest.tasks.first?.description, stubTask.description)
         XCTAssertEqual(receivedQuest.tasks.first?.isCompleted, false)
