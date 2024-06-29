@@ -31,8 +31,9 @@ final class QuestViewAdapter: QuestViewModelDelegate {
         return quest.tasks.map { $0.toPresentationModel() }
     }
 
-    func addTask(title: String) async throws -> PresentationTask{
+    func addTask(title: String) async throws -> PresentationTask {
         let task = try await service.addTask(title: title)
+        
         return task.toPresentationModel()
     }
 }
