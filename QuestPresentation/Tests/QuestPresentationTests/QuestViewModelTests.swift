@@ -142,4 +142,8 @@ final class StubDelegate: QuestViewModelDelegate {
         return try stubAddTaskResult.get()
 
     }
+
+    func updateTask(_ task: PresentationTask) async throws {
+        
+    }
 }
