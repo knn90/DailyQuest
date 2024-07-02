@@ -45,11 +45,15 @@ public struct QuestView: View {
                     addTaskView
                 }
                 ForEach($viewModel.tasks) { task in
-                    TaskView(task: task)
-                        .onTapGesture {
-                            path.append(task.wrappedValue)
+                    TaskView(task: task, taskToggle: {
+                        Task {
+                            await viewModel.updateTask(task.wrappedValue)
                         }
-                        .listRowInsets(EdgeInsets())
+                    })
+                    .onTapGesture {
+                        path.append(task.wrappedValue)
+                    }
+                    .listRowInsets(EdgeInsets())
                 }
             }.task {
                 await viewModel.getDailyQuest()
@@ -79,5 +83,9 @@ private final class PreviewQuestViewDelegate: QuestViewModelDelegate {
 
     func addTask(title: String) throws -> PresentationTask {
         PresentationTask(id: UUID().uuidString, title: "New Added Task", description: "", isCompleted: false)
+    }
+
+    func updateTask(_ task: PresentationTask) async throws {
+
     }
 }

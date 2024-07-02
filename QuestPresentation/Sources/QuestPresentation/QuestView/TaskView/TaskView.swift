@@ -9,6 +9,12 @@ import SwiftUI
 
 struct TaskView: View {
     @Binding var task: PresentationTask
+    private let taskToggle: () -> Void
+
+    init(task: Binding<PresentationTask>, taskToggle: @escaping () -> Void) {
+        self._task = task
+        self.taskToggle = taskToggle
+    }
 
     var body: some View {
         HStack() {
@@ -19,6 +25,7 @@ struct TaskView: View {
             .padding(8)
             .onTapGesture {
                 task.isCompleted.toggle()
+                taskToggle()
             }
 
             VStack(alignment: .leading, spacing: 3) {
@@ -39,8 +46,9 @@ struct TaskView: View {
 }
 
 #Preview {
-    TaskView(task: .constant(PresentationTask(id: "1", title: "title", description: "description", isCompleted: true)))
+    VStack {
+        TaskView(task: .constant(PresentationTask(id: "1", title: "title", description: "description", isCompleted: true)), taskToggle: {})
+        TaskView(task: .constant(PresentationTask(id: "2", title: "Long long long long long long long long long long long long title", description: "description", isCompleted: true)), taskToggle: {})
+    }
 }
-#Preview {
-    TaskView(task: .constant(PresentationTask(id: "2", title: "Long long long long long long long long long long long long title", description: "description", isCompleted: true)))
-}
+

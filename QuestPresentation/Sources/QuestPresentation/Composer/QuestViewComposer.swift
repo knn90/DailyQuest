@@ -36,6 +36,10 @@ final class QuestViewAdapter: QuestViewModelDelegate {
         
         return task.toPresentationModel()
     }
+
+    func updateTask(_ task: PresentationTask) async throws {
+        
+    }
 }
 
 private extension DailyTask {
