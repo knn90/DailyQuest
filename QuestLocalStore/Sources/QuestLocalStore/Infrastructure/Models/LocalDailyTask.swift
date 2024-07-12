@@ -10,18 +10,29 @@ import SwiftData
 
 @Model
 final class LocalDailyTask {
-    @Attribute(.unique) var id: String
+    @Attribute(.unique) var taskId: String
     var title: String
     var taskDescription: String
     var createdAt: Date
     var isCompleted: Bool
     var quest: LocalDailyQuest?
 
-    init(id: String, title: String, taskDescription: String, createdAt: Date, isCompleted: Bool) {
-        self.id = id
+    init(taskId: String, title: String, taskDescription: String, createdAt: Date, isCompleted: Bool) {
+        self.taskId = taskId
         self.title = title
         self.taskDescription = taskDescription
         self.isCompleted = isCompleted
         self.createdAt = createdAt
+    }
+
+    static func fetchDescriptor(taskId: String) -> FetchDescriptor<LocalDailyTask> {
+        var fetchDescriptor = FetchDescriptor<LocalDailyTask>(
+            predicate: #Predicate { task in
+                task.taskId == taskId
+            })
+
+        fetchDescriptor.fetchLimit = 1
+
+        return fetchDescriptor
     }
 }

@@ -15,6 +15,7 @@ final class SwiftDataQuestStore: QuestStore {
 
     enum Error: Swift.Error {
         case questNotFound
+        case taskNotFound
     }
 
     init(inMemoryOnly: Bool = false) throws {
@@ -32,8 +33,9 @@ final class SwiftDataQuestStore: QuestStore {
     }
 
     func insert(quest: DailyQuest) throws {
-        context.insert(quest.toLocal())
-        try context.save()
+        let localQuest = quest.toLocal()
+        context.insert(localQuest)
+        try saveIfNeeded()
     }
 
     func update(quest: DailyQuest) throws {
@@ -42,7 +44,7 @@ final class SwiftDataQuestStore: QuestStore {
         }
         context.delete(oldQuest)
         context.insert(quest.toLocal())
-        try context.save()
+        try saveIfNeeded()
     }
 
     func addTask(_ task: DailyTask) throws {
@@ -50,19 +52,40 @@ final class SwiftDataQuestStore: QuestStore {
             throw Error.questNotFound
         }
         quest.tasks.append(task.toLocal())
-        try context.save()
+        try saveIfNeeded()
+    }
+
+    private func saveIfNeeded() throws {
+        if context.hasChanges {
+            try context.save()
+        }
+    }
+}
+
+extension SwiftDataQuestStore: TaskStore {
+    func updateTask(_ task: DailyTask) throws {
+        guard let foundTask = try context.fetch(LocalDailyTask.fetchDescriptor(taskId: task.id)).first else {
+            throw Error.taskNotFound
+        }
+        
+        foundTask.title = task.title
+        foundTask.taskDescription = task.description
+        foundTask.createdAt = task.createdAt
+        foundTask.isCompleted = task.isCompleted
+
+        try saveIfNeeded()
     }
 }
 
 private extension DailyQuest {
     func toLocal() -> LocalDailyQuest {
-        LocalDailyQuest(id: id, timestamp: timestamp, tasks: tasks.toLocals())
+        LocalDailyQuest(questId: id, timestamp: timestamp, tasks: tasks.toLocals())
     }
 }
 
 private extension DailyTask {
     func toLocal() -> LocalDailyTask {
-        LocalDailyTask(id: id, title: title, taskDescription: description, createdAt: createdAt, isCompleted: isCompleted)
+        LocalDailyTask(taskId: id, title: title, taskDescription: description, createdAt: createdAt, isCompleted: isCompleted)
     }
 }
 
@@ -74,13 +97,13 @@ private extension Array where Element == DailyTask {
 
 private extension LocalDailyQuest {
     func toModel() -> DailyQuest {
-        DailyQuest(id: id, timestamp: timestamp, tasks: tasks.toModels())
+        DailyQuest(id: questId, timestamp: timestamp, tasks: tasks.toModels())
     }
 }
 
 private extension LocalDailyTask {
     func toModel() -> DailyTask {
-        DailyTask(id: id, title: title, description: taskDescription, createdAt: createdAt, isCompleted: isCompleted)
+        DailyTask(id: taskId, title: title, description: taskDescription, createdAt: createdAt, isCompleted: isCompleted)
     }
 }
 

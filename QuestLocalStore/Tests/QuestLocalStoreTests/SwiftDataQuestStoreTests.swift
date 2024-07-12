@@ -56,16 +56,19 @@ final class SwiftDataQuestStoreTests: XCTestCase {
 
     func test_insertToEmptyStore_savesQuestSuccessful() throws {
         let timestamp = Date(timeIntervalSince1970: 947239357230)
-        let insertingQuest = uniqueQuest(timestamp: timestamp)
+        let tasks = [uniqueTask(), uniqueTask()]
+        let insertingQuest = uniqueQuest(timestamp: timestamp, tasks: tasks)
         let sut = try makeSUT()
         
         let beforeInsertion = try sut.retrieve()
         XCTAssertNil(beforeInsertion)
 
         try sut.insert(quest: insertingQuest)
-
         let afterInsertion = try sut.retrieve()
         XCTAssertNotNil(afterInsertion)
+        XCTAssertEqual(afterInsertion?.tasks.count, tasks.count)
+        XCTAssertTrue(afterInsertion!.tasks.contains(tasks.first!))
+        XCTAssertTrue(afterInsertion!.tasks.contains(tasks.last!))
     }
 
     func test_addTask_throwsQuestNotFoundErrorOnEmptyStore() throws {
@@ -100,6 +103,35 @@ final class SwiftDataQuestStoreTests: XCTestCase {
         XCTAssertEqual(updatedQuest?.id, oldQuest.id)
         XCTAssertEqual(updatedQuest?.timestamp, oldQuest.timestamp)
         XCTAssertEqual(Set(updatedQuest?.tasks ?? []), [task1, task2, task3])
+    }
+
+    func test_updateTask_throwsTaskNotFoundErrorOnEmptyStore() throws {
+        let sut = try makeSUT()
+
+        do {
+            try sut.updateTask(uniqueTask())
+            XCTFail("Expect to throws quest not found error")
+        } catch {
+            XCTAssertEqual(error as? SwiftDataQuestStore.Error, SwiftDataQuestStore.Error.taskNotFound)
+        }
+    }
+
+    func test_updateTask_overrideCurrentTaskWithLatestOne() throws {
+        let sut = try makeSUT()
+        let task = uniqueTask()
+        let updatedTask = DailyTask(id: task.id, title: "updatedTask", description: "updatedDescription", createdAt: Date(), isCompleted: true)
+
+        let quest = uniqueQuest(tasks: [task])
+        try sut.insert(quest: quest)
+        let insertedQuest = try sut.retrieve()
+        XCTAssertNotNil(insertedQuest?.tasks)
+        XCTAssertFalse(insertedQuest!.tasks.isEmpty)
+
+        try sut.updateTask(updatedTask)
+        let receivedQuest = try sut.retrieve()
+        XCTAssertNotNil(receivedQuest?.tasks)
+        XCTAssertFalse(receivedQuest!.tasks.isEmpty)
+        XCTAssertEqual(receivedQuest?.tasks.first, updatedTask)
     }
 
     private func makeSUT(

@@ -11,15 +11,15 @@ import SwiftData
 @Model
 final class LocalDailyQuest {
     @Attribute(.unique)
-    var id: String
+    var questId: String
     @Attribute(.unique)
     var timestamp: Date
     @Relationship(deleteRule: .cascade, inverse: \LocalDailyTask.quest)
     var tasks: [LocalDailyTask]
 
 
-    init(id: String, timestamp: Date, tasks: [LocalDailyTask]) {
-        self.id = id
+    init(questId: String, timestamp: Date, tasks: [LocalDailyTask]) {
+        self.questId = questId
         self.timestamp = timestamp
         self.tasks = tasks
     }
