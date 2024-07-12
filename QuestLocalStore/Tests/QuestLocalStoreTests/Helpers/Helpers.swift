@@ -20,6 +20,21 @@ func anyQuest(id: String, timestamp: Date, tasks: [DailyTask]) -> DailyQuest {
     DailyQuest(id: id, timestamp: fixedDate(), tasks: tasks)
 }
 
+func anyTask(
+    id: String = UUID().uuidString,
+    title: String,
+    description: String = "",
+    createdAt: Date = Date(),
+    isCompleted: Bool = false
+) -> DailyTask {
+    DailyTask(
+        id: id,
+        title: title,
+        description: description,
+        createdAt: createdAt,
+        isCompleted: isCompleted)
+}
+
 func uniqueTask() -> DailyTask {
     DailyTask(
         id: UUID().uuidString,

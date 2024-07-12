@@ -90,19 +90,29 @@ final class SwiftDataQuestStoreTests: XCTestCase {
         let oldQuest = anyQuest(id: questId, timestamp: timestamp, tasks: [])
         try sut.insert(quest: oldQuest)
 
-        let task1 = uniqueTask()
-        let task2 = uniqueTask()
-        let task3 = uniqueTask()
-
+        let task1 = anyTask(title: "Task 1")
         try sut.addTask(task1)
-        try sut.addTask(task2)
-        try sut.addTask(task3)
 
         let updatedQuest = try sut.retrieve()
-        
         XCTAssertEqual(updatedQuest?.id, oldQuest.id)
         XCTAssertEqual(updatedQuest?.timestamp, oldQuest.timestamp)
-        XCTAssertEqual(Set(updatedQuest?.tasks ?? []), [task1, task2, task3])
+        XCTAssertEqual(updatedQuest?.tasks.last, task1)
+        
+        let task2 = anyTask(title: "Task 2")
+        try sut.addTask(task2)
+        let updatedQuest2 = try sut.retrieve()
+        XCTAssertEqual(updatedQuest2?.id, oldQuest.id)
+        XCTAssertEqual(updatedQuest2?.timestamp, oldQuest.timestamp)
+        XCTAssertEqual(updatedQuest2?.tasks.count, 2)
+        XCTAssertEqual(Set(updatedQuest2!.tasks), [task1, task2])
+
+        let task3 = anyTask(title: "Task 3")
+        try sut.addTask(task3)
+        let updatedQuest3 = try sut.retrieve()
+        XCTAssertEqual(updatedQuest3?.id, oldQuest.id)
+        XCTAssertEqual(updatedQuest3?.timestamp, oldQuest.timestamp)
+        XCTAssertEqual(updatedQuest3?.tasks.count, 3)
+        XCTAssertEqual(Set(updatedQuest3!.tasks), [task1, task2, task3])
     }
 
     func test_updateTask_throwsTaskNotFoundErrorOnEmptyStore() throws {

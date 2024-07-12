@@ -94,6 +94,17 @@ final class LocalQuestServiceTests: XCTestCase {
         XCTAssertEqual(questStore.message, [.addTask(title)])
     }
 
+    func test_addTaskTwice_sendsAddTaskMessageToQuestStoreTwice() throws {
+        let title = "any title"
+        let (sut, questStore) = makeSUT()
+
+        _ = try sut.addTask(title: title)
+        _ = try sut.addTask(title: title)
+
+        XCTAssertEqual(questStore.message, [.addTask(title), .addTask(title)])
+    }
+
+
     func test_addTasks_throwsErrorWhenStoreAddingTaskFailed() {
         let stubError = anyNSError()
         let (sut, _) = makeSUT(stubResult: .failure(stubError))
