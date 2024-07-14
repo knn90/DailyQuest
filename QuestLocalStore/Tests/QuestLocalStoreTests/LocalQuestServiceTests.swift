@@ -165,4 +165,8 @@ private class StubQuestStore: QuestStore {
         message.append(.addTask(task.title))
         _ = try stubResult.get()
     }
+
+    func reset(quest: DailyQuest) throws {
+        
+    }
 }
