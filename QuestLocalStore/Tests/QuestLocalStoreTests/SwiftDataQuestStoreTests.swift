@@ -75,7 +75,7 @@ final class SwiftDataQuestStoreTests: XCTestCase {
         let sut = try makeSUT()
 
         do {
-            try sut.reset(quest: uniqueQuest())
+            _ = try sut.reset(quest: uniqueQuest())
             XCTFail("Expect to throws quest not found error")
         } catch {
             XCTAssertEqual(error as? SwiftDataQuestStore.Error, SwiftDataQuestStore.Error.questNotFound)
@@ -87,11 +87,10 @@ final class SwiftDataQuestStoreTests: XCTestCase {
         let tasks = [completedTask(), completedTask()]
         let quest = uniqueQuest(tasks: tasks)
         try sut.insert(quest: quest)
-        try sut.reset(quest: quest)
+        let resetQuest = try sut.reset(quest: quest)
 
-        let resetQuest = try sut.retrieve()
-        XCTAssertEqual(resetQuest?.tasks.count, 2)
-        XCTAssertEqual(resetQuest?.tasks.map { $0.isCompleted}, [false, false])
+        XCTAssertEqual(resetQuest.tasks.count, 2)
+        XCTAssertEqual(resetQuest.tasks.map { $0.isCompleted}, [false, false])
 
     }
 

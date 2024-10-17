@@ -56,7 +56,7 @@ final class LocalQuestServiceTests: XCTestCase {
 
         _ = try sut.getQuest(date: Date(timeIntervalSince1970: 49823284))
 
-        XCTAssertEqual(questStore.message, [.retrieve, .update])
+        XCTAssertEqual(questStore.message, [.retrieve, .reset])
     }
 
     func test_getTodayQuest_deliverExistingDailyQuestOnRetrieveSuccessWithDifferentDate() throws {
@@ -141,6 +141,7 @@ private class StubQuestStore: QuestStore {
         case insert
         case update
         case addTask(String)
+        case reset
     }
 
     init(stubResult: Result<DailyQuest?, Error>) {
@@ -166,7 +167,8 @@ private class StubQuestStore: QuestStore {
         _ = try stubResult.get()
     }
 
-    func reset(quest: DailyQuest) throws {
-        
+    func reset(quest: DailyQuest) throws -> DailyQuest {
+        message.append(.reset)
+        return DailyQuest(id: quest.id, timestamp: quest.timestamp, tasks: quest.tasks.map{ DailyTask(id: $0.id, title: $0.title, description: $0.description, createdAt: $0.createdAt, isCompleted: false)})
     }
 }

@@ -25,21 +25,7 @@ public final class LocalQuestService: QuestService {
             if calendar.isDate(todayQuest.timestamp, equalTo: date, toGranularity: .day) {
                 return todayQuest
             } else {
-                let refreshQuest = DailyQuest(
-                    id: todayQuest.id,
-                    timestamp: date,
-                    tasks: todayQuest.tasks.map {
-                        DailyTask(
-                            id: UUID().uuidString,
-                            title: $0.title,
-                            description: $0.description,
-                            createdAt: $0.createdAt,
-                            isCompleted: false
-                        )
-                    })
-                try store.update(quest: refreshQuest)
-
-                return refreshQuest
+                return try store.reset(quest: todayQuest)
             }
         } else {
             let newQuest = DailyQuest(id: UUID().uuidString, timestamp: Date(), tasks: [])

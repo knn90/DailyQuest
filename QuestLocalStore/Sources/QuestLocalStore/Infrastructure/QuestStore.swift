@@ -13,5 +13,5 @@ protocol QuestStore {
     func insert(quest: DailyQuest) throws
     func update(quest: DailyQuest) throws
     func addTask(_ task: DailyTask) throws
-    func reset(quest: DailyQuest) throws
+    func reset(quest: DailyQuest) throws -> DailyQuest
 }

@@ -57,13 +57,14 @@ final class SwiftDataQuestStore: QuestStore {
         try saveIfNeeded()
     }
 
-    func reset(quest: DailyQuest) throws {
+    func reset(quest: DailyQuest) throws -> DailyQuest {
         guard let quest = try context.fetch(LocalDailyQuest.fetchDescriptor()).first else {
             throw Error.questNotFound
         }
 
         quest.tasks.forEach { $0.isCompleted = false }
         try saveIfNeeded()
+        return quest.toModel()
     }
     private func saveIfNeeded() throws {
         if context.hasChanges {
