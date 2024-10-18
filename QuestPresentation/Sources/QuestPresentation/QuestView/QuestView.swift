@@ -9,12 +9,14 @@ import SwiftUI
 
 public struct QuestView: View {
     @ObservedObject private var viewModel: QuestViewModel
+    private let taskDetailsViewModelDelegate: TaskDetailsViewModelDelegate
     @State private var isAddingTask = false
     @State private var path = NavigationPath()
     @Namespace var topID
 
-    init(viewModel: QuestViewModel) {
+    init(viewModel: QuestViewModel, taskDetailsViewModelDelegate: TaskDetailsViewModelDelegate) {
         self.viewModel = viewModel
+        self.taskDetailsViewModelDelegate = taskDetailsViewModelDelegate
     }
 
     public var body: some View {
@@ -25,8 +27,8 @@ public struct QuestView: View {
             }
             .navigationTitle("Today Quest")
             .scrollDismissesKeyboard(.interactively)
-            .navigationDestination(for: PresentationTask.self) {  task in
-                TaskDetailsView(task: task)
+            .navigationDestination(for: PresentationTask.self) { task in
+                TaskDetailsView(viewModel: TaskDetailsViewModel(task: task, delegate: taskDetailsViewModelDelegate))
             }
         }
     }
@@ -66,10 +68,10 @@ public struct QuestView: View {
         }
     }
 }
-
-#Preview {
-    QuestView(viewModel: QuestViewModel(delegate: PreviewQuestViewDelegate()))
-}
+//
+//#Preview {
+//    QuestView(viewModel: QuestViewModel(delegate: PreviewQuestViewDelegate()))
+//}
 
 private final class PreviewQuestViewDelegate: QuestViewModelDelegate {
     func getDailyTasks() async throws -> [PresentationTask] {

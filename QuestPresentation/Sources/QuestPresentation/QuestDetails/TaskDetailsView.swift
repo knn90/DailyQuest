@@ -8,27 +8,32 @@
 import SwiftUI
 
 struct TaskDetailsView: View {
-    @State private var task: PresentationTask
-
-    init(task: PresentationTask) {
-        self.task = task
+    @ObservedObject private var viewModel: TaskDetailsViewModel
+    @Environment(\.dismiss) private var dismiss
+    
+    init(viewModel: TaskDetailsViewModel) {
+        self.viewModel = viewModel
     }
-
+    
     var body: some View {
         ZStack(alignment: .bottom) {
             Form {
                 Section("Title") {
-                    TextField("Title", text: $task.title)
+                    TextField("Title", text: $viewModel.task.title)
                         .font(.title3)
                 }
                 Section("Description") {
-                    TextEditor(text: $task.description)
+                    TextEditor(text: $viewModel.task.description)
                         .frame(minHeight: 250)
                 }
             }
             .scrollDismissesKeyboard(.interactively)
 
             Button(action: {
+                Task {
+                    await viewModel.updateTask()
+                    dismiss()
+                }
             }, label: {
                 Image(systemName: "square.and.pencil.circle.fill")
                     .resizable()
@@ -39,8 +44,4 @@ struct TaskDetailsView: View {
         }
         .navigationBarTitleDisplayMode(.inline)
     }
-}
-
-#Preview {
-    TaskDetailsView(task: PresentationTask(id: "", title: "d", description: "description", createdAt: Date(), isCompleted: false))
 }

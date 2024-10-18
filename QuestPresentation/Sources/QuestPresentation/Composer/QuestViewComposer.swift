@@ -14,7 +14,8 @@ public enum QuestViewComposer {
     public static func compose(questService: QuestService, taskService: TaskService) -> some View {
         let delegate = QuestViewAdapter(questService: questService, taskService: taskService)
         let viewModel = QuestViewModel(delegate: delegate)
-        return QuestView(viewModel: viewModel)
+        let taskDetailsViewAdapter = TaskDetailsViewAdapter(taskService: taskService)
+        return QuestView(viewModel: viewModel, taskDetailsViewModelDelegate: taskDetailsViewAdapter)
     }
 }
 
@@ -40,6 +41,18 @@ final class QuestViewAdapter: QuestViewModelDelegate {
     }
 
     func toggleTask(_ task: PresentationTask) async throws {
+        try await taskService.updateTask(task.toModel())
+    }
+}
+
+final class TaskDetailsViewAdapter: TaskDetailsViewModelDelegate {
+    let taskService: TaskService
+    
+    init(taskService: TaskService) {
+        self.taskService = taskService
+    }
+    
+    func updateTask(_ task: PresentationTask) async throws {
         try await taskService.updateTask(task.toModel())
     }
 }
