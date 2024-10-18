@@ -23,6 +23,7 @@ public struct QuestView: View {
         NavigationStack(path: $path) {
             ZStack(alignment: .bottom) {
                 taskListView
+                    .padding(.top)
                 PlusButton(isAddingTask: $isAddingTask)
             }
             .navigationTitle("Today Quest")
@@ -35,7 +36,11 @@ public struct QuestView: View {
 
     private var addTaskView: some View {
         Section {
-            AddTaskView(isAddingTask: $isAddingTask, viewModel: viewModel)
+            AddTaskView(completion: { taskTitle in
+                Task {
+                    await viewModel.addTask(title: taskTitle)
+                }
+            })
         }
         .id(topID)
     }

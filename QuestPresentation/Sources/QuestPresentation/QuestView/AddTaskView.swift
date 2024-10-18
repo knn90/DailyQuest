@@ -9,33 +9,16 @@ import SwiftUI
 
 struct AddTaskView: View {
     @State private var taskTitle = ""
-    @Binding private var isAddingTask: Bool
-    @FocusState private var isFocused: Bool
+    private let completion: (String) -> Void
 
-    private let viewModel: QuestViewModel
-
-    init(isAddingTask: Binding<Bool>, viewModel: QuestViewModel) {
-        self._isAddingTask = isAddingTask
-        self.viewModel = viewModel
+    init(completion: @escaping (String) -> Void) {
+        self.completion = completion
     }
 
     var body: some View {
         TextField("Add task", text: $taskTitle)
-            .focused($isFocused)
-            .onAppear {
-                isFocused = isAddingTask
-            }
-            .onDisappear {
-                taskTitle = ""
-            }
-            .onChange(of: isAddingTask) { _, newValue in
-                isFocused = newValue
-            }
             .onSubmit {
-                Task {
-                    await viewModel.addTask(title: taskTitle)
-                    isAddingTask = false
-                }
+                completion(taskTitle)
             }
     }
 }
