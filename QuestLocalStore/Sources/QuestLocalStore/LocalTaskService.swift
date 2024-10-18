@@ -8,14 +8,14 @@
 import Foundation
 import QuestServices
 
-final class LocalTaskService: TaskService {
-    let store: TaskStore
-
-    init(store: TaskStore) {
+public final class LocalTaskService: TaskService {
+    private let store: TaskStore
+    
+    public init(store: TaskStore) {
         self.store = store
     }
 
-    func updateTask(_ task: DailyTask) throws {
+    public func updateTask(_ task: DailyTask) throws {
         try store.updateTask(task)
     }
 }

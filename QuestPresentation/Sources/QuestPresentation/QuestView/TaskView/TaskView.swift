@@ -47,8 +47,8 @@ struct TaskView: View {
 
 #Preview {
     VStack {
-        TaskView(task: .constant(PresentationTask(id: "1", title: "title", description: "description", isCompleted: true)), taskToggle: {})
-        TaskView(task: .constant(PresentationTask(id: "2", title: "Long long long long long long long long long long long long title", description: "description", isCompleted: true)), taskToggle: {})
+        TaskView(task: .constant(PresentationTask(id: "1", title: "title", description: "description", createdAt: Date(), isCompleted: true)), taskToggle: {})
+        TaskView(task: .constant(PresentationTask(id: "2", title: "Long long long long long long long long long long long long title", description: "description", createdAt: Date(), isCompleted: true)), taskToggle: {})
     }
 }
 

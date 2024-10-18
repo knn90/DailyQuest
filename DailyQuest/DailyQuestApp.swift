@@ -11,9 +11,10 @@ import QuestPresentation
 
 @main
 struct DailyQuestApp: App {
+    private let store = try! SwiftDataQuestStore()
     var body: some Scene {
         WindowGroup {
-            QuestViewComposer.compose(service: try! LocalQuestService())
+            QuestViewComposer.compose(questService: LocalQuestService(store: store), taskService: LocalTaskService(store: store))
         }
     }
 }

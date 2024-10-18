@@ -11,11 +11,7 @@ import QuestServices
 public final class LocalQuestService: QuestService {
     private let store: QuestStore
 
-    public convenience init() throws {
-        self.init(store: try SwiftDataQuestStore())
-    }
-
-    init(store: QuestStore) {
+    public init(store: QuestStore) {
         self.store = store
     }
 

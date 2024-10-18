@@ -8,6 +8,6 @@
 import Foundation
 import QuestServices
 
-protocol TaskStore {
+public protocol TaskStore {
     func updateTask(_ task: DailyTask) throws
 }

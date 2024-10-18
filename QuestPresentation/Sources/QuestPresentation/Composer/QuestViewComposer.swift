@@ -11,39 +11,47 @@ import QuestServices
 
 public enum QuestViewComposer {
     @MainActor
-    public static func compose(service: QuestService) -> some View {
-        let delegate = QuestViewAdapter(service: service)
+    public static func compose(questService: QuestService, taskService: TaskService) -> some View {
+        let delegate = QuestViewAdapter(questService: questService, taskService: taskService)
         let viewModel = QuestViewModel(delegate: delegate)
         return QuestView(viewModel: viewModel)
     }
 }
 
 final class QuestViewAdapter: QuestViewModelDelegate {
-    let service: QuestService
-
-    init(service: QuestService) {
-        self.service = service
+    let questService: QuestService
+    let taskService: TaskService
+    
+    init(questService: QuestService, taskService: TaskService) {
+        self.questService = questService
+        self.taskService = taskService
     }
 
     func getDailyTasks() async throws -> [PresentationTask] {
-        let quest = try await service.getQuest(date: Date())
+        let quest = try await questService.getQuest(date: Date())
 
         return quest.tasks.map { $0.toPresentationModel() }
     }
 
     func addTask(title: String) async throws -> PresentationTask {
-        let task = try await service.addTask(title: title)
+        let task = try await questService.addTask(title: title)
         
         return task.toPresentationModel()
     }
 
-    func updateTask(_ task: PresentationTask) async throws {
-        
+    func toggleTask(_ task: PresentationTask) async throws {
+        try await taskService.updateTask(task.toModel())
     }
 }
 
 private extension DailyTask {
     func toPresentationModel() -> PresentationTask {
-        PresentationTask(id: id, title: title, description: description, isCompleted: isCompleted)
+        PresentationTask(id: id, title: title, description: description, createdAt: createdAt, isCompleted: isCompleted)
+    }
+}
+
+private extension PresentationTask {
+    func toModel() -> DailyTask {
+        DailyTask(id: id, title: title, description: description, createdAt: createdAt, isCompleted: isCompleted)
     }
 }

@@ -13,6 +13,7 @@ func uniqueTask() -> PresentationTask {
         id: UUID().uuidString,
         title: "unique title",
         description: "unique description", 
+        createdAt: Date(),
         isCompleted: false)
 }
 

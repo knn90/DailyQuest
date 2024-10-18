@@ -42,5 +42,5 @@ struct TaskDetailsView: View {
 }
 
 #Preview {
-    TaskDetailsView(task: PresentationTask(id: "", title: "d", description: "description", isCompleted: false))
+    TaskDetailsView(task: PresentationTask(id: "", title: "d", description: "description", createdAt: Date(), isCompleted: false))
 }

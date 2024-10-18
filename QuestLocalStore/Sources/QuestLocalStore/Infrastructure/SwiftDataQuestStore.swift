@@ -9,7 +9,7 @@ import Foundation
 import SwiftData
 import QuestServices
 
-final class SwiftDataQuestStore: QuestStore {
+public final class SwiftDataQuestStore: QuestStore {
     private let container: ModelContainer
     private let context: ModelContext
 
@@ -18,27 +18,27 @@ final class SwiftDataQuestStore: QuestStore {
         case taskNotFound
     }
 
-    init(inMemoryOnly: Bool = false) throws {
+    public init(inMemoryOnly: Bool = false) throws {
         let schema = Schema([LocalDailyQuest.self, LocalDailyTask.self])
         let config = ModelConfiguration(schema: schema, isStoredInMemoryOnly: inMemoryOnly)
         self.container = try ModelContainer(for: schema, configurations: config)
         self.context = ModelContext(container)
     }
 
-    func retrieve() throws -> DailyQuest? {
+    public func retrieve() throws -> DailyQuest? {
         let localQuest = try context
             .fetch(LocalDailyQuest.fetchDescriptor())
         
         return localQuest.first?.toModel()
     }
 
-    func insert(quest: DailyQuest) throws {
+    public func insert(quest: DailyQuest) throws {
         let localQuest = quest.toLocal()
         context.insert(localQuest)
         try saveIfNeeded()
     }
 
-    func update(quest: DailyQuest) throws {
+    public func update(quest: DailyQuest) throws {
         guard let oldQuest = try context.fetch(LocalDailyQuest.fetchDescriptor()).first else {
             throw Error.questNotFound
         }
@@ -47,7 +47,7 @@ final class SwiftDataQuestStore: QuestStore {
         try saveIfNeeded()
     }
 
-    func addTask(_ task: DailyTask) throws {
+    public func addTask(_ task: DailyTask) throws {
         guard let quest = try context.fetch(LocalDailyQuest.fetchDescriptor()).first else {
             throw Error.questNotFound
         }
@@ -57,7 +57,7 @@ final class SwiftDataQuestStore: QuestStore {
         try saveIfNeeded()
     }
 
-    func reset(quest: DailyQuest) throws -> DailyQuest {
+    public func reset(quest: DailyQuest) throws -> DailyQuest {
         guard let quest = try context.fetch(LocalDailyQuest.fetchDescriptor()).first else {
             throw Error.questNotFound
         }
@@ -74,7 +74,7 @@ final class SwiftDataQuestStore: QuestStore {
 }
 
 extension SwiftDataQuestStore: TaskStore {
-    func updateTask(_ task: DailyTask) throws {
+    public func updateTask(_ task: DailyTask) throws {
         guard let foundTask = try context.fetch(LocalDailyTask.fetchDescriptor(taskId: task.id)).first else {
             throw Error.taskNotFound
         }

@@ -8,7 +8,7 @@
 import Foundation
 import QuestServices
 
-protocol QuestStore {
+public protocol QuestStore {
     func retrieve() throws -> DailyQuest?
     func insert(quest: DailyQuest) throws
     func update(quest: DailyQuest) throws
