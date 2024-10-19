@@ -7,6 +7,20 @@
 
 import SwiftUI
 
+struct QuestCoordinatorView: View {
+    @State private var path = NavigationPath()
+    let questView: () -> QuestView
+    let taskDetailsView: (PresentationTask) -> TaskDetailsView
+    
+    var body: some View {
+        NavigationStack(path: $path) {
+            questView()
+        }.navigationDestination(for: PresentationTask.self) { task in
+            taskDetailsView(task)
+        }
+    }
+}
+
 public struct QuestView: View {
     @ObservedObject private var viewModel: QuestViewModel
     private let taskDetailsViewModelDelegate: TaskDetailsViewModelDelegate
@@ -23,7 +37,6 @@ public struct QuestView: View {
         NavigationStack(path: $path) {
             ZStack(alignment: .bottom) {
                 taskListView
-                    .padding(.top)
                 PlusButton(isAddingTask: $isAddingTask)
             }
             .navigationTitle("Today Quest")

@@ -12,10 +12,16 @@ import QuestServices
 public enum QuestViewComposer {
     @MainActor
     public static func compose(questService: QuestService, taskService: TaskService) -> some View {
-        let delegate = QuestViewAdapter(questService: questService, taskService: taskService)
-        let viewModel = QuestViewModel(delegate: delegate)
-        let taskDetailsViewAdapter = TaskDetailsViewAdapter(taskService: taskService)
-        return QuestView(viewModel: viewModel, taskDetailsViewModelDelegate: taskDetailsViewAdapter)
+        let questCoordinator = QuestCoordinatorView.init {
+            let delegate = QuestViewAdapter(questService: questService, taskService: taskService)
+            let viewModel = QuestViewModel(delegate: delegate)
+            let taskDetailsViewAdapter = TaskDetailsViewAdapter(taskService: taskService)
+            return QuestView(viewModel: viewModel, taskDetailsViewModelDelegate: taskDetailsViewAdapter)
+        } taskDetailsView: { task in
+            let taskDetailsViewAdapter = TaskDetailsViewAdapter(taskService: taskService)
+            return TaskDetailsView(viewModel: TaskDetailsViewModel(task: task, delegate: taskDetailsViewAdapter))
+        }
+        return questCoordinator
     }
 }
 
