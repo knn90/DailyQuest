@@ -19,6 +19,7 @@ struct AddTaskView: View {
         TextField("Add task", text: $taskTitle)
             .onSubmit {
                 completion(taskTitle)
+                taskTitle = ""
             }
     }
 }
